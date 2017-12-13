@@ -45,6 +45,7 @@
     <Compile Include="DNAMappingBruteForce.cs" />
     <Compile Include="DNAMappingBruteForceAdv.cs" />
     <Compile Include="Enumeration\EnumerateIntegerTrangle.cs" />
+    <Compile Include="Enumeration\EnumerateNotDecreasedSubSequence.cs" />
     <Compile Include="Enumeration\EnumerateSetOnPosition.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

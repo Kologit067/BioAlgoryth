@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.12
+VisualStudioVersion = 15.0.26228.9
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BioAlgorythm", "BioAlgorythm\BioAlgorythm.csproj", "{1732D301-87E8-4426-A22F-74355801E1BD}"
 EndProject
@@ -18,6 +18,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DNAMapping", "DNAMapping\DNAMapping.csproj", "{65FA3006-21C8-4F1C-AB41-8FC23E4C4618}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindingRegulatoryMotifs", "FindingRegulatoryMotifs\FindingRegulatoryMotifs.csproj", "{FB95CB8C-1245-4E5E-99DD-1FBA84EAC086}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AlgorythmsTest", "AlgorythmsTest", "{7B11D2BF-D731-45EB-957E-C1DEEA6F92E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DNAMappingTest", "DNAMappingTest\DNAMappingTest.csproj", "{543C3C77-6711-41C7-B75E-7BD544B24345}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,6 +41,10 @@ Global
 		{FB95CB8C-1245-4E5E-99DD-1FBA84EAC086}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB95CB8C-1245-4E5E-99DD-1FBA84EAC086}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB95CB8C-1245-4E5E-99DD-1FBA84EAC086}.Release|Any CPU.Build.0 = Release|Any CPU
+		{543C3C77-6711-41C7-B75E-7BD544B24345}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{543C3C77-6711-41C7-B75E-7BD544B24345}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{543C3C77-6711-41C7-B75E-7BD544B24345}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{543C3C77-6711-41C7-B75E-7BD544B24345}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,6 +56,7 @@ Global
 		{04435521-F0E7-4266-AB0F-3B8AE35E1292} = {96C3910C-5A7E-4439-A476-740BDCA89CCA}
 		{65FA3006-21C8-4F1C-AB41-8FC23E4C4618} = {939DFEA2-2D7E-4EFA-8CF4-93CBB212B0B2}
 		{FB95CB8C-1245-4E5E-99DD-1FBA84EAC086} = {939DFEA2-2D7E-4EFA-8CF4-93CBB212B0B2}
+		{543C3C77-6711-41C7-B75E-7BD544B24345} = {7B11D2BF-D731-45EB-957E-C1DEEA6F92E7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C05A3E1F-E008-49F2-976E-971970A1132C}

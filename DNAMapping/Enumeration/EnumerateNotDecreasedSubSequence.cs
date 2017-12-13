@@ -7,19 +7,20 @@ using System.Threading.Tasks;
 namespace DNAMapping.Enumeration
 {
     //--------------------------------------------------------------------------------------
-    // class EnumerateIntegerTrangle 
+    // class EnumerateNotDecreasedSubSequence 
     //--------------------------------------------------------------------------------------
-    public class EnumerateIntegerTrangle : EnumerateSetOnPosition<int>
+    public class EnumerateNotDecreasedSubSequence : EnumerateSetOnPosition<int>
     {
-        protected int fSize;
+        protected int _fSize;
         protected int _fLimit;
+        protected int[] _fSource;
         //--------------------------------------------------------------------------------------
-        public EnumerateIntegerTrangle(int pLimit, int pLength)
-            : base(pLength)
+        public EnumerateNotDecreasedSubSequence(int pSize, int[] pSource)
+            : base(pSize)
         {
-            fSize = pLength;
-            _fLimit = pLimit;
-
+            _fSize = pSize;
+            _fLimit = pSource.Length;
+            _fSource = pSource.OrderBy(s => s).ToArray();
         }
         //--------------------------------------------------------------------------------------
         /// <summary>
@@ -61,7 +62,7 @@ namespace DNAMapping.Enumeration
         /// </summary>		
         protected override bool IsCompleteCondition()
         {
-            if (fCurrentPosition >= fSize - 1)
+            if (fCurrentPosition >= _fSize - 1)
                 return true;
             return false;
         }
@@ -80,8 +81,8 @@ namespace DNAMapping.Enumeration
         protected override int FirstElement(int pPosition)
         {
             if (pPosition == 0)
-                return 0;
-            return fCurrentSet[pPosition-1];
+                return _fSource[0];
+            return _fSource[fCurrentSet[pPosition-1]+1];
         }
         //--------------------------------------------------------------------------------------
         protected override bool NextElement(int pPosition)

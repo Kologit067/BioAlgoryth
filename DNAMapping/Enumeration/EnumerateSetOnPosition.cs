@@ -71,8 +71,6 @@ namespace DNAMapping
                 {
                     AddAction(fCurrentSet[fCurrentPosition]);
                     return;
-                    //                        }
-                    //                    } while (fCurrentSet[fCurrentPosition].Next());
                 }
                 fCurrentSet[fCurrentPosition--] = fBreakElement;
             }
@@ -92,24 +90,11 @@ namespace DNAMapping
             if (lCandidat.Equals(fBreakElement))
                 return false;       // то движение вперед невозможно возращаем FALSE	
 
-            // если следующий элемент существует
-            //            do
-            //            {
-            //                if (TestAddition(lCandidat))
-            //                {
-            // если продвинулись вперед добавляем в набор 
-            //            fCurrentSet.Add(lCandidat);
-            //            fCurrentPosition++;		// на одну позицию вперед (вниз по дереву)
             fCurrentSet[++fCurrentPosition] = lCandidat;
             // произвети действия необходимые при добавлении
             // (если есть в данной реализации)
             AddAction(fCurrentSet[fCurrentPosition]);
             return true;
-            //                }
-            //            } while (lCandidat.Next());
-
-
-            //            return false;
         }
         //--------------------------------------------------------------------------------------
         protected void InitialData()
