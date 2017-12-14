@@ -13,13 +13,14 @@ namespace DNAMapping.Enumeration
     {
         protected int fSize;
         protected int _fLimit;
+        protected int _fMinimumValue;
         //--------------------------------------------------------------------------------------
-        public EnumerateIntegerTrangle(int pLimit, int pLength)
+        public EnumerateIntegerTrangle(int pLimit, int pLength, int pMinimumValue = 0)
             : base(pLength)
         {
             fSize = pLength;
             _fLimit = pLimit;
-
+            _fMinimumValue = pMinimumValue;
         }
         //--------------------------------------------------------------------------------------
         /// <summary>
@@ -80,7 +81,7 @@ namespace DNAMapping.Enumeration
         protected override int FirstElement(int pPosition)
         {
             if (pPosition == 0)
-                return 0;
+                return _fMinimumValue;
             return fCurrentSet[pPosition-1];
         }
         //--------------------------------------------------------------------------------------
