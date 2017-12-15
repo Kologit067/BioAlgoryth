@@ -70,8 +70,9 @@ namespace DNAMapping.Enumeration
         /// <summary>
         /// произвести необходимые действия на наборе удовлетворяющем условиям
         /// </summary>		
-        protected override void MakeAction()
+        protected override bool MakeAction()
         {
+            return false;
         }
         //--------------------------------------------------------------------------------------
         protected override void ForwardAction()

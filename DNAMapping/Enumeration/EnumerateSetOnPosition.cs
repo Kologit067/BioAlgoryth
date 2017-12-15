@@ -37,13 +37,15 @@ namespace DNAMapping
             {
                 if (IsCompleteCondition())	// если выполненно условие
                 {
-                    MakeAction();
+                    if (MakeAction())
+                        break;
                     Back();					// то возвращаемся назад
                 }
                 else if (!Forward())		// если не покрыт то вперед
                 {
-                    if (IsCompleteCondition())	// если выполненно условие
-                        MakeAction();
+                    if (IsCompleteCondition())  // если выполненно условие
+                        if (MakeAction())
+                            break;
                     Back();				// если нельзя вперед то назад
                 }
             }
@@ -142,7 +144,7 @@ namespace DNAMapping
         /// <summary>
         /// произвести необходимые действия на наборе удовлетворяющем условиям
         /// </summary>		
-        protected abstract void MakeAction();
+        protected abstract bool MakeAction();
         //--------------------------------------------------------------------------------------
         protected abstract void ForwardAction();
         //--------------------------------------------------------------------------------------

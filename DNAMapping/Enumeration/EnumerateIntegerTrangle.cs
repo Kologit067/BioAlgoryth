@@ -11,16 +11,18 @@ namespace DNAMapping.Enumeration
     //--------------------------------------------------------------------------------------
     public class EnumerateIntegerTrangle : EnumerateSetOnPosition<int>
     {
-        protected int fSize;
+        protected int _fSize;
         protected int _fLimit;
         protected int _fMinimumValue;
+        protected int _forwardAdditive;
         //--------------------------------------------------------------------------------------
-        public EnumerateIntegerTrangle(int pLimit, int pLength, int pMinimumValue = 0)
+        public EnumerateIntegerTrangle(int pLimit, int pLength, int pMinimumValue = 0, int pForwardAdditive = 0)
             : base(pLength)
         {
-            fSize = pLength;
+            _fSize = pLength;
             _fLimit = pLimit;
             _fMinimumValue = pMinimumValue;
+            _forwardAdditive = pForwardAdditive;
         }
         //--------------------------------------------------------------------------------------
         /// <summary>
@@ -62,7 +64,9 @@ namespace DNAMapping.Enumeration
         /// </summary>		
         protected override bool IsCompleteCondition()
         {
-            if (fCurrentPosition >= fSize - 1)
+            if (fCurrentPosition >= _fSize - 1)
+                return true;
+            else if (fCurrentSet[fCurrentPosition] + _forwardAdditive > _fLimit)
                 return true;
             return false;
         }
@@ -70,8 +74,9 @@ namespace DNAMapping.Enumeration
         /// <summary>
         /// произвести необходимые действия на наборе удовлетворяющем условиям
         /// </summary>		
-        protected override void MakeAction()
+        protected override bool MakeAction()
         {
+            return false;
         }
         //--------------------------------------------------------------------------------------
         protected override void ForwardAction()
@@ -82,7 +87,7 @@ namespace DNAMapping.Enumeration
         {
             if (pPosition == 0)
                 return _fMinimumValue;
-            return fCurrentSet[pPosition-1];
+            return fCurrentSet[pPosition-1] + _forwardAdditive;
         }
         //--------------------------------------------------------------------------------------
         protected override bool NextElement(int pPosition)
