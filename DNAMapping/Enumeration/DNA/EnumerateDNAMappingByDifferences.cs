@@ -13,6 +13,8 @@ namespace DNAMapping.Enumeration.DNA
     {
         protected int[] _pairwiseDifferences;
         protected List<int> _solution = null;
+        protected List<List<int>> _listOfSolution = new List<List<int>>();
+        protected bool _isAllResult;
         //--------------------------------------------------------------------------------------
         public List<int> Solution
         {
@@ -22,10 +24,19 @@ namespace DNAMapping.Enumeration.DNA
             }
         }
         //--------------------------------------------------------------------------------------
-        public EnumerateDNAMappingByDifferences(int[] pairwiseDifferences, int length)
-            : base(length - 1, length, 0, 1)
+        public List<List<int>> ListOfSolution
         {
-            _pairwiseDifferences = pairwiseDifferences;
+            get
+            {
+                return _listOfSolution;
+            }
+        }
+        //--------------------------------------------------------------------------------------
+        public EnumerateDNAMappingByDifferences(int[] pairwiseDifferences, bool pIsAllResult = true)
+            : base(pairwiseDifferences.Length - 1, DNAMappingBase.DefineRestrictionMapSizeFromDifferencesSize(pairwiseDifferences.Length), 0, 1)
+        {
+            _pairwiseDifferences = pairwiseDifferences.OrderBy(c => c).ToArray();
+            _isAllResult = pIsAllResult;
         }
         //--------------------------------------------------------------------------------------
         protected override bool MakeAction()
@@ -35,8 +46,10 @@ namespace DNAMapping.Enumeration.DNA
                 var pairwiseDifferencesForCurrentSet = DNAMappingBase.ProduceMatrixOnIndexBase(fCurrentSet, _pairwiseDifferences);
                 if (_pairwiseDifferences.SequenceEqual(pairwiseDifferencesForCurrentSet.OrderBy( d => d)))
                 {
-                    _solution = fCurrentSet;
-                    return true;
+                    if (_solution == null)
+                        _solution = fCurrentSet;
+                    _listOfSolution.Add(fCurrentSet.ToList());
+                    return !_isAllResult;
                 }
             }
             return false;

@@ -39,9 +39,10 @@ namespace DNAMapping
         public static int[] ProduceMatrix(IList<int> vector)
         {
             int[] result = new int[vector.Count * (vector.Count - 1) / 2];
+            int k = 0;
             for (int i = 1; i < vector.Count; i++)
                 for (int j = 0; j < i; j++)
-                    result[vector.Count * (i - 1) + j] = vector[j] - vector[i];
+                    result[k++] = vector[i] - vector[j];
             return result;
         }
         //--------------------------------------------------------------------------------------

@@ -12,7 +12,9 @@ namespace DNAMapping.Enumeration.DNA
     public class EnumerateDNAMappingByIntegerTrangle : EnumerateIntegerTrangle
     {
         protected int[] _pairwiseDifferences;
-        private List<int> _solution = null;
+        protected List<int> _solution = null;
+        protected List<List<int>> _listOfSolution = new List<List<int>>();
+        protected bool _isAllResult;
         //--------------------------------------------------------------------------------------
         public List<int> Solution
         {
@@ -22,10 +24,19 @@ namespace DNAMapping.Enumeration.DNA
             }
         }
         //--------------------------------------------------------------------------------------
-        public EnumerateDNAMappingByIntegerTrangle(int[] pairwiseDifferences, int pMinimumValue = 1, int pForwardAdditive = 1)
+        public List<List<int>> ListOfSolution
+        {
+            get
+            {
+                return _listOfSolution;
+            }
+        }
+        //--------------------------------------------------------------------------------------
+        public EnumerateDNAMappingByIntegerTrangle(int[] pairwiseDifferences, int pMinimumValue = 1, int pForwardAdditive = 1, bool pIsAllResult = true)
             : base(pairwiseDifferences.Max(), DNAMappingBase.DefineRestrictionMapSizeFromDifferencesSize(pairwiseDifferences.Length), pMinimumValue ,pForwardAdditive)
         {
-            _pairwiseDifferences = pairwiseDifferences;
+            _pairwiseDifferences = pairwiseDifferences.OrderBy(c => c).ToArray();
+            _isAllResult = pIsAllResult;
         }
         //--------------------------------------------------------------------------------------
         protected override bool MakeAction()
@@ -35,8 +46,10 @@ namespace DNAMapping.Enumeration.DNA
                 var pairwiseDifferencesForCurrentSet = DNAMappingBase.ProduceMatrix(fCurrentSet);
                 if (_pairwiseDifferences.SequenceEqual(pairwiseDifferencesForCurrentSet.OrderBy(d=>d)))
                 {
-                    _solution = fCurrentSet;
-                    return true;
+                    if (_solution == null)
+                        _solution = fCurrentSet;
+                    _listOfSolution.Add(fCurrentSet.ToList());
+                    return !_isAllResult;
                 }
             }
             return false;
