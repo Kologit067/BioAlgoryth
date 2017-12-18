@@ -11,6 +11,7 @@ namespace DNAMapping.Enumeration.DNA
     //--------------------------------------------------------------------------------------
     public class EnumerateDNAMappingByDifferences : EnumerateIntegerTrangle
     {
+        protected int[] _originePairwiseDifferences;
         protected int[] _pairwiseDifferences;
         protected List<int> _solution = null;
         protected List<List<int>> _listOfSolution = new List<List<int>>();
@@ -33,10 +34,14 @@ namespace DNAMapping.Enumeration.DNA
         }
         //--------------------------------------------------------------------------------------
         public EnumerateDNAMappingByDifferences(int[] pairwiseDifferences, bool pIsAllResult = true)
-            : base(pairwiseDifferences.Length - 1, DNAMappingBase.DefineRestrictionMapSizeFromDifferencesSize(pairwiseDifferences.Length), 0, 1)
+            : base(pairwiseDifferences.Length, DNAMappingBase.DefineRestrictionMapSizeFromDifferencesSize(pairwiseDifferences.Length), 0, 1)
         {
-            _pairwiseDifferences = pairwiseDifferences.OrderBy(c => c).ToArray();
+            _originePairwiseDifferences = pairwiseDifferences.OrderBy(c => c).ToArray();
+            var list = pairwiseDifferences.Distinct().ToList();
+            list.Add(0);
+            _pairwiseDifferences = list.OrderBy(c => c).ToArray();
             _isAllResult = pIsAllResult;
+            _fLimit = _pairwiseDifferences.Length-1;
         }
         //--------------------------------------------------------------------------------------
         protected override bool MakeAction()
@@ -44,11 +49,11 @@ namespace DNAMapping.Enumeration.DNA
             if (fCurrentPosition == _fSize - 1)
             {
                 var pairwiseDifferencesForCurrentSet = DNAMappingBase.ProduceMatrixOnIndexBase(fCurrentSet, _pairwiseDifferences);
-                if (_pairwiseDifferences.SequenceEqual(pairwiseDifferencesForCurrentSet.OrderBy( d => d)))
+                if (_originePairwiseDifferences.SequenceEqual(pairwiseDifferencesForCurrentSet.OrderBy( d => d)))
                 {
                     if (_solution == null)
                         _solution = fCurrentSet;
-                    _listOfSolution.Add(fCurrentSet.ToList());
+                    _listOfSolution.Add(fCurrentSet.Select(i => _pairwiseDifferences[i]).ToList());
                     return !_isAllResult;
                 }
             }

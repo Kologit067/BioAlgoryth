@@ -49,9 +49,10 @@ namespace DNAMapping
         internal static int[] ProduceMatrixOnIndexBase(List<int> indecies, int[] vector)
         {
             int[] result = new int[indecies.Count * (indecies.Count - 1) / 2];
+            int k = 0;
             for (int i = 1; i < indecies.Count; i++)
                 for (int j = 0; j < i; j++)
-                    result[indecies.Count * (i - 1) + j] = vector[indecies[j]] - vector[indecies[i]];
+                    result[k++] = vector[indecies[i]] - vector[indecies[j]];
             return result;
         }
         //--------------------------------------------------------------------------------------

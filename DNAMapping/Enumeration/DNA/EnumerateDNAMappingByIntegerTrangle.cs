@@ -47,7 +47,7 @@ namespace DNAMapping.Enumeration.DNA
                 if (_pairwiseDifferences.SequenceEqual(pairwiseDifferencesForCurrentSet.OrderBy(d=>d)))
                 {
                     if (_solution == null)
-                        _solution = fCurrentSet;
+                        _solution = fCurrentSet.ToList();
                     _listOfSolution.Add(fCurrentSet.ToList());
                     return !_isAllResult;
                 }
