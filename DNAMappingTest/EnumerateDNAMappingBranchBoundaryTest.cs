@@ -7,7 +7,7 @@ using System.Linq;
 namespace DNAMappingTest
 {
     [TestClass]
-    public class EnumerateDNAMappingBranchBoundary
+    public class EnumerateDNAMappingBranchBoundaryTest
     {
         [TestMethod]
         public void ExecuteTest()
@@ -15,7 +15,7 @@ namespace DNAMappingTest
             // arrange
             int[] excpectedResult = new int[] { 0, 3, 6, 7 };
             int[] pairwiseDifferences = DNAMappingBase.ProduceMatrix(excpectedResult);
-            EnumerateDNAMappingByIntegerTrangle enumeration = new EnumerateDNAMappingByIntegerTrangle(pairwiseDifferences, 0);
+            EnumerateDNAMappingBranchBoundary enumeration = new EnumerateDNAMappingBranchBoundary(pairwiseDifferences);
             // act
             enumeration.Execute();
             // assert

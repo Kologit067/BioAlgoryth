@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,7 +37,7 @@ namespace DNAMapping.Enumeration.DNA
         public EnumerateDNAMappingBranchBoundary(int[] pairwiseDifferences, bool pIsAllResult = true)
             : base(pairwiseDifferences.Length, DNAMappingBase.DefineRestrictionMapSizeFromDifferencesSize(pairwiseDifferences.Length), 0, 1)
         {
-            _originePairwiseDifferences = pairwiseDifferences.Select(p => new DifferenceElement() { Data = p, IsIncluded = false }).ToArray();
+            _originePairwiseDifferences = pairwiseDifferences.OrderBy(d => d).Select(p => new DifferenceElement() { Data = p, IsIncluded = false }).ToArray();
             var list = pairwiseDifferences.Distinct().ToList();
             list.Add(0);
             _pairwiseDifferences = list.OrderBy(c => c).ToArray();
@@ -46,7 +47,9 @@ namespace DNAMapping.Enumeration.DNA
         //--------------------------------------------------------------------------------------
         protected override bool IsCompleteCondition()
         {
-            if (ChaeckCurrentPart())
+            if (fCurrentPosition == 0)
+                return false;
+            if ( fCurrentSet[0] > 0 || !ChaeckCurrentPart())
                 return true;
             if (fCurrentPosition >= _fSize - 1)
             {
@@ -62,23 +65,25 @@ namespace DNAMapping.Enumeration.DNA
         //--------------------------------------------------------------------------------------
         private bool ChaeckCurrentPart()
         {
-            DifferenceElement elementFromOrigine = _originePairwiseDifferences.FirstOrDefault(e => e.Data == _pairwiseDifferences[fCurrentSet[fCurrentPosition]] && e.IsIncluded);
-            elementFromOrigine.IsIncluded = true;
-            for (int i = 0; i < fCurrentSet[fCurrentPosition]; i++)
+            //DifferenceElement elementFromOrigine = _originePairwiseDifferences.FirstOrDefault(e => e.Data == _pairwiseDifferences[fCurrentSet[fCurrentPosition]] && !e.IsIncluded);
+            //if (elementFromOrigine.Data == 0)
+            //    throw new Exception("Logical error in EnumerateDNAMappingBranchBoundary.ChaeckCurrentPart (search current diff in _originePairwiseDifferences)");
+            //elementFromOrigine.IsIncluded = true;
+            for (int i = 0; i < fCurrentPosition; i++)
             {
-                int d = _pairwiseDifferences[fCurrentSet[fCurrentPosition]] - _pairwiseDifferences[i];
+                int d = _pairwiseDifferences[fCurrentSet[fCurrentPosition]] - _pairwiseDifferences[fCurrentSet[i]];
                 DifferenceElement element = _originePairwiseDifferences.FirstOrDefault(e => e.Data == d && !e.IsIncluded);
-                if (element.Data == 0)
+                if (element == null)
                 {
                     for (int j = 0; j < i; j++)
                     {
-                        int revValue = _pairwiseDifferences[fCurrentSet[fCurrentPosition]] - _pairwiseDifferences[i];
+                        int revValue = _pairwiseDifferences[fCurrentSet[fCurrentPosition]] - _pairwiseDifferences[fCurrentSet[j]];
                         DifferenceElement revElement = _originePairwiseDifferences.FirstOrDefault(e => e.Data == revValue && e.IsIncluded);
-                        if (revElement.Data == 0)
-                            throw new Exception("Logical error in EnumerateDNAMappingBranchBoundary.BackAction");
+                        if (revElement == null)
+                            throw new Exception("Logical error in EnumerateDNAMappingBranchBoundary.ChaeckCurrentPart (Restore state)");
                         revElement.IsIncluded = false;
                     }
-                    elementFromOrigine.IsIncluded = false;
+//                    elementFromOrigine.IsIncluded = false;
                     return false;
                 }
                 element.IsIncluded = true;
@@ -86,32 +91,42 @@ namespace DNAMapping.Enumeration.DNA
             return true;
         }
         //--------------------------------------------------------------------------------------
-        protected override void BackAction()
+        protected override void RemoveAction(int p)
         {
-            for (int i = 0; i < fCurrentSet[fCurrentPosition]; i++)
+            if (fCurrentPosition == 0 )
+                return;
+            if (fCurrentSet[0] > 0)
+                return;
+            int d = _pairwiseDifferences[fCurrentSet[fCurrentPosition]];
+            DifferenceElement element = _originePairwiseDifferences.FirstOrDefault(e => e.Data == d && e.IsIncluded);
+            if (element == null)
+                return;
+            element.IsIncluded = false;
+            for (int i = 1; i < fCurrentPosition; i++)
             {
-                int d = _pairwiseDifferences[fCurrentSet[fCurrentPosition]] - _pairwiseDifferences[i];
-                DifferenceElement element = _originePairwiseDifferences.FirstOrDefault(e => e.Data == d && e.IsIncluded);
-                if (element.Data == 0)
+                d = _pairwiseDifferences[fCurrentSet[fCurrentPosition]] - _pairwiseDifferences[fCurrentSet[i]];
+                element = _originePairwiseDifferences.FirstOrDefault(e => e.Data == d && e.IsIncluded);
+                if (element == null)
                     throw new Exception("Logical error in EnumerateDNAMappingBranchBoundary.BackAction");
                 element.IsIncluded = false;
             }
-            DifferenceElement elementFromOrigine = _originePairwiseDifferences.FirstOrDefault(e => e.Data == _pairwiseDifferences[fCurrentSet[fCurrentPosition]] && e.IsIncluded);
-            elementFromOrigine.IsIncluded = false;
+            //DifferenceElement elementFromOrigine = _originePairwiseDifferences.FirstOrDefault(e => e.Data == _pairwiseDifferences[fCurrentSet[fCurrentPosition]] && e.IsIncluded);
+            //elementFromOrigine.IsIncluded = false;
         }
         //--------------------------------------------------------------------------------------
         protected override bool MakeAction()
         {
             if (_solution != null)
             {
-                return true;
+                return !_isAllResult;
             }
             return false;
         }
         //--------------------------------------------------------------------------------------
     }
     //--------------------------------------------------------------------------------------
-    public struct DifferenceElement
+    [DebuggerDisplay("Data = {Data} - {IsIncluded}")]
+    public class DifferenceElement
     {
         public int Data { get; set; }
         public bool IsIncluded { get; set; }
