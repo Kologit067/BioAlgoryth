@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{65FA3006-21C8-4F1C-AB41-8FC23E4C4618}</ProjectGuid>
+    <ProjectGuid>{6208C3EB-138F-4B2E-93A8-6469D8A75379}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DNAMapping</RootNamespace>
-    <AssemblyName>DNAMapping</AssemblyName>
+    <RootNamespace>CommonLibrary</RootNamespace>
+    <AssemblyName>CommonLibrary</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -41,20 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DNAMappingBase.cs" />
-    <Compile Include="DNAMappingBranchBound.cs" />
-    <Compile Include="DNAMappingBruteForce.cs" />
-    <Compile Include="DNAMappingBruteForceAdv.cs" />
-    <Compile Include="Enumeration\DNA\EnumerateDNAMappingBranchBoundary.cs" />
-    <Compile Include="Enumeration\DNA\EnumerateDNAMappingByDifferences.cs" />
-    <Compile Include="Enumeration\DNA\EnumerateDNAMappingByIntegerTrangle.cs" />
+    <Compile Include="EnumerateIntegerTrangle.cs" />
+    <Compile Include="EnumerateNotDecreasedSubSequence.cs" />
+    <Compile Include="EnumerateSetOnPosition.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CommonLibrary\CommonLibrary.csproj">
-      <Project>{6208c3eb-138f-4b2e-93a8-6469d8a75379}</Project>
-      <Name>CommonLibrary</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
