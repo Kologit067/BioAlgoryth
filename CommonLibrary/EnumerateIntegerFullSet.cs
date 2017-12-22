@@ -7,20 +7,21 @@ using System.Threading.Tasks;
 namespace CommonLibrary
 {
     //--------------------------------------------------------------------------------------
-    // class EnumerateNotDecreasedSubSequence 
+    // class EnumerateIntegerFullSet 
     //--------------------------------------------------------------------------------------
-    public class EnumerateNotDecreasedSubSequence : EnumerateSetOnPosition<int>
+    public class EnumerateIntegerFullSet : EnumerateSetOnPosition<int>
     {
         protected int _fSize;
         protected int _fLimit;
-        protected int[] _fSource;
+        protected int _fMinimumValue;
         //--------------------------------------------------------------------------------------
-        public EnumerateNotDecreasedSubSequence(int pSize, int[] pSource)
-            : base(pSize)
+        public EnumerateIntegerFullSet(int pLimit, int pLength, int pMinimumValue = 0)
+            : base(pLength)
         {
-            _fSize = pSize;
-            _fLimit = pSource.Length;
-            _fSource = pSource.OrderBy(s => s).ToArray();
+            _fSize = pLength;
+            _fLimit = pLimit;
+            _fMinimumValue = pMinimumValue;
+            _fBreakElement = -1;
         }
         //--------------------------------------------------------------------------------------
         /// <summary>
@@ -81,9 +82,7 @@ namespace CommonLibrary
         //--------------------------------------------------------------------------------------
         protected override int FirstElement(int pPosition)
         {
-            if (pPosition == 0)
-                return _fSource[0];
-            return _fSource[fCurrentSet[pPosition-1]+1];
+            return _fMinimumValue;
         }
         //--------------------------------------------------------------------------------------
         protected override bool NextElement(int pPosition)

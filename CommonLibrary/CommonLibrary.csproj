@@ -40,7 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EnumerateIntegerFullSet.cs" />
     <Compile Include="EnumerateIntegerTrangle.cs" />
+    <Compile Include="EnumerateintegervariableSet.cs" />
     <Compile Include="EnumerateNotDecreasedSubSequence.cs" />
     <Compile Include="EnumerateSetOnPosition.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DNAMapping.Enumeration
+namespace CommonLibrary
 {
     //--------------------------------------------------------------------------------------
     // class EnumerateIntegerTrangle 

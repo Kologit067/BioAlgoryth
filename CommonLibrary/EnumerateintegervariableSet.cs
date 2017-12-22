@@ -7,20 +7,27 @@ using System.Threading.Tasks;
 namespace CommonLibrary
 {
     //--------------------------------------------------------------------------------------
-    // class EnumerateNotDecreasedSubSequence 
+    // class EnumerateintegervariableSet 
     //--------------------------------------------------------------------------------------
-    public class EnumerateNotDecreasedSubSequence : EnumerateSetOnPosition<int>
+    public class EnumerateintegervariableSet : EnumerateSetOnPosition<int>
     {
         protected int _fSize;
-        protected int _fLimit;
-        protected int[] _fSource;
+        protected int[] _fLimits;
+        protected int[] _fMinimumValues;
         //--------------------------------------------------------------------------------------
-        public EnumerateNotDecreasedSubSequence(int pSize, int[] pSource)
-            : base(pSize)
+        public EnumerateintegervariableSet(int[] pLimits, int pLength, int[] pMinimumValues = null)
+            : base(pLength)
         {
-            _fSize = pSize;
-            _fLimit = pSource.Length;
-            _fSource = pSource.OrderBy(s => s).ToArray();
+            _fSize = pLength;
+            _fLimits = pLimits;
+            _fMinimumValues = pMinimumValues;
+            if (_fMinimumValues == null)
+                _fMinimumValues = new int[pLimits.Length];
+            _fBreakElement = -1;
+            if (pLength != _fLimits.Length)
+                throw new ArgumentException("Argument inconsistency: pLength must be equal pLimits.Length");
+            if (pLength != _fMinimumValues.Length)
+                throw new ArgumentException("Argument inconsistency: pLength must be equal pMinimumValues.Length");
         }
         //--------------------------------------------------------------------------------------
         /// <summary>
@@ -81,14 +88,12 @@ namespace CommonLibrary
         //--------------------------------------------------------------------------------------
         protected override int FirstElement(int pPosition)
         {
-            if (pPosition == 0)
-                return _fSource[0];
-            return _fSource[fCurrentSet[pPosition-1]+1];
+            return _fMinimumValues[pPosition];
         }
         //--------------------------------------------------------------------------------------
         protected override bool NextElement(int pPosition)
         {
-            if (fCurrentSet[pPosition] >= _fLimit)
+            if (fCurrentSet[pPosition] >= _fLimits[pPosition])
                 return false;
             fCurrentSet[pPosition]++;
             return true;

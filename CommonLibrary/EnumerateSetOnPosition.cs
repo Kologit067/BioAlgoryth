@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DNAMapping
+namespace CommonLibrary
 {
     //--------------------------------------------------------------------------------------
     // class EnumerateSetOnPosition
@@ -13,7 +13,7 @@ namespace DNAMapping
     {
         protected List<T> fCurrentSet;		// текущий набор элементов
         protected int fCurrentPosition;		// текущая глубина при обходе дерева
-        protected T fBreakElement = default(T);
+        protected T _fBreakElement = default(T);
         //--------------------------------------------------------------------------------------
         public EnumerateSetOnPosition(int pCapacity)
         {
@@ -74,7 +74,7 @@ namespace DNAMapping
                     AddAction(fCurrentSet[fCurrentPosition]);
                     return;
                 }
-                fCurrentSet[fCurrentPosition--] = fBreakElement;
+                fCurrentSet[fCurrentPosition--] = _fBreakElement;
             }
         }
         //--------------------------------------------------------------------------------------
@@ -89,7 +89,7 @@ namespace DNAMapping
             // создаем первый элемент для следующей позиции
             T lCandidat = FirstElement(fCurrentPosition + 1);
             // если нет следующего элемента
-            if (lCandidat.Equals(fBreakElement))
+            if (lCandidat.Equals(_fBreakElement))
                 return false;       // то движение вперед невозможно возращаем FALSE	
 
             fCurrentSet[++fCurrentPosition] = lCandidat;

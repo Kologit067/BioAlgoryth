@@ -1,8 +1,8 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using DNAMapping.Enumeration;
 using System.Collections.Generic;
 using System.Linq;
+using CommonLibrary;
 
 namespace DNAMappingTest
 {
