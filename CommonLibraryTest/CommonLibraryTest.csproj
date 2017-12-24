@@ -50,9 +50,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EnumerateIntegerTrangleTest.cs" />
+    <Compile Include="EnumerateintegervariableSubsequenceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="EnumerateIntegerFullSetTest.cs" />
     <Compile Include="EnumerateintegervariableSetTest.cs" />
+    <Compile Include="EnumerateIntegerCharSetTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
