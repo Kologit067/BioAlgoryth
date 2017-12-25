@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enumeration\RegulatoryMotifsBoundaryBranchEnumeration.cs" />
+    <Compile Include="Enumeration\RegulatoryMotifsPatternEnumeration.cs" />
     <Compile Include="Enumeration\RegulatoryMotifsSubSequencesEnumeration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegulatoryMotifsBase.cs" />

@@ -17,13 +17,17 @@ namespace FindingRegulatoryMotifs.Enumeration
     public class RegulatoryMotifsSubSequencesEnumeration : EnumerateintegervariableSubsequence
     {
         protected int _acceptibleDistance;
-        protected bool _isAllResult;
         protected List<char> _motif = null;
         protected char[] _candidateMotif = null;
         protected List<List<char>> _listOfMotif = new List<List<char>>();
-//        protected List<AlphabetData> _alphabetDatas;
         protected Dictionary<char,int> _alphabetDatas;
         protected char[] _alphabet;
+        protected int _currentBestValue;
+        protected int[] _solutionStartPosition;
+        protected List<int[]> _solutionStartPositionList;
+        protected bool _isOptimizitaion;
+        protected bool _isSumAsCriteria;
+        protected bool _isAllResult;
         //--------------------------------------------------------------------------------------
         public List<char> Motif
         {
@@ -41,26 +45,57 @@ namespace FindingRegulatoryMotifs.Enumeration
             }
         }
         //--------------------------------------------------------------------------------------
-        public RegulatoryMotifsSubSequencesEnumeration(char[][] pCharSets, char[] pAlphabet, int pSubstringLength, bool pIsAllResult = true, int pAcceptibleDistance = 0)
+        public RegulatoryMotifsSubSequencesEnumeration(char[][] pCharSets, char[] pAlphabet, int pSubstringLength, bool pIsAllResult = true, bool pIsOptimizitaion = false, bool pIsSumAsCriteria = false, int pAcceptibleDistance = 0)
             : base(pCharSets, pSubstringLength, null)
         {
             _candidateMotif = new char[pSubstringLength];
             _acceptibleDistance = pAcceptibleDistance;
             _alphabet = pAlphabet;
             _alphabetDatas = _alphabet.ToDictionary(a => a, a => 0);
+            _isOptimizitaion = pIsOptimizitaion;
+            _isSumAsCriteria = pIsSumAsCriteria;
+            _currentBestValue = int.MaxValue;
         }
-        //--------------------------------------------------------------------------------------
-        protected override bool MakeAction()
+    //--------------------------------------------------------------------------------------
+    protected override bool MakeAction()
         {
             if (fCurrentPosition == _fSize - 1)
             {
-                var pairwiseDifferencesForCurrentSet = DNAMappingBase.ProduceMatrix(fCurrentSet);
-                if (_pairwiseDifferences.SequenceEqual(pairwiseDifferencesForCurrentSet.OrderBy(d => d)))
+                CalculateCandidateMotif();
+                int currentDistance = 0;
+                if (!_isSumAsCriteria)
+                    currentDistance = Enumerable.Range(0, _fSize - 1).Max(i => DefineLocalDistance(i));
+                else
+                    currentDistance = Enumerable.Range(0, _fSize - 1).Sum(i => DefineLocalDistance(i));
+                if ( !_isOptimizitaion)
                 {
-                    if (_motif == null)
-                        _motif = fCurrentSet.ToList();
-                    _listOfMotif.Add(fCurrentSet.ToList());
-                    return !_isAllResult;
+                    if (currentDistance <= _acceptibleDistance)
+                    {
+                        _motif = _candidateMotif.ToList();
+                        _listOfMotif.Add(_motif);
+                        _solutionStartPosition = fCurrentSet.ToArray();
+                        _solutionStartPositionList.Add(_solutionStartPosition);
+                        return !_isAllResult;
+                    }
+                }
+                else
+                {
+                    if (currentDistance < _currentBestValue)
+                    {
+                        _currentBestValue = currentDistance;
+                        _motif = _candidateMotif.ToList();
+                        _listOfMotif.Clear();
+                        _listOfMotif.Add(_motif);
+                        _solutionStartPosition = fCurrentSet.ToArray();
+                        _solutionStartPositionList.Clear();
+                        _solutionStartPositionList.Add(_solutionStartPosition);
+                    }
+                    if (_isAllResult && currentDistance == _currentBestValue)
+                    {
+                        _listOfMotif.Add(_candidateMotif.ToList());
+                        _solutionStartPositionList.Add(fCurrentSet.ToArray());
+                    }
+                    return !_isAllResult && _currentBestValue == 0;
                 }
             }
             return false;
@@ -75,7 +110,7 @@ namespace FindingRegulatoryMotifs.Enumeration
                 });
                 for (int j = 0; j < _fSize; j++)
                 {
-                    char curChar = _charSets[j][fCurrentSet[fCurrentPosition] + i];
+                    char curChar = _charSets[j][fCurrentSet[j] + i];
                     _alphabetDatas[curChar]++;
                 }
                 var maxPair = _alphabetDatas.OrderByDescending(a => a.Value).First();
@@ -89,7 +124,7 @@ namespace FindingRegulatoryMotifs.Enumeration
             int distance = 0;
             for (int i = 0; i < _substringLength; i++)
             {
-                char curChar = _charSets[pNumberSequence][fCurrentSet[fCurrentPosition] + i];
+                char curChar = _charSets[pNumberSequence][fCurrentSet[pNumberSequence] + i];
                 if (_candidateMotif[i] != curChar)
                     distance++;
             }
