@@ -7,22 +7,20 @@ using System.Threading.Tasks;
 namespace CommonLibrary
 {
     //--------------------------------------------------------------------------------------
-    // class EnumerateIntegerTrangle 
+    // class EnumerateNotDecreasedSubSequence 
     //--------------------------------------------------------------------------------------
-    public class EnumerateIntegerTrangle : EnumerateSetOnPosition<int>
+    public class EnumerateNotDecreasedSubSequence : EnumerateSetOnPosition<int>
     {
         protected int _fSize;
         protected int _fLimit;
-        protected int _fMinimumValue;
-        protected int _forwardAdditive;
+        protected int[] _fSource;
         //--------------------------------------------------------------------------------------
-        public EnumerateIntegerTrangle(int pLimit, int pLength, int pMinimumValue = 0, int pForwardAdditive = 0)
-            : base(pLength)
+        public EnumerateNotDecreasedSubSequence(int pSize, int[] pSource)
+            : base(pSize)
         {
-            _fSize = pLength;
-            _fLimit = pLimit;
-            _fMinimumValue = pMinimumValue;
-            _forwardAdditive = pForwardAdditive;
+            _fSize = pSize;
+            _fLimit = pSource.Length;
+            _fSource = pSource.OrderBy(s => s).ToArray();
         }
         //--------------------------------------------------------------------------------------
         /// <summary>
@@ -67,8 +65,6 @@ namespace CommonLibrary
             fIterationCount++;
             if (fCurrentPosition >= _fSize - 1)
                 return true;
-            else if (fCurrentSet[fCurrentPosition] + _forwardAdditive > _fLimit)
-                return true;
             return false;
         }
         //--------------------------------------------------------------------------------------
@@ -87,8 +83,8 @@ namespace CommonLibrary
         protected override int FirstElement(int pPosition)
         {
             if (pPosition == 0)
-                return _fMinimumValue;
-            return fCurrentSet[pPosition-1] + _forwardAdditive;
+                return _fSource[0];
+            return _fSource[fCurrentSet[pPosition-1]+1];
         }
         //--------------------------------------------------------------------------------------
         protected override bool NextElement(int pPosition)

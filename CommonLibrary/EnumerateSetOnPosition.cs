@@ -14,6 +14,16 @@ namespace CommonLibrary
         protected List<T> fCurrentSet;		// текущий набор элементов
         protected int fCurrentPosition;		// текущая глубина при обходе дерева
         protected T _fBreakElement = default(T);
+        // statistics
+        protected long fIterationCount;
+        //--------------------------------------------------------------------------------------
+        public long IterationCount
+        {
+            get
+            {
+                return fIterationCount;
+            }
+        }
         //--------------------------------------------------------------------------------------
         public EnumerateSetOnPosition(int pCapacity)
         {

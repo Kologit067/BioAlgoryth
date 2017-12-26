@@ -48,6 +48,7 @@ namespace DNAMapping.Enumeration.DNA
         //--------------------------------------------------------------------------------------
         protected override bool IsCompleteCondition()
         {
+            fIterationCount++;
             if (fCurrentPosition == 0)
                 return false;
             if ( fCurrentSet[0] > 0 || !ChaeckCurrentPart())
