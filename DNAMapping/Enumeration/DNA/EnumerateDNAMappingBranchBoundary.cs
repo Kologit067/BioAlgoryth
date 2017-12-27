@@ -49,18 +49,18 @@ namespace DNAMapping.Enumeration.DNA
         protected override bool IsCompleteCondition()
         {
             fIterationCount++;
-            if (fCurrentPosition == 0)
+            if (_fCurrentPosition == 0)
                 return false;
-            if ( fCurrentSet[0] > 0 || !ChaeckCurrentPart())
+            if ( _fCurrentSet[0] > 0 || !ChaeckCurrentPart())
                 return true;
-            if (fCurrentPosition >= _fSize - 1)
+            if (_fCurrentPosition >= _fSize - 1)
             {
                 if (_solution == null)
-                    _solution = fCurrentSet.Select(s => _pairwiseDifferences[s]).ToList();
-                _listOfSolution.Add(fCurrentSet.Select(s => _pairwiseDifferences[s]).ToList());
+                    _solution = _fCurrentSet.Select(s => _pairwiseDifferences[s]).ToList();
+                _listOfSolution.Add(_fCurrentSet.Select(s => _pairwiseDifferences[s]).ToList());
                 return true;
             }
-            else if (fCurrentSet[fCurrentPosition] + _forwardAdditive > _fLimit)
+            else if (_fCurrentSet[_fCurrentPosition] + _forwardAdditive > _fLimit)
                 return true;
             return false;
         }
@@ -71,15 +71,15 @@ namespace DNAMapping.Enumeration.DNA
             //if (elementFromOrigine.Data == 0)
             //    throw new Exception("Logical error in EnumerateDNAMappingBranchBoundary.ChaeckCurrentPart (search current diff in _originePairwiseDifferences)");
             //elementFromOrigine.IsIncluded = true;
-            for (int i = 0; i < fCurrentPosition; i++)
+            for (int i = 0; i < _fCurrentPosition; i++)
             {
-                int d = _pairwiseDifferences[fCurrentSet[fCurrentPosition]] - _pairwiseDifferences[fCurrentSet[i]];
+                int d = _pairwiseDifferences[_fCurrentSet[_fCurrentPosition]] - _pairwiseDifferences[_fCurrentSet[i]];
                 DifferenceElement element = _originePairwiseDifferences.FirstOrDefault(e => e.Data == d && !e.IsIncluded);
                 if (element == null)
                 {
                     for (int j = 0; j < i; j++)
                     {
-                        int revValue = _pairwiseDifferences[fCurrentSet[fCurrentPosition]] - _pairwiseDifferences[fCurrentSet[j]];
+                        int revValue = _pairwiseDifferences[_fCurrentSet[_fCurrentPosition]] - _pairwiseDifferences[_fCurrentSet[j]];
                         DifferenceElement revElement = _originePairwiseDifferences.FirstOrDefault(e => e.Data == revValue && e.IsIncluded);
                         if (revElement == null)
                             throw new Exception("Logical error in EnumerateDNAMappingBranchBoundary.ChaeckCurrentPart (Restore state)");
@@ -95,18 +95,18 @@ namespace DNAMapping.Enumeration.DNA
         //--------------------------------------------------------------------------------------
         protected override void RemoveAction(int p)
         {
-            if (fCurrentPosition == 0 )
+            if (_fCurrentPosition == 0 )
                 return;
-            if (fCurrentSet[0] > 0)
+            if (_fCurrentSet[0] > 0)
                 return;
-            int d = _pairwiseDifferences[fCurrentSet[fCurrentPosition]];
+            int d = _pairwiseDifferences[_fCurrentSet[_fCurrentPosition]];
             DifferenceElement element = _originePairwiseDifferences.FirstOrDefault(e => e.Data == d && e.IsIncluded);
             if (element == null)
                 return;
             element.IsIncluded = false;
-            for (int i = 1; i < fCurrentPosition; i++)
+            for (int i = 1; i < _fCurrentPosition; i++)
             {
-                d = _pairwiseDifferences[fCurrentSet[fCurrentPosition]] - _pairwiseDifferences[fCurrentSet[i]];
+                d = _pairwiseDifferences[_fCurrentSet[_fCurrentPosition]] - _pairwiseDifferences[_fCurrentSet[i]];
                 element = _originePairwiseDifferences.FirstOrDefault(e => e.Data == d && e.IsIncluded);
                 if (element == null)
                     throw new Exception("Logical error in EnumerateDNAMappingBranchBoundary.BackAction");

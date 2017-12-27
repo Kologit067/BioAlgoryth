@@ -42,14 +42,14 @@ namespace DNAMapping.Enumeration.DNA
         //--------------------------------------------------------------------------------------
         protected override bool MakeAction()
         {
-            if (fCurrentPosition == _fSize - 1)
+            if (_fCurrentPosition == _fSize - 1)
             {
-                var pairwiseDifferencesForCurrentSet = DNAMappingBase.ProduceMatrix(fCurrentSet);
+                var pairwiseDifferencesForCurrentSet = DNAMappingBase.ProduceMatrix(_fCurrentSet);
                 if (_pairwiseDifferences.SequenceEqual(pairwiseDifferencesForCurrentSet.OrderBy(d=>d)))
                 {
                     if (_solution == null)
-                        _solution = fCurrentSet.ToList();
-                    _listOfSolution.Add(fCurrentSet.ToList());
+                        _solution = _fCurrentSet.ToList();
+                    _listOfSolution.Add(_fCurrentSet.ToList());
                     return !_isAllResult;
                 }
             }

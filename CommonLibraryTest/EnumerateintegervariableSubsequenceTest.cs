@@ -84,8 +84,8 @@ namespace CommonLibraryTest
         //--------------------------------------------------------------------------------------
         protected override bool MakeAction()
         {
-            if (fCurrentPosition == _fSize - 1)
-                _result.Add(string.Join(",", Enumerable.Range(0, _fSize).Select(i => string.Join("", _charSets[i].Skip(fCurrentSet[i]).Take(_substringLength).Select( c => Convert.ToString(c))))));
+            if (_fCurrentPosition == _fSize - 1)
+                _result.Add(string.Join(",", Enumerable.Range(0, _fSize).Select(i => string.Join("", _charSets[i].Skip(_fCurrentSet[i]).Take(_substringLength).Select( c => Convert.ToString(c))))));
             return false;
         }
         //--------------------------------------------------------------------------------------

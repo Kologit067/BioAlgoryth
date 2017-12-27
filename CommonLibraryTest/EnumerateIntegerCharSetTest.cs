@@ -115,8 +115,8 @@ namespace CommonLibraryTest
         //--------------------------------------------------------------------------------------
         protected override bool MakeAction()
         {
-            if (fCurrentPosition == _fSize - 1)
-                _result.Add(string.Join("", values: fCurrentSet.Select(i => Convert.ToString(_charSet[i]))));
+            if (_fCurrentPosition == _fSize - 1)
+                _result.Add(string.Join("", values: _fCurrentSet.Select(i => Convert.ToString(_charSet[i]))));
             return false;
         }
         //--------------------------------------------------------------------------------------

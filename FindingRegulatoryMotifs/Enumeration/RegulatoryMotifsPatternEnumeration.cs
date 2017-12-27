@@ -43,7 +43,7 @@ namespace FindingRegulatoryMotifs.Enumeration
         //--------------------------------------------------------------------------------------
         protected override bool MakeAction()
         {
-            if (fCurrentPosition == _fSize - 1)
+            if (_fCurrentPosition == _fSize - 1)
             {
                 int currentDistance = 0;
                 if (!_isSumAsCriteria)
@@ -56,7 +56,7 @@ namespace FindingRegulatoryMotifs.Enumeration
                     {
                         _motif = _candidateMotif.ToList();
                         _listOfMotif.Add(_motif);
-                        _solutionStartPosition = fCurrentSet.ToArray();
+                        _solutionStartPosition = _fCurrentSet.ToArray();
                         _solutionStartPositionList.Add(_solutionStartPosition);
                         return !_isAllResult;
                     }
@@ -66,7 +66,7 @@ namespace FindingRegulatoryMotifs.Enumeration
                     if (currentDistance < _currentBestValue)
                     {
                         _currentBestValue = currentDistance;
-                        _motif = fCurrentSet.Select( i => _charSet[i]).ToList();
+                        _motif = _fCurrentSet.Select( i => _charSet[i]).ToList();
                         _listOfMotif.Clear();
                         _listOfMotif.Add(_motif);
                         _solutionStartPosition = _positionInSequence.ToArray();
@@ -75,7 +75,7 @@ namespace FindingRegulatoryMotifs.Enumeration
                     }
                     if (_isAllResult && currentDistance == _currentBestValue)
                     {
-                        _listOfMotif.Add(fCurrentSet.Select(i => _charSet[i]).ToList());
+                        _listOfMotif.Add(_fCurrentSet.Select(i => _charSet[i]).ToList());
                         _solutionStartPositionList.Add(_positionInSequence.ToArray());
                     }
                     return !_isAllResult && _currentBestValue == 0;
@@ -94,7 +94,7 @@ namespace FindingRegulatoryMotifs.Enumeration
                 for (int j = 0; j < _fSize; j++)
                 {
                     char curChar = _sequenceLIst[pNumberSequence][i + j];
-                    if (_charSet[fCurrentSet[i]] != curChar)
+                    if (_charSet[_fCurrentSet[i]] != curChar)
                         distance++;
 
                 }

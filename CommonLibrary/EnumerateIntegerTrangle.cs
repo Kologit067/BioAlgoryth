@@ -65,9 +65,9 @@ namespace CommonLibrary
         protected override bool IsCompleteCondition()
         {
             fIterationCount++;
-            if (fCurrentPosition >= _fSize - 1)
+            if (_fCurrentPosition >= _fSize - 1)
                 return true;
-            else if (fCurrentSet[fCurrentPosition] + _forwardAdditive > _fLimit)
+            else if (_fCurrentSet[_fCurrentPosition] + _forwardAdditive > _fLimit)
                 return true;
             return false;
         }
@@ -88,14 +88,14 @@ namespace CommonLibrary
         {
             if (pPosition == 0)
                 return _fMinimumValue;
-            return fCurrentSet[pPosition-1] + _forwardAdditive;
+            return _fCurrentSet[pPosition-1] + _forwardAdditive;
         }
         //--------------------------------------------------------------------------------------
         protected override bool NextElement(int pPosition)
         {
-            if (fCurrentSet[pPosition] >= _fLimit)
+            if (_fCurrentSet[pPosition] >= _fLimit)
                 return false;
-            fCurrentSet[pPosition]++;
+            _fCurrentSet[pPosition]++;
             return true;
         }
         //--------------------------------------------------------------------------------------

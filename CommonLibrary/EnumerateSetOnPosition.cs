@@ -11,8 +11,8 @@ namespace CommonLibrary
     //--------------------------------------------------------------------------------------
     public abstract class EnumerateSetOnPosition<T>
     {
-        protected List<T> fCurrentSet;		// текущий набор элементов
-        protected int fCurrentPosition;		// текущая глубина при обходе дерева
+        protected List<T> _fCurrentSet;		// текущий набор элементов
+        protected int _fCurrentPosition;		// текущая глубина при обходе дерева
         protected T _fBreakElement = default(T);
         // statistics
         protected long fIterationCount;
@@ -27,9 +27,9 @@ namespace CommonLibrary
         //--------------------------------------------------------------------------------------
         public EnumerateSetOnPosition(int pCapacity)
         {
-            fCurrentSet = new List<T>(pCapacity);
+            _fCurrentSet = new List<T>(pCapacity);
             while (pCapacity-- > 0)
-                fCurrentSet.Add(default(T));
+                _fCurrentSet.Add(default(T));
         }
         //--------------------------------------------------------------------------------------
         public EnumerateSetOnPosition()
@@ -43,7 +43,7 @@ namespace CommonLibrary
         public void Execute()
         {
             InitialData();
-            while (fCurrentPosition >= 0)
+            while (_fCurrentPosition >= 0)
             {
                 if (IsCompleteCondition())	// если выполненно условие
                 {
@@ -73,18 +73,18 @@ namespace CommonLibrary
             // повторяем попытку найти продолжение по другой ветке
             // пока это возможно т.е. текущая позиция не вышла за пределы
             // диапозона
-            while (fCurrentPosition >= 0)
+            while (_fCurrentPosition >= 0)
             {
                 // удалить элемент в наборе - произвеcти действия необходимые
                 // при удалениии (если есть в данной реализации)
-                RemoveAction(fCurrentSet[fCurrentPosition]);
+                RemoveAction(_fCurrentSet[_fCurrentPosition]);
                 // пробуем вместо удаленного элемента подставить следующий по прядку
-                if (NextElement(fCurrentPosition))
+                if (NextElement(_fCurrentPosition))
                 {
-                    AddAction(fCurrentSet[fCurrentPosition]);
+                    AddAction(_fCurrentSet[_fCurrentPosition]);
                     return;
                 }
-                fCurrentSet[fCurrentPosition--] = _fBreakElement;
+                _fCurrentSet[_fCurrentPosition--] = _fBreakElement;
             }
         }
         //--------------------------------------------------------------------------------------
@@ -97,26 +97,26 @@ namespace CommonLibrary
         {
             ForwardAction();
             // создаем первый элемент для следующей позиции
-            T lCandidat = FirstElement(fCurrentPosition + 1);
+            T lCandidat = FirstElement(_fCurrentPosition + 1);
             // если нет следующего элемента
             if (lCandidat.Equals(_fBreakElement))
                 return false;       // то движение вперед невозможно возращаем FALSE	
 
-            fCurrentSet[++fCurrentPosition] = lCandidat;
+            _fCurrentSet[++_fCurrentPosition] = lCandidat;
             // произвети действия необходимые при добавлении
             // (если есть в данной реализации)
-            AddAction(fCurrentSet[fCurrentPosition]);
+            AddAction(_fCurrentSet[_fCurrentPosition]);
             return true;
         }
         //--------------------------------------------------------------------------------------
         protected void InitialData()
         {
             // текущая позиция - самое начало
-            fCurrentPosition = 0;
+            _fCurrentPosition = 0;
             // создаем первый элемент
             T item = InitialElement();
             // добавляем в нулевую позицию 
-            fCurrentSet[0] = item;
+            _fCurrentSet[0] = item;
             // инициализация вспомогательных членов класса (если будут)
             SupplementInitial();
         }
@@ -175,8 +175,8 @@ namespace CommonLibrary
             get
             {
                 string rr = string.Empty;
-                for (int i = 0; i < fCurrentSet.Count; i++)
-                    rr += ShowElementAsString(fCurrentSet[i]) + "  *  ";
+                for (int i = 0; i < _fCurrentSet.Count; i++)
+                    rr += ShowElementAsString(_fCurrentSet[i]) + "  *  ";
                 return rr;
             }
         }
@@ -186,8 +186,8 @@ namespace CommonLibrary
             get
             {
                 string rr = string.Empty;
-                for (int i = 0; i < fCurrentSet.Count; i++)
-                    rr += ShowElementAsShortString(fCurrentSet[i]) + " # ";
+                for (int i = 0; i < _fCurrentSet.Count; i++)
+                    rr += ShowElementAsShortString(_fCurrentSet[i]) + " # ";
                 return rr;
             }
         }
@@ -197,8 +197,8 @@ namespace CommonLibrary
             get
             {
                 string rr = string.Empty;
-                for (int i = 0; i < fCurrentSet.Count; i++)
-                    rr += ShowElementAsFullString(fCurrentSet[i]) + " # ";
+                for (int i = 0; i < _fCurrentSet.Count; i++)
+                    rr += ShowElementAsFullString(_fCurrentSet[i]) + " # ";
                 return rr;
             }
         }

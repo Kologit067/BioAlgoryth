@@ -59,7 +59,7 @@ namespace FindingRegulatoryMotifs.Enumeration
     //--------------------------------------------------------------------------------------
     protected override bool MakeAction()
         {
-            if (fCurrentPosition == _fSize - 1)
+            if (_fCurrentPosition == _fSize - 1)
             {
                 CalculateCandidateMotif();
                 int currentDistance = 0;
@@ -73,7 +73,7 @@ namespace FindingRegulatoryMotifs.Enumeration
                     {
                         _motif = _candidateMotif.ToList();
                         _listOfMotif.Add(_motif);
-                        _solutionStartPosition = fCurrentSet.ToArray();
+                        _solutionStartPosition = _fCurrentSet.ToArray();
                         _solutionStartPositionList.Add(_solutionStartPosition);
                         return !_isAllResult;
                     }
@@ -86,14 +86,14 @@ namespace FindingRegulatoryMotifs.Enumeration
                         _motif = _candidateMotif.ToList();
                         _listOfMotif.Clear();
                         _listOfMotif.Add(_motif);
-                        _solutionStartPosition = fCurrentSet.ToArray();
+                        _solutionStartPosition = _fCurrentSet.ToArray();
                         _solutionStartPositionList.Clear();
                         _solutionStartPositionList.Add(_solutionStartPosition);
                     }
                     if (_isAllResult && currentDistance == _currentBestValue)
                     {
                         _listOfMotif.Add(_candidateMotif.ToList());
-                        _solutionStartPositionList.Add(fCurrentSet.ToArray());
+                        _solutionStartPositionList.Add(_fCurrentSet.ToArray());
                     }
                     return !_isAllResult && _currentBestValue == 0;
                 }
@@ -110,7 +110,7 @@ namespace FindingRegulatoryMotifs.Enumeration
                 });
                 for (int j = 0; j < _fSize; j++)
                 {
-                    char curChar = _charSets[j][fCurrentSet[j] + i];
+                    char curChar = _charSets[j][_fCurrentSet[j] + i];
                     _alphabetDatas[curChar]++;
                 }
                 var maxPair = _alphabetDatas.OrderByDescending(a => a.Value).First();
@@ -124,7 +124,7 @@ namespace FindingRegulatoryMotifs.Enumeration
             int distance = 0;
             for (int i = 0; i < _substringLength; i++)
             {
-                char curChar = _charSets[pNumberSequence][fCurrentSet[pNumberSequence] + i];
+                char curChar = _charSets[pNumberSequence][_fCurrentSet[pNumberSequence] + i];
                 if (_candidateMotif[i] != curChar)
                     distance++;
             }
