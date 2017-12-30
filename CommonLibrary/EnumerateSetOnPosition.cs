@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,13 +16,41 @@ namespace CommonLibrary
         protected int _fCurrentPosition;		// текущая глубина при обходе дерева
         protected T _fBreakElement = default(T);
         // statistics
-        protected long fIterationCount;
+        protected Stopwatch stopwatch;
         //--------------------------------------------------------------------------------------
+        protected long _fIterationCount;
         public long IterationCount
         {
             get
             {
-                return fIterationCount;
+                return _fIterationCount;
+            }
+        }
+        //--------------------------------------------------------------------------------------
+        protected long _fDurationMilliSeconds;
+        public long DurationMilliSeconds
+        {
+            get
+            {
+                return _fDurationMilliSeconds;
+            }
+        }
+        //--------------------------------------------------------------------------------------
+        protected long _fElapsedTicks;
+        public long ElapsedTicks
+        {
+            get
+            {
+                return _fElapsedTicks;
+            }
+        }
+        //--------------------------------------------------------------------------------------
+        protected bool fOutQueryStop = false;			// 
+        public bool IsComplete
+        {
+            get
+            {
+                return !fOutQueryStop;
             }
         }
         //--------------------------------------------------------------------------------------
@@ -42,6 +71,8 @@ namespace CommonLibrary
         /// </summary>
         public void Execute()
         {
+            stopwatch = new Stopwatch();
+            stopwatch.Start();
             InitialData();
             while (_fCurrentPosition >= 0)
             {
@@ -59,6 +90,9 @@ namespace CommonLibrary
                     Back();				// если нельзя вперед то назад
                 }
             }
+            stopwatch.Stop();
+            _fElapsedTicks = stopwatch.ElapsedTicks;
+            _fDurationMilliSeconds = stopwatch.ElapsedMilliseconds;
         }
         //--------------------------------------------------------------------------------------
         /// <summary>
