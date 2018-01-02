@@ -1,4 +1,5 @@
-﻿using CommonLibrary;
+﻿using BaseContract;
+using CommonLibrary;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +34,7 @@ namespace DNAMapping.Enumeration.DNA
                 return _listOfSolution;
             }
         }
+        public IDNAMappingStatisticAccumulator StatisticAccumulator { get; set; }
         //--------------------------------------------------------------------------------------
         public EnumerateDNAMappingByDifferences(int[] pairwiseDifferences, bool pIsAllResult = true)
             : base(pairwiseDifferences.Length, DNAMappingBase.DefineRestrictionMapSizeFromDifferencesSize(pairwiseDifferences.Length), 0, 1)
@@ -60,6 +62,16 @@ namespace DNAMapping.Enumeration.DNA
                 }
             }
             return false;
+        }
+        //--------------------------------------------------------------------------------------
+        protected override void IterationAction()
+        {
+            StatisticAccumulator.IterationCountInc();
+        }
+        //--------------------------------------------------------------------------------------
+        protected override void TerminalAction()
+        {
+            StatisticAccumulator.TerminalCountInc();
         }
         //-----------------------------------------------------------------------------------
         public override string OptimalRouteAsString

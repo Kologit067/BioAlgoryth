@@ -51,6 +51,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BaseContract\BaseContract.csproj">
+      <Project>{b8c5feda-931e-439f-9661-d533d482352b}</Project>
+      <Name>BaseContract</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CommonLibrary\CommonLibrary.csproj">
       <Project>{6208c3eb-138f-4b2e-93a8-6469d8a75379}</Project>
       <Name>CommonLibrary</Name>

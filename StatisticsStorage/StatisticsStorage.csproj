@@ -51,5 +51,11 @@
   <ItemGroup>
     <Folder Include="Savers\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BaseContract\BaseContract.csproj">
+      <Project>{b8c5feda-931e-439f-9661-d533d482352b}</Project>
+      <Name>BaseContract</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
