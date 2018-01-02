@@ -1,4 +1,5 @@
-﻿using CommonLibrary;
+﻿using BaseContract;
+using CommonLibrary;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,16 +52,21 @@ namespace FindingRegulatoryMotifs.Enumeration
             if (_fCurrentPosition == 0)
                 return false;
             if (_fCurrentSet[0] > 0 || !ChaeckCurrentPart())
+            {
+                fCountTerminal++;
                 return true;
+            }
             if (_fCurrentPosition >= _fSize - 1)
             {
                 if (!_isOptimizitaion)
                 {
-                        _motif = _candidateMotif.ToList();
-                        _listOfMotif.Add(_motif);
-                        _solutionStartPosition = _fCurrentSet.ToArray();
-                        _solutionStartPositionList.Add(_solutionStartPosition);
-                        return !_isAllResult;
+                    _motif = _candidateMotif.ToList();
+                    _listOfMotif.Add(_motif);
+                    _solutionStartPosition = _fCurrentSet.ToArray();
+                    _solutionStartPositionList.Add(_solutionStartPosition);
+                    if (!_isAllResult)
+                        fCountTerminal++;
+                    return !_isAllResult;
                 }
                 else
                 {
@@ -73,17 +79,24 @@ namespace FindingRegulatoryMotifs.Enumeration
                         _solutionStartPosition = _positionInSequence.ToArray();
                         _solutionStartPositionList.Clear();
                         _solutionStartPositionList.Add(_solutionStartPosition);
+                        fUpdateOptcount++;
                     }
+                    fUpdateOptcount++;
                     if (_isAllResult && _currentDistance == _currentBestValue)
                     {
                         _listOfMotif.Add(_fCurrentSet.Select(i => _charSet[i]).ToList());
                         _solutionStartPositionList.Add(_positionInSequence.ToArray());
                     }
+                    if (!_isAllResult && _currentBestValue == 0)
+                        fCountTerminal++;
                     return !_isAllResult && _currentBestValue == 0;
                 }
             }
             else if (_fCurrentSet[_fCurrentPosition] > _fLimit)
+            {
+                fCountTerminal++;
                 return true;
+            }
             return false;
         }
         //--------------------------------------------------------------------------------------
@@ -99,17 +112,15 @@ namespace FindingRegulatoryMotifs.Enumeration
             {
                 if (_currentDistance > _acceptibleDistance)
                 {
+                    fElemenationCount++;
                     return false;
                 }
             }
             else
             {
-                if (_currentDistance > _currentBestValue)
+                if (_currentDistance > _currentBestValue || _isAllResult && _currentDistance == _currentBestValue)
                 {
-                    return false;
-                }
-                if (_isAllResult && _currentDistance == _currentBestValue)
-                {
+                    fElemenationCount++;
                     return false;
                 }
             }
@@ -134,6 +145,7 @@ namespace FindingRegulatoryMotifs.Enumeration
                         _listOfMotif.Add(_motif);
                         _solutionStartPosition = _fCurrentSet.ToArray();
                         _solutionStartPositionList.Add(_solutionStartPosition);
+                        fUpdateOptcount++;
                         return !_isAllResult;
                     }
                 }
@@ -148,11 +160,13 @@ namespace FindingRegulatoryMotifs.Enumeration
                         _solutionStartPosition = _positionInSequence.ToArray();
                         _solutionStartPositionList.Clear();
                         _solutionStartPositionList.Add(_solutionStartPosition);
+                        fUpdateOptcount++;
                     }
                     if (_isAllResult && _currentDistance == _currentBestValue)
                     {
                         _listOfMotif.Add(_fCurrentSet.Select(i => _charSet[i]).ToList());
                         _solutionStartPositionList.Add(_positionInSequence.ToArray());
+                        fUpdateOptcount++;
                     }
                     return !_isAllResult && _currentBestValue == 0;
                 }
@@ -184,6 +198,36 @@ namespace FindingRegulatoryMotifs.Enumeration
             _currentBestValueList[pNumberSequence] = bestDistance;
             return bestDistance;
         }
+        //-----------------------------------------------------------------------------------
+        public override string OptimalRouteAsString
+        {
+            get
+            {
+                if (_fCurrentSet != null && _fCurrentSet.Count > 0)
+                    return string.Join(",", _fCurrentSet.Select(i => i.ToString()));
+                return "Empty";
+            }
+        }
+        //-----------------------------------------------------------------------------------
+        public override string OutputPresentation
+        {
+            get
+            {
+                if (_motif != null && _motif.Count > 0)
+                    return string.Join(",", _motif.Select(i => i.ToString()));
+                return "Empty";
+            }
+        }
+        //--------------------------------------------------------------------------------------
+        public override int OptimalValue
+        {
+            get
+            {
+                return _currentBestValue;
+            }
+        }
+        //--------------------------------------------------------------------------------------
+        public IRegulatoryMotifsStatisticAccumulator StatisticAccumulator { get; set; }
         //--------------------------------------------------------------------------------------
     }
     //--------------------------------------------------------------------------------------

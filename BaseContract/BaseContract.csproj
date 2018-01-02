@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FB95CB8C-1245-4E5E-99DD-1FBA84EAC086}</ProjectGuid>
+    <ProjectGuid>{B8C5FEDA-931E-439F-9661-D533D482352B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FindingRegulatoryMotifs</RootNamespace>
-    <AssemblyName>FindingRegulatoryMotifs</AssemblyName>
+    <RootNamespace>BaseContract</RootNamespace>
+    <AssemblyName>BaseContract</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -41,22 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enumeration\RegulatoryMotifsBoundaryBranchEnumeration.cs" />
-    <Compile Include="Enumeration\RegulatoryMotifsPatternEnumeration.cs" />
-    <Compile Include="Enumeration\RegulatoryMotifsSubSequencesEnumeration.cs" />
+    <Compile Include="IRegulatoryMotifsStatisticAccumulator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RegulatoryMotifsBase.cs" />
-    <Compile Include="RegulatoryMotifsSubSequences.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BaseContract\BaseContract.csproj">
-      <Project>{b8c5feda-931e-439f-9661-d533d482352b}</Project>
-      <Name>BaseContract</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CommonLibrary\CommonLibrary.csproj">
-      <Project>{6208c3eb-138f-4b2e-93a8-6469d8a75379}</Project>
-      <Name>CommonLibrary</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -9,7 +9,7 @@ namespace CommonLibrary
     //--------------------------------------------------------------------------------------
     // class EnumerateIntegerTrangle 
     //--------------------------------------------------------------------------------------
-    public class EnumerateIntegerTrangle : EnumerateSetOnPosition<int>
+    public class EnumerateIntegerTrangle : EnumerateSetOnPosition<int,int>
     {
         protected int _fSize;
         protected int _fLimit;
@@ -64,11 +64,12 @@ namespace CommonLibrary
         /// </summary>		
         protected override bool IsCompleteCondition()
         {
-            _fIterationCount++;
-            if (_fCurrentPosition >= _fSize - 1)
+            IterationAction();
+            if ((_fCurrentPosition >= _fSize - 1) || (_fCurrentSet[_fCurrentPosition] + _forwardAdditive > _fLimit))
+            {
+                TerminalAction();
                 return true;
-            else if (_fCurrentSet[_fCurrentPosition] + _forwardAdditive > _fLimit)
-                return true;
+            }
             return false;
         }
         //--------------------------------------------------------------------------------------
@@ -103,21 +104,6 @@ namespace CommonLibrary
         {
 
         }
-        //--------------------------------------------------------------------------------------
-        protected override string ShowElementAsString(int pElement)
-        {
-            return ShowString;
-        }
-        //--------------------------------------------------------------------------------------
-        protected override string ShowElementAsShortString(int pElement)
-        {
-            return ShowShortString;
-        }
-        //--------------------------------------------------------------------------------------
-        protected override string ShowElementAsFullString(int pElement)
-        {
-            return ShowFullString;
-        }
-        //--------------------------------------------------------------------------------------
+         //--------------------------------------------------------------------------------------
     }
 }

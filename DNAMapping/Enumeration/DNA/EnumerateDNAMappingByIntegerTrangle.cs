@@ -47,6 +47,7 @@ namespace DNAMapping.Enumeration.DNA
                 var pairwiseDifferencesForCurrentSet = DNAMappingBase.ProduceMatrix(_fCurrentSet);
                 if (_pairwiseDifferences.SequenceEqual(pairwiseDifferencesForCurrentSet.OrderBy(d=>d)))
                 {
+                    fUpdateOptcount++;
                     if (_solution == null)
                         _solution = _fCurrentSet.ToList();
                     _listOfSolution.Add(_fCurrentSet.ToList());
@@ -54,6 +55,34 @@ namespace DNAMapping.Enumeration.DNA
                 }
             }
             return false;
+        }
+        //--------------------------------------------------------------------------------------
+        protected override void IterationAction()
+        {
+            _fIterationCount++;
+        }
+        //--------------------------------------------------------------------------------------
+        protected override void TerminalAction()
+        {
+            fCountTerminal++;
+        }
+        //-----------------------------------------------------------------------------------
+        public override string OptimalRouteAsString
+        {
+            get
+            {
+                if (_solution != null && _solution.Count > 0)
+                    return string.Join(",", _solution.Select(i => i.ToString()));
+                return "Empty";
+            }
+        }
+        //-----------------------------------------------------------------------------------
+        public override string OutputPresentation
+        {
+            get
+            {
+                return OptimalRouteAsString;
+            }
         }
         //--------------------------------------------------------------------------------------
     }

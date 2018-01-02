@@ -51,17 +51,25 @@ namespace DNAMapping.Enumeration.DNA
             _fIterationCount++;
             if (_fCurrentPosition == 0)
                 return false;
-            if ( _fCurrentSet[0] > 0 || !ChaeckCurrentPart())
+            if (_fCurrentSet[0] > 0 || !ChaeckCurrentPart())
+            {
+                fCountTerminal++;
                 return true;
+            }
             if (_fCurrentPosition >= _fSize - 1)
             {
                 if (_solution == null)
                     _solution = _fCurrentSet.Select(s => _pairwiseDifferences[s]).ToList();
                 _listOfSolution.Add(_fCurrentSet.Select(s => _pairwiseDifferences[s]).ToList());
+                fCountTerminal++;
+                fUpdateOptcount++;
                 return true;
             }
             else if (_fCurrentSet[_fCurrentPosition] + _forwardAdditive > _fLimit)
+            {
+                fCountTerminal++;
                 return true;
+            }
             return false;
         }
         //--------------------------------------------------------------------------------------
@@ -85,7 +93,7 @@ namespace DNAMapping.Enumeration.DNA
                             throw new Exception("Logical error in EnumerateDNAMappingBranchBoundary.ChaeckCurrentPart (Restore state)");
                         revElement.IsIncluded = false;
                     }
-//                    elementFromOrigine.IsIncluded = false;
+                    fElemenationCount++;
                     return false;
                 }
                 element.IsIncluded = true;
@@ -123,6 +131,26 @@ namespace DNAMapping.Enumeration.DNA
                 return !_isAllResult;
             }
             return false;
+        }
+        //-----------------------------------------------------------------------------------
+        public override string OptimalRouteAsString
+        {
+            get
+            {
+                if (_fCurrentSet != null && _fCurrentSet.Count > 0)
+                    return string.Join(",", _fCurrentSet.Select(i => i.ToString()));
+                return "Empty";
+            }
+        }
+        //-----------------------------------------------------------------------------------
+        public override string OutputPresentation
+        {
+            get
+            {
+                if (_solution != null && _solution.Count > 0)
+                    return string.Join(",", _solution.Select(i => i.ToString()));
+                return "Empty";
+            }
         }
         //--------------------------------------------------------------------------------------
     }

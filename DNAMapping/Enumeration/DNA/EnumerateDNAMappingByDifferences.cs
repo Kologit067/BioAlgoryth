@@ -52,13 +52,34 @@ namespace DNAMapping.Enumeration.DNA
                 var pairwiseDifferencesForCurrentSet = DNAMappingBase.ProduceMatrixOnIndexBase(_fCurrentSet, _pairwiseDifferences);
                 if (_originePairwiseDifferences.SequenceEqual(pairwiseDifferencesForCurrentSet.OrderBy( d => d)))
                 {
+                    fUpdateOptcount++;
                     if (_solution == null)
-                        _solution = _fCurrentSet;
-                    _listOfSolution.Add(_fCurrentSet.Select(i => _pairwiseDifferences[i]).ToList());
+                        _solution = _fCurrentSet.Select(i => _pairwiseDifferences[i]).ToList();
+                    _listOfSolution.Add(_solution);
                     return !_isAllResult;
                 }
             }
             return false;
+        }
+        //-----------------------------------------------------------------------------------
+        public override string OptimalRouteAsString
+        {
+            get
+            {
+                if (_fCurrentSet != null && _fCurrentSet.Count > 0)
+                    return string.Join(",", _fCurrentSet.Select(i => i.ToString()));
+                return "Empty";
+            }
+        }
+        //-----------------------------------------------------------------------------------
+        public override string OutputPresentation
+        {
+            get
+            {
+                if (_solution != null && _solution.Count > 0)
+                    return string.Join(",", _solution.Select(i => i.ToString()));
+                return "Empty";
+            }
         }
         //--------------------------------------------------------------------------------------
     }

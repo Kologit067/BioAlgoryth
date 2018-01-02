@@ -10,7 +10,7 @@ namespace CommonLibrary
     //--------------------------------------------------------------------------------------
     // class EnumerateSetOnPosition
     //--------------------------------------------------------------------------------------
-    public abstract class EnumerateSetOnPosition<T>
+    public abstract class EnumerateSetOnPosition<T,R>
     {
         protected List<T> _fCurrentSet;		// текущий набор элементов
         protected int _fCurrentPosition;		// текущая глубина при обходе дерева
@@ -18,32 +18,32 @@ namespace CommonLibrary
         // statistics
         protected Stopwatch stopwatch;
         //--------------------------------------------------------------------------------------
-        protected long _fIterationCount;
-        public long IterationCount
-        {
-            get
-            {
-                return _fIterationCount;
-            }
-        }
-        //--------------------------------------------------------------------------------------
-        protected long _fDurationMilliSeconds;
-        public long DurationMilliSeconds
-        {
-            get
-            {
-                return _fDurationMilliSeconds;
-            }
-        }
-        //--------------------------------------------------------------------------------------
-        protected long _fElapsedTicks;
-        public long ElapsedTicks
-        {
-            get
-            {
-                return _fElapsedTicks;
-            }
-        }
+        //protected long _fIterationCount;
+        //public long IterationCount
+        //{
+        //    get
+        //    {
+        //        return _fIterationCount;
+        //    }
+        //}
+        ////--------------------------------------------------------------------------------------
+        //protected long _fDurationMilliSeconds;
+        //public long DurationMilliSeconds
+        //{
+        //    get
+        //    {
+        //        return _fDurationMilliSeconds;
+        //    }
+        //}
+        ////--------------------------------------------------------------------------------------
+        //protected long _fElapsedTicks;
+        //public long ElapsedTicks
+        //{
+        //    get
+        //    {
+        //        return _fElapsedTicks;
+        //    }
+        //}
         //--------------------------------------------------------------------------------------
         protected bool fOutQueryStop = false;			// 
         public bool IsComplete
@@ -53,12 +53,40 @@ namespace CommonLibrary
                 return !fOutQueryStop;
             }
         }
+        //protected long fCountTerminal;
+        ////--------------------------------------------------------------------------------------
+        //public long CountTerminal
+        //{
+        //    get
+        //    {
+        //        return fCountTerminal;
+        //    }
+        //}
+        //protected long fUpdateOptcount;
+        ////--------------------------------------------------------------------------------------
+        //public long UpdateOptcount
+        //{
+        //    get
+        //    {
+        //        return fUpdateOptcount;
+        //    }
+        //}
+        //protected long fElemenationCount;
+        ////--------------------------------------------------------------------------------------
+        //public long ElemenationCount
+        //{
+        //    get
+        //    {
+        //        return fElemenationCount;
+        //    }
+        //}
         //--------------------------------------------------------------------------------------
         public EnumerateSetOnPosition(int pCapacity)
         {
             _fCurrentSet = new List<T>(pCapacity);
             while (pCapacity-- > 0)
                 _fCurrentSet.Add(default(T));
+            fOutQueryStop = false;
         }
         //--------------------------------------------------------------------------------------
         public EnumerateSetOnPosition()
@@ -185,6 +213,14 @@ namespace CommonLibrary
         /// </summary>		
         protected abstract bool IsCompleteCondition();
         //--------------------------------------------------------------------------------------
+        protected virtual void IterationAction()
+        {
+        }
+        //--------------------------------------------------------------------------------------
+        protected virtual void TerminalAction()
+        {
+        }
+        //--------------------------------------------------------------------------------------
         /// <summary>
         /// произвести необходимые действия на наборе удовлетворяющем условиям
         /// </summary>		
@@ -198,20 +234,28 @@ namespace CommonLibrary
         //--------------------------------------------------------------------------------------
         protected abstract bool NextElement(int pPosition);
         //--------------------------------------------------------------------------------------
-        protected abstract string ShowElementAsString(T pElement);
+        protected virtual string ShowElementAsString(T pElement)
+        {
+            return pElement.ToString();
+        }
         //--------------------------------------------------------------------------------------
-        protected abstract string ShowElementAsShortString(T pElement);
+        protected virtual string ShowElementAsShortString(T pElement)
+        {
+            return pElement.ToString();
+        }
         //--------------------------------------------------------------------------------------
-        protected abstract string ShowElementAsFullString(T pElement);
+        protected virtual string ShowElementAsFullString(T pElement)
+        {
+            return pElement.ToString();
+        }
         //--------------------------------------------------------------------------------------
         public virtual string ShowString
         {
             get
             {
-                string rr = string.Empty;
-                for (int i = 0; i < _fCurrentSet.Count; i++)
-                    rr += ShowElementAsString(_fCurrentSet[i]) + "  *  ";
-                return rr;
+                if (_fCurrentSet != null && _fCurrentSet.Count > 0)
+                    return string.Join(",", _fCurrentSet.Select(i => ShowElementAsString(i)));
+                return "Empty";
             }
         }
         //--------------------------------------------------------------------------------------
@@ -219,10 +263,9 @@ namespace CommonLibrary
         {
             get
             {
-                string rr = string.Empty;
-                for (int i = 0; i < _fCurrentSet.Count; i++)
-                    rr += ShowElementAsShortString(_fCurrentSet[i]) + " # ";
-                return rr;
+                if (_fCurrentSet != null && _fCurrentSet.Count > 0)
+                    return string.Join(",", _fCurrentSet.Select(i => ShowElementAsShortString(i)));
+                return "Empty";
             }
         }
         //--------------------------------------------------------------------------------------
@@ -230,10 +273,41 @@ namespace CommonLibrary
         {
             get
             {
-                string rr = string.Empty;
-                for (int i = 0; i < _fCurrentSet.Count; i++)
-                    rr += ShowElementAsFullString(_fCurrentSet[i]) + " # ";
-                return rr;
+                if (_fCurrentSet != null && _fCurrentSet.Count > 0)
+                    return string.Join(",", _fCurrentSet.Select(i => ShowElementAsFullString(i)));
+                return "Empty"; 
+            }
+        }
+        //--------------------------------------------------------------------------------------
+        public string RouteAsString
+        {
+            get
+            {
+                return ShowString;
+            }
+        }
+        //-----------------------------------------------------------------------------------
+        public virtual string OptimalRouteAsString
+        {
+            get
+            {
+                return "";
+            }
+        }
+        //-----------------------------------------------------------------------------------
+        public virtual string OutputPresentation
+        {
+            get
+            {
+                return "";
+            }
+        }
+        //--------------------------------------------------------------------------------------
+        public virtual R OptimalValue
+        {
+            get
+            {
+                return default(R);
             }
         }
         //--------------------------------------------------------------------------------------

@@ -54,6 +54,7 @@ namespace FindingRegulatoryMotifs.Enumeration
                 {
                     if (currentDistance <= _acceptibleDistance)
                     {
+                        fUpdateOptcount++;
                         _motif = _candidateMotif.ToList();
                         _listOfMotif.Add(_motif);
                         _solutionStartPosition = _fCurrentSet.ToArray();
@@ -65,6 +66,7 @@ namespace FindingRegulatoryMotifs.Enumeration
                 {
                     if (currentDistance < _currentBestValue)
                     {
+                        fUpdateOptcount++;
                         _currentBestValue = currentDistance;
                         _motif = _fCurrentSet.Select( i => _charSet[i]).ToList();
                         _listOfMotif.Clear();
@@ -75,6 +77,7 @@ namespace FindingRegulatoryMotifs.Enumeration
                     }
                     if (_isAllResult && currentDistance == _currentBestValue)
                     {
+                        fUpdateOptcount++;
                         _listOfMotif.Add(_fCurrentSet.Select(i => _charSet[i]).ToList());
                         _solutionStartPositionList.Add(_positionInSequence.ToArray());
                     }
@@ -106,6 +109,34 @@ namespace FindingRegulatoryMotifs.Enumeration
             }
             _positionInSequence[pNumberSequence] = bestPosition;
             return bestDistance;
+        }
+        //-----------------------------------------------------------------------------------
+        public override string OptimalRouteAsString
+        {
+            get
+            {
+                if (_fCurrentSet != null && _fCurrentSet.Count > 0)
+                    return string.Join(",", _fCurrentSet.Select(i => i.ToString()));
+                return "Empty";
+            }
+        }
+        //-----------------------------------------------------------------------------------
+        public override string OutputPresentation
+        {
+            get
+            {
+                if (_motif != null && _motif.Count > 0)
+                    return string.Join(",", _motif.Select(i => i.ToString()));
+                return "Empty";
+            }
+        }
+        //--------------------------------------------------------------------------------------
+        public override int OptimalValue
+        {
+            get
+            {
+                return _currentBestValue;
+            }
         }
         //--------------------------------------------------------------------------------------
     }

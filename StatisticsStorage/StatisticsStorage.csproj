@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FB95CB8C-1245-4E5E-99DD-1FBA84EAC086}</ProjectGuid>
+    <ProjectGuid>{475C38D6-BD97-455C-A52D-AFA461C533F7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FindingRegulatoryMotifs</RootNamespace>
-    <AssemblyName>FindingRegulatoryMotifs</AssemblyName>
+    <RootNamespace>StatisticsStorage</RootNamespace>
+    <AssemblyName>StatisticsStorage</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -41,22 +40,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enumeration\RegulatoryMotifsBoundaryBranchEnumeration.cs" />
-    <Compile Include="Enumeration\RegulatoryMotifsPatternEnumeration.cs" />
-    <Compile Include="Enumeration\RegulatoryMotifsSubSequencesEnumeration.cs" />
+    <Compile Include="Accumulators\DNAMappingPerfomance.cs" />
+    <Compile Include="Accumulators\DNAMappingStatisticAccumulator.cs" />
+    <Compile Include="Accumulators\RegulatoryMotifPerfomance.cs" />
+    <Compile Include="Accumulators\RegulatoryMotifsStatisticAccumulator.cs" />
+    <Compile Include="Accumulators\StatisyicsPerfomance.cs" />
+    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RegulatoryMotifsBase.cs" />
-    <Compile Include="RegulatoryMotifsSubSequences.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BaseContract\BaseContract.csproj">
-      <Project>{b8c5feda-931e-439f-9661-d533d482352b}</Project>
-      <Name>BaseContract</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CommonLibrary\CommonLibrary.csproj">
-      <Project>{6208c3eb-138f-4b2e-93a8-6469d8a75379}</Project>
-      <Name>CommonLibrary</Name>
-    </ProjectReference>
+    <Folder Include="Savers\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

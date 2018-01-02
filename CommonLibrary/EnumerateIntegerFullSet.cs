@@ -9,7 +9,7 @@ namespace CommonLibrary
     //--------------------------------------------------------------------------------------
     // class EnumerateIntegerFullSet 
     //--------------------------------------------------------------------------------------
-    public class EnumerateIntegerFullSet : EnumerateSetOnPosition<int>
+    public class EnumerateIntegerFullSet : EnumerateSetOnPosition<int,int>
     {
         protected int _fSize;
         protected int _fLimit;
@@ -63,9 +63,12 @@ namespace CommonLibrary
         /// </summary>		
         protected override bool IsCompleteCondition()
         {
-            _fIterationCount++;
+//            _fIterationCount++;
             if (_fCurrentPosition >= _fSize - 1)
+            {
+//                fCountTerminal++;
                 return true;
+            }
             return false;
         }
         //--------------------------------------------------------------------------------------

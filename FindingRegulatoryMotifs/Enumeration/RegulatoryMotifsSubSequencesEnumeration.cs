@@ -71,6 +71,7 @@ namespace FindingRegulatoryMotifs.Enumeration
                 {
                     if (currentDistance <= _acceptibleDistance)
                     {
+                        fUpdateOptcount++;
                         _motif = _candidateMotif.ToList();
                         _listOfMotif.Add(_motif);
                         _solutionStartPosition = _fCurrentSet.ToArray();
@@ -82,6 +83,7 @@ namespace FindingRegulatoryMotifs.Enumeration
                 {
                     if (currentDistance < _currentBestValue)
                     {
+                        fUpdateOptcount++;
                         _currentBestValue = currentDistance;
                         _motif = _candidateMotif.ToList();
                         _listOfMotif.Clear();
@@ -92,6 +94,7 @@ namespace FindingRegulatoryMotifs.Enumeration
                     }
                     if (_isAllResult && currentDistance == _currentBestValue)
                     {
+                        fUpdateOptcount++;
                         _listOfMotif.Add(_candidateMotif.ToList());
                         _solutionStartPositionList.Add(_fCurrentSet.ToArray());
                     }
@@ -129,6 +132,35 @@ namespace FindingRegulatoryMotifs.Enumeration
                     distance++;
             }
             return distance;
+        }
+        //-----------------------------------------------------------------------------------
+        public override string OptimalRouteAsString
+        {
+            get
+            {
+                if (_fCurrentSet != null && _fCurrentSet.Count > 0)
+                    return string.Join(",", _fCurrentSet.Select(i => i.ToString()));
+                return "Empty";
+            }
+        }
+        //-----------------------------------------------------------------------------------
+        public override string OutputPresentation
+        {
+            get
+            {
+                if (_motif != null && _motif.Count > 0)
+                    return string.Join(",", _motif.Select(i => i.ToString()));
+                return "Empty";
+            }
+        }
+
+        //--------------------------------------------------------------------------------------
+        public override int OptimalValue
+        {
+            get
+            {
+                return _currentBestValue;
+            }
         }
         //--------------------------------------------------------------------------------------
     }
