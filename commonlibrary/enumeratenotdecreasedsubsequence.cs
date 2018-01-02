@@ -9,7 +9,7 @@ namespace CommonLibrary
     //--------------------------------------------------------------------------------------
     // class EnumerateNotDecreasedSubSequence 
     //--------------------------------------------------------------------------------------
-    public class EnumerateNotDecreasedSubSequence : EnumerateSetOnPosition<int>
+    public class EnumerateNotDecreasedSubSequence : EnumerateSetOnPosition<int,int>
     {
         protected int _fSize;
         protected int _fLimit;
@@ -64,7 +64,10 @@ namespace CommonLibrary
         {
             _fIterationCount++;
             if (_fCurrentPosition >= _fSize - 1)
+            {
+                fCountTerminal++;
                 return true;
+            }
             return false;
         }
         //--------------------------------------------------------------------------------------
