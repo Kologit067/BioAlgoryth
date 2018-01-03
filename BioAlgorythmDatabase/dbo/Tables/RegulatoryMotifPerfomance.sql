@@ -1,6 +1,9 @@
 ﻿CREATE TABLE [dbo].[RegulatoryMotifPerfomance] (
     [RegulatoryMotifPerfomanceId] INT            IDENTITY (1, 1) NOT NULL,
     [Size]                        INT            NOT NULL,
+    [NumberOdSequence]            INT            NOT NULL,
+    [averageSequenceLength]       INT            NOT NULL,
+    [MotifLength]                 INT            NOT NULL,
     [InputData]                   NVARCHAR (MAX) NOT NULL,
     [OutputPresentation]          NVARCHAR (MAX) NOT NULL,
     [Algorithm]                   NVARCHAR (MAX) NOT NULL,
@@ -11,10 +14,14 @@
     [IsComplete]                  BIT            NULL,
     [LastRoute]                   VARCHAR (500)  NULL,
     [OptimalRoute]                VARCHAR (500)  NULL,
+    [OptimalValue]                INT            NULL,
+    [StartPosition]               VARCHAR (500)  NULL,
+    [Motif]                       VARCHAR (500)  NULL,
     [CountTerminal]               INT            NULL,
     [UpdateOptcount]              INT            NULL,
     [ElemenationCount]            INT            NULL,
-    [OptimalValue]                INT            NULL,
     PRIMARY KEY CLUSTERED ([RegulatoryMotifPerfomanceId] ASC)
 );
+
+
 
