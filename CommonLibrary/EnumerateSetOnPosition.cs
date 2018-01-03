@@ -26,24 +26,24 @@ namespace CommonLibrary
         //        return _fIterationCount;
         //    }
         //}
-        ////--------------------------------------------------------------------------------------
-        //protected long _fDurationMilliSeconds;
-        //public long DurationMilliSeconds
-        //{
-        //    get
-        //    {
-        //        return _fDurationMilliSeconds;
-        //    }
-        //}
-        ////--------------------------------------------------------------------------------------
-        //protected long _fElapsedTicks;
-        //public long ElapsedTicks
-        //{
-        //    get
-        //    {
-        //        return _fElapsedTicks;
-        //    }
-        //}
+        //--------------------------------------------------------------------------------------
+        protected long _fDurationMilliSeconds;
+        public long DurationMilliSeconds
+        {
+            get
+            {
+                return _fDurationMilliSeconds;
+            }
+        }
+        //--------------------------------------------------------------------------------------
+        protected long _fElapsedTicks;
+        public long ElapsedTicks
+        {
+            get
+            {
+                return _fElapsedTicks;
+            }
+        }
         //--------------------------------------------------------------------------------------
         protected bool fOutQueryStop = false;			// 
         public bool IsComplete

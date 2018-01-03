@@ -8,5 +8,9 @@ namespace BaseContract
 {
     public interface IRegulatoryMotifsStatisticAccumulator
     {
+        void IterationCountInc();
+        void TerminalCountInc();
+        void UpdateOptcountInc();
+        void ElemenationCountInc();
     }
 }

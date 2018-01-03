@@ -10,5 +10,7 @@ namespace BaseContract
     {
         void IterationCountInc();
         void TerminalCountInc();
+        void UpdateOptcountInc();
+        void ElemenationCountInc();
     }
 }

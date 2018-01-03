@@ -73,5 +73,15 @@ namespace StatisticsStorage.Accumulators
             fCountTerminal++;
         }
         //--------------------------------------------------------------------------------------
+        public void UpdateOptcountInc()
+        {
+            fUpdateOptcount++;
+        }
+        //--------------------------------------------------------------------------------------
+        public void ElemenationCountInc()
+        {
+            fElemenationCount++;
+        }
+        //--------------------------------------------------------------------------------------
     }
 }

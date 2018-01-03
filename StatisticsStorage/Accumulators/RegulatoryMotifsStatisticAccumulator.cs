@@ -20,5 +20,25 @@ namespace StatisticsStorage.Accumulators
             _currentRegulatoryMotifPerfomance = new RegulatoryMotifPerfomance();
             _regulatoryMotifPerfomances.Add(_currentRegulatoryMotifPerfomance);
         }
+        //--------------------------------------------------------------------------------------------------------------------
+        public void IterationCountInc()
+        {
+            _currentRegulatoryMotifPerfomance.IterationCountInc();
+        }
+        //--------------------------------------------------------------------------------------------------------------------
+        public void TerminalCountInc()
+        {
+            _currentRegulatoryMotifPerfomance.TerminalCountInc();
+        }
+        //--------------------------------------------------------------------------------------------------------------------
+        public void UpdateOptcountInc()
+        {
+            _currentRegulatoryMotifPerfomance.UpdateOptcountInc();
+        }
+        //--------------------------------------------------------------------------------------------------------------------
+        public void ElemenationCountInc()
+        {
+            _currentRegulatoryMotifPerfomance.ElemenationCountInc();
+        }
     }
 }

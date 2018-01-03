@@ -1,4 +1,5 @@
-﻿using CommonLibrary;
+﻿using BaseContract;
+using CommonLibrary;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,7 @@ namespace FindingRegulatoryMotifs.Enumeration
         protected char[][] _sequenceLIst;
         protected int _patternLength;
         protected int[] _positionInSequence;
+        public IRegulatoryMotifsStatisticAccumulator StatisticAccumulator { get; set; }
         //--------------------------------------------------------------------------------------
         public RegulatoryMotifsPatternEnumeration(char[] pCharSet, char[][] pSequenceLIst, int pPatternLength, bool pIsAllResult = true, bool pIsOptimizitaion = false, bool pIsSumAsCriteria = false, int pAcceptibleDistance = 0)
             : base(pCharSet, pPatternLength, 0)
@@ -54,7 +56,7 @@ namespace FindingRegulatoryMotifs.Enumeration
                 {
                     if (currentDistance <= _acceptibleDistance)
                     {
-                        fUpdateOptcount++;
+                        StatisticAccumulator.UpdateOptcountInc();
                         _motif = _candidateMotif.ToList();
                         _listOfMotif.Add(_motif);
                         _solutionStartPosition = _fCurrentSet.ToArray();
@@ -66,7 +68,7 @@ namespace FindingRegulatoryMotifs.Enumeration
                 {
                     if (currentDistance < _currentBestValue)
                     {
-                        fUpdateOptcount++;
+                        StatisticAccumulator.UpdateOptcountInc();
                         _currentBestValue = currentDistance;
                         _motif = _fCurrentSet.Select( i => _charSet[i]).ToList();
                         _listOfMotif.Clear();
@@ -77,7 +79,7 @@ namespace FindingRegulatoryMotifs.Enumeration
                     }
                     if (_isAllResult && currentDistance == _currentBestValue)
                     {
-                        fUpdateOptcount++;
+                        StatisticAccumulator.UpdateOptcountInc();
                         _listOfMotif.Add(_fCurrentSet.Select(i => _charSet[i]).ToList());
                         _solutionStartPositionList.Add(_positionInSequence.ToArray());
                     }
@@ -85,6 +87,16 @@ namespace FindingRegulatoryMotifs.Enumeration
                 }
             }
             return false;
+        }
+        //--------------------------------------------------------------------------------------
+        protected override void IterationAction()
+        {
+            StatisticAccumulator.IterationCountInc();
+        }
+        //--------------------------------------------------------------------------------------
+        protected override void TerminalAction()
+        {
+            StatisticAccumulator.TerminalCountInc();
         }
         //--------------------------------------------------------------------------------------
         private int DefineBestSubstringAndDistance(int pNumberSequence)

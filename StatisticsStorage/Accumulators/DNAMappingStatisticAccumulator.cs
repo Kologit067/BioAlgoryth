@@ -36,5 +36,15 @@ namespace StatisticsStorage.Accumulators
             _currentDNAMappingPerfomance.TerminalCountInc();
         }
         //--------------------------------------------------------------------------------------------------------------------
+        public void UpdateOptcountInc()
+        {
+            _currentDNAMappingPerfomance.UpdateOptcountInc();
+        }
+        //--------------------------------------------------------------------------------------------------------------------
+        public void ElemenationCountInc()
+        {
+            _currentDNAMappingPerfomance.ElemenationCountInc();
+        }
+        //--------------------------------------------------------------------------------------------------------------------
     }
 }

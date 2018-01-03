@@ -1,4 +1,5 @@
-﻿using CommonLibrary;
+﻿using BaseContract;
+using CommonLibrary;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -34,6 +35,7 @@ namespace DNAMapping.Enumeration.DNA
                 return _listOfSolution;
             }
         }
+        public IDNAMappingStatisticAccumulator StatisticAccumulator { get; set; }
         //--------------------------------------------------------------------------------------
         public EnumerateDNAMappingBranchBoundary(int[] pairwiseDifferences, bool pIsAllResult = true)
             : base(pairwiseDifferences.Length, DNAMappingBase.DefineRestrictionMapSizeFromDifferencesSize(pairwiseDifferences.Length), 0, 1)
@@ -48,12 +50,12 @@ namespace DNAMapping.Enumeration.DNA
         //--------------------------------------------------------------------------------------
         protected override bool IsCompleteCondition()
         {
-            _fIterationCount++;
+            StatisticAccumulator.IterationCountInc();
             if (_fCurrentPosition == 0)
                 return false;
             if (_fCurrentSet[0] > 0 || !ChaeckCurrentPart())
             {
-                fCountTerminal++;
+                StatisticAccumulator.TerminalCountInc();
                 return true;
             }
             if (_fCurrentPosition >= _fSize - 1)
@@ -61,13 +63,13 @@ namespace DNAMapping.Enumeration.DNA
                 if (_solution == null)
                     _solution = _fCurrentSet.Select(s => _pairwiseDifferences[s]).ToList();
                 _listOfSolution.Add(_fCurrentSet.Select(s => _pairwiseDifferences[s]).ToList());
-                fCountTerminal++;
-                fUpdateOptcount++;
+                StatisticAccumulator.TerminalCountInc();
+                StatisticAccumulator.UpdateOptcountInc();
                 return true;
             }
             else if (_fCurrentSet[_fCurrentPosition] + _forwardAdditive > _fLimit)
             {
-                fCountTerminal++;
+                StatisticAccumulator.TerminalCountInc();
                 return true;
             }
             return false;
@@ -93,7 +95,7 @@ namespace DNAMapping.Enumeration.DNA
                             throw new Exception("Logical error in EnumerateDNAMappingBranchBoundary.ChaeckCurrentPart (Restore state)");
                         revElement.IsIncluded = false;
                     }
-                    fElemenationCount++;
+                    StatisticAccumulator.ElemenationCountInc();
                     return false;
                 }
                 element.IsIncluded = true;

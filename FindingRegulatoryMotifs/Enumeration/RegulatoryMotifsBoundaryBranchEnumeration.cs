@@ -29,6 +29,7 @@ namespace FindingRegulatoryMotifs.Enumeration
         protected int _patternLength;
         protected int _sequenceLIstLength;
         protected int _currentDistance;
+        public IRegulatoryMotifsStatisticAccumulator StatisticAccumulator { get; set; }
         //--------------------------------------------------------------------------------------
         public RegulatoryMotifsBoundaryBranchEnumeration(char[] pCharSet, char[][] pSequenceLIst, int pPatternLength, bool pIsAllResult = true, bool pIsOptimizitaion = false, bool pIsSumAsCriteria = false, int pAcceptibleDistance = 0)
             : base(pCharSet, pPatternLength, 0)
@@ -48,12 +49,12 @@ namespace FindingRegulatoryMotifs.Enumeration
         //--------------------------------------------------------------------------------------
         protected override bool IsCompleteCondition()
         {
-            _fIterationCount++;
+            this.StatisticAccumulator.IterationCountInc();
             if (_fCurrentPosition == 0)
                 return false;
             if (_fCurrentSet[0] > 0 || !ChaeckCurrentPart())
             {
-                fCountTerminal++;
+                StatisticAccumulator.TerminalCountInc();
                 return true;
             }
             if (_fCurrentPosition >= _fSize - 1)
@@ -65,7 +66,7 @@ namespace FindingRegulatoryMotifs.Enumeration
                     _solutionStartPosition = _fCurrentSet.ToArray();
                     _solutionStartPositionList.Add(_solutionStartPosition);
                     if (!_isAllResult)
-                        fCountTerminal++;
+                        StatisticAccumulator.TerminalCountInc();
                     return !_isAllResult;
                 }
                 else
@@ -79,22 +80,21 @@ namespace FindingRegulatoryMotifs.Enumeration
                         _solutionStartPosition = _positionInSequence.ToArray();
                         _solutionStartPositionList.Clear();
                         _solutionStartPositionList.Add(_solutionStartPosition);
-                        fUpdateOptcount++;
+                        StatisticAccumulator.UpdateOptcountInc();
                     }
-                    fUpdateOptcount++;
                     if (_isAllResult && _currentDistance == _currentBestValue)
                     {
                         _listOfMotif.Add(_fCurrentSet.Select(i => _charSet[i]).ToList());
                         _solutionStartPositionList.Add(_positionInSequence.ToArray());
                     }
                     if (!_isAllResult && _currentBestValue == 0)
-                        fCountTerminal++;
+                        StatisticAccumulator.TerminalCountInc();
                     return !_isAllResult && _currentBestValue == 0;
                 }
             }
             else if (_fCurrentSet[_fCurrentPosition] > _fLimit)
             {
-                fCountTerminal++;
+                StatisticAccumulator.TerminalCountInc();
                 return true;
             }
             return false;
@@ -112,7 +112,7 @@ namespace FindingRegulatoryMotifs.Enumeration
             {
                 if (_currentDistance > _acceptibleDistance)
                 {
-                    fElemenationCount++;
+                    StatisticAccumulator.ElemenationCountInc();
                     return false;
                 }
             }
@@ -120,7 +120,7 @@ namespace FindingRegulatoryMotifs.Enumeration
             {
                 if (_currentDistance > _currentBestValue || _isAllResult && _currentDistance == _currentBestValue)
                 {
-                    fElemenationCount++;
+                    StatisticAccumulator.ElemenationCountInc();
                     return false;
                 }
             }
@@ -145,7 +145,7 @@ namespace FindingRegulatoryMotifs.Enumeration
                         _listOfMotif.Add(_motif);
                         _solutionStartPosition = _fCurrentSet.ToArray();
                         _solutionStartPositionList.Add(_solutionStartPosition);
-                        fUpdateOptcount++;
+                        StatisticAccumulator.UpdateOptcountInc();
                         return !_isAllResult;
                     }
                 }
@@ -160,13 +160,13 @@ namespace FindingRegulatoryMotifs.Enumeration
                         _solutionStartPosition = _positionInSequence.ToArray();
                         _solutionStartPositionList.Clear();
                         _solutionStartPositionList.Add(_solutionStartPosition);
-                        fUpdateOptcount++;
+                        StatisticAccumulator.UpdateOptcountInc();
                     }
                     if (_isAllResult && _currentDistance == _currentBestValue)
                     {
                         _listOfMotif.Add(_fCurrentSet.Select(i => _charSet[i]).ToList());
                         _solutionStartPositionList.Add(_positionInSequence.ToArray());
-                        fUpdateOptcount++;
+                        StatisticAccumulator.UpdateOptcountInc();
                     }
                     return !_isAllResult && _currentBestValue == 0;
                 }
@@ -226,8 +226,6 @@ namespace FindingRegulatoryMotifs.Enumeration
                 return _currentBestValue;
             }
         }
-        //--------------------------------------------------------------------------------------
-        public IRegulatoryMotifsStatisticAccumulator StatisticAccumulator { get; set; }
         //--------------------------------------------------------------------------------------
     }
     //--------------------------------------------------------------------------------------

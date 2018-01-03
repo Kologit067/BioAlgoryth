@@ -49,7 +49,7 @@ namespace DNAMapping.Enumeration.DNA
                 var pairwiseDifferencesForCurrentSet = DNAMappingBase.ProduceMatrix(_fCurrentSet);
                 if (_pairwiseDifferences.SequenceEqual(pairwiseDifferencesForCurrentSet.OrderBy(d=>d)))
                 {
-                    fUpdateOptcount++;
+                    StatisticAccumulator.UpdateOptcountInc();
                     if (_solution == null)
                         _solution = _fCurrentSet.ToList();
                     _listOfSolution.Add(_fCurrentSet.ToList());
