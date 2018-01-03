@@ -12,5 +12,6 @@ namespace BaseContract
         void TerminalCountInc();
         void UpdateOptcountInc();
         void ElemenationCountInc();
+        void CreateStatistics(int size, string inputData, string algorithm);
     }
 }

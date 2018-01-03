@@ -15,9 +15,9 @@ namespace StatisticsStorage.Accumulators
         {
             _regulatoryMotifPerfomances = new List<RegulatoryMotifPerfomance>();
         }
-        public void CreateStatistics()
+        public void CreateStatistics(int size, string inputData, string algorithm)
         {
-            _currentRegulatoryMotifPerfomance = new RegulatoryMotifPerfomance();
+            _currentRegulatoryMotifPerfomance = new RegulatoryMotifPerfomance(size, inputData, algorithm);
             _regulatoryMotifPerfomances.Add(_currentRegulatoryMotifPerfomance);
         }
         //--------------------------------------------------------------------------------------------------------------------
@@ -40,5 +40,14 @@ namespace StatisticsStorage.Accumulators
         {
             _currentRegulatoryMotifPerfomance.ElemenationCountInc();
         }
+        //--------------------------------------------------------------------------------------------------------------------
+        public void AddRegulatoryMotifOptimalValueChange(long duration, long durationMilliSeconds,
+            int optimalValue, string startPosition, string motif)
+        {
+            _currentRegulatoryMotifPerfomance.RegulatoryMotifOptimalValueChanges.Add(new RegulatoryMotifOptimalValueChange
+            (_currentRegulatoryMotifPerfomance.IterationCount, duration, durationMilliSeconds, optimalValue, startPosition, motif);
+        }
+        //--------------------------------------------------------------------------------------------------------------------
     }
+    //--------------------------------------------------------------------------------------------------------------------
 }

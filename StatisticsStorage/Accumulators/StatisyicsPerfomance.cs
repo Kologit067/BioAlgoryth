@@ -6,8 +6,38 @@ using System.Threading.Tasks;
 
 namespace StatisticsStorage.Accumulators
 {
+    //--------------------------------------------------------------------------------------
+    // class StatisyicsPerfomance
+    //--------------------------------------------------------------------------------------
     public class StatisyicsPerfomance
     {
+        //--------------------------------------------------------------------------------------
+        protected int _size;
+        public int Size
+        {
+            get
+            {
+                return _size;
+            }
+        }
+        //--------------------------------------------------------------------------------------
+        protected string _inputData;
+        public string InputData
+        {
+            get
+            {
+                return _inputData;
+            }
+        }
+        //--------------------------------------------------------------------------------------
+        protected string _algorithm;
+        public string Algorithm
+        {
+            get
+            {
+                return _algorithm;
+            }
+        }
         //--------------------------------------------------------------------------------------
         protected long _fIterationCount;
         public long IterationCount
@@ -81,6 +111,13 @@ namespace StatisticsStorage.Accumulators
         public void ElemenationCountInc()
         {
             fElemenationCount++;
+        }
+        //--------------------------------------------------------------------------------------
+        public StatisyicsPerfomance(int size,string inputData, string algorithm)
+        {
+            _size = size;
+            _inputData = inputData;
+            _algorithm = algorithm;
         }
         //--------------------------------------------------------------------------------------
     }

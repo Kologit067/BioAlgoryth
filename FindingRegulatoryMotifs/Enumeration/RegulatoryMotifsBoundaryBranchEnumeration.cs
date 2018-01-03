@@ -13,22 +13,27 @@ namespace FindingRegulatoryMotifs.Enumeration
     //--------------------------------------------------------------------------------------
     public class RegulatoryMotifsBoundaryBranchEnumeration : EnumerateIntegerCharSet
     {
-        protected int _acceptibleDistance;
-        protected List<char> _motif = null;
-        protected List<List<char>> _listOfMotif = new List<List<char>>();
-        protected char[] _candidateMotif = null;
-        protected int _currentBestValue;
-        protected int[] _currentBestValueList;
-        protected int[] _solutionStartPosition;
-        protected List<int[]> _solutionStartPositionList;
-        protected int[] _positionInSequence;
+        // parameters
         protected bool _isOptimizitaion;
         protected bool _isSumAsCriteria;
         protected bool _isAllResult;
+        // input 
+        protected int _acceptibleDistance;
         protected char[][] _sequenceLIst;
         protected int _patternLength;
         protected int _sequenceLIstLength;
+        // working variables
+        protected char[] _candidateMotif = null;
+        protected int[] _positionInSequence;
         protected int _currentDistance;
+        //results
+        protected int _currentBestValue;
+        protected int[] _currentBestValueList;
+        protected List<char> _motif = null;
+        protected List<List<char>> _listOfMotif = new List<List<char>>();
+        protected int[] _solutionStartPosition;
+        protected List<int[]> _solutionStartPositionList;
+
         public IRegulatoryMotifsStatisticAccumulator StatisticAccumulator { get; set; }
         //--------------------------------------------------------------------------------------
         public RegulatoryMotifsBoundaryBranchEnumeration(char[] pCharSet, char[][] pSequenceLIst, int pPatternLength, bool pIsAllResult = true, bool pIsOptimizitaion = false, bool pIsSumAsCriteria = false, int pAcceptibleDistance = 0)
@@ -81,6 +86,8 @@ namespace FindingRegulatoryMotifs.Enumeration
                         _solutionStartPositionList.Clear();
                         _solutionStartPositionList.Add(_solutionStartPosition);
                         StatisticAccumulator.UpdateOptcountInc();
+                        StatisticAccumulator.AddRegulatoryMotifOptimalValueChange(stopwatch.ElapsedTicks, stopwatch.ElapsedMilliseconds,
+                        _currentBestValue, string.Join(",", _solutionStartPosition.Select(s => s.ToString())), string.Join(",", _motif.Select(s => s.ToString())));
                     }
                     if (_isAllResult && _currentDistance == _currentBestValue)
                     {
@@ -146,6 +153,8 @@ namespace FindingRegulatoryMotifs.Enumeration
                         _solutionStartPosition = _fCurrentSet.ToArray();
                         _solutionStartPositionList.Add(_solutionStartPosition);
                         StatisticAccumulator.UpdateOptcountInc();
+                        StatisticAccumulator.AddRegulatoryMotifOptimalValueChange(stopwatch.ElapsedTicks, stopwatch.ElapsedMilliseconds,
+                        _currentBestValue, string.Join(",", _solutionStartPosition.Select(s => s.ToString())), string.Join(",", _motif.Select(s => s.ToString())));
                         return !_isAllResult;
                     }
                 }
@@ -161,12 +170,16 @@ namespace FindingRegulatoryMotifs.Enumeration
                         _solutionStartPositionList.Clear();
                         _solutionStartPositionList.Add(_solutionStartPosition);
                         StatisticAccumulator.UpdateOptcountInc();
+                        StatisticAccumulator.AddRegulatoryMotifOptimalValueChange(stopwatch.ElapsedTicks, stopwatch.ElapsedMilliseconds,
+                        _currentBestValue, string.Join(",", _solutionStartPosition.Select(s => s.ToString())), string.Join(",", _motif.Select(s => s.ToString())));
                     }
                     if (_isAllResult && _currentDistance == _currentBestValue)
                     {
                         _listOfMotif.Add(_fCurrentSet.Select(i => _charSet[i]).ToList());
                         _solutionStartPositionList.Add(_positionInSequence.ToArray());
                         StatisticAccumulator.UpdateOptcountInc();
+                        StatisticAccumulator.AddRegulatoryMotifOptimalValueChange(stopwatch.ElapsedTicks, stopwatch.ElapsedMilliseconds,
+                       _currentBestValue, string.Join(",", _solutionStartPosition.Select(s => s.ToString())), string.Join(",", _motif.Select(s => s.ToString())));
                     }
                     return !_isAllResult && _currentBestValue == 0;
                 }
@@ -197,6 +210,17 @@ namespace FindingRegulatoryMotifs.Enumeration
             _positionInSequence[pNumberSequence] = bestPosition;
             _currentBestValueList[pNumberSequence] = bestDistance;
             return bestDistance;
+        }
+        //-----------------------------------------------------------------------------------
+        protected override void SupplementInitial()
+        {
+            StatisticAccumulator.CreateStatistics(_fSize, string.Join(",", _sequenceLIst.Select(s => new string(s))), "");
+        }
+        //-----------------------------------------------------------------------------------
+        protected override void PostAction()
+        {
+            StatisticAccumulator.SaveStatisticData(OutputPresentation, _currentBestValue, ElapsedTicks, DurationMilliSeconds, DateTime.Now,
+                IsComplete, CurrentSetAsString, OptimalRouteAsString);
         }
         //-----------------------------------------------------------------------------------
         public override string OptimalRouteAsString

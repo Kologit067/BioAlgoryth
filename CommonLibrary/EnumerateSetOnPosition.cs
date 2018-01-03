@@ -195,6 +195,11 @@ namespace CommonLibrary
         protected abstract void SupplementInitial();
         //--------------------------------------------------------------------------------------
         /// <summary>
+        /// action after excecution
+        /// </summary>
+        protected abstract void PostAction();
+        //--------------------------------------------------------------------------------------
+        /// <summary>
         /// произвети действия необходимые при удалениии
         /// (если есть в данной реализации)
         /// </summary>
@@ -275,7 +280,17 @@ namespace CommonLibrary
             {
                 if (_fCurrentSet != null && _fCurrentSet.Count > 0)
                     return string.Join(",", _fCurrentSet.Select(i => ShowElementAsFullString(i)));
-                return "Empty"; 
+                return "Empty";
+            }
+        }
+        //--------------------------------------------------------------------------------------
+        public string CurrentSetAsString
+        {
+            get
+            {
+                if (_fCurrentSet != null && _fCurrentSet.Count > 0)
+                    return string.Join(",", _fCurrentSet.Select(i => i.ToString()));
+                return "Empty";
             }
         }
         //--------------------------------------------------------------------------------------

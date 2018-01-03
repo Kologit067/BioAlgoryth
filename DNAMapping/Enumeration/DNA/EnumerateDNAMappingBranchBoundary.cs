@@ -135,6 +135,17 @@ namespace DNAMapping.Enumeration.DNA
             return false;
         }
         //-----------------------------------------------------------------------------------
+        protected override void SupplementInitial()
+        {
+            StatisticAccumulator.CreateStatistics(_fSize, string.Join(",", _pairwiseDifferences.Select(p => p.ToString())), "");
+        }
+        //-----------------------------------------------------------------------------------
+        protected override void PostAction()
+        {
+            StatisticAccumulator.SaveStatisticData(OutputPresentation, ElapsedTicks, DurationMilliSeconds, DateTime.Now,
+                IsComplete, CurrentSetAsString, OptimalRouteAsString);
+        }
+        //-----------------------------------------------------------------------------------
         public override string OptimalRouteAsString
         {
             get

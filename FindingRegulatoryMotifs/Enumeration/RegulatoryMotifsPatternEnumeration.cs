@@ -61,6 +61,8 @@ namespace FindingRegulatoryMotifs.Enumeration
                         _listOfMotif.Add(_motif);
                         _solutionStartPosition = _fCurrentSet.ToArray();
                         _solutionStartPositionList.Add(_solutionStartPosition);
+                        StatisticAccumulator.AddRegulatoryMotifOptimalValueChange(stopwatch.ElapsedTicks, stopwatch.ElapsedMilliseconds,
+                        _currentBestValue, string.Join(",", _solutionStartPosition.Select(s => s.ToString())), string.Join(",", _motif.Select(s => s.ToString())));
                         return !_isAllResult;
                     }
                 }
@@ -76,12 +78,16 @@ namespace FindingRegulatoryMotifs.Enumeration
                         _solutionStartPosition = _positionInSequence.ToArray();
                         _solutionStartPositionList.Clear();
                         _solutionStartPositionList.Add(_solutionStartPosition);
+                        StatisticAccumulator.AddRegulatoryMotifOptimalValueChange(stopwatch.ElapsedTicks, stopwatch.ElapsedMilliseconds,
+                        _currentBestValue, string.Join(",", _solutionStartPosition.Select(s => s.ToString())), string.Join(",", _motif.Select(s => s.ToString())));
                     }
                     if (_isAllResult && currentDistance == _currentBestValue)
                     {
                         StatisticAccumulator.UpdateOptcountInc();
                         _listOfMotif.Add(_fCurrentSet.Select(i => _charSet[i]).ToList());
                         _solutionStartPositionList.Add(_positionInSequence.ToArray());
+                        StatisticAccumulator.AddRegulatoryMotifOptimalValueChange(stopwatch.ElapsedTicks, stopwatch.ElapsedMilliseconds,
+                       _currentBestValue, string.Join(",", _solutionStartPosition.Select(s => s.ToString())), string.Join(",", _motif.Select(s => s.ToString())));
                     }
                     return !_isAllResult && _currentBestValue == 0;
                 }

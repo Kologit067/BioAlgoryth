@@ -7,8 +7,65 @@ using System.Threading;
 
 namespace StatisticsStorage.Accumulators
 {
+    //--------------------------------------------------------------------------------------
+    // class RegulatoryMotifPerfomance
+    //--------------------------------------------------------------------------------------
     public class RegulatoryMotifPerfomance : StatisyicsPerfomance
     {
-
+        //--------------------------------------------------------------------------------------
+        protected int _averageSequenceLength;
+        public int AverageSequenceLength
+        {
+            get
+            {
+                return _averageSequenceLength;
+            }
+        }
+        //--------------------------------------------------------------------------------------
+        protected int _motifLength;
+        public int MotifLength
+        {
+            get
+            {
+                return _motifLength;
+            }
+        }
+        //--------------------------------------------------------------------------------------
+        protected int _numberOdSequence;
+        public int NumberOdSequence
+        {
+            get
+            {
+                return _numberOdSequence;
+            }
+        }
+        //--------------------------------------------------------------------------------------
+        protected int _optimalValue;
+        public int OptimalValue
+        {
+            get
+            {
+                return _optimalValue;
+            }
+        }
+        protected List<RegulatoryMotifOptimalValueChange> _regulatoryMotifOptimalValueChanges = new List<RegulatoryMotifOptimalValueChange>();
+        public List<RegulatoryMotifOptimalValueChange> RegulatoryMotifOptimalValueChanges
+        {
+            get
+            {
+                return _regulatoryMotifOptimalValueChanges;
+            }
+        }
+        //--------------------------------------------------------------------------------------
+        public RegulatoryMotifPerfomance(int size, string inputData, string algorithm, int numberOdSequence,
+                int averageSequenceLength, int motifLength) : base(size, inputData, algorithm)
+        {
+            _numberOdSequence = numberOdSequence;
+            _averageSequenceLength = averageSequenceLength;
+            _motifLength = motifLength;
+        }
     }
+    //--------------------------------------------------------------------------------------
+
+    //--------------------------------------------------------------------------------------
 }

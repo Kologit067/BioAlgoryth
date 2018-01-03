@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Accumulators\DNAMappingPerfomance.cs" />
     <Compile Include="Accumulators\DNAMappingStatisticAccumulator.cs" />
+    <Compile Include="Accumulators\RegulatoryMotifOptimalValueChange.cs" />
     <Compile Include="Accumulators\RegulatoryMotifPerfomance.cs" />
     <Compile Include="Accumulators\RegulatoryMotifsStatisticAccumulator.cs" />
     <Compile Include="Accumulators\StatisyicsPerfomance.cs" />
