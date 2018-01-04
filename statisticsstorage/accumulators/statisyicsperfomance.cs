@@ -98,7 +98,7 @@ namespace StatisticsStorage.Accumulators
         protected long _duration;
         protected long _durationMilliSeconds;
         protected DateTime _dateComplete;
-        protected string _isComplete;
+        protected bool _isComplete;
         protected string _lastRoute;
         protected string _optimalRoute;
         //--------------------------------------------------------------------------------------------------------------------
@@ -130,7 +130,7 @@ namespace StatisticsStorage.Accumulators
         }
         //--------------------------------------------------------------------------------------------------------------------
         public void SaveStatisticData(string outputPresentation, long duration, long durationMilliSeconds, DateTime dateComplete,
-            string isComplete, string lastRoute, string optimalRoute)
+            bool isComplete, string lastRoute, string optimalRoute)
         {
             _outputPresentation = outputPresentation;
             _duration = duration;
