@@ -11,6 +11,7 @@ namespace StatisticsStorage.Accumulators
     //--------------------------------------------------------------------------------------
     public class StatisyicsPerfomance
     {
+
         //--------------------------------------------------------------------------------------
         protected int _size;
         public int Size
@@ -92,6 +93,14 @@ namespace StatisticsStorage.Accumulators
                 return fElemenationCount;
             }
         }
+
+        protected string _outputPresentation;
+        protected long _duration;
+        protected long _durationMilliSeconds;
+        protected DateTime _dateComplete;
+        protected string _isComplete;
+        protected string _lastRoute;
+        protected string _optimalRoute;
         //--------------------------------------------------------------------------------------------------------------------
         public void IterationCountInc()
         {
@@ -118,6 +127,18 @@ namespace StatisticsStorage.Accumulators
             _size = size;
             _inputData = inputData;
             _algorithm = algorithm;
+        }
+        //--------------------------------------------------------------------------------------------------------------------
+        public void SaveStatisticData(string outputPresentation, long duration, long durationMilliSeconds, DateTime dateComplete,
+            string isComplete, string lastRoute, string optimalRoute)
+        {
+            _outputPresentation = outputPresentation;
+            _duration = duration;
+            _durationMilliSeconds = durationMilliSeconds;
+            _dateComplete = dateComplete;
+            _isComplete = isComplete;
+            _lastRoute = lastRoute;
+            _optimalRoute = optimalRoute;
         }
         //--------------------------------------------------------------------------------------
     }
