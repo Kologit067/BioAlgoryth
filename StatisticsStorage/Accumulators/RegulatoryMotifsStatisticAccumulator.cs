@@ -46,15 +46,15 @@ namespace StatisticsStorage.Accumulators
             int optimalValue, string startPosition, string motif)
         {
             _currentRegulatoryMotifPerfomance.RegulatoryMotifOptimalValueChanges.Add(new RegulatoryMotifOptimalValueChange
-            (_currentRegulatoryMotifPerfomance.IterationCount, duration, durationMilliSeconds, optimalValue, startPosition, motif);
+            (_currentRegulatoryMotifPerfomance.IterationCount, duration, durationMilliSeconds, optimalValue, startPosition, motif));
         }
         //--------------------------------------------------------------------------------------------------------------------
-        public void SaveStatisticData(string outputPresentation, long duration, long durationMilliSeconds, DateTime dateComplete,
-            string isComplete, string lastRoute, string optimalRoute, List<List<char>> listOfMotif, List<int[]> solutionStartPositionList)
+        public void SaveStatisticData(string outputPresentation, int optimalValue, long duration, long durationMilliSeconds, DateTime dateComplete,
+            bool isComplete, string lastRoute, string optimalRoute, List<List<char>> listOfMotif, List<int[]> solutionStartPositionList)
         {
 
-            SaveStatisticData(outputPresentation, duration, durationMilliSeconds, dateComplete,
-                       isComplete, lastRoute, optimalRoute);
+            _currentRegulatoryMotifPerfomance.SaveStatisticData(outputPresentation, optimalValue, duration, durationMilliSeconds, dateComplete,
+                       isComplete, lastRoute, optimalRoute, listOfMotif, solutionStartPositionList);
         }        
         //--------------------------------------------------------------------------------------------------------------------
     }

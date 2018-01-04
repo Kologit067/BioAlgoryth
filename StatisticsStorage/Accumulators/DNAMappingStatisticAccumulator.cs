@@ -27,10 +27,10 @@ namespace StatisticsStorage.Accumulators
         }
         //--------------------------------------------------------------------------------------------------------------------
         public void SaveStatisticData(string outputPresentation, long duration, long durationMilliSeconds, DateTime dateComplete,
-            string isComplete, string lastRoute, string optimalRoute)
+            bool isComplete, string lastRoute, string optimalRoute, List<List<int>> listOfSolution)
         {
             _currentDNAMappingPerfomance.SaveStatisticData(outputPresentation, duration, durationMilliSeconds, dateComplete,
-            isComplete, lastRoute, optimalRoute);
+            isComplete, lastRoute, optimalRoute, listOfSolution);
         }
         //--------------------------------------------------------------------------------------------------------------------
         public void IterationCountInc()

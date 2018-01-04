@@ -143,7 +143,7 @@ namespace DNAMapping.Enumeration.DNA
         protected override void PostAction()
         {
             StatisticAccumulator.SaveStatisticData(OutputPresentation, ElapsedTicks, DurationMilliSeconds, DateTime.Now,
-                IsComplete, CurrentSetAsString, OptimalRouteAsString);
+                IsComplete, CurrentSetAsString, OptimalRouteAsString, _listOfSolution);
         }
         //-----------------------------------------------------------------------------------
         public override string OptimalRouteAsString

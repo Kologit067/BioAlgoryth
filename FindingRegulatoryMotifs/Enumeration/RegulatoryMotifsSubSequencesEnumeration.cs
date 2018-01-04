@@ -150,6 +150,18 @@ namespace FindingRegulatoryMotifs.Enumeration
             return distance;
         }
         //-----------------------------------------------------------------------------------
+        protected override void SupplementInitial()
+        {
+            StatisticAccumulator.CreateStatistics(_fSize, string.Join(",", _charSets.Select(s => new string(s))), "", _charSets.Length,
+                (int)Math.Round(_charSets.Select(s => s.Length).Average()), _substringLength);
+        }
+        //-----------------------------------------------------------------------------------
+        protected override void PostAction()
+        {
+            StatisticAccumulator.SaveStatisticData(OutputPresentation, _currentBestValue, ElapsedTicks, DurationMilliSeconds,
+                DateTime.Now, IsComplete, CurrentSetAsString, OptimalRouteAsString, _listOfMotif, _solutionStartPositionList);
+        }
+        //-----------------------------------------------------------------------------------
         public override string OptimalRouteAsString
         {
             get

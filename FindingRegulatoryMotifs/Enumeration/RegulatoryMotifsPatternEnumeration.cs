@@ -129,6 +129,18 @@ namespace FindingRegulatoryMotifs.Enumeration
             return bestDistance;
         }
         //-----------------------------------------------------------------------------------
+        protected override void SupplementInitial()
+        {
+            StatisticAccumulator.CreateStatistics(_fSize, string.Join(",", _sequenceLIst.Select(s => new string(s))), "", _sequenceLIst.Length,
+                (int)Math.Round(_sequenceLIst.Select(s => s.Length).Average()), _patternLength);
+        }
+        //-----------------------------------------------------------------------------------
+        protected override void PostAction()
+        {
+            StatisticAccumulator.SaveStatisticData(OutputPresentation, _currentBestValue, ElapsedTicks, DurationMilliSeconds,
+                DateTime.Now, IsComplete, CurrentSetAsString, OptimalRouteAsString, _listOfMotif, _solutionStartPositionList);
+        }
+        //-----------------------------------------------------------------------------------
         public override string OptimalRouteAsString
         {
             get

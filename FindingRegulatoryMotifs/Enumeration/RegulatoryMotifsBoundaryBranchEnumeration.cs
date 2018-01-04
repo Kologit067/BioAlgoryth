@@ -220,15 +220,11 @@ namespace FindingRegulatoryMotifs.Enumeration
         //-----------------------------------------------------------------------------------
         protected override void PostAction()
         {
-            StatisticAccumulator.SaveStatisticData(OutputPresentation, _currentBestValue, ElapsedTicks, DurationMilliSeconds, 
+            StatisticAccumulator.SaveStatisticData(OutputPresentation, _currentBestValue, ElapsedTicks, DurationMilliSeconds,
                 DateTime.Now, IsComplete, CurrentSetAsString, OptimalRouteAsString, _listOfMotif, _solutionStartPositionList);
-/*        
- *        protected List<List<char>> _listOfMotif = new List<List<char>>();
-        protected List<int[]> _solutionStartPositionList;
-        */
-    }
-    //-----------------------------------------------------------------------------------
-    public override string OptimalRouteAsString
+        }
+        //-----------------------------------------------------------------------------------
+        public override string OptimalRouteAsString
         {
             get
             {

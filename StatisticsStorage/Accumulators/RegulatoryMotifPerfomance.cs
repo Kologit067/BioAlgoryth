@@ -48,6 +48,7 @@ namespace StatisticsStorage.Accumulators
                 return _optimalValue;
             }
         }
+        //--------------------------------------------------------------------------------------------------------------------
         protected List<RegulatoryMotifOptimalValueChange> _regulatoryMotifOptimalValueChanges = new List<RegulatoryMotifOptimalValueChange>();
         public List<RegulatoryMotifOptimalValueChange> RegulatoryMotifOptimalValueChanges
         {
@@ -56,7 +57,25 @@ namespace StatisticsStorage.Accumulators
                 return _regulatoryMotifOptimalValueChanges;
             }
         }
+        //--------------------------------------------------------------------------------------------------------------------
+        protected List<List<char>> _listOfMotif;
+        public List<List<char>> ListOfMotif
+        {
+            get
+            {
+                return _listOfMotif;
+            }
+        }
         //--------------------------------------------------------------------------------------
+        protected List<int[]> _solutionStartPositionList;
+        public List<int[]> SolutionStartPositionList
+        {
+            get
+            {
+                return _solutionStartPositionList;
+            }
+        }
+        //--------------------------------------------------------------------------------------------------------------------
         public RegulatoryMotifPerfomance(int size, string inputData, string algorithm, int numberOdSequence,
                 int averageSequenceLength, int motifLength) : base(size, inputData, algorithm)
         {
@@ -64,6 +83,18 @@ namespace StatisticsStorage.Accumulators
             _averageSequenceLength = averageSequenceLength;
             _motifLength = motifLength;
         }
+        //--------------------------------------------------------------------------------------------------------------------
+        public void SaveStatisticData(string outputPresentation,int optimalValue, long duration, long durationMilliSeconds, DateTime dateComplete,
+            bool isComplete, string lastRoute, string optimalRoute, List<List<char>> listOfMotif, List<int[]> solutionStartPositionList)
+        {
+
+            SaveStatisticData(outputPresentation, duration, durationMilliSeconds, dateComplete,
+                       isComplete, lastRoute, optimalRoute);
+            _optimalValue = optimalValue;
+            _listOfMotif = listOfMotif;
+            _solutionStartPositionList = solutionStartPositionList;
+        }
+        //--------------------------------------------------------------------------------------
     }
     //--------------------------------------------------------------------------------------
 

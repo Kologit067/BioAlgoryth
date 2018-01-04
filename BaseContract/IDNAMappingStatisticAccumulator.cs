@@ -13,5 +13,7 @@ namespace BaseContract
         void UpdateOptcountInc();
         void ElemenationCountInc();
         void CreateStatistics(int size, string inputData, string algorithm);
+        void SaveStatisticData(string outputPresentation, long duration, long durationMilliSeconds, DateTime dateComplete,
+            bool isComplete, string lastRoute, string optimalRoute, List<List<int>> listOfSolution);
     }
 }
