@@ -12,7 +12,8 @@ namespace BaseContract
         void TerminalCountInc();
         void UpdateOptcountInc();
         void ElemenationCountInc();
-        void CreateStatistics(int size, string inputData, string algorithm);
+        void CreateStatistics(int size, string inputData, string algorithm, int numberOdSequence,
+                int averageSequenceLength, int motifLength);
         void AddRegulatoryMotifOptimalValueChange(long duration, long durationMilliSeconds,
             int optimalValue, string startPosition, string motif);
     }

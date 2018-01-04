@@ -121,6 +121,7 @@ namespace CommonLibrary
             stopwatch.Stop();
             _fElapsedTicks = stopwatch.ElapsedTicks;
             _fDurationMilliSeconds = stopwatch.ElapsedMilliseconds;
+            PostAction();
         }
         //--------------------------------------------------------------------------------------
         /// <summary>

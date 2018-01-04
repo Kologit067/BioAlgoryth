@@ -15,9 +15,10 @@ namespace StatisticsStorage.Accumulators
         {
             _regulatoryMotifPerfomances = new List<RegulatoryMotifPerfomance>();
         }
-        public void CreateStatistics(int size, string inputData, string algorithm)
+        public void CreateStatistics(int size, string inputData, string algorithm, int numberOdSequence,
+                int averageSequenceLength, int motifLength)
         {
-            _currentRegulatoryMotifPerfomance = new RegulatoryMotifPerfomance(size, inputData, algorithm);
+            _currentRegulatoryMotifPerfomance = new RegulatoryMotifPerfomance(size, inputData, algorithm, numberOdSequence, averageSequenceLength, motifLength);
             _regulatoryMotifPerfomances.Add(_currentRegulatoryMotifPerfomance);
         }
         //--------------------------------------------------------------------------------------------------------------------
@@ -47,6 +48,14 @@ namespace StatisticsStorage.Accumulators
             _currentRegulatoryMotifPerfomance.RegulatoryMotifOptimalValueChanges.Add(new RegulatoryMotifOptimalValueChange
             (_currentRegulatoryMotifPerfomance.IterationCount, duration, durationMilliSeconds, optimalValue, startPosition, motif);
         }
+        //--------------------------------------------------------------------------------------------------------------------
+        public void SaveStatisticData(string outputPresentation, long duration, long durationMilliSeconds, DateTime dateComplete,
+            string isComplete, string lastRoute, string optimalRoute, List<List<char>> listOfMotif, List<int[]> solutionStartPositionList)
+        {
+
+            SaveStatisticData(outputPresentation, duration, durationMilliSeconds, dateComplete,
+                       isComplete, lastRoute, optimalRoute);
+        }        
         //--------------------------------------------------------------------------------------------------------------------
     }
     //--------------------------------------------------------------------------------------------------------------------

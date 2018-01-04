@@ -14,13 +14,6 @@ namespace StatisticsStorage.Accumulators
     {
         protected List<DNAMappingPerfomance> _dnaMappingPerfomances;
         protected DNAMappingPerfomance _currentDNAMappingPerfomance;
-        protected string _outputPresentation;
-        protected long _duration;
-        protected long _durationMilliSeconds;
-        protected DateTime _dateComplete;
-        protected string _isComplete;
-        protected string _lastRoute;
-        protected string _optimalRoute;
         //--------------------------------------------------------------------------------------------------------------------
         public DNAMappingStatisticAccumulator()
         {
@@ -36,16 +29,11 @@ namespace StatisticsStorage.Accumulators
         public void SaveStatisticData(string outputPresentation, long duration, long durationMilliSeconds, DateTime dateComplete,
             string isComplete, string lastRoute, string optimalRoute)
         {
-            _outputPresentation = outputPresentation;
-            _duration = duration;
-            _durationMilliSeconds = durationMilliSeconds;
-            _dateComplete = dateComplete;
-            _isComplete = isComplete;
-            _lastRoute = lastRoute;
-            _optimalRoute = optimalRoute;
+            _currentDNAMappingPerfomance.SaveStatisticData(outputPresentation, duration, durationMilliSeconds, dateComplete,
+            isComplete, lastRoute, optimalRoute);
         }
-    //--------------------------------------------------------------------------------------------------------------------
-    public void IterationCountInc()
+        //--------------------------------------------------------------------------------------------------------------------
+        public void IterationCountInc()
         {
             _currentDNAMappingPerfomance.IterationCountInc();
         }
