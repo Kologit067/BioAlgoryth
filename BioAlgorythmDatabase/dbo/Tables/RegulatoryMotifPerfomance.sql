@@ -20,8 +20,13 @@
     [CountTerminal]               INT            NULL,
     [UpdateOptcount]              INT            NULL,
     [ElemenationCount]            INT            NULL,
+    [IsOptimizitaion]             BIT            NULL,
+    [IsSumAsCriteria]             BIT            NULL,
+    [IsAllResult]                 BIT            NULL,
     PRIMARY KEY CLUSTERED ([RegulatoryMotifPerfomanceId] ASC)
 );
+
+
 
 
 

@@ -84,5 +84,7 @@
     <Build Include="dbo\Tables\RegulatoryMotifPerfomance.sql" />
     <Build Include="dbo\Tables\DNAMappingPerfomance.sql" />
     <Build Include="dbo\Tables\RegulatoryMotifOptimalValueChange.sql" />
+    <Build Include="dbo\Tables\RegulatoryMotifSolution.sql" />
+    <Build Include="dbo\Tables\DNAMappingSolution.sql" />
   </ItemGroup>
 </Project>

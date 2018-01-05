@@ -14,6 +14,9 @@
     [CountTerminal]          INT            NULL,
     [UpdateOptcount]         INT            NULL,
     [ElemenationCount]       INT            NULL,
+    [IsAllResult]            BIT            NULL,
     PRIMARY KEY CLUSTERED ([DNAMappingPerfomanceId] ASC)
 );
+
+
 

@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="IDNAMappingStatisticAccumulator.cs" />
     <Compile Include="IRegulatoryMotifsStatisticAccumulator.cs" />
+    <Compile Include="Objects\AlgorythmParameters.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

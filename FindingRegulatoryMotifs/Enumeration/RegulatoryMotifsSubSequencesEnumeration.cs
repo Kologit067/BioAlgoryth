@@ -153,7 +153,7 @@ namespace FindingRegulatoryMotifs.Enumeration
         protected override void SupplementInitial()
         {
             StatisticAccumulator.CreateStatistics(_fSize, string.Join(",", _charSets.Select(s => new string(s))), "", _charSets.Length,
-                (int)Math.Round(_charSets.Select(s => s.Length).Average()), _substringLength);
+                (int)Math.Round(_charSets.Select(s => s.Length).Average()), _substringLength, new AlgorythmParameters() { });
         }
         //-----------------------------------------------------------------------------------
         protected override void PostAction()

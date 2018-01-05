@@ -16,10 +16,10 @@ namespace StatisticsStorage.Accumulators
             _regulatoryMotifPerfomances = new List<RegulatoryMotifPerfomance>();
         }
         public void CreateStatistics(int size, string inputData, string algorithm, int numberOdSequence,
-                int averageSequenceLength, int motifLength)
+                int averageSequenceLength, int motifLength, AlgorythmParameters algorythmParameters
         {
             _currentRegulatoryMotifPerfomance = new RegulatoryMotifPerfomance(size, inputData, algorithm, numberOdSequence, averageSequenceLength, motifLength);
-            _regulatoryMotifPerfomances.Add(_currentRegulatoryMotifPerfomance);
+            _regulatoryMotifPerfomances.Add(_currentRegulatoryMotifPerfomance, algorythmParameters);
         }
         //--------------------------------------------------------------------------------------------------------------------
         public void IterationCountInc()
