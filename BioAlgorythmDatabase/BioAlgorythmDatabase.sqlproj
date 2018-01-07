@@ -86,5 +86,12 @@
     <Build Include="dbo\Tables\RegulatoryMotifOptimalValueChange.sql" />
     <Build Include="dbo\Tables\RegulatoryMotifSolution.sql" />
     <Build Include="dbo\Tables\DNAMappingSolution.sql" />
+    <Build Include="dbo\Stored Procedures\addRegulatoryMotifPerfomance.sql" />
+    <Build Include="dbo\Stored Procedures\addDNAMappingPerfomance.sql" />
+    <Build Include="dbo\User Defined Types\RegulatoryMotifSolutionType.sql" />
+    <Build Include="dbo\User Defined Types\RegulatoryMotifPerfomanceType.sql" />
+    <Build Include="dbo\User Defined Types\RegulatoryMotifOptimalValueChangeType.sql" />
+    <Build Include="dbo\User Defined Types\DNAMappingSolutionType.sql" />
+    <Build Include="dbo\User Defined Types\DNAMappingPerfomanceType.sql" />
   </ItemGroup>
 </Project>

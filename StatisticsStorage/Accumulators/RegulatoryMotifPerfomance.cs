@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Threading;
+using CommonLibrary.Objects;
 
 namespace StatisticsStorage.Accumulators
 {
@@ -76,12 +77,22 @@ namespace StatisticsStorage.Accumulators
             }
         }
         //--------------------------------------------------------------------------------------------------------------------
+        protected AlgorythmParameters _algorythmParameters;
+        public AlgorythmParameters AlgorythmParameters
+        {
+            get
+            {
+                return _algorythmParameters;
+            }
+        }
+        //--------------------------------------------------------------------------------------------------------------------
         public RegulatoryMotifPerfomance(int size, string inputData, string algorithm, int numberOdSequence,
-                int averageSequenceLength, int motifLength) : base(size, inputData, algorithm)
+                int averageSequenceLength, int motifLength, AlgorythmParameters algorythmParameters) : base(size, inputData, algorithm)
         {
             _numberOdSequence = numberOdSequence;
             _averageSequenceLength = averageSequenceLength;
             _motifLength = motifLength;
+            _algorythmParameters = algorythmParameters;
         }
         //--------------------------------------------------------------------------------------------------------------------
         public void SaveStatisticData(string outputPresentation,int optimalValue, long duration, long durationMilliSeconds, DateTime dateComplete,

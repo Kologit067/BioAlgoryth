@@ -1,4 +1,6 @@
 ﻿using BaseContract;
+using CommonLibrary.Objects;
+using StatisticsStorage.Savers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,15 +13,25 @@ namespace StatisticsStorage.Accumulators
     {
         protected List<RegulatoryMotifPerfomance> _regulatoryMotifPerfomances;
         protected RegulatoryMotifPerfomance _currentRegulatoryMotifPerfomance;
-        public RegulatoryMotifsStatisticAccumulator()
+        protected RegulatoryMotifSaver _regulatoryMotifSaver;
+        protected int _bufferSize;
+        public RegulatoryMotifsStatisticAccumulator(RegulatoryMotifSaver regulatoryMotifSaver,int bufferSize = 100)
         {
+            _regulatoryMotifSaver = regulatoryMotifSaver;
+            _bufferSize = bufferSize;
             _regulatoryMotifPerfomances = new List<RegulatoryMotifPerfomance>();
         }
+        //--------------------------------------------------------------------------------------------------------------------
         public void CreateStatistics(int size, string inputData, string algorithm, int numberOdSequence,
-                int averageSequenceLength, int motifLength, AlgorythmParameters algorythmParameters
+                int averageSequenceLength, int motifLength, AlgorythmParameters algorythmParameters)
         {
-            _currentRegulatoryMotifPerfomance = new RegulatoryMotifPerfomance(size, inputData, algorithm, numberOdSequence, averageSequenceLength, motifLength);
-            _regulatoryMotifPerfomances.Add(_currentRegulatoryMotifPerfomance, algorythmParameters);
+            _currentRegulatoryMotifPerfomance = new RegulatoryMotifPerfomance(size, inputData, algorithm, numberOdSequence, averageSequenceLength, motifLength, algorythmParameters);
+            _regulatoryMotifPerfomances.Add(_currentRegulatoryMotifPerfomance);
+            if (_regulatoryMotifPerfomances.Count > _bufferSize)
+            {
+                _regulatoryMotifSaver.Save(_regulatoryMotifPerfomances);
+                _regulatoryMotifPerfomances.Clear();
+            }
         }
         //--------------------------------------------------------------------------------------------------------------------
         public void IterationCountInc()

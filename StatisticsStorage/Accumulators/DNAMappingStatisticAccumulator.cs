@@ -1,4 +1,6 @@
 ﻿using BaseContract;
+using CommonLibrary.Objects;
+using StatisticsStorage.Savers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,16 +16,25 @@ namespace StatisticsStorage.Accumulators
     {
         protected List<DNAMappingPerfomance> _dnaMappingPerfomances;
         protected DNAMappingPerfomance _currentDNAMappingPerfomance;
+        protected DNAMappingSaver _dnaMappingSaver;
+        protected int _bufferSize;
         //--------------------------------------------------------------------------------------------------------------------
-        public DNAMappingStatisticAccumulator()
+        public DNAMappingStatisticAccumulator(DNAMappingSaver dnaMappingSaver, int bufferSize = 100)
         {
+            _dnaMappingSaver = dnaMappingSaver;
+            _bufferSize = bufferSize;
             _dnaMappingPerfomances = new List<DNAMappingPerfomance>();
         }
         //--------------------------------------------------------------------------------------------------------------------
-        public void CreateStatistics(int size,string inputData,string algorithm)
+        public void CreateStatistics(int size,string inputData,string algorithm, AlgorythmParameters algorythmParameters)
         {
-            _currentDNAMappingPerfomance = new DNAMappingPerfomance(size, inputData, algorithm);
+            _currentDNAMappingPerfomance = new DNAMappingPerfomance(size, inputData, algorithm, algorythmParameters);
             _dnaMappingPerfomances.Add(_currentDNAMappingPerfomance);
+            if (_dnaMappingPerfomances.Count > _bufferSize)
+            {
+                _dnaMappingSaver.Save(_dnaMappingPerfomances);
+                _dnaMappingPerfomances.Clear();
+            }
         }
         //--------------------------------------------------------------------------------------------------------------------
         public void SaveStatisticData(string outputPresentation, long duration, long durationMilliSeconds, DateTime dateComplete,

@@ -1,5 +1,6 @@
 ﻿using BaseContract;
 using CommonLibrary;
+using CommonLibrary.Objects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -71,7 +72,10 @@ namespace DNAMapping.Enumeration.DNA
         //-----------------------------------------------------------------------------------
         protected override void SupplementInitial()
         {
-            StatisticAccumulator.CreateStatistics(_fSize, string.Join(",", _pairwiseDifferences.Select(p => p.ToString())), "");
+            StatisticAccumulator.CreateStatistics(_fSize, string.Join(",", _pairwiseDifferences.Select(p => p.ToString())), "EnumerateDNAMappingByIntegerTrangle", new AlgorythmParameters()
+            {
+                IsAllResult = _isAllResult
+            });
         }
         //-----------------------------------------------------------------------------------
         protected override void PostAction()

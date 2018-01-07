@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommonLibrary.Objects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,7 @@ namespace StatisticsStorage.Accumulators
     public class DNAMappingPerfomance : StatisyicsPerfomance
     {
         //--------------------------------------------------------------------------------------
-        public DNAMappingPerfomance(int size, string inputData, string algorithm) : base(size, inputData, algorithm)
+        public DNAMappingPerfomance(int size, string inputData, string algorithm, AlgorythmParameters algorythmParameters) : base(size, inputData, algorithm)
         {
         }
         //--------------------------------------------------------------------------------------------------------------------
@@ -22,6 +23,15 @@ namespace StatisticsStorage.Accumulators
             get
             {
                 return _listOfSolution;
+            }
+        }
+        //--------------------------------------------------------------------------------------------------------------------
+        protected AlgorythmParameters _algorythmParameters;
+        public AlgorythmParameters AlgorythmParameters
+        {
+            get
+            {
+                return _algorythmParameters;
             }
         }
         //--------------------------------------------------------------------------------------------------------------------

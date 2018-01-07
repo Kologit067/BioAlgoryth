@@ -1,5 +1,6 @@
 ﻿using BaseContract;
 using CommonLibrary;
+using CommonLibrary.Objects;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -152,8 +153,13 @@ namespace FindingRegulatoryMotifs.Enumeration
         //-----------------------------------------------------------------------------------
         protected override void SupplementInitial()
         {
-            StatisticAccumulator.CreateStatistics(_fSize, string.Join(",", _charSets.Select(s => new string(s))), "", _charSets.Length,
-                (int)Math.Round(_charSets.Select(s => s.Length).Average()), _substringLength, new AlgorythmParameters() { });
+            StatisticAccumulator.CreateStatistics(_fSize, string.Join(",", _charSets.Select(s => new string(s))), "RegulatoryMotifsSubSequencesEnumeration", _charSets.Length,
+                (int)Math.Round(_charSets.Select(s => s.Length).Average()), _substringLength, new AlgorythmParameters()
+                {
+                    IsOptimizitaion = _isOptimizitaion,
+                    IsSumAsCriteria = _isSumAsCriteria,
+                    IsAllResult = _isAllResult
+                });
         }
         //-----------------------------------------------------------------------------------
         protected override void PostAction()

@@ -48,10 +48,10 @@
     <Compile Include="Accumulators\StatisyicsPerfomance.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Savers\DNAMappingSaver.cs" />
+    <Compile Include="Savers\RegulatoryMotifSaver.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Savers\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\BaseContract\BaseContract.csproj">
       <Project>{b8c5feda-931e-439f-9661-d533d482352b}</Project>
