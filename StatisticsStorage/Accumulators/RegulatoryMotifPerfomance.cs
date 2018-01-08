@@ -32,12 +32,12 @@ namespace StatisticsStorage.Accumulators
             }
         }
         //--------------------------------------------------------------------------------------
-        protected int _numberOdSequence;
-        public int NumberOdSequence
+        protected int _numberOfSequence;
+        public int NumberOfSequence
         {
             get
             {
-                return _numberOdSequence;
+                return _numberOfSequence;
             }
         }
         //--------------------------------------------------------------------------------------
@@ -86,10 +86,10 @@ namespace StatisticsStorage.Accumulators
             }
         }
         //--------------------------------------------------------------------------------------------------------------------
-        public RegulatoryMotifPerfomance(int size, string inputData, string algorithm, int numberOdSequence,
+        public RegulatoryMotifPerfomance(int size, string inputData, string algorithm, int numberOfSequence,
                 int averageSequenceLength, int motifLength, AlgorythmParameters algorythmParameters) : base(size, inputData, algorithm)
         {
-            _numberOdSequence = numberOdSequence;
+            _numberOfSequence = numberOfSequence;
             _averageSequenceLength = averageSequenceLength;
             _motifLength = motifLength;
             _algorythmParameters = algorythmParameters;

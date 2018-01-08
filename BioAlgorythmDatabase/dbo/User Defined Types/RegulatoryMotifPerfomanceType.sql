@@ -1,7 +1,7 @@
 ﻿CREATE TYPE [dbo].[RegulatoryMotifPerfomanceType] AS TABLE (
     [NumberInArray]         INT            NULL,
     [Size]                  INT            NOT NULL,
-    [NumberOdSequence]      INT            NOT NULL,
+    [NumberOfSequence]      INT            NOT NULL,
     [averageSequenceLength] INT            NOT NULL,
     [MotifLength]           INT            NOT NULL,
     [InputData]             NVARCHAR (MAX) NOT NULL,

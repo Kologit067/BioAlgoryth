@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[RegulatoryMotifPerfomance] (
     [RegulatoryMotifPerfomanceId] INT            IDENTITY (1, 1) NOT NULL,
     [Size]                        INT            NOT NULL,
-    [NumberOdSequence]            INT            NOT NULL,
+    [NumberOfSequence]            INT            NOT NULL,
     [averageSequenceLength]       INT            NOT NULL,
     [MotifLength]                 INT            NOT NULL,
     [InputData]                   NVARCHAR (MAX) NOT NULL,
@@ -25,6 +25,8 @@
     [IsAllResult]                 BIT            NULL,
     PRIMARY KEY CLUSTERED ([RegulatoryMotifPerfomanceId] ASC)
 );
+
+
 
 
 

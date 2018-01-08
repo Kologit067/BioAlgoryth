@@ -7,7 +7,8 @@
     [OptimalValue]                        INT           NULL,
     [StartPosition]                       VARCHAR (500) NULL,
     [Motif]                               VARCHAR (500) NULL,
-    PRIMARY KEY CLUSTERED ([RegulatoryMotifOptimalValueChangeId] ASC),
-    CONSTRAINT [FK_RegulatoryMotifOptimalValueChange_RegulatoryMotifPerfomance] FOREIGN KEY ([RegulatoryMotifPerfomanceId]) REFERENCES [dbo].[RegulatoryMotifPerfomance] ([RegulatoryMotifPerfomanceId])
+    PRIMARY KEY CLUSTERED ([RegulatoryMotifOptimalValueChangeId] ASC)
 );
+
+
 

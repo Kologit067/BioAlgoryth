@@ -12,13 +12,13 @@ BEGIN
 			[AlgorithmPerfomanceId] INT
 			);
 			
-	INSERT [RegulatoryMotifPerfomance] ( [Size], [NumberOdSequence],	[averageSequenceLength], [MotifLength],
+	INSERT [RegulatoryMotifPerfomance] ( [Size], [NumberOfSequence],	[averageSequenceLength], [MotifLength],
 	[InputData], [OutputPresentation], [Algorithm], [NumberOfIteration], [Duration], [DurationMilliSeconds],
 	[DateComplete], [IsComplete], [LastRoute], [OptimalRoute], [OptimalValue], [StartPosition],
 	[Motif], [CountTerminal], [UpdateOptcount], [ElemenationCount], [IsOptimizitaion], [IsSumAsCriteria], [IsAllResult]
 )
 	OUTPUT INSERTED.[RegulatoryMotifPerfomanceId] INTO #AlgorithmPerfomance([AlgorithmPerfomanceId])
-	SELECT [Size], [NumberOdSequence],	[averageSequenceLength], [MotifLength],
+	SELECT [Size], [NumberOfSequence],	[averageSequenceLength], [MotifLength],
 	[InputData], [OutputPresentation], [Algorithm], [NumberOfIteration], [Duration], [DurationMilliSeconds],
 	[DateComplete], [IsComplete], [LastRoute], [OptimalRoute], [OptimalValue], [StartPosition],
 	[Motif], [CountTerminal], [UpdateOptcount], [ElemenationCount], [IsOptimizitaion], [IsSumAsCriteria], [IsAllResult]
@@ -42,7 +42,7 @@ BEGIN
 	INNER JOIN #AlgorithmPerfomance ap
 	ON avc.[NumberInArray] = ap.[NumberInArray]
 
-	INSERT INTO RegulatoryMotifOptimalValueChange ([DNAMappingPerfomanceId], [NumberOfIteration], [Duration], [DurationMilliSeconds], [OptimalValue], [StartPosition], [Motif])	
+	INSERT INTO RegulatoryMotifOptimalValueChange ([RegulatoryMotifPerfomanceId], [NumberOfIteration], [Duration], [DurationMilliSeconds], [OptimalValue], [StartPosition], [Motif])	
 	SELECT ap.[AlgorithmPerfomanceId], avc.[NumberOfIteration], avc.[Duration], avc.[DurationMilliSeconds], avc.[OptimalValue], avc.[StartPosition], avc.[Motif]
 	FROM @RegulatoryMotifOptimalValueChanges avc
 	INNER JOIN #AlgorithmPerfomance ap

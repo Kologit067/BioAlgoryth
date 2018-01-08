@@ -48,15 +48,7 @@ namespace StatisticsStorage.Accumulators
                 return _fIterationCount;
             }
         }
-        //--------------------------------------------------------------------------------------
-        protected long _fDurationMilliSeconds;
-        public long DurationMilliSeconds
-        {
-            get
-            {
-                return _fDurationMilliSeconds;
-            }
-        }
+
         //--------------------------------------------------------------------------------------
         protected long _fElapsedTicks;
         public long ElapsedTicks
@@ -66,8 +58,8 @@ namespace StatisticsStorage.Accumulators
                 return _fElapsedTicks;
             }
         }
-        protected long fCountTerminal;
         //--------------------------------------------------------------------------------------
+        protected long fCountTerminal;
         public long CountTerminal
         {
             get
@@ -75,8 +67,8 @@ namespace StatisticsStorage.Accumulators
                 return fCountTerminal;
             }
         }
-        protected long fUpdateOptcount;
         //--------------------------------------------------------------------------------------
+        protected long fUpdateOptcount;
         public long UpdateOptcount
         {
             get
@@ -84,8 +76,8 @@ namespace StatisticsStorage.Accumulators
                 return fUpdateOptcount;
             }
         }
-        protected long fElemenationCount;
         //--------------------------------------------------------------------------------------
+        protected long fElemenationCount;
         public long ElemenationCount
         {
             get
@@ -93,14 +85,69 @@ namespace StatisticsStorage.Accumulators
                 return fElemenationCount;
             }
         }
-
+        //--------------------------------------------------------------------------------------
         protected string _outputPresentation;
+        public string OutputPresentation
+        {
+            get
+            {
+                return _outputPresentation;
+            }
+        }
+        //--------------------------------------------------------------------------------------
         protected long _duration;
+        public long Duration
+        {
+            get
+            {
+                return _duration;
+            }
+        }
+        //--------------------------------------------------------------------------------------
         protected long _durationMilliSeconds;
+        public long DurationMilliSeconds
+        {
+            get
+            {
+                return _durationMilliSeconds;
+            }
+        }
+        //--------------------------------------------------------------------------------------
         protected DateTime _dateComplete;
+        public DateTime DateComplete
+        {
+            get
+            {
+                return _dateComplete;
+            }
+        }
+        //--------------------------------------------------------------------------------------
         protected bool _isComplete;
+        public bool IsComplete
+        {
+            get
+            {
+                return _isComplete;
+            }
+        }
+        //--------------------------------------------------------------------------------------
         protected string _lastRoute;
+        public string LastRoute
+        {
+            get
+            {
+                return _lastRoute;
+            }
+        }
+        //--------------------------------------------------------------------------------------
         protected string _optimalRoute;
+        public string OptimalRoute
+        {
+            get
+            {
+                return _optimalRoute;
+            }
+        }
         //--------------------------------------------------------------------------------------------------------------------
         public void IterationCountInc()
         {

@@ -9,9 +9,14 @@ using System.Threading.Tasks;
 
 namespace StatisticsStorage.Savers
 {
-    public class RegulatoryMotifSaver 
+    public class RegulatoryMotifSaver
     {
-        public void Save(List<RegulatoryMotifPerfomance> regulatoryMotifPerfomances)
+        private string _connectionString;
+        public RegulatoryMotifSaver()
+        {
+            _connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["bioalgorythm"].ConnectionString;
+        }
+        public string Save(List<RegulatoryMotifPerfomance> regulatoryMotifPerfomances)
         {
             string error = null;
 
@@ -20,7 +25,7 @@ namespace StatisticsStorage.Savers
                 DataTable performance = new DataTable();
                 performance.Columns.Add("NumberInArray", System.Type.GetType("System.Int32"));
                 performance.Columns.Add("Size", System.Type.GetType("System.Int32"));
-                performance.Columns.Add("NumberOdSequence", System.Type.GetType("System.Int32"));
+                performance.Columns.Add("NumberOfSequence", System.Type.GetType("System.Int32"));
                 performance.Columns.Add("averageSequenceLength", System.Type.GetType("System.Int32"));
                 performance.Columns.Add("MotifLength", System.Type.GetType("System.Int32"));
                 performance.Columns.Add("InputData", System.Type.GetType("System.String"));
@@ -57,31 +62,47 @@ namespace StatisticsStorage.Savers
                 solutions.Columns.Add("StartPosition", System.Type.GetType("System.String"));
                 solutions.Columns.Add("Motif", System.Type.GetType("System.String"));
 
+                int number = 0;
                 foreach (var ps in regulatoryMotifPerfomances)
                 {
-                    performance.Rows.Add(ps.DBName, ps.Tables, ps.Algorithm, ps.NumberOfIteration, ps.Duration,
-                        ps.DurationMilliSeconds, ps.DateComplete, ps.IsComplete, ps.ElementCount, ps.TableSetAsNumber,
-                        ps.LastRoute, ps.CountTerminal, ps.UpdateOptcount, ps.OptimalValue, ps.ElemenationCount, ps.OptimalRoute);
+                    performance.Rows.Add(number, ps.Size, ps.NumberOfSequence, ps.AverageSequenceLength, 
+                        ps.MotifLength, ps.InputData, ps.OutputPresentation, ps.Algorithm, ps.IterationCount, 
+                        ps.Duration, ps.DurationMilliSeconds, ps.DateComplete, ps.IsComplete, 
+                        ps.LastRoute, ps.OptimalRoute, ps.OptimalValue, ps.SolutionStartPositionList[0],
+                        ps.ListOfMotif[0], ps.CountTerminal, ps.UpdateOptcount, ps.ElemenationCount, 
+                        ps.AlgorythmParameters.IsOptimizitaion, ps.AlgorythmParameters.IsSumAsCriteria, ps.AlgorythmParameters.IsAllResult);
 
-                    foreach (var sl in ps.)
+                    for (int i = 0; i < ps.ListOfMotif.Count; i++)
+                    {
+                        solutions.Rows.Add(number,ps.SolutionStartPositionList[i], ps.ListOfMotif[i]);
+                    }
+
+                    foreach ( var ch in ps.RegulatoryMotifOptimalValueChanges)
+                    {
+                        valueChanges.Rows.Add(number, ch.IterationCount, ch.Duration, ch.DurationMilliSeconds,
+                            ch.OptimalValue, ch.StartPosition, ch.Motif);
+                    }
                     number++;
                 }
 
  
 
-                SqlConnection connection = new SqlConnection(connectionStringDTD);
+                SqlConnection connection = new SqlConnection(_connectionString);
                 connection.Open();
                 try
                 {
-                    SqlCommand addCommand = new SqlCommand("addAlgorithmPerfomance", connection);
+                    SqlCommand addCommand = new SqlCommand("addRegulatoryMotifPerfomance", connection);
                     addCommand.CommandType = CommandType.StoredProcedure;
                     addCommand.CommandTimeout = 300;
-                    SqlParameter tvpParam = addCommand.Parameters.AddWithValue("@AlgorithmPerfomances", performance);
+                    SqlParameter tvpParam = addCommand.Parameters.AddWithValue("@RegulatoryMotifPerfomances", performance);
                     tvpParam.SqlDbType = SqlDbType.Structured;
-                    tvpParam.TypeName = "dbo.AlgorithmPerfomanceType";
-                    SqlParameter tvpParam1 = addCommand.Parameters.AddWithValue("@AlgorithmOptimalValueChange", valueChanges);
+                    tvpParam.TypeName = "dbo.RegulatoryMotifPerfomanceType";
+                    SqlParameter tvpParam1 = addCommand.Parameters.AddWithValue("@RegulatoryMotifOptimalValueChanges", valueChanges);
                     tvpParam1.SqlDbType = SqlDbType.Structured;
-                    tvpParam1.TypeName = "dbo.AlgorithmOptimalValueChangeType";
+                    tvpParam1.TypeName = "dbo.RegulatoryMotifOptimalValueChangeType";
+                    SqlParameter tvpParam2 = addCommand.Parameters.AddWithValue("@RegulatoryMotifSolutions", solutions);
+                    tvpParam2.SqlDbType = SqlDbType.Structured;
+                    tvpParam2.TypeName = "dbo.RegulatoryMotifSolutionType";
                     addCommand.ExecuteNonQuery();
                 }
                 finally
