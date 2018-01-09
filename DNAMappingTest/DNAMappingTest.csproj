@@ -56,6 +56,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BaseContract\BaseContract.csproj">
+      <Project>{b8c5feda-931e-439f-9661-d533d482352b}</Project>
+      <Name>BaseContract</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CommonLibrary\CommonLibrary.csproj">
       <Project>{6208c3eb-138f-4b2e-93a8-6469d8a75379}</Project>
       <Name>CommonLibrary</Name>
@@ -63,6 +67,10 @@
     <ProjectReference Include="..\DNAMapping\DNAMapping.csproj">
       <Project>{65fa3006-21c8-4f1c-ab41-8fc23e4c4618}</Project>
       <Name>DNAMapping</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StatisticsStorage\StatisticsStorage.csproj">
+      <Project>{475c38d6-bd97-455c-a52d-afa461c533f7}</Project>
+      <Name>StatisticsStorage</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

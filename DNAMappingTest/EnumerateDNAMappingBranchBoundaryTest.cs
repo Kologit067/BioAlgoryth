@@ -3,6 +3,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using DNAMapping;
 using DNAMapping.Enumeration.DNA;
 using System.Linq;
+using StatisticsStorage.Accumulators;
+using StatisticsStorage.Savers;
 
 namespace DNAMappingTest
 {
@@ -15,8 +17,10 @@ namespace DNAMappingTest
             // arrange
             int[] excpectedResult = new int[] { 0, 3, 6, 7 };
             int[] pairwiseDifferences = DNAMappingBase.ProduceMatrix(excpectedResult);
-            EnumerateDNAMappingBranchBoundary enumeration = new EnumerateDNAMappingBranchBoundary(pairwiseDifferences);
-            // act
+            EnumerateDNAMappingBranchBoundary enumeration = new EnumerateDNAMappingBranchBoundary(pairwiseDifferences)
+            {
+                StatisticAccumulator = new DNAMappingStatisticAccumulator(new DNAMappingSaver())
+            };            // act
             enumeration.Execute();
             // assert
             var result = enumeration.ListOfSolution.FirstOrDefault(l => l.SequenceEqual(excpectedResult));

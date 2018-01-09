@@ -57,8 +57,11 @@ namespace DNAMapping.Enumeration.DNA
                 {
                     StatisticAccumulator.UpdateOptcountInc();
                     if (_solution == null)
+                    {
                         _solution = _fCurrentSet.Select(i => _pairwiseDifferences[i]).ToList();
-                    _listOfSolution.Add(_solution);
+                        _listOfSolution.Add(_solution);
+                    }
+                    _listOfSolution.Add(_fCurrentSet.Select(i => _pairwiseDifferences[i]).ToList());
                     return !_isAllResult;
                 }
             }
