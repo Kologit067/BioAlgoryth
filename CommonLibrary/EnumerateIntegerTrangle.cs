@@ -23,6 +23,7 @@ namespace CommonLibrary
             _fLimit = pLimit;
             _fMinimumValue = pMinimumValue;
             _forwardAdditive = pForwardAdditive;
+            _fBreakElement = -1;
         }
         //--------------------------------------------------------------------------------------
         /// <summary>

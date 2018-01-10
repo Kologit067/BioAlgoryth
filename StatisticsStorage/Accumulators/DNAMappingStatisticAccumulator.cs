@@ -30,11 +30,6 @@ namespace StatisticsStorage.Accumulators
         {
             _currentDNAMappingPerfomance = new DNAMappingPerfomance(size, inputData, algorithm, algorythmParameters);
             _dnaMappingPerfomances.Add(_currentDNAMappingPerfomance);
-            if (_dnaMappingPerfomances.Count > _bufferSize)
-            {
-                _dnaMappingSaver.Save(_dnaMappingPerfomances);
-                _dnaMappingPerfomances.Clear();
-            }
         }
         //--------------------------------------------------------------------------------------------------------------------
         public void SaveStatisticData(string outputPresentation, long duration, long durationMilliSeconds, DateTime dateComplete,
@@ -42,6 +37,11 @@ namespace StatisticsStorage.Accumulators
         {
             _currentDNAMappingPerfomance.SaveStatisticData(outputPresentation, duration, durationMilliSeconds, dateComplete,
             isComplete, lastRoute, optimalRoute, listOfSolution);
+            if (_dnaMappingPerfomances.Count > _bufferSize)
+            {
+                _dnaMappingSaver.Save(_dnaMappingPerfomances);
+                _dnaMappingPerfomances.Clear();
+            }
         }
         //--------------------------------------------------------------------------------------------------------------------
         public void IterationCountInc()
@@ -62,6 +62,13 @@ namespace StatisticsStorage.Accumulators
         public void ElemenationCountInc()
         {
             _currentDNAMappingPerfomance.ElemenationCountInc();
+        }
+        //--------------------------------------------------------------------------------------------------------------------
+        public void SaveRemain()
+        {
+            if (_dnaMappingPerfomances.Count > 0)
+                _dnaMappingSaver.Save(_dnaMappingPerfomances);
+            _dnaMappingPerfomances.Clear();
         }
         //--------------------------------------------------------------------------------------------------------------------
     }
