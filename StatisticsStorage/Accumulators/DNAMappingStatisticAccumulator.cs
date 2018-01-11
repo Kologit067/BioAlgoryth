@@ -26,9 +26,9 @@ namespace StatisticsStorage.Accumulators
             _dnaMappingPerfomances = new List<DNAMappingPerfomance>();
         }
         //--------------------------------------------------------------------------------------------------------------------
-        public void CreateStatistics(int size,string inputData,string algorithm, AlgorythmParameters algorythmParameters)
+        public void CreateStatistics(int size, int limit, string inputData,string algorithm, AlgorythmParameters algorythmParameters)
         {
-            _currentDNAMappingPerfomance = new DNAMappingPerfomance(size, inputData, algorithm, algorythmParameters);
+            _currentDNAMappingPerfomance = new DNAMappingPerfomance(size, limit, inputData, algorithm, algorythmParameters);
             _dnaMappingPerfomances.Add(_currentDNAMappingPerfomance);
         }
         //--------------------------------------------------------------------------------------------------------------------

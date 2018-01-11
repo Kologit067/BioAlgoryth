@@ -21,6 +21,7 @@ namespace DNAMappingTest
             // arrange
             int[] excpectedResult = new int[] { 0, 3, 6, 7};
             int[] pairwiseDifferences = DNAMappingBase.ProduceMatrix(excpectedResult);
+            string pairwiseDifferencesAsString = string.Join(",", pairwiseDifferences.OrderBy(p => p));
             EnumerateDNAMappingByIntegerTrangle enumeration = new EnumerateDNAMappingByIntegerTrangle(pairwiseDifferences, 0)
             {
                 StatisticAccumulator = new DNAMappingStatisticAccumulator(new DNAMappingSaver())
@@ -38,7 +39,7 @@ namespace DNAMappingTest
         public void ProcessInputDataTestCaseLength6Limit8()
         {
             // arrange
-            EnumerateIntegerTrangleForInput enumeration = new EnumerateIntegerTrangleForInput(8, 6, 0, 0);
+            EnumerateIntegerTrangleForInput enumeration = new EnumerateIntegerTrangleForInput(8, 6);
             // act
             enumeration.Execute();
             // assert
@@ -62,10 +63,11 @@ namespace DNAMappingTest
             }
         }
         //--------------------------------------------------------------------------------------
-        public EnumerateIntegerTrangleForInput(int pLimit, int pLength, int pMinimumValue = 0, int pForwardAdditive = 0)
+        public EnumerateIntegerTrangleForInput(int pLimit, int pLength, int pMinimumValue = 1, int pForwardAdditive = 0)
             : base(pLimit, pLength, pMinimumValue, pForwardAdditive)
         {
             _statisticAccumulator = new DNAMappingStatisticAccumulator(new DNAMappingSaver());
+            _fBreakElement = 0;
         }
         //--------------------------------------------------------------------------------------
         protected override bool MakeAction()
@@ -86,11 +88,6 @@ namespace DNAMappingTest
         //--------------------------------------------------------------------------------------
         protected override bool IsCompleteCondition()
         {
-            if ((_fCurrentPosition == 0) && (_fCurrentSet[_fCurrentPosition] != 0))
-            {
-                TerminalAction();
-                return true;
-            }
             return base.IsCompleteCondition();
         }
         //--------------------------------------------------------------------------------------

@@ -13,9 +13,10 @@ namespace StatisticsStorage.Accumulators
     public class DNAMappingPerfomance : StatisyicsPerfomance
     {
         //--------------------------------------------------------------------------------------
-        public DNAMappingPerfomance(int size, string inputData, string algorithm, AlgorythmParameters algorythmParameters) : base(size, inputData, algorithm)
+        public DNAMappingPerfomance(int size, int limit, string inputData, string algorithm, AlgorythmParameters algorythmParameters) : base(size, inputData, algorithm)
         {
             _algorythmParameters = algorythmParameters;
+            _limit = limit;
         }
         //--------------------------------------------------------------------------------------------------------------------
         protected List<List<int>> _listOfSolution;
@@ -24,6 +25,15 @@ namespace StatisticsStorage.Accumulators
             get
             {
                 return _listOfSolution;
+            }
+        }
+        //--------------------------------------------------------------------------------------
+        protected int _limit;
+        public int Limit
+        {
+            get
+            {
+                return _limit;
             }
         }
         //--------------------------------------------------------------------------------------------------------------------
