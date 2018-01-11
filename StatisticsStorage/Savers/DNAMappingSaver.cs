@@ -47,20 +47,6 @@ namespace StatisticsStorage.Savers
                 int number = 0;
                 foreach (var ps in dnaMappingPerfomances)
                 {
-                    performance.Columns.Add("InputData", System.Type.GetType("System.String"));
-                    performance.Columns.Add("OutputPresentation", System.Type.GetType("System.String"));
-                    performance.Columns.Add("Algorithm", System.Type.GetType("System.String"));
-                    performance.Columns.Add("NumberOfIteration", System.Type.GetType("System.Int64"));
-                    performance.Columns.Add("Duration", System.Type.GetType("System.Int64"));
-                    performance.Columns.Add("DurationMilliSeconds", System.Type.GetType("System.Int64"));
-                    performance.Columns.Add("DateComplete", System.Type.GetType("System.DateTime"));
-                    performance.Columns.Add("IsComplete", System.Type.GetType("System.Boolean"));
-                    performance.Columns.Add("LastRoute", System.Type.GetType("System.String"));
-                    performance.Columns.Add("OptimalRoute", System.Type.GetType("System.String"));
-                    performance.Columns.Add("CountTerminal", System.Type.GetType("System.Int64"));
-                    performance.Columns.Add("UpdateOptcount", System.Type.GetType("System.Int64"));
-                    performance.Columns.Add("ElemenationCount", System.Type.GetType("System.Int64"));
-                    performance.Columns.Add("IsAllResult", System.Type.GetType("System.Boolean"));
                     performance.Rows.Add(number, ps.Size, ps.InputData, ps.OutputPresentation, ps.Algorithm, 
                         ps.IterationCount, ps.Duration, ps.DurationMilliSeconds, ps.DateComplete, ps.IsComplete,
                         ps.LastRoute, ps.OptimalRoute, ps.CountTerminal, ps.UpdateOptcount, ps.ElemenationCount,

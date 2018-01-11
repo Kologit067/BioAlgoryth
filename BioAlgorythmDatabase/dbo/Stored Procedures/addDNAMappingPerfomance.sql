@@ -26,7 +26,7 @@ BEGIN
 	FROM #AlgorithmPerfomance
 	)
 	UPDATE ap
-	SET ap.[NumberInArray] = cte.[NumberInArray]
+	SET ap.[NumberInArray] = cte.rownumber
 	FROM #AlgorithmPerfomance ap
 	INNER JOIN  cte
 	ON ap.[AlgorithmPerfomanceId] = cte.[AlgorithmPerfomanceId]

@@ -15,6 +15,7 @@ namespace StatisticsStorage.Accumulators
         //--------------------------------------------------------------------------------------
         public DNAMappingPerfomance(int size, string inputData, string algorithm, AlgorythmParameters algorythmParameters) : base(size, inputData, algorithm)
         {
+            _algorythmParameters = algorythmParameters;
         }
         //--------------------------------------------------------------------------------------------------------------------
         protected List<List<int>> _listOfSolution;
