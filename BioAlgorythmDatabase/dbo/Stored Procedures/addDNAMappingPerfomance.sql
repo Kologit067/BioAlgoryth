@@ -1,5 +1,4 @@
-﻿
-CREATE PROCEDURE [dbo].[addDNAMappingPerfomance]
+﻿CREATE PROCEDURE [dbo].[addDNAMappingPerfomance]
     @DNAMappingPerfomances dbo.[DNAMappingPerfomanceType] READONLY,
     @DNAMappingSolutions dbo.[DNAMappingSolutionType] READONLY
 AS    
@@ -11,11 +10,11 @@ BEGIN
 			[AlgorithmPerfomanceId] INT
 			);
 			
-	INSERT [DNAMappingPerfomance] ( [Size], [InputData],	[OutputPresentation], [Algorithm],
+	INSERT [DNAMappingPerfomance] ( [Size], [Limit], [InputData],	[OutputPresentation], [Algorithm],
 	[NumberOfIteration], [Duration], [DurationMilliSeconds], [DateComplete], [IsComplete], [LastRoute],
 	[OptimalRoute], [CountTerminal], [UpdateOptcount], [ElemenationCount], [IsAllResult])
 	OUTPUT INSERTED.[DNAMappingPerfomanceId] INTO #AlgorithmPerfomance([AlgorithmPerfomanceId])
-	SELECT [Size], [InputData],	[OutputPresentation], [Algorithm],
+	SELECT [Size], [Limit], [InputData],	[OutputPresentation], [Algorithm],
 	[NumberOfIteration], [Duration], [DurationMilliSeconds], [DateComplete], [IsComplete], [LastRoute],
 	[OptimalRoute], [CountTerminal], [UpdateOptcount], [ElemenationCount], [IsAllResult]
 	FROM @DNAMappingPerfomances d; 
@@ -33,9 +32,9 @@ BEGIN
 
 
 	INSERT INTO [DNAMappingSolution] ([DNAMappingPerfomanceId], [OutputPresentation])	
-	SELECT ap.[AlgorithmPerfomanceId], avc.[OutputPresentation]
+	SELECT ap.[DNAMappingPerfomanceId], avc.[OutputPresentation]
 	FROM @DNAMappingSolutions avc
-	INNER JOIN #AlgorithmPerfomance ap
-	ON avc.[NumberInArray] = ap.[NumberInArray]
+	INNER JOIN [DNAMappingPerfomance] ap
+	ON avc.[Size] = ap.[Size] AND avc.Limit = ap.Limit AND avc.InputData = ap.InputData  
 
 END

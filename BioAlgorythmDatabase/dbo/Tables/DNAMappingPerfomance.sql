@@ -1,6 +1,7 @@
 ﻿CREATE TABLE [dbo].[DNAMappingPerfomance] (
     [DNAMappingPerfomanceId] INT            IDENTITY (1, 1) NOT NULL,
     [Size]                   INT            NOT NULL,
+    [Limit]                  INT            NOT NULL,
     [InputData]              NVARCHAR (MAX) NOT NULL,
     [OutputPresentation]     NVARCHAR (MAX) NOT NULL,
     [Algorithm]              NVARCHAR (MAX) NOT NULL,
@@ -17,6 +18,8 @@
     [IsAllResult]            BIT            NULL,
     PRIMARY KEY CLUSTERED ([DNAMappingPerfomanceId] ASC)
 );
+
+
 
 
 

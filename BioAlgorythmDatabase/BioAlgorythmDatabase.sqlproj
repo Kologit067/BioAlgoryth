@@ -93,5 +93,6 @@
     <Build Include="dbo\User Defined Types\RegulatoryMotifOptimalValueChangeType.sql" />
     <Build Include="dbo\User Defined Types\DNAMappingSolutionType.sql" />
     <Build Include="dbo\User Defined Types\DNAMappingPerfomanceType.sql" />
+    <Build Include="dbo\Stored Procedures\deleteDNAMappingPerfomance.sql" />
   </ItemGroup>
 </Project>

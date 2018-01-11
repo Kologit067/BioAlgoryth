@@ -1,6 +1,6 @@
 ﻿CREATE TYPE [dbo].[DNAMappingPerfomanceType] AS TABLE (
-    [NumberInArray]        INT            NULL,
     [Size]                 INT            NOT NULL,
+    [Limit]                INT            NOT NULL,
     [InputData]            NVARCHAR (MAX) NOT NULL,
     [OutputPresentation]   NVARCHAR (MAX) NOT NULL,
     [Algorithm]            NVARCHAR (MAX) NOT NULL,
@@ -15,4 +15,6 @@
     [UpdateOptcount]       INT            NULL,
     [ElemenationCount]     INT            NULL,
     [IsAllResult]          BIT            NULL);
+
+
 
