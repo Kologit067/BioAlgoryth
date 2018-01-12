@@ -35,6 +35,6 @@ BEGIN
 	SELECT ap.[DNAMappingPerfomanceId], avc.[OutputPresentation]
 	FROM @DNAMappingSolutions avc
 	INNER JOIN [DNAMappingPerfomance] ap
-	ON avc.[Size] = ap.[Size] AND avc.Limit = ap.Limit AND avc.InputData = ap.InputData  
+	ON avc.[Size] = ap.[Size] AND avc.Limit = ap.Limit AND avc.InputData = ap.InputData  AND avc.[Algorithm] = ap.[Algorithm]  
 
 END

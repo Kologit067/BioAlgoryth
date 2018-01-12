@@ -9,13 +9,14 @@ using System.Threading.Tasks;
 
 namespace StatisticsStorage.Savers
 {
-    public class DNAMappingSaver 
+    public class DNAMappingSaver
     {
         private string _connectionString;
         public DNAMappingSaver()
         {
             _connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["bioalgorythm"].ConnectionString;
         }
+
         public string Save(List<DNAMappingPerfomance> dnaMappingPerfomances)
         {
             string error = null;
@@ -25,6 +26,7 @@ namespace StatisticsStorage.Savers
                 DataTable performance = new DataTable();
                 performance.Columns.Add("NumberInArray", System.Type.GetType("System.Int32"));
                 performance.Columns.Add("Size", System.Type.GetType("System.Int32"));
+                performance.Columns.Add("Limit", System.Type.GetType("System.Int32"));
                 performance.Columns.Add("InputData", System.Type.GetType("System.String"));
                 performance.Columns.Add("OutputPresentation", System.Type.GetType("System.String"));
                 performance.Columns.Add("Algorithm", System.Type.GetType("System.String"));
@@ -41,20 +43,23 @@ namespace StatisticsStorage.Savers
                 performance.Columns.Add("IsAllResult", System.Type.GetType("System.Boolean"));
 
                 DataTable solutions = new DataTable();
-                solutions.Columns.Add("NumberInArray", System.Type.GetType("System.Int32"));
+                solutions.Columns.Add("Algorithm", System.Type.GetType("System.String"));
+                solutions.Columns.Add("Size", System.Type.GetType("System.Int32"));
+                solutions.Columns.Add("Limit", System.Type.GetType("System.Int32"));
+                solutions.Columns.Add("InputData", System.Type.GetType("System.String"));
                 solutions.Columns.Add("OutputPresentation", System.Type.GetType("System.String"));
 
                 int number = 0;
                 foreach (var ps in dnaMappingPerfomances)
                 {
-                    performance.Rows.Add(number, ps.Size, ps.InputData, ps.OutputPresentation, ps.Algorithm, 
+                    performance.Rows.Add(number, ps.Size, ps.Limit, ps.InputData, ps.OutputPresentation, ps.Algorithm,
                         ps.IterationCount, ps.Duration, ps.DurationMilliSeconds, ps.DateComplete, ps.IsComplete,
                         ps.LastRoute, ps.OptimalRoute, ps.CountTerminal, ps.UpdateOptcount, ps.ElemenationCount,
                         ps.AlgorythmParameters.IsAllResult);
 
                     for (int i = 0; i < ps.ListOfSolution.Count; i++)
                     {
-                        solutions.Rows.Add(number, string.Join(",", ps.ListOfSolution[i]));
+                        solutions.Rows.Add(number, string.Join(",", ps.Algorithm, ps.Size, ps.Limit, ps.InputData, ps.ListOfSolution[i]));
                     }
 
                     number++;
@@ -80,6 +85,40 @@ namespace StatisticsStorage.Savers
                     connection.Close();
                 }
             }
+            catch (Exception ex)
+            {
+                error = ex.ToString();
+            }
+            return error;
+
+        }
+
+        public string Delete(string algorithm, int size, int limit)
+        {
+            string error = null;
+
+
+            SqlConnection connection = new SqlConnection(_connectionString);
+            connection.Open();
+            try
+            {
+                SqlCommand addCommand = new SqlCommand("dbp.deleteDNAMappingPerfomance", connection);
+                addCommand.CommandType = CommandType.StoredProcedure;
+                addCommand.CommandTimeout = 300;
+                SqlParameter tvpParam2 = addCommand.Parameters.AddWithValue("@Limit", limit);
+                tvpParam2.SqlDbType = SqlDbType.VarChar;
+                SqlParameter tvpParam3 = addCommand.Parameters.AddWithValue("@Algorithm", algorithm);
+                tvpParam3.SqlDbType = SqlDbType.VarChar;
+                SqlParameter tvpParam = addCommand.Parameters.AddWithValue("@Size", size);
+                tvpParam.SqlDbType = SqlDbType.VarChar;
+                addCommand.ExecuteNonQuery();
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+
             catch (Exception ex)
             {
                 error = ex.ToString();
