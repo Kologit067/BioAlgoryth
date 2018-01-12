@@ -7,12 +7,31 @@ CREATE PROCEDURE [dbo].[deleteDNAMappingPerfomance]
 AS    
 BEGIN
 	
-	IF (@Size IS NULL)		
+	IF (@Size IS NULL)	
+	BEGIN	
+		DELETE s
+		FROM [dbo].[DNAMappingSolution] s
+		INNER JOIN 	[DNAMappingPerfomance] p
+		ON s.DNAMappingPerfomanceId = p.DNAMappingPerfomanceId
+		WHERE [Algorithm] = @Algorithm;
+
 		DELETE FROM [DNAMappingPerfomance] 
 		WHERE [Algorithm] = @Algorithm;
+	END
 	ELSE
-		DELETE FROM [DNAMappingPerfomance] 
+	BEGIN
+		DELETE s
+		FROM [dbo].[DNAMappingSolution] s
+		INNER JOIN 	[DNAMappingPerfomance] p
+		ON s.DNAMappingPerfomanceId = p.DNAMappingPerfomanceId
 		WHERE [Size] = @Size AND Limit = @Limit AND [Algorithm] = @Algorithm;
 
+		DELETE FROM [DNAMappingPerfomance] 
+		WHERE [Size] = @Size AND Limit = @Limit AND [Algorithm] = @Algorithm;
+    END
 
 END
+
+/*
+EXEC [dbo].[deleteDNAMappingPerfomance] @Algorithm = 'EnumerateDNAMappingByIntegerTrangle'
+*/

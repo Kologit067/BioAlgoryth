@@ -16,7 +16,7 @@ namespace DNAMappingTest
     {
         //--------------------------------------------------------------------------------------
         [TestMethod]
-        public void ExecuteTest()
+        public void ExecuteTestCase1()
         {
             // arrange
             int[] excpectedResult = new int[] { 0, 3, 6, 7};
@@ -24,7 +24,27 @@ namespace DNAMappingTest
             string pairwiseDifferencesAsString = string.Join(",", pairwiseDifferences.OrderBy(p => p));
             EnumerateDNAMappingByIntegerTrangle enumeration = new EnumerateDNAMappingByIntegerTrangle(pairwiseDifferences, 0)
             {
-                StatisticAccumulator = new DNAMappingStatisticAccumulator(new DNAMappingSaver())
+                StatisticAccumulator = new FakeDNAMappingStatisticAccumulator()
+            };
+            // act
+            enumeration.Execute();
+            // assert
+            var result = enumeration.ListOfSolution.FirstOrDefault(l => l.SequenceEqual(excpectedResult));
+            Assert.IsNotNull(result, $"Expected result absent in solution list");
+
+        }
+
+        //--------------------------------------------------------------------------------------
+        [TestMethod]
+        public void ExecuteTestCase2()
+        {
+            // arrange
+            int[] excpectedResult = new int[] { 0, 3, 5, 8 };
+            int[] pairwiseDifferences = DNAMappingBase.ProduceMatrix(excpectedResult);
+            string pairwiseDifferencesAsString = string.Join(",", pairwiseDifferences.OrderBy(p => p));
+            EnumerateDNAMappingByIntegerTrangle enumeration = new EnumerateDNAMappingByIntegerTrangle(pairwiseDifferences, 0)
+            {
+                StatisticAccumulator = new FakeDNAMappingStatisticAccumulator()
             };
             // act
             enumeration.Execute();
@@ -66,7 +86,9 @@ namespace DNAMappingTest
         public EnumerateIntegerTrangleForInput(int pLimit, int pLength, int pMinimumValue = 1, int pForwardAdditive = 0)
             : base(pLimit, pLength, pMinimumValue, pForwardAdditive)
         {
-            _statisticAccumulator = new DNAMappingStatisticAccumulator(new DNAMappingSaver());
+            int size = DNAMappingBase.DefineRestrictionMapSizeFromDifferencesSize(pLength);
+            _statisticAccumulator = new DNAMappingStatisticAccumulator(new DNAMappingSaver(), size, pLimit);
+            _statisticAccumulator.Delete("EnumerateDNAMappingByIntegerTrangle");
             _fBreakElement = 0;
         }
         //--------------------------------------------------------------------------------------

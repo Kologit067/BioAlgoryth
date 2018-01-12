@@ -18,17 +18,21 @@ namespace StatisticsStorage.Accumulators
         protected DNAMappingPerfomance _currentDNAMappingPerfomance;
         protected DNAMappingSaver _dnaMappingSaver;
         protected int _bufferSize;
+        protected int _size;
+        protected int _limit;
         //--------------------------------------------------------------------------------------------------------------------
-        public DNAMappingStatisticAccumulator(DNAMappingSaver dnaMappingSaver, int bufferSize = 100)
+        public DNAMappingStatisticAccumulator(DNAMappingSaver dnaMappingSaver, int size, int limit, int bufferSize = 100)
         {
+            _size = size;
+            _limit = limit;
             _dnaMappingSaver = dnaMappingSaver;
             _bufferSize = bufferSize;
             _dnaMappingPerfomances = new List<DNAMappingPerfomance>();
         }
         //--------------------------------------------------------------------------------------------------------------------
-        public void CreateStatistics(int size, int limit, string inputData,string algorithm, AlgorythmParameters algorythmParameters)
+        public void CreateStatistics(string inputData,string algorithm, AlgorythmParameters algorythmParameters)
         {
-            _currentDNAMappingPerfomance = new DNAMappingPerfomance(size, limit, inputData, algorithm, algorythmParameters);
+            _currentDNAMappingPerfomance = new DNAMappingPerfomance(_size, _limit, inputData, algorithm, algorythmParameters);
             _dnaMappingPerfomances.Add(_currentDNAMappingPerfomance);
         }
         //--------------------------------------------------------------------------------------------------------------------
@@ -69,6 +73,56 @@ namespace StatisticsStorage.Accumulators
             if (_dnaMappingPerfomances.Count > 0)
                 _dnaMappingSaver.Save(_dnaMappingPerfomances);
             _dnaMappingPerfomances.Clear();
+        }
+        //--------------------------------------------------------------------------------------------------------------------
+        public string Delete(string algorithm)
+        {
+            return _dnaMappingSaver.Delete(algorithm, _size, _limit);
+        }
+        //--------------------------------------------------------------------------------------------------------------------
+    }
+    //--------------------------------------------------------------------------------------------------------------------
+    // class FakeDNAMappingStatisticAccumulator
+    //--------------------------------------------------------------------------------------------------------------------
+    public class FakeDNAMappingStatisticAccumulator : IDNAMappingStatisticAccumulator
+    {
+        //--------------------------------------------------------------------------------------------------------------------
+        public FakeDNAMappingStatisticAccumulator()
+        {
+        }
+        //--------------------------------------------------------------------------------------------------------------------
+        public void CreateStatistics(string inputData, string algorithm, AlgorythmParameters algorythmParameters)
+        {
+        }
+        //--------------------------------------------------------------------------------------------------------------------
+        public void SaveStatisticData(string outputPresentation, long duration, long durationMilliSeconds, DateTime dateComplete,
+            bool isComplete, string lastRoute, string optimalRoute, List<List<int>> listOfSolution)
+        {
+        }
+        //--------------------------------------------------------------------------------------------------------------------
+        public void IterationCountInc()
+        {
+        }
+        //--------------------------------------------------------------------------------------------------------------------
+        public void TerminalCountInc()
+        {
+        }
+        //--------------------------------------------------------------------------------------------------------------------
+        public void UpdateOptcountInc()
+        {
+        }
+        //--------------------------------------------------------------------------------------------------------------------
+        public void ElemenationCountInc()
+        {
+        }
+        //--------------------------------------------------------------------------------------------------------------------
+        public void SaveRemain()
+        {
+        }
+        //--------------------------------------------------------------------------------------------------------------------
+        public string Delete(string algorithm)
+        {
+            return "";
         }
         //--------------------------------------------------------------------------------------------------------------------
     }

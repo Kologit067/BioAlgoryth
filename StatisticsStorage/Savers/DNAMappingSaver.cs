@@ -23,8 +23,8 @@ namespace StatisticsStorage.Savers
 
             try
             {
-                DataTable performance = new DataTable();
-                performance.Columns.Add("NumberInArray", System.Type.GetType("System.Int32"));
+	
+            DataTable performance = new DataTable();
                 performance.Columns.Add("Size", System.Type.GetType("System.Int32"));
                 performance.Columns.Add("Limit", System.Type.GetType("System.Int32"));
                 performance.Columns.Add("InputData", System.Type.GetType("System.String"));
@@ -49,20 +49,18 @@ namespace StatisticsStorage.Savers
                 solutions.Columns.Add("InputData", System.Type.GetType("System.String"));
                 solutions.Columns.Add("OutputPresentation", System.Type.GetType("System.String"));
 
-                int number = 0;
                 foreach (var ps in dnaMappingPerfomances)
                 {
-                    performance.Rows.Add(number, ps.Size, ps.Limit, ps.InputData, ps.OutputPresentation, ps.Algorithm,
+                    performance.Rows.Add( ps.Size, ps.Limit, ps.InputData, ps.OutputPresentation, ps.Algorithm,
                         ps.IterationCount, ps.Duration, ps.DurationMilliSeconds, ps.DateComplete, ps.IsComplete,
                         ps.LastRoute, ps.OptimalRoute, ps.CountTerminal, ps.UpdateOptcount, ps.ElemenationCount,
                         ps.AlgorythmParameters.IsAllResult);
 
                     for (int i = 0; i < ps.ListOfSolution.Count; i++)
                     {
-                        solutions.Rows.Add(number, string.Join(",", ps.Algorithm, ps.Size, ps.Limit, ps.InputData, ps.ListOfSolution[i]));
+                        solutions.Rows.Add(ps.Algorithm, ps.Size, ps.Limit, ps.InputData, string.Join(",", ps.ListOfSolution[i]));
                     }
 
-                    number++;
                 }
 
                 SqlConnection connection = new SqlConnection(_connectionString);
@@ -102,7 +100,7 @@ namespace StatisticsStorage.Savers
             connection.Open();
             try
             {
-                SqlCommand addCommand = new SqlCommand("dbp.deleteDNAMappingPerfomance", connection);
+                SqlCommand addCommand = new SqlCommand("dbo.deleteDNAMappingPerfomance", connection);
                 addCommand.CommandType = CommandType.StoredProcedure;
                 addCommand.CommandTimeout = 300;
                 SqlParameter tvpParam2 = addCommand.Parameters.AddWithValue("@Limit", limit);
@@ -113,15 +111,13 @@ namespace StatisticsStorage.Savers
                 tvpParam.SqlDbType = SqlDbType.VarChar;
                 addCommand.ExecuteNonQuery();
             }
-            finally
-            {
-                connection.Close();
-            }
-
-
             catch (Exception ex)
             {
                 error = ex.ToString();
+            }
+            finally
+            {
+                connection.Close();
             }
             return error;
 

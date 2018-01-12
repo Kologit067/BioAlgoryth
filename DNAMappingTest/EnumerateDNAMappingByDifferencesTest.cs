@@ -24,7 +24,7 @@ namespace DNAMappingTest
             int[] pairwiseDifferences = DNAMappingBase.ProduceMatrix(excpectedResult);
             EnumerateDNAMappingByDifferences enumeration = new EnumerateDNAMappingByDifferences(pairwiseDifferences)
             {
-                StatisticAccumulator = new DNAMappingStatisticAccumulator(new DNAMappingSaver())
+                StatisticAccumulator = new FakeDNAMappingStatisticAccumulator()
             };
             // act
             enumeration.Execute();
