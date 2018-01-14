@@ -23,10 +23,9 @@ namespace StatisticsStorage.Savers
             try
             {
                 DataTable performance = new DataTable();
-                performance.Columns.Add("NumberInArray", System.Type.GetType("System.Int32"));
                 performance.Columns.Add("Size", System.Type.GetType("System.Int32"));
                 performance.Columns.Add("NumberOfSequence", System.Type.GetType("System.Int32"));
-                performance.Columns.Add("averageSequenceLength", System.Type.GetType("System.Int32"));
+                performance.Columns.Add("SequenceLengthes", System.Type.GetType("System.String"));
                 performance.Columns.Add("MotifLength", System.Type.GetType("System.Int32"));
                 performance.Columns.Add("InputData", System.Type.GetType("System.String"));
                 performance.Columns.Add("OutputPresentation", System.Type.GetType("System.String"));
@@ -49,7 +48,10 @@ namespace StatisticsStorage.Savers
                 performance.Columns.Add("IsAllResult", System.Type.GetType("System.Boolean"));
 
                 DataTable valueChanges = new DataTable();
-                valueChanges.Columns.Add("NumberInArray", System.Type.GetType("System.Int32"));
+                performance.Columns.Add("Algorithm", System.Type.GetType("System.String"));
+                performance.Columns.Add("SequenceLengthes", System.Type.GetType("System.String"));
+                performance.Columns.Add("MotifLength", System.Type.GetType("System.Int32"));
+                performance.Columns.Add("InputData", System.Type.GetType("System.String"));
                 valueChanges.Columns.Add("NumberOfIteration", System.Type.GetType("System.Int64"));
                 valueChanges.Columns.Add("Duration", System.Type.GetType("System.Int64"));
                 valueChanges.Columns.Add("DurationMilliSeconds", System.Type.GetType("System.Int64"));
@@ -58,14 +60,16 @@ namespace StatisticsStorage.Savers
                 valueChanges.Columns.Add("Motif", System.Type.GetType("System.String"));
 
                 DataTable solutions = new DataTable();
-                solutions.Columns.Add("NumberInArray", System.Type.GetType("System.Int32"));
+                performance.Columns.Add("Algorithm", System.Type.GetType("System.String"));
+                performance.Columns.Add("SequenceLengthes", System.Type.GetType("System.String"));
+                performance.Columns.Add("MotifLength", System.Type.GetType("System.Int32"));
+                performance.Columns.Add("InputData", System.Type.GetType("System.String"));
                 solutions.Columns.Add("StartPosition", System.Type.GetType("System.String"));
                 solutions.Columns.Add("Motif", System.Type.GetType("System.String"));
 
-                int number = 0;
                 foreach (var ps in regulatoryMotifPerfomances)
                 {
-                    performance.Rows.Add(number, ps.Size, ps.NumberOfSequence, ps.AverageSequenceLength, 
+                    performance.Rows.Add(ps.Size, ps.NumberOfSequence, ps.SequenceLengthes, 
                         ps.MotifLength, ps.InputData, ps.OutputPresentation, ps.Algorithm, ps.IterationCount, 
                         ps.Duration, ps.DurationMilliSeconds, ps.DateComplete, ps.IsComplete, 
                         ps.LastRoute, ps.OptimalRoute, ps.OptimalValue, ps.SolutionStartPositionList[0],
@@ -74,15 +78,16 @@ namespace StatisticsStorage.Savers
 
                     for (int i = 0; i < ps.ListOfMotif.Count; i++)
                     {
-                        solutions.Rows.Add(number,ps.SolutionStartPositionList[i], ps.ListOfMotif[i]);
+                        solutions.Rows.Add(ps.Algorithm, ps.SequenceLengthes,
+                        ps.MotifLength, ps.InputData, ps.SolutionStartPositionList[i], ps.ListOfMotif[i]);
                     }
 
                     foreach ( var ch in ps.RegulatoryMotifOptimalValueChanges)
                     {
-                        valueChanges.Rows.Add(number, ch.IterationCount, ch.Duration, ch.DurationMilliSeconds,
+                        valueChanges.Rows.Add(ps.Algorithm, ps.SequenceLengthes,
+                        ps.MotifLength, ps.InputData, ch.IterationCount, ch.Duration, ch.DurationMilliSeconds,
                             ch.OptimalValue, ch.StartPosition, ch.Motif);
                     }
-                    number++;
                 }
 
  

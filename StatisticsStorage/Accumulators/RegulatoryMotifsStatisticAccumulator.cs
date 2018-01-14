@@ -23,9 +23,9 @@ namespace StatisticsStorage.Accumulators
         }
         //--------------------------------------------------------------------------------------------------------------------
         public void CreateStatistics(int size, string inputData, string algorithm, int numberOfSequence,
-                int averageSequenceLength, int motifLength, AlgorythmParameters algorythmParameters)
+                string sequenceLengthes, int motifLength, AlgorythmParameters algorythmParameters)
         {
-            _currentRegulatoryMotifPerfomance = new RegulatoryMotifPerfomance(size, inputData, algorithm, numberOfSequence, averageSequenceLength, motifLength, algorythmParameters);
+            _currentRegulatoryMotifPerfomance = new RegulatoryMotifPerfomance(size, inputData, algorithm, numberOfSequence, sequenceLengthes, motifLength, algorythmParameters);
             _regulatoryMotifPerfomances.Add(_currentRegulatoryMotifPerfomance);
             if (_regulatoryMotifPerfomances.Count > _bufferSize)
             {

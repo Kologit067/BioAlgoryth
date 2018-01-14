@@ -216,7 +216,7 @@ namespace FindingRegulatoryMotifs.Enumeration
         protected override void SupplementInitial()
         {
             StatisticAccumulator.CreateStatistics(_fSize, string.Join(",", _sequenceLIst.Select(s => new string(s))), "RegulatoryMotifsBoundaryBranchEnumeration", _sequenceLIst.Length,
-                (int)Math.Round(_sequenceLIst.Select(s => s.Length).Average()), _patternLength, new AlgorythmParameters() { });
+                string.Join(",", _sequenceLIst.Select(s => s.Length)), _patternLength, new AlgorythmParameters() { });
         }
         //-----------------------------------------------------------------------------------
         protected override void PostAction()

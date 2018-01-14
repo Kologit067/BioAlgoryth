@@ -14,12 +14,12 @@ namespace StatisticsStorage.Accumulators
     public class RegulatoryMotifPerfomance : StatisyicsPerfomance
     {
         //--------------------------------------------------------------------------------------
-        protected int _averageSequenceLength;
-        public int AverageSequenceLength
+        protected string _sequenceLengthes;
+        public string SequenceLengthes
         {
             get
             {
-                return _averageSequenceLength;
+                return _sequenceLengthes;
             }
         }
         //--------------------------------------------------------------------------------------
@@ -87,10 +87,10 @@ namespace StatisticsStorage.Accumulators
         }
         //--------------------------------------------------------------------------------------------------------------------
         public RegulatoryMotifPerfomance(int size, string inputData, string algorithm, int numberOfSequence,
-                int averageSequenceLength, int motifLength, AlgorythmParameters algorythmParameters) : base(size, inputData, algorithm)
+                string sequenceLengthes, int motifLength, AlgorythmParameters algorythmParameters) : base(size, inputData, algorithm)
         {
             _numberOfSequence = numberOfSequence;
-            _averageSequenceLength = averageSequenceLength;
+            _sequenceLengthes = sequenceLengthes;
             _motifLength = motifLength;
             _algorythmParameters = algorythmParameters;
         }
