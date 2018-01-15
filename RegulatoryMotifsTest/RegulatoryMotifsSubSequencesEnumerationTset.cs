@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using FindingRegulatoryMotifs.Enumeration;
 
 namespace RegulatoryMotifsTest
 {
@@ -15,18 +16,26 @@ namespace RegulatoryMotifsTest
         public void ExecuteTestCase1()
         {
             // arrange
-            int[] excpectedResult = new int[] { 0, 3, 6, 7 };
-            int[] pairwiseDifferences = DNAMappingBase.ProduceMatrix(excpectedResult);
-            string pairwiseDifferencesAsString = string.Join(",", pairwiseDifferences.OrderBy(p => p));
-            EnumerateDNAMappingByIntegerTrangle enumeration = new EnumerateDNAMappingByIntegerTrangle(pairwiseDifferences, 0)
+            string excpectedMotif = "agcgt";
+            string expectedSolutionStartPosition = "3,5,1";
+            int expectedResult = 5;
+
+            char[][] charSets = new char[][] { new char[] {'a','g','t','a','g','c','g','t','a','a' },
+            new char[] {'t','g','t','g','c','a','g','c','g','t' },
+            new char[] {'a','a','g','c','g','t','t','a','c','c' }};
+            char[] alphabet = new char[] { 'a','c','g','t'};
+            int substringLength = 5;
+            RegulatoryMotifsSubSequencesEnumeration enumeration = new RegulatoryMotifsSubSequencesEnumeration(charSets, alphabet, substringLength)
             {
-                StatisticAccumulator = new FakeDNAMappingStatisticAccumulator()
+                StatisticAccumulator = null // new FakeDNAMappingStatisticAccumulator()
             };
             // act
             enumeration.Execute();
             // assert
-            var result = enumeration.ListOfSolution.FirstOrDefault(l => l.SequenceEqual(excpectedResult));
-            Assert.IsNotNull(result, $"Expected result absent in solution list");
+            string solutionStartPosition = string.Join(",", enumeration.SolutionStartPositionList);
+            Assert.AreEqual(enumeration.Motif, excpectedMotif, $"Motif is wrong.");
+            Assert.AreEqual(solutionStartPosition, expectedSolutionStartPosition, $"Positions are wrong.");
+            Assert.AreEqual(enumeration.OptimalValue, expectedResult, $"Result is wrong.");
 
         }
     }

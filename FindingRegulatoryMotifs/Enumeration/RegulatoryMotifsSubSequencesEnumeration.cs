@@ -46,6 +46,15 @@ namespace FindingRegulatoryMotifs.Enumeration
                 return _listOfMotif;
             }
         }
+        //--------------------------------------------------------------------------------------
+        public List<int[]> SolutionStartPositionList
+        {
+            get
+            {
+                return _solutionStartPositionList;
+            }
+        }
+        //--------------------------------------------------------------------------------------
         public IRegulatoryMotifsStatisticAccumulator StatisticAccumulator { get; set; }
         //--------------------------------------------------------------------------------------
         public RegulatoryMotifsSubSequencesEnumeration(char[][] pCharSets, char[] pAlphabet, int pSubstringLength, bool pIsAllResult = true, bool pIsOptimizitaion = false, bool pIsSumAsCriteria = false, int pAcceptibleDistance = 0)
@@ -183,7 +192,7 @@ namespace FindingRegulatoryMotifs.Enumeration
             get
             {
                 if (_motif != null && _motif.Count > 0)
-                    return string.Join(",", _motif.Select(i => i.ToString()));
+                    return string.Join("", _motif.Select(i => i.ToString()));
                 return "Empty";
             }
         }
