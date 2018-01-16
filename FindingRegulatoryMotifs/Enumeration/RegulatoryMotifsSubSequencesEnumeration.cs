@@ -23,6 +23,7 @@ namespace FindingRegulatoryMotifs.Enumeration
         protected char[] _candidateMotif = null;
         protected List<List<char>> _listOfMotif = new List<List<char>>();
         protected Dictionary<char,int> _alphabetDatas;
+//        protected List<char> _alphabetDatasKeys;
         protected char[] _alphabet;
         protected int _currentBestValue;
         protected int[] _solutionStartPosition;
@@ -76,9 +77,9 @@ namespace FindingRegulatoryMotifs.Enumeration
                 CalculateCandidateMotif();
                 int currentDistance = 0;
                 if (!_isSumAsCriteria)
-                    currentDistance = Enumerable.Range(0, _fSize - 1).Max(i => DefineLocalDistance(i));
+                    currentDistance = Enumerable.Range(0, _fSize).Max(i => DefineLocalDistance(i));
                 else
-                    currentDistance = Enumerable.Range(0, _fSize - 1).Sum(i => DefineLocalDistance(i));
+                    currentDistance = Enumerable.Range(0, _fSize).Sum(i => DefineLocalDistance(i));
                 if ( !_isOptimizitaion)
                 {
                     if (currentDistance <= _acceptibleDistance)
@@ -134,9 +135,10 @@ namespace FindingRegulatoryMotifs.Enumeration
         {
             for (int i = 0; i < _substringLength; i++)
             {
-                Parallel.ForEach(_alphabetDatas.Keys, k => {
+                Parallel.ForEach(_alphabet, k => {
                     _alphabetDatas[k] = 0;
                 });
+
                 for (int j = 0; j < _fSize; j++)
                 {
                     char curChar = _charSets[j][_fCurrentSet[j] + i];

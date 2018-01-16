@@ -113,9 +113,9 @@ namespace FindingRegulatoryMotifs.Enumeration
             _currentBestValueList[_fCurrentPosition] = DefineBestSubstringAndDistance(_fCurrentPosition);
             _currentDistance = 0;
             if (!_isSumAsCriteria)
-                _currentDistance = Enumerable.Range(0, _sequenceLIstLength - 1).Max(i => DefineBestSubstringAndDistance(i));
+                _currentDistance = Enumerable.Range(0, _sequenceLIstLength).Max(i => DefineBestSubstringAndDistance(i));
             else
-                _currentDistance = Enumerable.Range(0, _sequenceLIstLength - 1).Sum(i => DefineBestSubstringAndDistance(i));
+                _currentDistance = Enumerable.Range(0, _sequenceLIstLength).Sum(i => DefineBestSubstringAndDistance(i));
             if (!_isOptimizitaion)
             {
                 if (_currentDistance > _acceptibleDistance)
@@ -142,9 +142,9 @@ namespace FindingRegulatoryMotifs.Enumeration
             {
                 //int currentDistance = 0;
                 //if (!_isSumAsCriteria)
-                //    currentDistance = Enumerable.Range(0, _sequenceLIstLength - 1).Max(i => DefineBestSubstringAndDistance(i));
+                //    currentDistance = Enumerable.Range(0, _sequenceLIstLength).Max(i => DefineBestSubstringAndDistance(i));
                 //else
-                //    currentDistance = Enumerable.Range(0, _sequenceLIstLength - 1).Sum(i => DefineBestSubstringAndDistance(i));
+                //    currentDistance = Enumerable.Range(0, _sequenceLIstLength).Sum(i => DefineBestSubstringAndDistance(i));
                 if (!_isOptimizitaion)
                 {
                     if (_currentDistance <= _acceptibleDistance)

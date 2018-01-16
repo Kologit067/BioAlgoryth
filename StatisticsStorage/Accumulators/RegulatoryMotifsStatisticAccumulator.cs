@@ -9,12 +9,16 @@ using System.Threading.Tasks;
 
 namespace StatisticsStorage.Accumulators
 {
+    //--------------------------------------------------------------------------------------------------------------------
+    //  class RegulatoryMotifsStatisticAccumulator
+    //--------------------------------------------------------------------------------------------------------------------
     public class RegulatoryMotifsStatisticAccumulator : IRegulatoryMotifsStatisticAccumulator
     {
         protected List<RegulatoryMotifPerfomance> _regulatoryMotifPerfomances;
         protected RegulatoryMotifPerfomance _currentRegulatoryMotifPerfomance;
         protected RegulatoryMotifSaver _regulatoryMotifSaver;
         protected int _bufferSize;
+        //--------------------------------------------------------------------------------------------------------------------
         public RegulatoryMotifsStatisticAccumulator(RegulatoryMotifSaver regulatoryMotifSaver,int bufferSize = 100)
         {
             _regulatoryMotifSaver = regulatoryMotifSaver;
@@ -68,6 +72,48 @@ namespace StatisticsStorage.Accumulators
             _currentRegulatoryMotifPerfomance.SaveStatisticData(outputPresentation, optimalValue, duration, durationMilliSeconds, dateComplete,
                        isComplete, lastRoute, optimalRoute, listOfMotif, solutionStartPositionList);
         }        
+        //--------------------------------------------------------------------------------------------------------------------
+    }
+    //--------------------------------------------------------------------------------------------------------------------
+    //  class FakeRegulatoryMotifsStatisticAccumulator
+    //--------------------------------------------------------------------------------------------------------------------
+    public class FakeRegulatoryMotifsStatisticAccumulator : IRegulatoryMotifsStatisticAccumulator
+    {
+        //--------------------------------------------------------------------------------------------------------------------
+        public FakeRegulatoryMotifsStatisticAccumulator()
+        {
+        }
+        //--------------------------------------------------------------------------------------------------------------------
+        public void CreateStatistics(int size, string inputData, string algorithm, int numberOfSequence,
+                string sequenceLengthes, int motifLength, AlgorythmParameters algorythmParameters)
+        {
+        }
+        //--------------------------------------------------------------------------------------------------------------------
+        public void IterationCountInc()
+        {
+        }
+        //--------------------------------------------------------------------------------------------------------------------
+        public void TerminalCountInc()
+        {
+        }
+        //--------------------------------------------------------------------------------------------------------------------
+        public void UpdateOptcountInc()
+        {
+        }
+        //--------------------------------------------------------------------------------------------------------------------
+        public void ElemenationCountInc()
+        {
+        }
+        //--------------------------------------------------------------------------------------------------------------------
+        public void AddRegulatoryMotifOptimalValueChange(long duration, long durationMilliSeconds,
+            int optimalValue, string startPosition, string motif)
+        {
+        }
+        //--------------------------------------------------------------------------------------------------------------------
+        public void SaveStatisticData(string outputPresentation, int optimalValue, long duration, long durationMilliSeconds, DateTime dateComplete,
+            bool isComplete, string lastRoute, string optimalRoute, List<List<char>> listOfMotif, List<int[]> solutionStartPositionList)
+        {
+        }
         //--------------------------------------------------------------------------------------------------------------------
     }
     //--------------------------------------------------------------------------------------------------------------------

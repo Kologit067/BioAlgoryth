@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using FindingRegulatoryMotifs.Enumeration;
+using StatisticsStorage.Accumulators;
 
 namespace RegulatoryMotifsTest
 {
@@ -27,7 +28,7 @@ namespace RegulatoryMotifsTest
             int substringLength = 5;
             RegulatoryMotifsSubSequencesEnumeration enumeration = new RegulatoryMotifsSubSequencesEnumeration(charSets, alphabet, substringLength)
             {
-                StatisticAccumulator = null // new FakeDNAMappingStatisticAccumulator()
+                StatisticAccumulator = new FakeRegulatoryMotifsStatisticAccumulator()
             };
             // act
             enumeration.Execute();

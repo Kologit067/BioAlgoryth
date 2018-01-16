@@ -50,9 +50,9 @@ namespace FindingRegulatoryMotifs.Enumeration
             {
                 int currentDistance = 0;
                 if (!_isSumAsCriteria)
-                    currentDistance = Enumerable.Range(0, _fSize - 1).Max(i => DefineBestSubstringAndDistance(i));
+                    currentDistance = Enumerable.Range(0, _fSize).Max(i => DefineBestSubstringAndDistance(i));
                 else
-                    currentDistance = Enumerable.Range(0, _fSize - 1).Sum(i => DefineBestSubstringAndDistance(i));
+                    currentDistance = Enumerable.Range(0, _fSize).Sum(i => DefineBestSubstringAndDistance(i));
                 if (!_isOptimizitaion)
                 {
                     if (currentDistance <= _acceptibleDistance)
