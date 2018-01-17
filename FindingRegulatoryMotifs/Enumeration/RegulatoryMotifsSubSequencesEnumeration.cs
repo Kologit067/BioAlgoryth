@@ -27,7 +27,7 @@ namespace FindingRegulatoryMotifs.Enumeration
         protected char[] _alphabet;
         protected int _currentBestValue;
         protected int[] _solutionStartPosition;
-        protected List<int[]> _solutionStartPositionList;
+        protected List<int[]> _solutionStartPositionList = new List<int[]>();
         protected bool _isOptimizitaion;
         protected bool _isSumAsCriteria;
         protected bool _isAllResult;
@@ -53,6 +53,14 @@ namespace FindingRegulatoryMotifs.Enumeration
             get
             {
                 return _solutionStartPositionList;
+            }
+        }
+        //--------------------------------------------------------------------------------------
+        public int[] SolutionStartPosition
+        {
+            get
+            {
+                return _solutionStartPosition;
             }
         }
         //--------------------------------------------------------------------------------------

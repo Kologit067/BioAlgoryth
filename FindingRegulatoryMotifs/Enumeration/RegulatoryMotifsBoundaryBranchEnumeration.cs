@@ -33,7 +33,7 @@ namespace FindingRegulatoryMotifs.Enumeration
         protected List<char> _motif = null;
         protected List<List<char>> _listOfMotif = new List<List<char>>();
         protected int[] _solutionStartPosition;
-        protected List<int[]> _solutionStartPositionList;
+        protected List<int[]> _solutionStartPositionList = new List<int[]>();
 
         public IRegulatoryMotifsStatisticAccumulator StatisticAccumulator { get; set; }
         //--------------------------------------------------------------------------------------

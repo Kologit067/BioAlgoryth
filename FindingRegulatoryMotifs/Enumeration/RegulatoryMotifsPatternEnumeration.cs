@@ -20,7 +20,7 @@ namespace FindingRegulatoryMotifs.Enumeration
         protected char[] _candidateMotif = null;
         protected int _currentBestValue;
         protected int[] _solutionStartPosition;
-        protected List<int[]> _solutionStartPositionList;
+        protected List<int[]> _solutionStartPositionList = new List<int[]>();
         protected bool _isOptimizitaion;
         protected bool _isSumAsCriteria;
         protected bool _isAllResult;
