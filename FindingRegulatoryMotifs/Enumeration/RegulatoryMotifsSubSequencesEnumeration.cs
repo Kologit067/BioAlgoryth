@@ -75,6 +75,7 @@ namespace FindingRegulatoryMotifs.Enumeration
             _alphabetDatas = _alphabet.ToDictionary(a => a, a => 0);
             _isOptimizitaion = pIsOptimizitaion;
             _isSumAsCriteria = pIsSumAsCriteria;
+            _isAllResult = pIsAllResult;
             _currentBestValue = int.MaxValue;
         }
     //--------------------------------------------------------------------------------------
@@ -117,7 +118,7 @@ namespace FindingRegulatoryMotifs.Enumeration
                         StatisticAccumulator.AddRegulatoryMotifOptimalValueChange(stopwatch.ElapsedTicks, stopwatch.ElapsedMilliseconds,
                         _currentBestValue, string.Join(",", _solutionStartPosition.Select(s => s.ToString())), string.Join(",", _motif.Select(s => s.ToString())));
                     }
-                    if (_isAllResult && currentDistance == _currentBestValue)
+                    else if (_isAllResult && currentDistance == _currentBestValue)
                     {
                         StatisticAccumulator.UpdateOptcountInc();
                         _listOfMotif.Add(_candidateMotif.ToList());

@@ -35,6 +35,38 @@ namespace FindingRegulatoryMotifs.Enumeration
         protected int[] _solutionStartPosition;
         protected List<int[]> _solutionStartPositionList = new List<int[]>();
 
+        //--------------------------------------------------------------------------------------
+        public List<char> Motif
+        {
+            get
+            {
+                return _motif;
+            }
+        }
+        //--------------------------------------------------------------------------------------
+        public List<List<char>> ListOfMotif
+        {
+            get
+            {
+                return _listOfMotif;
+            }
+        }
+        //--------------------------------------------------------------------------------------
+        public List<int[]> SolutionStartPositionList
+        {
+            get
+            {
+                return _solutionStartPositionList;
+            }
+        }
+        //--------------------------------------------------------------------------------------
+        public int[] SolutionStartPosition
+        {
+            get
+            {
+                return _solutionStartPosition;
+            }
+        }
         public IRegulatoryMotifsStatisticAccumulator StatisticAccumulator { get; set; }
         //--------------------------------------------------------------------------------------
         public RegulatoryMotifsBoundaryBranchEnumeration(char[] pCharSet, char[][] pSequenceLIst, int pPatternLength, bool pIsAllResult = true, bool pIsOptimizitaion = false, bool pIsSumAsCriteria = false, int pAcceptibleDistance = 0)
