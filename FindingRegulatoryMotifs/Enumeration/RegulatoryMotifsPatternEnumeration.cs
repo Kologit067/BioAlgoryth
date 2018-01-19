@@ -82,9 +82,9 @@ namespace FindingRegulatoryMotifs.Enumeration
             {
                 int currentDistance = 0;
                 if (!_isSumAsCriteria)
-                    currentDistance = Enumerable.Range(0, _fSize).Max(i => DefineBestSubstringAndDistance(i));
+                    currentDistance = Enumerable.Range(0, _sequenceLIst.Length).Max(i => DefineBestSubstringAndDistance(i));
                 else
-                    currentDistance = Enumerable.Range(0, _fSize).Sum(i => DefineBestSubstringAndDistance(i));
+                    currentDistance = Enumerable.Range(0, _sequenceLIst.Length).Sum(i => DefineBestSubstringAndDistance(i));
                 if (!_isOptimizitaion)
                 {
                     if (currentDistance <= _acceptibleDistance)
@@ -114,7 +114,7 @@ namespace FindingRegulatoryMotifs.Enumeration
                         StatisticAccumulator.AddRegulatoryMotifOptimalValueChange(stopwatch.ElapsedTicks, stopwatch.ElapsedMilliseconds,
                         _currentBestValue, string.Join(",", _solutionStartPosition.Select(s => s.ToString())), string.Join(",", _motif.Select(s => s.ToString())));
                     }
-                    if (_isAllResult && currentDistance == _currentBestValue)
+                    else if (_isAllResult && currentDistance == _currentBestValue)
                     {
                         StatisticAccumulator.UpdateOptcountInc();
                         _listOfMotif.Add(_fCurrentSet.Select(i => _charSet[i]).ToList());
@@ -140,7 +140,7 @@ namespace FindingRegulatoryMotifs.Enumeration
         //--------------------------------------------------------------------------------------
         private int DefineBestSubstringAndDistance(int pNumberSequence)
         {
-            int bestDistance = 0;
+            int bestDistance = int.MaxValue;
             int bestPosition = 0;
             for (int i = 0; i < _sequenceLIst[pNumberSequence].Length - _patternLength; i++)
             {
@@ -165,11 +165,12 @@ namespace FindingRegulatoryMotifs.Enumeration
         protected override void SupplementInitial()
         {
             StatisticAccumulator.CreateStatistics(_fSize, string.Join(",", _sequenceLIst.Select(s => new string(s))), "RegulatoryMotifsPatternEnumeration", _sequenceLIst.Length,
-                string.Join(",", _sequenceLIst.Select(s => s.Length)), _patternLength, new AlgorythmParameters() {
-        IsOptimizitaion = _isOptimizitaion,
-        IsSumAsCriteria = _isSumAsCriteria,
-        IsAllResult = _isAllResult
-    });
+                string.Join(",", _sequenceLIst.Select(s => s.Length)), _patternLength, new AlgorythmParameters()
+                {
+                    IsOptimizitaion = _isOptimizitaion,
+                    IsSumAsCriteria = _isSumAsCriteria,
+                    IsAllResult = _isAllResult
+                });
         }
         //-----------------------------------------------------------------------------------
         protected override void PostAction()

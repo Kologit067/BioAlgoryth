@@ -122,7 +122,7 @@ namespace FindingRegulatoryMotifs.Enumeration
                         StatisticAccumulator.AddRegulatoryMotifOptimalValueChange(stopwatch.ElapsedTicks, stopwatch.ElapsedMilliseconds,
                         _currentBestValue, string.Join(",", _solutionStartPosition.Select(s => s.ToString())), string.Join(",", _motif.Select(s => s.ToString())));
                     }
-                    if (_isAllResult && _currentDistance == _currentBestValue)
+                    else if (_isAllResult && _currentDistance == _currentBestValue)
                     {
                         _listOfMotif.Add(_fCurrentSet.Select(i => _charSet[i]).ToList());
                         _solutionStartPositionList.Add(_positionInSequence.ToArray());
@@ -206,7 +206,7 @@ namespace FindingRegulatoryMotifs.Enumeration
                         StatisticAccumulator.AddRegulatoryMotifOptimalValueChange(stopwatch.ElapsedTicks, stopwatch.ElapsedMilliseconds,
                         _currentBestValue, string.Join(",", _solutionStartPosition.Select(s => s.ToString())), string.Join(",", _motif.Select(s => s.ToString())));
                     }
-                    if (_isAllResult && _currentDistance == _currentBestValue)
+                    else if (_isAllResult && _currentDistance == _currentBestValue)
                     {
                         _listOfMotif.Add(_fCurrentSet.Select(i => _charSet[i]).ToList());
                         _solutionStartPositionList.Add(_positionInSequence.ToArray());
@@ -222,7 +222,7 @@ namespace FindingRegulatoryMotifs.Enumeration
         //--------------------------------------------------------------------------------------
         private int DefineBestSubstringAndDistance(int pNumberSequence)
         {
-            int bestDistance = 0;
+            int bestDistance = int.MaxValue;
             int bestPosition = 0;
             for (int i = 0; i < _sequenceLIst[pNumberSequence].Length - _patternLength; i++)
             {
