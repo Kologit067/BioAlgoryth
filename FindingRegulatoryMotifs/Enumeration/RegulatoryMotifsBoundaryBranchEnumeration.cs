@@ -230,7 +230,7 @@ namespace FindingRegulatoryMotifs.Enumeration
                 for (int j = 0; j <= _fCurrentPosition; j++)
                 {
                     char curChar = _sequenceLIst[pNumberSequence][i + j];
-                    if (_charSet[_fCurrentSet[i]] != curChar)
+                    if (_charSet[_fCurrentSet[j]] != curChar)
                         distance++;
 
                 }

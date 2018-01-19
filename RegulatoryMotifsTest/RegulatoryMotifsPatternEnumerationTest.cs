@@ -45,12 +45,14 @@ namespace RegulatoryMotifsTest
             string expectedSolutionStartPosition = "3,5,1";
             int expectedResult = 0;
 
-            char[][] charSets = new char[][] { new char[] {'a','g','t','a','g','c','g','t','a','a' },
-            new char[] {'t','g','t','g','c','a','g','c','g','t' },
-            new char[] {'a','a','g','c','g','t','t','a','c','c' }};
+            char[][] charSets = new char[][] {
+                "agtagcgtaa".ToArray(),
+                "tgtgcagcgt".ToArray(),
+                "aagcgttacc".ToArray()
+            };
             char[] alphabet = new char[] { 'a', 'c', 'g', 't' };
             int substringLength = 5;
-            RegulatoryMotifsPatternEnumeration enumeration = new RegulatoryMotifsPatternEnumeration(alphabet, charSets, substringLength, pIsAllResult: false, pIsOptimizitaion: true, pIsSumAsCriteria: false)
+            RegulatoryMotifsPatternEnumeration enumeration = new RegulatoryMotifsPatternEnumeration(alphabet, charSets, substringLength, pIsAllResult: false, pIsOptimizitaion: false, pIsSumAsCriteria: false)
             {
                 StatisticAccumulator = new FakeRegulatoryMotifsStatisticAccumulator()
             };

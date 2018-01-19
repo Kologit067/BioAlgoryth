@@ -148,7 +148,7 @@ namespace FindingRegulatoryMotifs.Enumeration
                 for (int j = 0; j < _fSize; j++)
                 {
                     char curChar = _sequenceLIst[pNumberSequence][i + j];
-                    if (_charSet[_fCurrentSet[i]] != curChar)
+                    if (_charSet[_fCurrentSet[j]] != curChar)
                         distance++;
 
                 }
@@ -195,6 +195,16 @@ namespace FindingRegulatoryMotifs.Enumeration
             {
                 if (_motif != null && _motif.Count > 0)
                     return string.Join(",", _motif.Select(i => i.ToString()));
+                return "Empty";
+            }
+        }
+        //-----------------------------------------------------------------------------------
+        public string CurrentSetAsMotif
+        {
+            get
+            {
+                if (_fCurrentSet != null && _fCurrentSet.Count > 0)
+                    return string.Join(",", _fCurrentSet.Select(i => _charSet[i]));
                 return "Empty";
             }
         }
