@@ -142,7 +142,7 @@ namespace FindingRegulatoryMotifs.Enumeration
         {
             int bestDistance = int.MaxValue;
             int bestPosition = 0;
-            for (int i = 0; i < _sequenceLIst[pNumberSequence].Length - _patternLength; i++)
+            for (int i = 0; i <= _sequenceLIst[pNumberSequence].Length - _patternLength; i++)
             {
                 int distance = 0;
                 for (int j = 0; j < _fSize; j++)
