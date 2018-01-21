@@ -24,7 +24,6 @@ namespace FindingRegulatoryMotifs.Enumeration
         protected int _patternLength;
         protected int _sequenceLIstLength;
         // working variables
-        protected char[] _candidateMotif = null;
         protected int[] _positionInSequence;
         protected int _currentDistance;
         //results
@@ -73,11 +72,11 @@ namespace FindingRegulatoryMotifs.Enumeration
             : base(pCharSet, pPatternLength, 0)
         {
             _sequenceLIst = pSequenceLIst;
+            _sequenceLIstLength = _sequenceLIst.Length;
             _positionInSequence = new int[_sequenceLIstLength];
             _currentBestValueList = new int[_sequenceLIstLength];
 
             _patternLength = pPatternLength;
-            _candidateMotif = new char[_patternLength];
             _acceptibleDistance = pAcceptibleDistance;
             _isOptimizitaion = pIsOptimizitaion;
             _isSumAsCriteria = pIsSumAsCriteria;
@@ -90,22 +89,23 @@ namespace FindingRegulatoryMotifs.Enumeration
             this.StatisticAccumulator.IterationCountInc();
             if (_fCurrentPosition == 0)
                 return false;
-            if (_fCurrentSet[0] > 0 || !ChaeckCurrentPart())
+            if (!ChaeckCurrentPart())
             {
                 StatisticAccumulator.TerminalCountInc();
                 return true;
             }
             if (_fCurrentPosition >= _fSize - 1)
             {
+                return true;
                 if (!_isOptimizitaion)
                 {
-                    _motif = _candidateMotif.ToList();
+                    _motif = _fCurrentSet.Select(i => _charSet[i]).ToList();
                     _listOfMotif.Add(_motif);
-                    _solutionStartPosition = _fCurrentSet.ToArray();
+                    _solutionStartPosition = _positionInSequence.ToArray();
                     _solutionStartPositionList.Add(_solutionStartPosition);
                     if (!_isAllResult)
                         StatisticAccumulator.TerminalCountInc();
-                    return !_isAllResult;
+                    return true;
                 }
                 else
                 {
@@ -129,7 +129,7 @@ namespace FindingRegulatoryMotifs.Enumeration
                     }
                     if (!_isAllResult && _currentBestValue == 0)
                         StatisticAccumulator.TerminalCountInc();
-                    return !_isAllResult && _currentBestValue == 0;
+                    return true;
                 }
             }
             else if (_fCurrentSet[_fCurrentPosition] > _fLimit)
@@ -142,7 +142,7 @@ namespace FindingRegulatoryMotifs.Enumeration
         //--------------------------------------------------------------------------------------
         private bool ChaeckCurrentPart()
         {
-            _currentBestValueList[_fCurrentPosition] = DefineBestSubstringAndDistance(_fCurrentPosition);
+//            _currentBestValueList[_fCurrentPosition] = DefineBestSubstringAndDistance(_fCurrentPosition);
             _currentDistance = 0;
             if (!_isSumAsCriteria)
                 _currentDistance = Enumerable.Range(0, _sequenceLIstLength).Max(i => DefineBestSubstringAndDistance(i));
@@ -158,7 +158,7 @@ namespace FindingRegulatoryMotifs.Enumeration
             }
             else
             {
-                if (_currentDistance > _currentBestValue || _isAllResult && _currentDistance == _currentBestValue)
+                if (_currentDistance > _currentBestValue || !_isAllResult && _currentDistance == _currentBestValue)
                 {
                     StatisticAccumulator.ElemenationCountInc();
                     return false;
@@ -181,9 +181,9 @@ namespace FindingRegulatoryMotifs.Enumeration
                 {
                     if (_currentDistance <= _acceptibleDistance)
                     {
-                        _motif = _candidateMotif.ToList();
+                        _motif = _fCurrentSet.Select(i => _charSet[i]).ToList();
                         _listOfMotif.Add(_motif);
-                        _solutionStartPosition = _fCurrentSet.ToArray();
+                        _solutionStartPosition = _positionInSequence.ToArray();
                         _solutionStartPositionList.Add(_solutionStartPosition);
                         StatisticAccumulator.UpdateOptcountInc();
                         StatisticAccumulator.AddRegulatoryMotifOptimalValueChange(stopwatch.ElapsedTicks, stopwatch.ElapsedMilliseconds,
@@ -276,7 +276,16 @@ namespace FindingRegulatoryMotifs.Enumeration
                 return "Empty";
             }
         }
-        //--------------------------------------------------------------------------------------
+        //-----------------------------------------------------------------------------------
+        public string CurrentSetAsMotif
+        {
+            get
+            {
+                if (_fCurrentSet != null && _fCurrentSet.Count > 0)
+                    return string.Join(",", _fCurrentSet.TakeWhile(c => c >= 0).Select(i => _charSet[i]));
+                return "Empty";
+            }
+        }        //--------------------------------------------------------------------------------------
         public override int OptimalValue
         {
             get

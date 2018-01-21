@@ -52,7 +52,7 @@ namespace RegulatoryMotifsTest
             };
             char[] alphabet = new char[] { 'a', 'c', 'g', 't' };
             int substringLength = 5;
-            RegulatoryMotifsPatternEnumeration enumeration = new RegulatoryMotifsPatternEnumeration(alphabet, charSets, substringLength, pIsAllResult: false, pIsOptimizitaion: false, pIsSumAsCriteria: false)
+            RegulatoryMotifsPatternEnumeration enumeration = new RegulatoryMotifsPatternEnumeration(alphabet, charSets, substringLength, pIsAllResult: false, pIsOptimizitaion: true, pIsSumAsCriteria: false)
             {
                 StatisticAccumulator = new FakeRegulatoryMotifsStatisticAccumulator()
             };
@@ -162,15 +162,19 @@ namespace RegulatoryMotifsTest
             string excpectedMotif1 = "aattg";
             string excpectedMotif2 = "agcgt";
             string excpectedMotif3 = "cgtaa";
+            string excpectedMotif4 = "cgtca";
+            string excpectedMotif5 = "cgtga";
+            string excpectedMotif6 = "cgtta";
             string expectedSolutionStartPosition1 = "0,4,0";
             string expectedSolutionStartPosition2 = "3,5,1";
             string expectedSolutionStartPosition3 = "5,0,3";
             int expectedResult = 1;
 
             char[][] charSets = new char[][] {
-                new char[] {'a','g','t','t','g','c','g','t','a','a' },
-                new char[] {'c','g','t','g','a','a','g','t','g','t' },
-                new char[] {'a','a','t','c','g','t','a','a','c','c' }};
+                "agttgcgtaa".ToArray(),
+                "cgtgaagtgt".ToArray(),
+                "aatcgtaacc".ToArray()
+            };
             char[] alphabet = new char[] { 'a', 'c', 'g', 't' };
             int substringLength = 5;
             RegulatoryMotifsPatternEnumeration enumeration = new RegulatoryMotifsPatternEnumeration(alphabet, charSets, substringLength, pIsAllResult: true, pIsOptimizitaion: true, pIsSumAsCriteria: false)
@@ -185,11 +189,14 @@ namespace RegulatoryMotifsTest
             Assert.IsTrue(motifsAsString.Any(m => m == excpectedMotif1), $"Motif1 is absent.");
             Assert.IsTrue(motifsAsString.Any(m => m == excpectedMotif2), $"Motif2 is absent.");
             Assert.IsTrue(motifsAsString.Any(m => m == excpectedMotif3), $"Motif3 is absent.");
+            Assert.IsTrue(motifsAsString.Any(m => m == excpectedMotif4), $"Motif3 is absent.");
+            Assert.IsTrue(motifsAsString.Any(m => m == excpectedMotif5), $"Motif3 is absent.");
+            Assert.IsTrue(motifsAsString.Any(m => m == excpectedMotif6), $"Motif3 is absent.");
             Assert.IsTrue(solutionStartPositions.Any(p => p == expectedSolutionStartPosition1), $"Positions1 is absent.");
             Assert.IsTrue(solutionStartPositions.Any(p => p == expectedSolutionStartPosition2), $"Positions2 is absent.");
             Assert.IsTrue(solutionStartPositions.Any(p => p == expectedSolutionStartPosition3), $"Positions3 is absent.");
             Assert.AreEqual(enumeration.OptimalValue, expectedResult, $"Result is wrong.");
-            Assert.AreEqual(enumeration.SolutionStartPositionList.Count, 3, $"Wrong number of solutions.");
+            Assert.AreEqual(enumeration.SolutionStartPositionList.Count, 6, $"Wrong number of solutions.");
 
         }
         //--------------------------------------------------------------------------------------
@@ -297,9 +304,10 @@ namespace RegulatoryMotifsTest
         {
             // arrange
             string excpectedMotif1 = "agcgt";
-            //            string excpectedMotif2 = "cgtaa";
+            string excpectedMotif2 = "cgtac";
+            string excpectedMotif3 = "cgtga";
             string expectedSolutionStartPosition1 = "3,5,1";
-            //            string expectedSolutionStartPosition2 = "5,0,3";
+            string expectedSolutionStartPosition2 = "5,0,3";
 
             char[][] charSets = new char[][] {
                 "agtagcgtaa".ToArray(),
@@ -327,9 +335,12 @@ namespace RegulatoryMotifsTest
             List<string> solutionStartPositions = enumeration.SolutionStartPositionList.Select(s => string.Join(",", s)).ToList();
             List<string> motifsAsString = enumeration.ListOfMotif.Select(m => string.Join("", m)).ToList();
             Assert.IsTrue(motifsAsString.Any(m => m == excpectedMotif1), $"Motif1 is absent.");
+            Assert.IsTrue(motifsAsString.Any(m => m == excpectedMotif2), $"Motif2 is absent.");
+            Assert.IsTrue(motifsAsString.Any(m => m == excpectedMotif3), $"Motif3 is absent.");
             Assert.IsTrue(solutionStartPositions.Any(p => p == expectedSolutionStartPosition1), $"Positions1 is absent.");
-            Assert.AreEqual(enumeration.SolutionStartPositionList.Count, 1, $"Wrong number of solutions.");
-            Assert.AreEqual(enumeration.ListOfMotif.Count, 1, $"Wrong number of motifs.");
+            Assert.IsTrue(solutionStartPositions.Any(p => p == expectedSolutionStartPosition2), $"Positions2 is absent.");
+            Assert.AreEqual(enumeration.SolutionStartPositionList.Count, 3, $"Wrong number of solutions.");
+            Assert.AreEqual(enumeration.ListOfMotif.Count, 3, $"Wrong number of motifs.");
 
         }
         //--------------------------------------------------------------------------------------

@@ -17,7 +17,6 @@ namespace FindingRegulatoryMotifs.Enumeration
         protected int _acceptibleDistance;
         protected List<char> _motif = null;
         protected List<List<char>> _listOfMotif = new List<List<char>>();
-        protected char[] _candidateMotif = null;
         protected int _currentBestValue;
         protected int[] _solutionStartPosition;
         protected List<int[]> _solutionStartPositionList = new List<int[]>();
@@ -65,10 +64,9 @@ namespace FindingRegulatoryMotifs.Enumeration
             : base(pCharSet, pPatternLength, 0)
         {
             _sequenceLIst = pSequenceLIst;
-            _positionInSequence = new int[_fSize];
+            _positionInSequence = new int[pSequenceLIst.Length];
 
             _patternLength = pPatternLength;
-            _candidateMotif = new char[_patternLength];
             _acceptibleDistance = pAcceptibleDistance;
             _isOptimizitaion = pIsOptimizitaion;
             _isSumAsCriteria = pIsSumAsCriteria;
@@ -90,9 +88,9 @@ namespace FindingRegulatoryMotifs.Enumeration
                     if (currentDistance <= _acceptibleDistance)
                     {
                         StatisticAccumulator.UpdateOptcountInc();
-                        _motif = _candidateMotif.ToList();
+                        _motif = _fCurrentSet.Select(i => _charSet[i]).ToList();
                         _listOfMotif.Add(_motif);
-                        _solutionStartPosition = _fCurrentSet.ToArray();
+                        _solutionStartPosition = _positionInSequence.ToArray();
                         _solutionStartPositionList.Add(_solutionStartPosition);
                         StatisticAccumulator.AddRegulatoryMotifOptimalValueChange(stopwatch.ElapsedTicks, stopwatch.ElapsedMilliseconds,
                         _currentBestValue, string.Join(",", _solutionStartPosition.Select(s => s.ToString())), string.Join(",", _motif.Select(s => s.ToString())));
