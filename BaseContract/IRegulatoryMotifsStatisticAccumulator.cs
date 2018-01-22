@@ -19,5 +19,7 @@ namespace BaseContract
             int optimalValue, string startPosition, string motif);
         void SaveStatisticData(string outputPresentation, int optimalValue, long duration, long durationMilliSeconds, DateTime dateComplete,
             bool isComplete, string lastRoute, string optimalRoute, List<List<char>> listOfMotif, List<int[]> solutionStartPositionList);
+        void SaveRemain();
+        string Delete(string algorithm);
     }
 }

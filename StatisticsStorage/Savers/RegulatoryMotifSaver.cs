@@ -122,5 +122,37 @@ namespace StatisticsStorage.Savers
             return error;
 
         }
+
+        public string Delete(string algorithm, int patternLength, string sequenceLengthes)
+        {
+            string error = null;
+
+
+            SqlConnection connection = new SqlConnection(_connectionString);
+            connection.Open();
+            try
+            {
+                SqlCommand addCommand = new SqlCommand("[dbo].[deleteRegulatoryMotifPerfomance]", connection);
+                addCommand.CommandType = CommandType.StoredProcedure;
+                addCommand.CommandTimeout = 300;
+                SqlParameter tvpParam2 = addCommand.Parameters.AddWithValue("@SequenceLengthes", sequenceLengthes);
+                tvpParam2.SqlDbType = SqlDbType.VarChar;
+                SqlParameter tvpParam3 = addCommand.Parameters.AddWithValue("@Algorithm", algorithm);
+                tvpParam3.SqlDbType = SqlDbType.VarChar;
+                SqlParameter tvpParam = addCommand.Parameters.AddWithValue("@MotifLength", patternLength);
+                tvpParam.SqlDbType = SqlDbType.VarChar;
+                addCommand.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                error = ex.ToString();
+            }
+            finally
+            {
+                connection.Close();
+            }
+            return error;
+
+        }
     }
 }

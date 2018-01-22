@@ -18,9 +18,14 @@ namespace StatisticsStorage.Accumulators
         protected RegulatoryMotifPerfomance _currentRegulatoryMotifPerfomance;
         protected RegulatoryMotifSaver _regulatoryMotifSaver;
         protected int _bufferSize;
+        protected string _sequenceLengthes;
+        protected int _motifLength;
+
         //--------------------------------------------------------------------------------------------------------------------
-        public RegulatoryMotifsStatisticAccumulator(RegulatoryMotifSaver regulatoryMotifSaver,int bufferSize = 100)
+        public RegulatoryMotifsStatisticAccumulator(RegulatoryMotifSaver regulatoryMotifSaver, int motifLength, string sequenceLengthes, int bufferSize = 100)
         {
+            _motifLength = motifLength;
+            _sequenceLengthes = sequenceLengthes;
             _regulatoryMotifSaver = regulatoryMotifSaver;
             _bufferSize = bufferSize;
             _regulatoryMotifPerfomances = new List<RegulatoryMotifPerfomance>();
@@ -71,7 +76,19 @@ namespace StatisticsStorage.Accumulators
 
             _currentRegulatoryMotifPerfomance.SaveStatisticData(outputPresentation, optimalValue, duration, durationMilliSeconds, dateComplete,
                        isComplete, lastRoute, optimalRoute, listOfMotif, solutionStartPositionList);
-        }        
+        }
+        //--------------------------------------------------------------------------------------------------------------------
+        public void SaveRemain()
+        {
+            if (_regulatoryMotifPerfomances.Count > 0)
+                _regulatoryMotifSaver.Save(_regulatoryMotifPerfomances);
+            _regulatoryMotifPerfomances.Clear();
+        }
+        //--------------------------------------------------------------------------------------------------------------------
+        public string Delete(string algorithm)
+        {
+            return _regulatoryMotifSaver.Delete(algorithm, _motifLength, _sequenceLengthes);
+        }
         //--------------------------------------------------------------------------------------------------------------------
     }
     //--------------------------------------------------------------------------------------------------------------------
@@ -113,6 +130,14 @@ namespace StatisticsStorage.Accumulators
         public void SaveStatisticData(string outputPresentation, int optimalValue, long duration, long durationMilliSeconds, DateTime dateComplete,
             bool isComplete, string lastRoute, string optimalRoute, List<List<char>> listOfMotif, List<int[]> solutionStartPositionList)
         {
+        }
+        public void SaveRemain()
+        {
+        }
+        //--------------------------------------------------------------------------------------------------------------------
+        public string Delete(string algorithm)
+        {
+            return "";
         }
         //--------------------------------------------------------------------------------------------------------------------
     }
