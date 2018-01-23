@@ -14,18 +14,28 @@ namespace StatisticsStorage.Accumulators
     //--------------------------------------------------------------------------------------------------------------------
     public class RegulatoryMotifsStatisticAccumulator : IRegulatoryMotifsStatisticAccumulator
     {
+        public static readonly int SolutionLimit = 20;
         protected List<RegulatoryMotifPerfomance> _regulatoryMotifPerfomances;
         protected RegulatoryMotifPerfomance _currentRegulatoryMotifPerfomance;
         protected RegulatoryMotifSaver _regulatoryMotifSaver;
         protected int _bufferSize;
         protected string _sequenceLengthes;
         protected int _motifLength;
-
+        protected bool _isOptimizitaion;
+        protected bool _isSumAsCriteria;
+        protected bool _isAllResult;
+        protected int _acceptibleDistance;
         //--------------------------------------------------------------------------------------------------------------------
-        public RegulatoryMotifsStatisticAccumulator(RegulatoryMotifSaver regulatoryMotifSaver, int motifLength, string sequenceLengthes, int bufferSize = 100)
+        public RegulatoryMotifsStatisticAccumulator(RegulatoryMotifSaver regulatoryMotifSaver, int motifLength,
+            string sequenceLengthes, bool isOptimizitaion, bool isSumAsCriteria, bool isAllResult, int acceptibleDistance,
+            int bufferSize = 100)
         {
             _motifLength = motifLength;
             _sequenceLengthes = sequenceLengthes;
+            _isOptimizitaion = isOptimizitaion;
+            _isSumAsCriteria = isSumAsCriteria;
+            _isAllResult = isAllResult;
+            _acceptibleDistance = acceptibleDistance;
             _regulatoryMotifSaver = regulatoryMotifSaver;
             _bufferSize = bufferSize;
             _regulatoryMotifPerfomances = new List<RegulatoryMotifPerfomance>();
@@ -66,8 +76,11 @@ namespace StatisticsStorage.Accumulators
         public void AddRegulatoryMotifOptimalValueChange(long duration, long durationMilliSeconds,
             int optimalValue, string startPosition, string motif)
         {
-            _currentRegulatoryMotifPerfomance.RegulatoryMotifOptimalValueChanges.Add(new RegulatoryMotifOptimalValueChange
-            (_currentRegulatoryMotifPerfomance.IterationCount, duration, durationMilliSeconds, optimalValue, startPosition, motif));
+            if (_currentRegulatoryMotifPerfomance.RegulatoryMotifOptimalValueChanges.Count < SolutionLimit)
+            {
+                _currentRegulatoryMotifPerfomance.RegulatoryMotifOptimalValueChanges.Add(new RegulatoryMotifOptimalValueChange
+                (_currentRegulatoryMotifPerfomance.IterationCount, duration, durationMilliSeconds, optimalValue, startPosition, motif));
+            }
         }
         //--------------------------------------------------------------------------------------------------------------------
         public void SaveStatisticData(string outputPresentation, int optimalValue, long duration, long durationMilliSeconds, DateTime dateComplete,
@@ -87,7 +100,8 @@ namespace StatisticsStorage.Accumulators
         //--------------------------------------------------------------------------------------------------------------------
         public string Delete(string algorithm)
         {
-            return _regulatoryMotifSaver.Delete(algorithm, _motifLength, _sequenceLengthes);
+            return _regulatoryMotifSaver.Delete(algorithm, _motifLength, _sequenceLengthes,
+                _isOptimizitaion, _isSumAsCriteria, _isAllResult, _acceptibleDistance);
         }
         //--------------------------------------------------------------------------------------------------------------------
     }

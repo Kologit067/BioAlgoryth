@@ -11,5 +11,6 @@ namespace CommonLibrary.Objects
         public bool IsOptimizitaion { get; set; }
         public bool IsSumAsCriteria { get; set; }
         public bool IsAllResult { get; set; }
+        public int AcceptibleDistance { get; set; }
     }
 }

@@ -21,7 +21,10 @@
     [ElemenationCount]     INT            NULL,
     [IsOptimizitaion]      BIT            NULL,
     [IsSumAsCriteria]      BIT            NULL,
-    [IsAllResult]          BIT            NULL);
+    [IsAllResult]          BIT            NULL,
+    [AcceptibleDistance]   INT            NULL);
+
+
 
 
 

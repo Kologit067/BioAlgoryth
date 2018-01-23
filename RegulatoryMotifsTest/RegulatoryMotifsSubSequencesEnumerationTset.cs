@@ -416,7 +416,7 @@ namespace RegulatoryMotifsTest
             // arrange
             char[] alphabet = new char[] { 'a', 'c', 'g', 't' };
             EnumerateCharSetForMotifsSubSequences enumeration = new EnumerateCharSetForMotifsSubSequences(alphabet, 7, 3, 
-                4, pIsOptimizitaion : false, pIsSumAsCriteria : false, pAcceptibleDistance : 0);
+                4, pIsAllResult : false, pIsOptimizitaion : false, pIsSumAsCriteria : false, pAcceptibleDistance : 0);
             // act
             enumeration.Execute();
             // assert
@@ -430,6 +430,7 @@ namespace RegulatoryMotifsTest
     public class EnumerateCharSetForMotifsSubSequences : EnumerateIntegerCharSet
     {
         protected int _acceptibleDistance;
+        protected bool _isAllResult;
         protected bool _isOptimizitaion;
         protected bool _isSumAsCriteria;
         protected int _sequenceLength;
@@ -437,17 +438,19 @@ namespace RegulatoryMotifsTest
         protected int _patternLength;
         protected RegulatoryMotifsStatisticAccumulator _statisticAccumulator { get; set; }
         //--------------------------------------------------------------------------------------
-        public EnumerateCharSetForMotifsSubSequences(char[] pCharSet, int pSequenceLength, int pNumberOfSequence, int pPatternLength, bool pIsOptimizitaion = false, bool pIsSumAsCriteria = false, int pAcceptibleDistance = 0)
+        public EnumerateCharSetForMotifsSubSequences(char[] pCharSet, int pSequenceLength, int pNumberOfSequence, int pPatternLength, bool pIsAllResult, bool pIsOptimizitaion = false, bool pIsSumAsCriteria = false, int pAcceptibleDistance = 0)
             : base(pCharSet, pSequenceLength * pNumberOfSequence, 0)
         {
             _patternLength = pPatternLength;
             _acceptibleDistance = pAcceptibleDistance;
             _isOptimizitaion = pIsOptimizitaion;
             _isSumAsCriteria = pIsSumAsCriteria;
+            _isAllResult = pIsAllResult;
             _numberOfSequence = pNumberOfSequence;
             _sequenceLength = pSequenceLength;
             var sequenceLengthes = string.Join(",", Enumerable.Repeat(_sequenceLength, _numberOfSequence));
-            _statisticAccumulator = new RegulatoryMotifsStatisticAccumulator(new RegulatoryMotifSaver(), _patternLength,sequenceLengthes);
+            _statisticAccumulator = new RegulatoryMotifsStatisticAccumulator(new RegulatoryMotifSaver(), _patternLength,sequenceLengthes, 
+                _isOptimizitaion, _isSumAsCriteria, _isAllResult, _acceptibleDistance);
             _statisticAccumulator.Delete("RegulatoryMotifsSubSequencesEnumeration");
         }
         //--------------------------------------------------------------------------------------

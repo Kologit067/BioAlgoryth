@@ -46,12 +46,17 @@ namespace StatisticsStorage.Savers
                 performance.Columns.Add("IsOptimizitaion", System.Type.GetType("System.Boolean"));
                 performance.Columns.Add("IsSumAsCriteria", System.Type.GetType("System.Boolean"));
                 performance.Columns.Add("IsAllResult", System.Type.GetType("System.Boolean"));
+                performance.Columns.Add("AcceptibleDistance", System.Type.GetType("System.Int32"));
 
                 DataTable valueChanges = new DataTable();
-                performance.Columns.Add("Algorithm", System.Type.GetType("System.String"));
-                performance.Columns.Add("SequenceLengthes", System.Type.GetType("System.String"));
-                performance.Columns.Add("MotifLength", System.Type.GetType("System.Int32"));
-                performance.Columns.Add("InputData", System.Type.GetType("System.String"));
+                valueChanges.Columns.Add("Algorithm", System.Type.GetType("System.String"));
+                valueChanges.Columns.Add("SequenceLengthes", System.Type.GetType("System.String"));
+                valueChanges.Columns.Add("MotifLength", System.Type.GetType("System.Int32"));
+                valueChanges.Columns.Add("IsOptimizitaion", System.Type.GetType("System.Boolean"));
+                valueChanges.Columns.Add("IsSumAsCriteria", System.Type.GetType("System.Boolean"));
+                valueChanges.Columns.Add("IsAllResult", System.Type.GetType("System.Boolean"));
+                valueChanges.Columns.Add("AcceptibleDistance", System.Type.GetType("System.Int32"));
+                valueChanges.Columns.Add("InputData", System.Type.GetType("System.String"));
                 valueChanges.Columns.Add("NumberOfIteration", System.Type.GetType("System.Int64"));
                 valueChanges.Columns.Add("Duration", System.Type.GetType("System.Int64"));
                 valueChanges.Columns.Add("DurationMilliSeconds", System.Type.GetType("System.Int64"));
@@ -60,10 +65,14 @@ namespace StatisticsStorage.Savers
                 valueChanges.Columns.Add("Motif", System.Type.GetType("System.String"));
 
                 DataTable solutions = new DataTable();
-                performance.Columns.Add("Algorithm", System.Type.GetType("System.String"));
-                performance.Columns.Add("SequenceLengthes", System.Type.GetType("System.String"));
-                performance.Columns.Add("MotifLength", System.Type.GetType("System.Int32"));
-                performance.Columns.Add("InputData", System.Type.GetType("System.String"));
+                solutions.Columns.Add("Algorithm", System.Type.GetType("System.String"));
+                solutions.Columns.Add("SequenceLengthes", System.Type.GetType("System.String"));
+                solutions.Columns.Add("MotifLength", System.Type.GetType("System.Int32"));
+                solutions.Columns.Add("IsOptimizitaion", System.Type.GetType("System.Boolean"));
+                solutions.Columns.Add("IsSumAsCriteria", System.Type.GetType("System.Boolean"));
+                solutions.Columns.Add("IsAllResult", System.Type.GetType("System.Boolean"));
+                solutions.Columns.Add("AcceptibleDistance", System.Type.GetType("System.Int32"));
+                solutions.Columns.Add("InputData", System.Type.GetType("System.String"));
                 solutions.Columns.Add("StartPosition", System.Type.GetType("System.String"));
                 solutions.Columns.Add("Motif", System.Type.GetType("System.String"));
 
@@ -74,18 +83,22 @@ namespace StatisticsStorage.Savers
                         ps.Duration, ps.DurationMilliSeconds, ps.DateComplete, ps.IsComplete, 
                         ps.LastRoute, ps.OptimalRoute, ps.OptimalValue, ps.SolutionStartPositionList[0],
                         ps.ListOfMotif[0], ps.CountTerminal, ps.UpdateOptcount, ps.ElemenationCount, 
-                        ps.AlgorythmParameters.IsOptimizitaion, ps.AlgorythmParameters.IsSumAsCriteria, ps.AlgorythmParameters.IsAllResult);
+                        ps.AlgorythmParameters.IsOptimizitaion, ps.AlgorythmParameters.IsSumAsCriteria, ps.AlgorythmParameters.IsAllResult, ps.AlgorythmParameters.AcceptibleDistance);
 
                     for (int i = 0; i < ps.ListOfMotif.Count; i++)
                     {
                         solutions.Rows.Add(ps.Algorithm, ps.SequenceLengthes,
-                        ps.MotifLength, ps.InputData, ps.SolutionStartPositionList[i], ps.ListOfMotif[i]);
+                        ps.MotifLength, ps.AlgorythmParameters.IsOptimizitaion, ps.AlgorythmParameters.IsSumAsCriteria, 
+                        ps.AlgorythmParameters.IsAllResult, ps.AlgorythmParameters.AcceptibleDistance,
+                        ps.InputData, ps.SolutionStartPositionList[i], ps.ListOfMotif[i]);
                     }
 
                     foreach ( var ch in ps.RegulatoryMotifOptimalValueChanges)
                     {
                         valueChanges.Rows.Add(ps.Algorithm, ps.SequenceLengthes,
-                        ps.MotifLength, ps.InputData, ch.IterationCount, ch.Duration, ch.DurationMilliSeconds,
+                        ps.MotifLength, ps.AlgorythmParameters.IsOptimizitaion, ps.AlgorythmParameters.IsSumAsCriteria, 
+                        ps.AlgorythmParameters.IsAllResult, ps.AlgorythmParameters.AcceptibleDistance,
+                        ps.InputData, ch.IterationCount, ch.Duration, ch.DurationMilliSeconds,
                             ch.OptimalValue, ch.StartPosition, ch.Motif);
                     }
                 }
@@ -123,7 +136,8 @@ namespace StatisticsStorage.Savers
 
         }
 
-        public string Delete(string algorithm, int patternLength, string sequenceLengthes)
+        public string Delete(string algorithm, int patternLength, string sequenceLengthes,
+                            bool isOptimizitaion,bool isSumAsCriteria,bool isAllResult, int acceptibleDistance)
         {
             string error = null;
 
@@ -141,6 +155,11 @@ namespace StatisticsStorage.Savers
                 tvpParam3.SqlDbType = SqlDbType.VarChar;
                 SqlParameter tvpParam = addCommand.Parameters.AddWithValue("@MotifLength", patternLength);
                 tvpParam.SqlDbType = SqlDbType.VarChar;
+                addCommand.Parameters.AddWithValue("@IsOptimizitaion", isOptimizitaion).SqlDbType = SqlDbType.Bit;
+                addCommand.Parameters.AddWithValue("@IsSumAsCriteria", isSumAsCriteria).SqlDbType = SqlDbType.Bit;
+                addCommand.Parameters.AddWithValue("@IsAllResult", isAllResult).SqlDbType = SqlDbType.Bit;
+                addCommand.Parameters.AddWithValue("@AcceptibleDistance", acceptibleDistance).SqlDbType = SqlDbType.Int;
+
                 addCommand.ExecuteNonQuery();
             }
             catch (Exception ex)

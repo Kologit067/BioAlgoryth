@@ -178,7 +178,8 @@ namespace FindingRegulatoryMotifs.Enumeration
                 {
                     IsOptimizitaion = _isOptimizitaion,
                     IsSumAsCriteria = _isSumAsCriteria,
-                    IsAllResult = _isAllResult
+                    IsAllResult = _isAllResult,
+                    AcceptibleDistance = _acceptibleDistance
                 });
         }
         //-----------------------------------------------------------------------------------

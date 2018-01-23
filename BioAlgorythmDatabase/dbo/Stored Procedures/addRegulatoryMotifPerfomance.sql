@@ -1,5 +1,6 @@
 ﻿
 
+
 CREATE PROCEDURE [dbo].[addRegulatoryMotifPerfomance]
     @RegulatoryMotifPerfomances dbo.[RegulatoryMotifPerfomanceType] READONLY,
     @RegulatoryMotifOptimalValueChanges dbo.[RegulatoryMotifOptimalValueChangeType] READONLY,
@@ -7,33 +8,16 @@ CREATE PROCEDURE [dbo].[addRegulatoryMotifPerfomance]
 AS    
 BEGIN
 	
-	--IF OBJECT_ID('tempdb..#AlgorithmPerfomance') IS NULL
-	--	CREATE TABLE #AlgorithmPerfomance(
-	--        [NumberInArray] [int] NULL,
-	--		[AlgorithmPerfomanceId] INT
-	--		);
 			
 	INSERT [RegulatoryMotifPerfomance] ( [Size], [NumberOfSequence],	[SequenceLengthes], [MotifLength],
 	[InputData], [OutputPresentation], [Algorithm], [NumberOfIteration], [Duration], [DurationMilliSeconds],
 	[DateComplete], [IsComplete], [LastRoute], [OptimalRoute], [OptimalValue], [StartPosition],
 	[Motif], [CountTerminal], [UpdateOptcount], [ElemenationCount], [IsOptimizitaion], [IsSumAsCriteria], [IsAllResult])
---	OUTPUT INSERTED.[RegulatoryMotifPerfomanceId] INTO #AlgorithmPerfomance([AlgorithmPerfomanceId])
 	SELECT [Size], [NumberOfSequence],	[SequenceLengthes], [MotifLength],
 	[InputData], [OutputPresentation], [Algorithm], [NumberOfIteration], [Duration], [DurationMilliSeconds],
 	[DateComplete], [IsComplete], [LastRoute], [OptimalRoute], [OptimalValue], [StartPosition],
 	[Motif], [CountTerminal], [UpdateOptcount], [ElemenationCount], [IsOptimizitaion], [IsSumAsCriteria], [IsAllResult]
 	FROM @RegulatoryMotifPerfomances d; 
-
-	--WITH CTE AS
-	--(
-	--SELECT ROW_NUMBER() OVER(ORDER BY [AlgorithmPerfomanceId]) rownumber, [AlgorithmPerfomanceId]
-	--FROM #AlgorithmPerfomance
-	--)
-	--UPDATE ap
-	--SET ap.[NumberInArray] = cte.[NumberInArray]
-	--FROM #AlgorithmPerfomance ap
-	--INNER JOIN  cte
-	--ON ap.[AlgorithmPerfomanceId] = cte.[AlgorithmPerfomanceId]
 
 
 	INSERT INTO RegulatoryMotifSolution ([RegulatoryMotifPerfomanceId], [StartPosition], [Motif])	
@@ -43,6 +27,10 @@ BEGIN
 	ON avc.[Algorithm] = ap.[Algorithm] AND
 	   avc.[SequenceLengthes] = ap.[SequenceLengthes] AND
 	   avc.[MotifLength] = ap.[MotifLength] AND
+	   avc.[IsOptimizitaion] = ap.[IsOptimizitaion] AND
+	   avc.[IsSumAsCriteria] = ap.[IsSumAsCriteria] AND
+	   avc.[IsAllResult] = ap.[IsAllResult] AND
+	   avc.[AcceptibleDistance] = ap.[AcceptibleDistance] AND
 	   avc.[InputData] = ap.[InputData]
 
 
@@ -52,6 +40,10 @@ BEGIN
 	INNER JOIN [RegulatoryMotifPerfomance] ap	ON avc.[Algorithm] = ap.[Algorithm] AND
 	   avc.[SequenceLengthes] = ap.[SequenceLengthes] AND
 	   avc.[MotifLength] = ap.[MotifLength] AND
+	   avc.[IsOptimizitaion] = ap.[IsOptimizitaion] AND
+	   avc.[IsSumAsCriteria] = ap.[IsSumAsCriteria] AND
+	   avc.[IsAllResult] = ap.[IsAllResult] AND
+	   avc.[AcceptibleDistance] = ap.[AcceptibleDistance] AND
 	   avc.[InputData] = ap.[InputData]
 
 END

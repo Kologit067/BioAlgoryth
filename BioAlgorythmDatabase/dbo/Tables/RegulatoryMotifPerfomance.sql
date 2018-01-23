@@ -23,8 +23,11 @@
     [IsOptimizitaion]             BIT            NULL,
     [IsSumAsCriteria]             BIT            NULL,
     [IsAllResult]                 BIT            NULL,
+    [AcceptibleDistance]          INT            NULL,
     PRIMARY KEY CLUSTERED ([RegulatoryMotifPerfomanceId] ASC)
 );
+
+
 
 
 
