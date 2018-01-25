@@ -69,10 +69,10 @@ namespace CommonLibrary
         /// </summary>		
         protected override bool IsCompleteCondition()
         {
-//            _fIterationCount++;
+            IterationAction();
             if (_fCurrentPosition >= _fSize - 1)
             {
-//                fCountTerminal++;
+                TerminalAction();
                 return true;
             }
             return false;

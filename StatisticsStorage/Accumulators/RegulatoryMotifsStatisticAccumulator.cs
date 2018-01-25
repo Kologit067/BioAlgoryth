@@ -46,11 +46,6 @@ namespace StatisticsStorage.Accumulators
         {
             _currentRegulatoryMotifPerfomance = new RegulatoryMotifPerfomance(size, inputData, algorithm, numberOfSequence, sequenceLengthes, motifLength, algorythmParameters);
             _regulatoryMotifPerfomances.Add(_currentRegulatoryMotifPerfomance);
-            if (_regulatoryMotifPerfomances.Count > _bufferSize)
-            {
-                _regulatoryMotifSaver.Save(_regulatoryMotifPerfomances);
-                _regulatoryMotifPerfomances.Clear();
-            }
         }
         //--------------------------------------------------------------------------------------------------------------------
         public void IterationCountInc()
@@ -89,6 +84,11 @@ namespace StatisticsStorage.Accumulators
 
             _currentRegulatoryMotifPerfomance.SaveStatisticData(outputPresentation, optimalValue, duration, durationMilliSeconds, dateComplete,
                        isComplete, lastRoute, optimalRoute, listOfMotif, solutionStartPositionList);
+            if (_regulatoryMotifPerfomances.Count >= _bufferSize)
+            {
+                _regulatoryMotifSaver.Save(_regulatoryMotifPerfomances);
+                _regulatoryMotifPerfomances.Clear();
+            }
         }
         //--------------------------------------------------------------------------------------------------------------------
         public void SaveRemain()
