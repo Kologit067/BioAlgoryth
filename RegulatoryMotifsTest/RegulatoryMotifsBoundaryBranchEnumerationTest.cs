@@ -4,6 +4,8 @@ using StatisticsStorage.Accumulators;
 using FindingRegulatoryMotifs.Enumeration;
 using System.Collections.Generic;
 using System.Linq;
+using CommonLibrary;
+using StatisticsStorage.Savers;
 
 namespace RegulatoryMotifsTest
 {
@@ -418,5 +420,153 @@ namespace RegulatoryMotifsTest
 
         }
         //--------------------------------------------------------------------------------------
+        [TestMethod]
+        public void ProcessInputDataTestCaseLength5Number3Pattern3()
+        {
+            // arrange
+            char[] alphabet = new char[] { 'a', 'c', 'g', 't' };
+            EnumerateCharSetForMotifsPatternBranch enumeration = new EnumerateCharSetForMotifsPatternBranch(alphabet, 5, 3,
+                3, pIsAllResult: false, pIsOptimizitaion: false, pIsSumAsCriteria: false, pAcceptibleDistance: 0);
+            // act
+            enumeration.Execute();
+            // assert
+
+        }
+        //--------------------------------------------------------------------------------------
+        [TestMethod]
+        public void ProcessInputDataTestCaseLength7Number3Pattern4Step987()
+        {
+            // arrange
+            char[] alphabet = new char[] { 'a', 'c', 'g', 't' };
+            EnumerateCharSetForMotifsPatternBranch enumeration = new EnumerateCharSetForMotifsPatternBranch(alphabet, 7, 3,
+                4, pIsAllResult: false, pIsOptimizitaion: false, pIsSumAsCriteria: false,
+                pAcceptibleDistance: 0, pStep: 987);
+            // act
+            enumeration.Execute();
+            // assert
+
+        }
+        //--------------------------------------------------------------------------------------
+        [TestMethod]
+        public void ProcessInputDataBuAdditionTestLength7Number3Pattern4Step987()
+        {
+            // arrange
+            int patternLength = 4;
+            int acceptibleDistance = 0;
+            bool isOptimizitaion = false;
+            bool isSumAsCriteria = false;
+            bool isAllResult = true;
+            int step = 98798;
+            int numberOfSequence = 3;
+            int sequenceLength = 7;
+            var sequenceLengthes = string.Join(",", Enumerable.Repeat(sequenceLength, numberOfSequence));
+            var statisticAccumulator = new RegulatoryMotifsStatisticAccumulator(new RegulatoryMotifSaver(), patternLength, sequenceLengthes,
+                isOptimizitaion, isSumAsCriteria, isAllResult, acceptibleDistance, bufferSize: 10000);
+            statisticAccumulator.Delete("RegulatoryMotifsBoundaryBranchEnumeration");
+            char[] alphabet = new char[] { 'a', 'c', 'g', 't' };
+            long max = 1L << 42; //Convert.ToInt64(Math.Pow(4,21));
+            long sequenceAsNumber = 0;
+            int size = numberOfSequence * sequenceLength;
+            int[] sequence = new int[size];
+            char[] charSequence = new char[size];
+            long[] masks = new long[size];
+
+            long mask = 3;
+            for (int i = 0; i < size; i++)
+            {
+                masks[i] = mask;
+                mask <<= 2;
+            }
+            // act
+            while (sequenceAsNumber < max)
+            {
+                int shift = 0;
+                for (int i = 0; i < size; i++)
+                {
+                    sequence[i] = (int)((sequenceAsNumber & masks[i]) >> shift);
+                    shift += 2;
+                }
+                sequenceAsNumber += step;
+                charSequence = sequence.Select(j => alphabet[j]).ToArray();
+                char[][] charSets = Enumerable.Range(0, numberOfSequence).Select(i => Enumerable.Range(0, sequenceLength).Select(j => charSequence[j * numberOfSequence + i]).ToArray()).ToArray();
+                RegulatoryMotifsBoundaryBranchEnumeration enumeration = new RegulatoryMotifsBoundaryBranchEnumeration(alphabet, charSets, patternLength, pIsAllResult: false, pIsOptimizitaion: isOptimizitaion, pIsSumAsCriteria: isSumAsCriteria, pAcceptibleDistance: acceptibleDistance)
+                {
+                    StatisticAccumulator = new FakeRegulatoryMotifsStatisticAccumulator()
+                };
+                // act
+                enumeration.Execute();
+            }
+
+            // assert
+
+        }
+        //--------------------------------------------------------------------------------------
     }
+    //--------------------------------------------------------------------------------------
+    // class EnumerateCharSetForMotifsSubSequences 
+    //--------------------------------------------------------------------------------------
+    public class EnumerateCharSetForMotifsPatternBranch : EnumerateIntegerCharSet
+    {
+        protected int _acceptibleDistance;
+        protected bool _isAllResult;
+        protected bool _isOptimizitaion;
+        protected bool _isSumAsCriteria;
+        protected int _sequenceLength;
+        protected int _numberOfSequence;
+        protected int _patternLength;
+        protected int _step;
+        protected int _stepCounter;
+        protected RegulatoryMotifsStatisticAccumulator _statisticAccumulator { get; set; }
+        //--------------------------------------------------------------------------------------
+        public EnumerateCharSetForMotifsPatternBranch(char[] pCharSet, int pSequenceLength,
+            int pNumberOfSequence, int pPatternLength, bool pIsAllResult,
+            bool pIsOptimizitaion = false, bool pIsSumAsCriteria = false,
+            int pAcceptibleDistance = 0, int pStep = 1)
+            : base(pCharSet, pSequenceLength * pNumberOfSequence, 0)
+        {
+            _patternLength = pPatternLength;
+            _acceptibleDistance = pAcceptibleDistance;
+            _isOptimizitaion = pIsOptimizitaion;
+            _isSumAsCriteria = pIsSumAsCriteria;
+            _isAllResult = pIsAllResult;
+            _step = pStep;
+            _stepCounter = 1;
+            _numberOfSequence = pNumberOfSequence;
+            _sequenceLength = pSequenceLength;
+            var sequenceLengthes = string.Join(",", Enumerable.Repeat(_sequenceLength, _numberOfSequence));
+            _statisticAccumulator = new RegulatoryMotifsStatisticAccumulator(new RegulatoryMotifSaver(), _patternLength, sequenceLengthes,
+                _isOptimizitaion, _isSumAsCriteria, _isAllResult, _acceptibleDistance, bufferSize: 10000);
+            _statisticAccumulator.Delete("RegulatoryMotifsBoundaryBranchEnumeration");
+        }
+        //--------------------------------------------------------------------------------------
+        protected override bool MakeAction()
+        {
+            if (_fCurrentPosition == _fSize - 1 && --_stepCounter == 0)
+            {
+                var currentSequence = _fCurrentSet.Select(i => _charSet[i]).ToList();
+                char[][] charSets_ = Enumerable.Range(0, _numberOfSequence).Select(i => currentSequence.Skip(i * _sequenceLength).Take(_sequenceLength).ToArray()).ToArray();
+                int[][] indecies = Enumerable.Range(0, _numberOfSequence).Select(i => Enumerable.Range(0, _sequenceLength).Select(j => j * _numberOfSequence + i).ToArray()).ToArray();
+                char[][] charSets = Enumerable.Range(0, _numberOfSequence).Select(i => Enumerable.Range(0, _sequenceLength).Select(j => currentSequence[j * _numberOfSequence + i]).ToArray()).ToArray();
+                RegulatoryMotifsBoundaryBranchEnumeration enumeration = new RegulatoryMotifsBoundaryBranchEnumeration(_charSet, charSets, _patternLength, pIsAllResult: false, pIsOptimizitaion: _isOptimizitaion, pIsSumAsCriteria: _isSumAsCriteria, pAcceptibleDistance: _acceptibleDistance)
+                {
+                    StatisticAccumulator = new FakeRegulatoryMotifsStatisticAccumulator()
+                };
+                // act
+                enumeration.Execute();
+                // assert
+
+                //                _result.Add(string.Join(",", _fCurrentSet.Select(t => t.ToString())));
+                _stepCounter = _step;
+            }
+
+            return false;
+        }
+        //--------------------------------------------------------------------------------------
+        protected override void PostAction()
+        {
+            _statisticAccumulator.SaveRemain();
+        }
+        //--------------------------------------------------------------------------------------
+    }
+    //--------------------------------------------------------------------------------------
 }
