@@ -12,11 +12,11 @@ BEGIN
 	INSERT [RegulatoryMotifPerfomance] ( [Size], [NumberOfSequence],	[SequenceLengthes], [MotifLength],
 	[InputData], [OutputPresentation], [Algorithm], [NumberOfIteration], [Duration], [DurationMilliSeconds],
 	[DateComplete], [IsComplete], [LastRoute], [OptimalRoute], [OptimalValue], [StartPosition],
-	[Motif], [CountTerminal], [UpdateOptcount], [ElemenationCount], [IsOptimizitaion], [IsSumAsCriteria], [IsAllResult], [AcceptibleDistance])
+	[Motif], [CountTerminal], [UpdateOptcount], [ElemenationCount], [IsOptimizitaion], [IsSumAsCriteria], [IsAllResult])
 	SELECT [Size], [NumberOfSequence],	[SequenceLengthes], [MotifLength],
 	[InputData], [OutputPresentation], [Algorithm], [NumberOfIteration], [Duration], [DurationMilliSeconds],
 	[DateComplete], [IsComplete], [LastRoute], [OptimalRoute], [OptimalValue], [StartPosition],
-	[Motif], [CountTerminal], [UpdateOptcount], [ElemenationCount], [IsOptimizitaion], [IsSumAsCriteria], [IsAllResult], [AcceptibleDistance]
+	[Motif], [CountTerminal], [UpdateOptcount], [ElemenationCount], [IsOptimizitaion], [IsSumAsCriteria], [IsAllResult]
 	FROM @RegulatoryMotifPerfomances d; 
 
 
