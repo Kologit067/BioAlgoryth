@@ -410,11 +410,13 @@ namespace RegulatoryMotifsTest
 
         }
         //--------------------------------------------------------------------------------------
+        // multiple testing
+        //--------------------------------------------------------------------------------------
         [TestMethod]
         public void ProcessInputDataTestCaseLength5Number3Pattern3()
         {
             // arrange
-            char[] alphabet = new char[] { 'a', 'c', 'g', 't' };
+            char[] alphabet = new char[] { 'a', 'c', 'g' };
             EnumerateCharSetForMotifsSubSequences enumeration = new EnumerateCharSetForMotifsSubSequences(alphabet, 5, 3, 
                 3, pIsAllResult : false, pIsOptimizitaion : false, pIsSumAsCriteria : false, pAcceptibleDistance : 0);
             // act
@@ -446,7 +448,7 @@ namespace RegulatoryMotifsTest
             bool isOptimizitaion = false;
             bool isSumAsCriteria = false;
             bool isAllResult = true;
-            int step = 98798;
+            int step = 987987;
             int numberOfSequence = 3;
             int sequenceLength = 7;
             var sequenceLengthes = string.Join(",", Enumerable.Repeat(sequenceLength, numberOfSequence));

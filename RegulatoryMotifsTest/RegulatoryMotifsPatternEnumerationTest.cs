@@ -422,12 +422,14 @@ namespace RegulatoryMotifsTest
 
         }
         //--------------------------------------------------------------------------------------
+        // multiple testing
+        //--------------------------------------------------------------------------------------
         [TestMethod]
         public void ProcessInputDataTestCaseLength5Number3Pattern3()
         {
             // arrange
-            char[] alphabet = new char[] { 'a', 'c', 'g', 't' };
-            EnumerateCharSetForMotifsPattern enumeration = new EnumerateCharSetForMotifsPattern(alphabet, 5, 3,
+            char[] alphabet = new char[] { 'a', 'c' };
+            EnumerateCharSetForMotifsPattern enumeration = new EnumerateCharSetForMotifsPattern(alphabet, 7, 3,
                 3, pIsAllResult: false, pIsOptimizitaion: false, pIsSumAsCriteria: false, pAcceptibleDistance: 0);
             // act
             enumeration.Execute();
@@ -436,13 +438,26 @@ namespace RegulatoryMotifsTest
         }
         //--------------------------------------------------------------------------------------
         [TestMethod]
-        public void ProcessInputDataTestCaseLength7Number3Pattern4Step987()
+        public void ProcessInputDataTestCaseLength7Number3Pattern2()
         {
             // arrange
-            char[] alphabet = new char[] { 'a', 'c', 'g', 't' };
-            EnumerateCharSetForMotifsPattern enumeration = new EnumerateCharSetForMotifsPattern(alphabet, 7, 3,
+            char[] alphabet = new char[] { 'a', 'c', 'g' };
+            EnumerateCharSetForMotifsPattern enumeration = new EnumerateCharSetForMotifsPattern(alphabet, 4, 3,
+                3, pIsAllResult: false, pIsOptimizitaion: false, pIsSumAsCriteria: false, pAcceptibleDistance: 0);
+            // act
+            enumeration.Execute();
+            // assert
+
+        }
+        //--------------------------------------------------------------------------------------
+        [TestMethod]
+        public void ProcessInputDataTestCaseLength6Number2Pattern4Step987()
+        {
+            // arrange
+            char[] alphabet = new char[] { 'a', 'c', 'g' };
+            EnumerateCharSetForMotifsPattern enumeration = new EnumerateCharSetForMotifsPattern(alphabet, 6, 2,
                 4, pIsAllResult: false, pIsOptimizitaion: false, pIsSumAsCriteria: false,
-                pAcceptibleDistance: 0, pStep: 987);
+                pAcceptibleDistance: 0, pStep: 10);
             // act
             enumeration.Execute();
             // assert
@@ -458,7 +473,7 @@ namespace RegulatoryMotifsTest
             bool isOptimizitaion = false;
             bool isSumAsCriteria = false;
             bool isAllResult = true;
-            int step = 98798;
+            int step = 9879811;
             int numberOfSequence = 3;
             int sequenceLength = 7;
             var sequenceLengthes = string.Join(",", Enumerable.Repeat(sequenceLength, numberOfSequence));

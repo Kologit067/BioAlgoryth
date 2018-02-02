@@ -420,6 +420,8 @@ namespace RegulatoryMotifsTest
 
         }
         //--------------------------------------------------------------------------------------
+        // multiple testing
+        //--------------------------------------------------------------------------------------
         [TestMethod]
         public void ProcessInputDataTestCaseLength5Number3Pattern3()
         {
