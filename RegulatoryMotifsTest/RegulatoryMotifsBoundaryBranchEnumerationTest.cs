@@ -423,11 +423,11 @@ namespace RegulatoryMotifsTest
         // multiple testing
         //--------------------------------------------------------------------------------------
         [TestMethod]
-        public void ProcessInputDataTestCaseLength5Number3Pattern3()
+        public void ProcessInputDataTestCaseLength7Number3Pattern3()
         {
             // arrange
-            char[] alphabet = new char[] { 'a', 'c', 'g', 't' };
-            EnumerateCharSetForMotifsPatternBranch enumeration = new EnumerateCharSetForMotifsPatternBranch(alphabet, 5, 3,
+            char[] alphabet = new char[] { 'a', 'c' };
+            EnumerateCharSetForMotifsPatternBranch enumeration = new EnumerateCharSetForMotifsPatternBranch(alphabet, 7, 3,
                 3, pIsAllResult: false, pIsOptimizitaion: false, pIsSumAsCriteria: false, pAcceptibleDistance: 0);
             // act
             enumeration.Execute();
@@ -436,13 +436,26 @@ namespace RegulatoryMotifsTest
         }
         //--------------------------------------------------------------------------------------
         [TestMethod]
-        public void ProcessInputDataTestCaseLength7Number3Pattern4Step987()
+        public void ProcessInputDataTestCaseLength4Number3Pattern2()
         {
             // arrange
-            char[] alphabet = new char[] { 'a', 'c', 'g', 't' };
-            EnumerateCharSetForMotifsPatternBranch enumeration = new EnumerateCharSetForMotifsPatternBranch(alphabet, 7, 3,
+            char[] alphabet = new char[] { 'a', 'c', 'g' };
+            EnumerateCharSetForMotifsPatternBranch enumeration = new EnumerateCharSetForMotifsPatternBranch(alphabet, 4, 3,
+                3, pIsAllResult: false, pIsOptimizitaion: false, pIsSumAsCriteria: false, pAcceptibleDistance: 0);
+            // act
+            enumeration.Execute();
+            // assert
+
+        }
+        //--------------------------------------------------------------------------------------
+        [TestMethod]
+        public void ProcessInputDataTestCaseLength6Number2Pattern4Step987()
+        {
+            // arrange
+            char[] alphabet = new char[] { 'a', 'c', 'g' };
+            EnumerateCharSetForMotifsPatternBranch enumeration = new EnumerateCharSetForMotifsPatternBranch(alphabet, 6, 2,
                 4, pIsAllResult: false, pIsOptimizitaion: false, pIsSumAsCriteria: false,
-                pAcceptibleDistance: 0, pStep: 987);
+                pAcceptibleDistance: 0, pStep: 10);
             // act
             enumeration.Execute();
             // assert
@@ -458,7 +471,7 @@ namespace RegulatoryMotifsTest
             bool isOptimizitaion = false;
             bool isSumAsCriteria = false;
             bool isAllResult = true;
-            int step = 98798;
+            int step = 98798111;
             int numberOfSequence = 3;
             int sequenceLength = 7;
             var sequenceLengthes = string.Join(",", Enumerable.Repeat(sequenceLength, numberOfSequence));
@@ -493,7 +506,7 @@ namespace RegulatoryMotifsTest
                 char[][] charSets = Enumerable.Range(0, numberOfSequence).Select(i => Enumerable.Range(0, sequenceLength).Select(j => charSequence[j * numberOfSequence + i]).ToArray()).ToArray();
                 RegulatoryMotifsBoundaryBranchEnumeration enumeration = new RegulatoryMotifsBoundaryBranchEnumeration(alphabet, charSets, patternLength, pIsAllResult: false, pIsOptimizitaion: isOptimizitaion, pIsSumAsCriteria: isSumAsCriteria, pAcceptibleDistance: acceptibleDistance)
                 {
-                    StatisticAccumulator = new FakeRegulatoryMotifsStatisticAccumulator()
+                    StatisticAccumulator = statisticAccumulator
                 };
                 // act
                 enumeration.Execute();
@@ -551,7 +564,7 @@ namespace RegulatoryMotifsTest
                 char[][] charSets = Enumerable.Range(0, _numberOfSequence).Select(i => Enumerable.Range(0, _sequenceLength).Select(j => currentSequence[j * _numberOfSequence + i]).ToArray()).ToArray();
                 RegulatoryMotifsBoundaryBranchEnumeration enumeration = new RegulatoryMotifsBoundaryBranchEnumeration(_charSet, charSets, _patternLength, pIsAllResult: false, pIsOptimizitaion: _isOptimizitaion, pIsSumAsCriteria: _isSumAsCriteria, pAcceptibleDistance: _acceptibleDistance)
                 {
-                    StatisticAccumulator = new FakeRegulatoryMotifsStatisticAccumulator()
+                    StatisticAccumulator = _statisticAccumulator
                 };
                 // act
                 enumeration.Execute();

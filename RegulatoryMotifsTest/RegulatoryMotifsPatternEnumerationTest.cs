@@ -473,7 +473,7 @@ namespace RegulatoryMotifsTest
             bool isOptimizitaion = false;
             bool isSumAsCriteria = false;
             bool isAllResult = true;
-            int step = 9879811;
+            int step = 98798111;
             int numberOfSequence = 3;
             int sequenceLength = 7;
             var sequenceLengthes = string.Join(",", Enumerable.Repeat(sequenceLength, numberOfSequence));
