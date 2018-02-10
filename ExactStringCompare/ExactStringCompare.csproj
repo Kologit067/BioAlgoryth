@@ -40,8 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BadSymbolAdvCompare.cs" />
-    <Compile Include="BadSymbolCompare.cs" />
+    <Compile Include="BoyerMooreCompare.cs" />
     <Compile Include="BruteForceStringCompareBy.cs" />
     <Compile Include="SimpletStringCompareByPreprocessing.cs" />
     <Compile Include="StringPreprocessing.cs" />

@@ -112,19 +112,6 @@ namespace ExactStringCompare
         //--------------------------------------------------------------------------------------
         public void BadSymbolPreprocessString(string line)
         {
-
-            rAdvValue = new Dictionary<char, List<int>>();
-            for (int i = 1; i < line.Length; i++)
-            {
-                if (!rAdvValue.ContainsKey(line[i]))
-                    rAdvValue.Add(line[i], new List<int>());
-                rAdvValue[line[i]].Add(i);
-            }
-        }
-        //--------------------------------------------------------------------------------------
-        public void BadSymbolAdvPreprocessString(string line)
-        {
-
             rValue = new Dictionary<char, int>();
             for (int i = 1; i < line.Length; i++)
             {
@@ -133,6 +120,19 @@ namespace ExactStringCompare
                 else
                     rValue.Add(line[i], i);
             }
+        }
+        //--------------------------------------------------------------------------------------
+        public void BadSymbolAdvPreprocessString(string line)
+        {
+
+            rAdvValue = new Dictionary<char, List<int>>();
+            for (int i = 1; i < line.Length; i++)
+            {
+                if (!rAdvValue.ContainsKey(line[i]))
+                    rAdvValue.Add(line[i], new List<int>());
+                rAdvValue[line[i]].Add(i);
+            }
+
         }
         //--------------------------------------------------------------------------------------
         public void LiPreprocessString(string line)
@@ -185,7 +185,7 @@ namespace ExactStringCompare
             }
         }
         //--------------------------------------------------------------------------------------
-        public void LliByNPreprocessString(string line)
+        public void LliPreprocessString(string line)
         {
             int len = line.Length;
 
