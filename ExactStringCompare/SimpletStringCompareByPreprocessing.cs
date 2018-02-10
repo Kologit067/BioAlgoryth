@@ -12,7 +12,7 @@ namespace ExactStringCompare
         {
             List<int> result = new List<int>();
             string totalString = pattern + text;
-            PreprocessString(totalString);
+            zValue = PreprocessString(totalString);
             int lenPattern = pattern.Length;
             for(int i = lenPattern; i < totalString.Length; i++)
             {
