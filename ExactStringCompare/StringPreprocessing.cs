@@ -209,7 +209,7 @@ namespace ExactStringCompare
             for (int i = len - 1; i >= 0; i--)
             {
                 if (zvalue[i] > 0)
-                llisValue[i+zvalue[i]-1] = zvalue[i];
+                    spsValue[i+zvalue[i]-1] = zvalue[i];
             }
         }
         //--------------------------------------------------------------------------------------
