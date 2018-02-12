@@ -7,37 +7,38 @@ using ExactStringCompare;
 namespace ExactStringCompareTest
 {
     [TestClass]
-    public class SimpletStringCompareByPreprocessingTest
+    public class BruteForceStringCompareTest
     {
         [TestMethod]
         public void FindSubstringTest()
         {
         }
         //--------------------------------------------------------------------------------------
-        // class EnumerateCharSetForSimpleStringCompareByPreprocessing 
+        // class EnumerateCharSetForBruteForceStringCompare 
         //--------------------------------------------------------------------------------------
-        public class EnumerateCharSetForSimpleStringCompareByPreprocessing : EnumerateIntegerCharSet
+        public class EnumerateCharSetForBruteForceStringCompare : EnumerateIntegerCharSet
         {
             protected int _patternLength;
             protected int _textLength;
             protected int _step;
             protected int _stepCounter;
-//            protected RegulatoryMotifsStatisticAccumulator _statisticAccumulator { get; set; }
+            //            protected RegulatoryMotifsStatisticAccumulator _statisticAccumulator { get; set; }
             //--------------------------------------------------------------------------------------
-            public EnumerateCharSetForSimpleStringCompareByPreprocessing(
+            public EnumerateCharSetForBruteForceStringCompare(
                 char[] pCharSet,
                 int pPatternLength,
                 int pTextLength,
-                int pStep = 1)
+                int pStep = 1,
+                int bufferSize = 1000)
                 : base(pCharSet, pTextLength + pPatternLength, 0)
             {
                 _patternLength = pPatternLength;
                 _textLength = pTextLength;
                 _step = pStep;
                 _stepCounter = 1;
-                //_statisticAccumulator = new RegulatoryMotifsStatisticAccumulator(new RegulatoryMotifSaver(), _patternLength, sequenceLengthes,
-                //    _isOptimizitaion, _isSumAsCriteria, _isAllResult, _acceptibleDistance, bufferSize: 1000);
-                //_statisticAccumulator.Delete("RegulatoryMotifsPatternEnumeration");
+                _statisticAccumulator = new RegulatoryMotifsStatisticAccumulator(new RegulatoryMotifSaver(), _patternLength, sequenceLengthes,
+                    _isOptimizitaion, _isSumAsCriteria, _isAllResult, _acceptibleDistance, bufferSize: 1000);
+                _statisticAccumulator.Delete("RegulatoryMotifsPatternEnumeration");
             }
             //--------------------------------------------------------------------------------------
             protected override bool MakeAction()
@@ -45,11 +46,11 @@ namespace ExactStringCompareTest
                 if (_fCurrentPosition == _fSize - 1 && --_stepCounter == 0)
                 {
                     var currentSequence = _fCurrentSet.Select(i => _charSet[i]).ToList();
-                    string pattern = new string( currentSequence.Take(_patternLength).ToArray());
-                    string text = new string (currentSequence.Skip(_patternLength).Take(_textLength).ToArray());
-                    SimpletStringCompareByPreprocessing simpletStringCompareByPreprocessing = new SimpletStringCompareByPreprocessing();
+                    string pattern = new string(currentSequence.Take(_patternLength).ToArray());
+                    string text = new string(currentSequence.Skip(_patternLength).Take(_textLength).ToArray());
+                    BruteForceStringCompare bruteForceStringCompare = new BruteForceStringCompare();
                     // act
-                    simpletStringCompareByPreprocessing.FindSubstring(text,pattern);
+                    bruteForceStringCompare.FindSubstring(text, pattern);
                     // assert
 
                     _stepCounter = _step;
@@ -60,10 +61,10 @@ namespace ExactStringCompareTest
             //--------------------------------------------------------------------------------------
             protected override void PostAction()
             {
-//                _statisticAccumulator.SaveRemain();
+                //                _statisticAccumulator.SaveRemain();
             }
             //--------------------------------------------------------------------------------------
         }
         //--------------------------------------------------------------------------------------    
     }
- }
+}

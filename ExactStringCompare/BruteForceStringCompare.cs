@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ExactStringCompare
 {
-    public class BruteForceStringCompareBy
+    public class BruteForceStringCompare
     {
         public List<int> FindSubstring(string text, string pattern)
         {

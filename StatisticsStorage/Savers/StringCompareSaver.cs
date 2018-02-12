@@ -6,10 +6,10 @@ using System.Data.SqlClient;
 
 namespace StatisticsStorage.Savers
 {
-    public class RegulatoryMotifSaver
+    public class StringCompareSaver
     {
         private string _connectionString;
-        public RegulatoryMotifSaver()
+        public StringCompareSaver()
         {
             _connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["bioalgorythm"].ConnectionString;
         }
@@ -75,39 +75,39 @@ namespace StatisticsStorage.Savers
 
                 foreach (var ps in regulatoryMotifPerfomances)
                 {
-                    performance.Rows.Add(ps.Size, ps.NumberOfSequence, ps.SequenceLengthes, 
-                        ps.MotifLength, ps.InputData, ps.OutputPresentation, ps.Algorithm, ps.IterationCount, 
-                        ps.Duration, ps.DurationMilliSeconds, ps.DateComplete, ps.IsComplete, 
+                    performance.Rows.Add(ps.Size, ps.NumberOfSequence, ps.SequenceLengthes,
+                        ps.MotifLength, ps.InputData, ps.OutputPresentation, ps.Algorithm, ps.IterationCount,
+                        ps.Duration, ps.DurationMilliSeconds, ps.DateComplete, ps.IsComplete,
                         ps.LastRoute, ps.OptimalRoute, ps.OptimalValue,
-                        (ps.SolutionStartPositionList?.Count ?? 0) == 0  ? "" : string.Join(",", ps.SolutionStartPositionList[0]),
-                        (ps.ListOfMotif?.Count ?? 0) == 0 ? "" : string.Join("", ps.ListOfMotif[0]), 
-                        ps.CountTerminal, ps.UpdateOptcount, ps.ElemenationCount, 
+                        (ps.SolutionStartPositionList?.Count ?? 0) == 0 ? "" : string.Join(",", ps.SolutionStartPositionList[0]),
+                        (ps.ListOfMotif?.Count ?? 0) == 0 ? "" : string.Join("", ps.ListOfMotif[0]),
+                        ps.CountTerminal, ps.UpdateOptcount, ps.ElemenationCount,
                         ps.AlgorythmParameters.IsOptimizitaion, ps.AlgorythmParameters.IsSumAsCriteria, ps.AlgorythmParameters.IsAllResult, ps.AlgorythmParameters.AcceptibleDistance);
 
                     for (int i = 0; i < (ps.ListOfMotif?.Count ?? 0); i++)
                     {
                         solutions.Rows.Add(ps.Algorithm, ps.SequenceLengthes,
-                        ps.MotifLength, ps.AlgorythmParameters.IsOptimizitaion, 
-                        ps.AlgorythmParameters.IsSumAsCriteria, 
+                        ps.MotifLength, ps.AlgorythmParameters.IsOptimizitaion,
+                        ps.AlgorythmParameters.IsSumAsCriteria,
                         ps.AlgorythmParameters.IsAllResult, ps.AlgorythmParameters.AcceptibleDistance,
                         ps.InputData,
-                        string.Join(",", ps.SolutionStartPositionList[i]), 
+                        string.Join(",", ps.SolutionStartPositionList[i]),
                         string.Join("", ps.ListOfMotif[i]));
                     }
 
                     if (ps.RegulatoryMotifOptimalValueChanges != null)
-                        foreach ( var ch in ps.RegulatoryMotifOptimalValueChanges)
+                        foreach (var ch in ps.RegulatoryMotifOptimalValueChanges)
                         {
                             valueChanges.Rows.Add(ps.Algorithm, ps.SequenceLengthes,
-                            ps.MotifLength, ps.AlgorythmParameters.IsOptimizitaion, 
-                            ps.AlgorythmParameters.IsSumAsCriteria, ps.AlgorythmParameters.IsAllResult, 
+                            ps.MotifLength, ps.AlgorythmParameters.IsOptimizitaion,
+                            ps.AlgorythmParameters.IsSumAsCriteria, ps.AlgorythmParameters.IsAllResult,
                             ps.AlgorythmParameters.AcceptibleDistance,
                             ps.InputData, ch.IterationCount, ch.Duration, ch.DurationMilliSeconds,
                             ch.OptimalValue, ch.StartPosition, ch.Motif);
                         }
                 }
 
- 
+
 
                 SqlConnection connection = new SqlConnection(_connectionString);
                 connection.Open();
@@ -141,7 +141,7 @@ namespace StatisticsStorage.Savers
         }
 
         public string Delete(string algorithm, int patternLength, string sequenceLengthes,
-                            bool isOptimizitaion,bool isSumAsCriteria,bool isAllResult, int acceptibleDistance)
+                            bool isOptimizitaion, bool isSumAsCriteria, bool isAllResult, int acceptibleDistance)
         {
             string error = null;
 

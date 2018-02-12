@@ -97,5 +97,9 @@
     <Build Include="dbo\Views\vw_DNAMappingCompareTriangleDifferences.sql" />
     <Build Include="dbo\Views\vw_DNAMappingCompareBoundaryBravhDifferences.sql" />
     <Build Include="dbo\Stored Procedures\deleteRegulatoryMotifPerfomance.sql" />
+    <Build Include="dbo\Tables\FindPatternPerfomance.sql" />
+    <Build Include="dbo\Stored Procedures\deleteFindPatternPerfomance.sql" />
+    <Build Include="dbo\Stored Procedures\addFindPatternPerfomance.sql" />
+    <Build Include="dbo\User Defined Types\FindPatternPerfomanceType.sql" />
   </ItemGroup>
 </Project>

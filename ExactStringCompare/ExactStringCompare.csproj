@@ -41,7 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BoyerMooreCompare.cs" />
-    <Compile Include="BruteForceStringCompareBy.cs" />
+    <Compile Include="BruteForceStringCompare.cs" />
     <Compile Include="KnuthCompare.cs" />
     <Compile Include="SimpletStringCompareByPreprocessing.cs" />
     <Compile Include="StringPreprocessing.cs" />
