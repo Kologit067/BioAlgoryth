@@ -22,7 +22,7 @@ namespace ExactStringCompareTest
             protected int _textLength;
             protected int _step;
             protected int _stepCounter;
-//            protected RegulatoryMotifsStatisticAccumulator _statisticAccumulator { get; set; }
+            protected IStringCompareAccumulator _statisticAccumulator { get; set; }
             //--------------------------------------------------------------------------------------
             public EnumerateCharSetForSimpleStringCompareByPreprocessing(
                 char[] pCharSet,
@@ -35,9 +35,9 @@ namespace ExactStringCompareTest
                 _textLength = pTextLength;
                 _step = pStep;
                 _stepCounter = 1;
-                //_statisticAccumulator = new RegulatoryMotifsStatisticAccumulator(new RegulatoryMotifSaver(), _patternLength, sequenceLengthes,
-                //    _isOptimizitaion, _isSumAsCriteria, _isAllResult, _acceptibleDistance, bufferSize: 1000);
-                //_statisticAccumulator.Delete("RegulatoryMotifsPatternEnumeration");
+                _statisticAccumulator = new StringCompareAccumulator(new StringCompareSaver(), _patternLength, _textLength,
+                    bufferSize: 1000);
+                _statisticAccumulator.Delete("RegulatoryMotifsPatternEnumeration");
             }
             //--------------------------------------------------------------------------------------
             protected override bool MakeAction()

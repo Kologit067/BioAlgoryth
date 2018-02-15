@@ -9,11 +9,9 @@ namespace BaseContract
     public interface IStringCompareAccumulator
     {
         void IterationCountInc();
-        void CreateStatistics(int size, string inputData, string algorithm, int numberOfSequence,
-                string sequenceLengthes, int motifLength, AlgorythmParameters algorythmParameters);
-        void SaveStatisticData(string outputPresentation, int optimalValue, long duration, long durationMilliSeconds, DateTime dateComplete,
-            bool isComplete, string lastRoute, string optimalRoute, List<List<char>> listOfMotif, List<int[]> solutionStartPositionList);
+        void CreateStatistics(string text, string pattern);
+        void SaveStatisticData(string outputPresentation, long duration, long durationMilliSeconds, DateTime dateComplete);
         void SaveRemain();
-        string Delete(string algorithm);
+        string Delete();
     }
 }

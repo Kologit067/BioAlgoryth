@@ -140,8 +140,7 @@ namespace StatisticsStorage.Savers
 
         }
 
-        public string Delete(string algorithm, int patternLength, string sequenceLengthes,
-                            bool isOptimizitaion, bool isSumAsCriteria, bool isAllResult, int acceptibleDistance)
+        public string Delete(string algorythm, int patternLength, int textLength)
         {
             string error = null;
 
@@ -155,7 +154,7 @@ namespace StatisticsStorage.Savers
                 addCommand.CommandTimeout = 300;
                 SqlParameter tvpParam2 = addCommand.Parameters.AddWithValue("@SequenceLengthes", sequenceLengthes);
                 tvpParam2.SqlDbType = SqlDbType.VarChar;
-                SqlParameter tvpParam3 = addCommand.Parameters.AddWithValue("@Algorithm", algorithm);
+                SqlParameter tvpParam3 = addCommand.Parameters.AddWithValue("@Algorithm", algorythm);
                 tvpParam3.SqlDbType = SqlDbType.VarChar;
                 SqlParameter tvpParam = addCommand.Parameters.AddWithValue("@MotifLength", patternLength);
                 tvpParam.SqlDbType = SqlDbType.VarChar;

@@ -1,5 +1,6 @@
 ﻿using BaseContract;
 using CommonLibrary.Objects;
+using StatisticsStorage.Accumulators.Objects;
 using StatisticsStorage.Savers;
 using System;
 using System.Collections.Generic;
@@ -8,154 +9,92 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace StatisticsStorage.Accumulators
-    {
+{
     //--------------------------------------------------------------------------------------------------------------------
     //  class StringCompareAccumulator
     //--------------------------------------------------------------------------------------------------------------------
     public class StringCompareAccumulator : IStringCompareAccumulator
     {
-            public static readonly int SolutionLimit = 20;
-            protected List<RegulatoryMotifPerfomance> _regulatoryMotifPerfomances;
-            protected RegulatoryMotifPerfomance _currentRegulatoryMotifPerfomance;
-            protected RegulatoryMotifSaver _regulatoryMotifSaver;
-            protected int _bufferSize;
-            protected string _sequenceLengthes;
-            protected int _motifLength;
-            protected bool _isOptimizitaion;
-            protected bool _isSumAsCriteria;
-            protected bool _isAllResult;
-            protected int _acceptibleDistance;
-            //--------------------------------------------------------------------------------------------------------------------
-            public StringCompareAccumulator(RegulatoryMotifSaver regulatoryMotifSaver, int motifLength,
-                string sequenceLengthes, bool isOptimizitaion, bool isSumAsCriteria, bool isAllResult, int acceptibleDistance,
-                int bufferSize = 100)
-            {
-                _motifLength = motifLength;
-                _sequenceLengthes = sequenceLengthes;
-                _isOptimizitaion = isOptimizitaion;
-                _isSumAsCriteria = isSumAsCriteria;
-                _isAllResult = isAllResult;
-                _acceptibleDistance = acceptibleDistance;
-                _regulatoryMotifSaver = regulatoryMotifSaver;
-                _bufferSize = bufferSize;
-                _regulatoryMotifPerfomances = new List<RegulatoryMotifPerfomance>();
-            }
-            //--------------------------------------------------------------------------------------------------------------------
-            public void CreateStatistics(int size, string inputData, string algorithm, int numberOfSequence,
-                    string sequenceLengthes, int motifLength, AlgorythmParameters algorythmParameters)
-            {
-                _currentRegulatoryMotifPerfomance = new RegulatoryMotifPerfomance(size, inputData, algorithm, numberOfSequence, sequenceLengthes, motifLength, algorythmParameters);
-                _regulatoryMotifPerfomances.Add(_currentRegulatoryMotifPerfomance);
-            }
-            //--------------------------------------------------------------------------------------------------------------------
-            public void IterationCountInc()
-            {
-                _currentRegulatoryMotifPerfomance.IterationCountInc();
-            }
-            //--------------------------------------------------------------------------------------------------------------------
-            public void TerminalCountInc()
-            {
-                _currentRegulatoryMotifPerfomance.TerminalCountInc();
-            }
-            //--------------------------------------------------------------------------------------------------------------------
-            public void UpdateOptcountInc()
-            {
-                _currentRegulatoryMotifPerfomance.UpdateOptcountInc();
-            }
-            //--------------------------------------------------------------------------------------------------------------------
-            public void ElemenationCountInc()
-            {
-                _currentRegulatoryMotifPerfomance.ElemenationCountInc();
-            }
-            //--------------------------------------------------------------------------------------------------------------------
-            public void AddRegulatoryMotifOptimalValueChange(long duration, long durationMilliSeconds,
-                int optimalValue, string startPosition, string motif)
-            {
-                if (_currentRegulatoryMotifPerfomance.RegulatoryMotifOptimalValueChanges.Count < SolutionLimit)
-                {
-                    _currentRegulatoryMotifPerfomance.RegulatoryMotifOptimalValueChanges.Add(new RegulatoryMotifOptimalValueChange
-                    (_currentRegulatoryMotifPerfomance.IterationCount, duration, durationMilliSeconds, optimalValue, startPosition, motif));
-                }
-            }
-            //--------------------------------------------------------------------------------------------------------------------
-            public void SaveStatisticData(string outputPresentation, int optimalValue, long duration, long durationMilliSeconds, DateTime dateComplete,
-                bool isComplete, string lastRoute, string optimalRoute, List<List<char>> listOfMotif, List<int[]> solutionStartPositionList)
-            {
-
-                _currentRegulatoryMotifPerfomance.SaveStatisticData(outputPresentation, optimalValue, duration, durationMilliSeconds, dateComplete,
-                           isComplete, lastRoute, optimalRoute, listOfMotif, solutionStartPositionList);
-                if (_regulatoryMotifPerfomances.Count >= _bufferSize)
-                {
-                    _regulatoryMotifSaver.Save(_regulatoryMotifPerfomances);
-                    _regulatoryMotifPerfomances.Clear();
-                }
-            }
-            //--------------------------------------------------------------------------------------------------------------------
-            public void SaveRemain()
-            {
-                if (_regulatoryMotifPerfomances.Count > 0)
-                    _regulatoryMotifSaver.Save(_regulatoryMotifPerfomances);
-                _regulatoryMotifPerfomances.Clear();
-            }
-            //--------------------------------------------------------------------------------------------------------------------
-            public string Delete(string algorithm)
-            {
-                return _regulatoryMotifSaver.Delete(algorithm, _motifLength, _sequenceLengthes,
-                    _isOptimizitaion, _isSumAsCriteria, _isAllResult, _acceptibleDistance);
-            }
-            //--------------------------------------------------------------------------------------------------------------------
+        public static readonly int SolutionLimit = 20;
+        protected List<FindPatternPerfomance> _findPatternPerfomances;
+        protected FindPatternPerfomance _currentFindPatternPerfomance;
+        protected StringCompareSaver _stringCompareSaver;
+        protected int _bufferSize;
+        protected int _patternLength;
+        protected int _textLength;
+        protected string _algorythm;
+        //--------------------------------------------------------------------------------------------------------------------
+        public StringCompareAccumulator(StringCompareSaver stringCompareSaver, string algorythm, int patternLength, int textLength, int bufferSize : 1000)
+        {
+            _patternLength = patternLength;
+            _textLength = textLength;
+            _bufferSize = bufferSize;
+            _algorythm = algorythm;
+            _findPatternPerfomances = new List<FindPatternPerfomance>();
+            _stringCompareSaver = stringCompareSaver;
         }
+        //--------------------------------------------------------------------------------------------------------------------
+        public void CreateStatistics(string text, string pattern)
+        {
+            _currentFindPatternPerfomance = new FindPatternPerfomance()
+            {
+                Algorithm = _algorythm,
+                TextSize = _textLength,
+                PatternSize = _patternLength,
+                Text = text,
+                Pattern = pattern
+            };
+            _findPatternPerfomances.Add(_currentFindPatternPerfomance);
+        }
+        //--------------------------------------------------------------------------------------------------------------------
+        public void IterationCountInc()
+        {
+            _currentFindPatternPerfomance.IterationCountInc();
+        }
+        //--------------------------------------------------------------------------------------------------------------------
+        public void SaveStatisticData(string outputPresentation, long duration, long durationMilliSeconds, DateTime dateComplete)
+        {
+
+            _currentFindPatternPerfomance.SaveStatisticData(outputPresentation, duration, durationMilliSeconds, dateComplete);
+            if (_findPatternPerfomances.Count >= _bufferSize)
+            {
+                _stringCompareSaver.Save(_findPatternPerfomances);
+                _findPatternPerfomances.Clear();
+            }
+        }
+        //--------------------------------------------------------------------------------------------------------------------
+        public void SaveRemain()
+        {
+            if (_findPatternPerfomances.Count > 0)
+                _stringCompareSaver.Save(_findPatternPerfomances);
+            _findPatternPerfomances.Clear();
+        }
+        //--------------------------------------------------------------------------------------------------------------------
+        public string Delete()
+        {
+            return _stringCompareSaver.Delete(_algorythm, _patternLength, _textLength);
+        }
+        //--------------------------------------------------------------------------------------------------------------------
+    }
     //--------------------------------------------------------------------------------------------------------------------
     //  class FakeStringCompareAccumulator
     //--------------------------------------------------------------------------------------------------------------------
     public class FakeStringCompareAccumulator : IStringCompareAccumulator
     {
-            //--------------------------------------------------------------------------------------------------------------------
-            public FakeStringCompareAccumulator()
-            {
-            }
-            //--------------------------------------------------------------------------------------------------------------------
-            public void CreateStatistics(int size, string inputData, string algorithm, int numberOfSequence,
-                    string sequenceLengthes, int motifLength, AlgorythmParameters algorythmParameters)
-            {
-            }
-            //--------------------------------------------------------------------------------------------------------------------
-            public void IterationCountInc()
-            {
-            }
-            //--------------------------------------------------------------------------------------------------------------------
-            public void TerminalCountInc()
-            {
-            }
-            //--------------------------------------------------------------------------------------------------------------------
-            public void UpdateOptcountInc()
-            {
-            }
-            //--------------------------------------------------------------------------------------------------------------------
-            public void ElemenationCountInc()
-            {
-            }
-            //--------------------------------------------------------------------------------------------------------------------
-            public void AddRegulatoryMotifOptimalValueChange(long duration, long durationMilliSeconds,
-                int optimalValue, string startPosition, string motif)
-            {
-            }
-            //--------------------------------------------------------------------------------------------------------------------
-            public void SaveStatisticData(string outputPresentation, int optimalValue, long duration, long durationMilliSeconds, DateTime dateComplete,
-                bool isComplete, string lastRoute, string optimalRoute, List<List<char>> listOfMotif, List<int[]> solutionStartPositionList)
-            {
-            }
-            public void SaveRemain()
-            {
-            }
-            //--------------------------------------------------------------------------------------------------------------------
-            public string Delete(string algorithm)
-            {
-                return "";
-            }
-            //--------------------------------------------------------------------------------------------------------------------
+        //--------------------------------------------------------------------------------------------------------------------
+        public FakeStringCompareAccumulator()
+        {
+        }
+        public void IterationCountInc()
+        { }
+        public void CreateStatistics(string text, string pattern) { }
+        public void SaveStatisticData(string outputPresentation, long duration, long durationMilliSeconds, DateTime dateComplete) { }
+        public void SaveRemain() { }
+        public string Delete()
+        {
+            return string.Empty;
         }
         //--------------------------------------------------------------------------------------------------------------------
     }
-
+    //--------------------------------------------------------------------------------------------------------------------
 }
