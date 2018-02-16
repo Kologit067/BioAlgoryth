@@ -24,7 +24,7 @@ namespace StatisticsStorage.Accumulators
         protected int _textLength;
         protected string _algorythm;
         //--------------------------------------------------------------------------------------------------------------------
-        public StringCompareAccumulator(StringCompareSaver stringCompareSaver, string algorythm, int patternLength, int textLength, int bufferSize : 1000)
+        public StringCompareAccumulator(StringCompareSaver stringCompareSaver, string algorythm, int patternLength, int textLength, int bufferSize )
         {
             _patternLength = patternLength;
             _textLength = textLength;

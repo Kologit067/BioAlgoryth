@@ -35,36 +35,11 @@ namespace StatisticsStorage.Savers
 
                 foreach (var ps in findPatternPerfomances)
                 {
-                    performance.Rows.Add(ps.Size, ps.NumberOfSequence, ps.SequenceLengthes,
-                        ps.MotifLength, ps.InputData, ps.OutputPresentation, ps.Algorithm, ps.IterationCount,
-                        ps.Duration, ps.DurationMilliSeconds, ps.DateComplete, ps.IsComplete,
-                        ps.LastRoute, ps.OptimalRoute, ps.OptimalValue,
-                        (ps.SolutionStartPositionList?.Count ?? 0) == 0 ? "" : string.Join(",", ps.SolutionStartPositionList[0]),
-                        (ps.ListOfMotif?.Count ?? 0) == 0 ? "" : string.Join("", ps.ListOfMotif[0]),
-                        ps.CountTerminal, ps.UpdateOptcount, ps.ElemenationCount,
-                        ps.AlgorythmParameters.IsOptimizitaion, ps.AlgorythmParameters.IsSumAsCriteria, ps.AlgorythmParameters.IsAllResult, ps.AlgorythmParameters.AcceptibleDistance);
 
-                    for (int i = 0; i < (ps.ListOfMotif?.Count ?? 0); i++)
-                    {
-                        solutions.Rows.Add(ps.Algorithm, ps.SequenceLengthes,
-                        ps.MotifLength, ps.AlgorythmParameters.IsOptimizitaion,
-                        ps.AlgorythmParameters.IsSumAsCriteria,
-                        ps.AlgorythmParameters.IsAllResult, ps.AlgorythmParameters.AcceptibleDistance,
-                        ps.InputData,
-                        string.Join(",", ps.SolutionStartPositionList[i]),
-                        string.Join("", ps.ListOfMotif[i]));
-                    }
+                    performance.Rows.Add(ps.Algorithm, ps.TextSize, ps.PatternSize,
+                        ps.Text, ps.Pattern, ps.OutputPresentation, ps.IterationCount,
+                        ps.Duration, ps.DurationMilliSeconds, ps.DateComplete);
 
-                    if (ps.RegulatoryMotifOptimalValueChanges != null)
-                        foreach (var ch in ps.RegulatoryMotifOptimalValueChanges)
-                        {
-                            valueChanges.Rows.Add(ps.Algorithm, ps.SequenceLengthes,
-                            ps.MotifLength, ps.AlgorythmParameters.IsOptimizitaion,
-                            ps.AlgorythmParameters.IsSumAsCriteria, ps.AlgorythmParameters.IsAllResult,
-                            ps.AlgorythmParameters.AcceptibleDistance,
-                            ps.InputData, ch.IterationCount, ch.Duration, ch.DurationMilliSeconds,
-                            ch.OptimalValue, ch.StartPosition, ch.Motif);
-                        }
                 }
 
 
@@ -73,18 +48,12 @@ namespace StatisticsStorage.Savers
                 connection.Open();
                 try
                 {
-                    SqlCommand addCommand = new SqlCommand("addRegulatoryMotifPerfomance", connection);
+                    SqlCommand addCommand = new SqlCommand("addFindPatternPerfomance", connection);
                     addCommand.CommandType = CommandType.StoredProcedure;
                     addCommand.CommandTimeout = 300;
-                    SqlParameter tvpParam = addCommand.Parameters.AddWithValue("@RegulatoryMotifPerfomances", performance);
+                    SqlParameter tvpParam = addCommand.Parameters.AddWithValue("@FindPatternPerfomanceType", performance);
                     tvpParam.SqlDbType = SqlDbType.Structured;
-                    tvpParam.TypeName = "dbo.RegulatoryMotifPerfomanceType";
-                    SqlParameter tvpParam1 = addCommand.Parameters.AddWithValue("@RegulatoryMotifOptimalValueChanges", valueChanges);
-                    tvpParam1.SqlDbType = SqlDbType.Structured;
-                    tvpParam1.TypeName = "dbo.RegulatoryMotifOptimalValueChangeType";
-                    SqlParameter tvpParam2 = addCommand.Parameters.AddWithValue("@RegulatoryMotifSolutions", solutions);
-                    tvpParam2.SqlDbType = SqlDbType.Structured;
-                    tvpParam2.TypeName = "dbo.RegulatoryMotifSolutionType";
+                    tvpParam.TypeName = "dbo.FindPatternPerfomanceType";
                     addCommand.ExecuteNonQuery();
                 }
                 finally
@@ -109,19 +78,15 @@ namespace StatisticsStorage.Savers
             connection.Open();
             try
             {
-                SqlCommand addCommand = new SqlCommand("[dbo].[deleteRegulatoryMotifPerfomance]", connection);
+                SqlCommand addCommand = new SqlCommand("[dbo].[deleteFindPatternPerfomance]", connection);
                 addCommand.CommandType = CommandType.StoredProcedure;
                 addCommand.CommandTimeout = 300;
-                SqlParameter tvpParam2 = addCommand.Parameters.AddWithValue("@SequenceLengthes", sequenceLengthes);
+                SqlParameter tvpParam2 = addCommand.Parameters.AddWithValue("@Algorithm", algorythm);
                 tvpParam2.SqlDbType = SqlDbType.VarChar;
-                SqlParameter tvpParam3 = addCommand.Parameters.AddWithValue("@Algorithm", algorythm);
-                tvpParam3.SqlDbType = SqlDbType.VarChar;
-                SqlParameter tvpParam = addCommand.Parameters.AddWithValue("@MotifLength", patternLength);
-                tvpParam.SqlDbType = SqlDbType.VarChar;
-                addCommand.Parameters.AddWithValue("@IsOptimizitaion", isOptimizitaion).SqlDbType = SqlDbType.Bit;
-                addCommand.Parameters.AddWithValue("@IsSumAsCriteria", isSumAsCriteria).SqlDbType = SqlDbType.Bit;
-                addCommand.Parameters.AddWithValue("@IsAllResult", isAllResult).SqlDbType = SqlDbType.Bit;
-                addCommand.Parameters.AddWithValue("@AcceptibleDistance", acceptibleDistance).SqlDbType = SqlDbType.Int;
+                SqlParameter tvpParam3 = addCommand.Parameters.AddWithValue("@TextSize", patternLength);
+                tvpParam3.SqlDbType = SqlDbType.Int;
+                SqlParameter tvpParam = addCommand.Parameters.AddWithValue("@PatternSize", textLength);
+                tvpParam.SqlDbType = SqlDbType.Int;
 
                 addCommand.ExecuteNonQuery();
             }
