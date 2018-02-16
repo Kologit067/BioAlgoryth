@@ -1,5 +1,7 @@
-﻿using System;
+﻿using BaseContract;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +22,11 @@ namespace ExactStringCompare
         protected int[] lisValue;
         protected int[] llisValue;
         protected int[] spsValue;
+
+        protected Stopwatch stopwatch;
+
+        public IStringCompareAccumulator StatisticAccumulator { get; set; }
+
         public int[] PreprocessString(string line)
         {
             int li = 0;
@@ -27,36 +34,52 @@ namespace ExactStringCompare
             int[] zvalue = new int[line.Length];
             for (int i = 1; i < line.Length; i++)
             {
+                StatisticAccumulator.IterationCountInc();
                 if (ri < i)
                 {
+                    StatisticAccumulator.IterationCountInc();
                     if (line[i] == line[0])
                     {
                         int j = 0;
                         while (line[j] == line[i + j])
+                        {
                             j++;
+                            StatisticAccumulator.IterationCountInc();
+                        }
+                        StatisticAccumulator.IterationCountInc();
                         ri = i + j - 1;
                         li = i;
                         zvalue[i] = j;
                     }
                     else
+                    {
+                        StatisticAccumulator.IterationCountInc();
                         zvalue[i] = 0;
+                    }
                 }
                 else
                 {
+                    StatisticAccumulator.IterationCountInc();
                     int i0 = i - li;
                     if (zvalue[i0] + i0 < zvalue[li])
                     {
+                        StatisticAccumulator.IterationCountInc();
                         zvalue[i] = zvalue[i0];
                     }
                     else
                     {
 
+                        StatisticAccumulator.IterationCountInc();
                         int j = ri;
                         while (line[j - li] == line[j])
+                        {
                             j++;
+                            StatisticAccumulator.IterationCountInc();
+                        }
                         li = i;
                         ri = j - 1;
                         zvalue[i] = ri - li + 1;
+                        StatisticAccumulator.IterationCountInc();
                     }
                 }
             }

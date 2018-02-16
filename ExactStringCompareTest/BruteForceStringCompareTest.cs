@@ -3,6 +3,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CommonLibrary;
 using System.Linq;
 using ExactStringCompare;
+using BaseContract;
+using StatisticsStorage.Accumulators;
+using StatisticsStorage.Savers;
 
 namespace ExactStringCompareTest
 {
@@ -22,7 +25,7 @@ namespace ExactStringCompareTest
             protected int _textLength;
             protected int _step;
             protected int _stepCounter;
-            //            protected RegulatoryMotifsStatisticAccumulator _statisticAccumulator { get; set; }
+            protected IStringCompareAccumulator _statisticAccumulator { get; set; }
             //--------------------------------------------------------------------------------------
             public EnumerateCharSetForBruteForceStringCompare(
                 char[] pCharSet,
@@ -36,9 +39,9 @@ namespace ExactStringCompareTest
                 _textLength = pTextLength;
                 _step = pStep;
                 _stepCounter = 1;
-                _statisticAccumulator = new RegulatoryMotifsStatisticAccumulator(new RegulatoryMotifSaver(), _patternLength, sequenceLengthes,
-                    _isOptimizitaion, _isSumAsCriteria, _isAllResult, _acceptibleDistance, bufferSize: 1000);
-                _statisticAccumulator.Delete("RegulatoryMotifsPatternEnumeration");
+                _statisticAccumulator = new StringCompareAccumulator(new StringCompareSaver(), SimpletStringCompareByPreprocessing.AlgorythmName,
+                    _patternLength, _textLength, bufferSize);
+                _statisticAccumulator.Delete();
             }
             //--------------------------------------------------------------------------------------
             protected override bool MakeAction()
@@ -61,7 +64,7 @@ namespace ExactStringCompareTest
             //--------------------------------------------------------------------------------------
             protected override void PostAction()
             {
-                //                _statisticAccumulator.SaveRemain();
+                _statisticAccumulator.SaveRemain();
             }
             //--------------------------------------------------------------------------------------
         }
