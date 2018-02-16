@@ -1,4 +1,5 @@
 ﻿using StatisticsStorage.Accumulators;
+using StatisticsStorage.Accumulators.Objects;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -13,67 +14,26 @@ namespace StatisticsStorage.Savers
         {
             _connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["bioalgorythm"].ConnectionString;
         }
-        public string Save(List<RegulatoryMotifPerfomance> regulatoryMotifPerfomances)
+        public string Save(List<FindPatternPerfomance> findPatternPerfomances)
         {
             string error = null;
 
             try
             {
                 DataTable performance = new DataTable();
-                performance.Columns.Add("Size", System.Type.GetType("System.Int32"));
-                performance.Columns.Add("NumberOfSequence", System.Type.GetType("System.Int32"));
-                performance.Columns.Add("SequenceLengthes", System.Type.GetType("System.String"));
-                performance.Columns.Add("MotifLength", System.Type.GetType("System.Int32"));
-                performance.Columns.Add("InputData", System.Type.GetType("System.String"));
-                performance.Columns.Add("OutputPresentation", System.Type.GetType("System.String"));
                 performance.Columns.Add("Algorithm", System.Type.GetType("System.String"));
+                performance.Columns.Add("TextSize", System.Type.GetType("System.Int32"));
+                performance.Columns.Add("PatternSize", System.Type.GetType("System.Int32"));
+                performance.Columns.Add("Text", System.Type.GetType("System.String"));
+                performance.Columns.Add("Pattern", System.Type.GetType("System.String"));
+                performance.Columns.Add("OutputPresentation", System.Type.GetType("System.String"));
                 performance.Columns.Add("NumberOfIteration", System.Type.GetType("System.Int64"));
                 performance.Columns.Add("Duration", System.Type.GetType("System.Int64"));
                 performance.Columns.Add("DurationMilliSeconds", System.Type.GetType("System.Int64"));
                 performance.Columns.Add("DateComplete", System.Type.GetType("System.DateTime"));
-                performance.Columns.Add("IsComplete", System.Type.GetType("System.Boolean"));
-                performance.Columns.Add("LastRoute", System.Type.GetType("System.String"));
-                performance.Columns.Add("OptimalRoute", System.Type.GetType("System.String"));
-                performance.Columns.Add("OptimalValue", System.Type.GetType("System.Int64"));
-                performance.Columns.Add("StartPosition", System.Type.GetType("System.String"));
-                performance.Columns.Add("Motif", System.Type.GetType("System.String"));
-                performance.Columns.Add("CountTerminal", System.Type.GetType("System.Int64"));
-                performance.Columns.Add("UpdateOptcount", System.Type.GetType("System.Int64"));
-                performance.Columns.Add("ElemenationCount", System.Type.GetType("System.Int64"));
-                performance.Columns.Add("IsOptimizitaion", System.Type.GetType("System.Boolean"));
-                performance.Columns.Add("IsSumAsCriteria", System.Type.GetType("System.Boolean"));
-                performance.Columns.Add("IsAllResult", System.Type.GetType("System.Boolean"));
-                performance.Columns.Add("AcceptibleDistance", System.Type.GetType("System.Int32"));
 
-                DataTable valueChanges = new DataTable();
-                valueChanges.Columns.Add("Algorithm", System.Type.GetType("System.String"));
-                valueChanges.Columns.Add("SequenceLengthes", System.Type.GetType("System.String"));
-                valueChanges.Columns.Add("MotifLength", System.Type.GetType("System.Int32"));
-                valueChanges.Columns.Add("IsOptimizitaion", System.Type.GetType("System.Boolean"));
-                valueChanges.Columns.Add("IsSumAsCriteria", System.Type.GetType("System.Boolean"));
-                valueChanges.Columns.Add("IsAllResult", System.Type.GetType("System.Boolean"));
-                valueChanges.Columns.Add("AcceptibleDistance", System.Type.GetType("System.Int32"));
-                valueChanges.Columns.Add("InputData", System.Type.GetType("System.String"));
-                valueChanges.Columns.Add("NumberOfIteration", System.Type.GetType("System.Int64"));
-                valueChanges.Columns.Add("Duration", System.Type.GetType("System.Int64"));
-                valueChanges.Columns.Add("DurationMilliSeconds", System.Type.GetType("System.Int64"));
-                valueChanges.Columns.Add("OptimalValue", System.Type.GetType("System.Int64"));
-                valueChanges.Columns.Add("StartPosition", System.Type.GetType("System.String"));
-                valueChanges.Columns.Add("Motif", System.Type.GetType("System.String"));
 
-                DataTable solutions = new DataTable();
-                solutions.Columns.Add("Algorithm", System.Type.GetType("System.String"));
-                solutions.Columns.Add("SequenceLengthes", System.Type.GetType("System.String"));
-                solutions.Columns.Add("MotifLength", System.Type.GetType("System.Int32"));
-                solutions.Columns.Add("IsOptimizitaion", System.Type.GetType("System.Boolean"));
-                solutions.Columns.Add("IsSumAsCriteria", System.Type.GetType("System.Boolean"));
-                solutions.Columns.Add("IsAllResult", System.Type.GetType("System.Boolean"));
-                solutions.Columns.Add("AcceptibleDistance", System.Type.GetType("System.Int32"));
-                solutions.Columns.Add("InputData", System.Type.GetType("System.String"));
-                solutions.Columns.Add("StartPosition", System.Type.GetType("System.String"));
-                solutions.Columns.Add("Motif", System.Type.GetType("System.String"));
-
-                foreach (var ps in regulatoryMotifPerfomances)
+                foreach (var ps in findPatternPerfomances)
                 {
                     performance.Rows.Add(ps.Size, ps.NumberOfSequence, ps.SequenceLengthes,
                         ps.MotifLength, ps.InputData, ps.OutputPresentation, ps.Algorithm, ps.IterationCount,
