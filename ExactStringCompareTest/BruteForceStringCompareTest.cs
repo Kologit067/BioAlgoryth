@@ -40,7 +40,7 @@ namespace ExactStringCompareTest
                 _step = pStep;
                 _stepCounter = 1;
                 _statisticAccumulator = new StringCompareAccumulator(new StringCompareSaver(), SimpletStringCompareByPreprocessing.AlgorythmName,
-                    _patternLength, _textLength, bufferSize);
+                    _patternLength, _textLength, bufferSize, pCharSet.Length);
                 _statisticAccumulator.Delete();
             }
             //--------------------------------------------------------------------------------------

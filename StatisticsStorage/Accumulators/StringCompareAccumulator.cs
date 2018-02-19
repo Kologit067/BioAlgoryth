@@ -23,12 +23,14 @@ namespace StatisticsStorage.Accumulators
         protected int _patternLength;
         protected int _textLength;
         protected string _algorythm;
+        protected int _alphabetSize;
         //--------------------------------------------------------------------------------------------------------------------
-        public StringCompareAccumulator(StringCompareSaver stringCompareSaver, string algorythm, int patternLength, int textLength, int bufferSize )
+        public StringCompareAccumulator(StringCompareSaver stringCompareSaver, string algorythm, int patternLength, int textLength, int bufferSize, int alphabetSize)
         {
             _patternLength = patternLength;
             _textLength = textLength;
             _bufferSize = bufferSize;
+            _alphabetSize = alphabetSize;
             _algorythm = algorythm;
             _findPatternPerfomances = new List<FindPatternPerfomance>();
             _stringCompareSaver = stringCompareSaver;
@@ -41,15 +43,21 @@ namespace StatisticsStorage.Accumulators
                 Algorithm = _algorythm,
                 TextSize = _textLength,
                 PatternSize = _patternLength,
+                AlphabetSize = _alphabetSize,
                 Text = text,
                 Pattern = pattern
             };
             _findPatternPerfomances.Add(_currentFindPatternPerfomance);
         }
         //--------------------------------------------------------------------------------------------------------------------
-        public void IterationCountInc()
+        public void IterationCountInc(int count = 1)
         {
-            _currentFindPatternPerfomance.IterationCountInc();
+            _currentFindPatternPerfomance.IterationCountInc(count);
+        }
+        //--------------------------------------------------------------------------------------------------------------------
+        public void NumberOfComparisonInc(int count = 1)
+        {
+            _currentFindPatternPerfomance.NumberOfComparisonInc(count);
         }
         //--------------------------------------------------------------------------------------------------------------------
         public void SaveStatisticData(string outputPresentation, long duration, long durationMilliSeconds, DateTime dateComplete)
@@ -72,7 +80,7 @@ namespace StatisticsStorage.Accumulators
         //--------------------------------------------------------------------------------------------------------------------
         public string Delete()
         {
-            return _stringCompareSaver.Delete(_algorythm, _patternLength, _textLength);
+            return _stringCompareSaver.Delete(_algorythm, _patternLength, _textLength, _alphabetSize);
         }
         //--------------------------------------------------------------------------------------------------------------------
     }
@@ -85,7 +93,9 @@ namespace StatisticsStorage.Accumulators
         public FakeStringCompareAccumulator()
         {
         }
-        public void IterationCountInc()
+        public void IterationCountInc(int count = 1)
+        { }
+        public void NumberOfComparisonInc(int count = 1)
         { }
         public void CreateStatistics(string text, string pattern) { }
         public void SaveStatisticData(string outputPresentation, long duration, long durationMilliSeconds, DateTime dateComplete) { }

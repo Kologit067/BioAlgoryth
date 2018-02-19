@@ -38,15 +38,19 @@ namespace ExactStringCompare
                 if (ri < i)
                 {
                     StatisticAccumulator.IterationCountInc();
+                    StatisticAccumulator.NumberOfComparisonInc();
                     if (line[i] == line[0])
                     {
                         int j = 0;
-                        while (line[j] == line[i + j])
+                        StatisticAccumulator.IterationCountInc();
+                        StatisticAccumulator.NumberOfComparisonInc();
+                        while (i + j < line.Length && line[j] == line[i + j])
                         {
                             j++;
+                            StatisticAccumulator.NumberOfComparisonInc();
                             StatisticAccumulator.IterationCountInc();
                         }
-                        StatisticAccumulator.IterationCountInc();
+                        StatisticAccumulator.IterationCountInc(3);
                         ri = i + j - 1;
                         li = i;
                         zvalue[i] = j;
@@ -69,17 +73,21 @@ namespace ExactStringCompare
                     else
                     {
 
-                        StatisticAccumulator.IterationCountInc();
-                        int j = ri;
-                        while (line[j - li] == line[j])
+                        StatisticAccumulator.IterationCountInc(2);
+                        int j = ri+1;
+                        int j_ = zvalue[i0];
+                        StatisticAccumulator.NumberOfComparisonInc();
+                        while (j < line.Length && line[j_] == line[j])
                         {
                             j++;
+                            j_++;
+                            StatisticAccumulator.NumberOfComparisonInc();
                             StatisticAccumulator.IterationCountInc();
                         }
                         li = i;
                         ri = j - 1;
                         zvalue[i] = ri - li + 1;
-                        StatisticAccumulator.IterationCountInc();
+                        StatisticAccumulator.IterationCountInc(3);
                     }
                 }
             }

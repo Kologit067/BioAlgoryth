@@ -17,7 +17,7 @@ namespace ExactStringCompare
             StatisticAccumulator.CreateStatistics(text, pattern);
 
             List<int> result = new List<int>();
-            string totalString = pattern + text;
+            string totalString = pattern + ":" + text;
             zValue = PreprocessString(totalString);
             int lenPattern = pattern.Length;
             for(int i = lenPattern; i < totalString.Length; i++)

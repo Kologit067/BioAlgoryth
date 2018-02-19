@@ -104,17 +104,17 @@ namespace CommonLibrary
         //--------------------------------------------------------------------------------------
         protected override string ShowElementAsString(int pElement)
         {
-            return ShowString;
+            return pElement.ToString();
         }
         //--------------------------------------------------------------------------------------
         protected override string ShowElementAsShortString(int pElement)
         {
-            return ShowShortString;
+            return pElement.ToString();
         }
         //--------------------------------------------------------------------------------------
         protected override string ShowElementAsFullString(int pElement)
         {
-            return ShowFullString;
+            return pElement.ToString();
         }
         //--------------------------------------------------------------------------------------
         protected override void PostAction()

@@ -51,7 +51,7 @@ namespace ExactStringCompareTest
             // arrange
             int patternLength = 4;
             int textLength = 7;
-            char[] alphabet = new char[] { 'a', 'c', 'g' };
+            char[] alphabet = new char[] { 'a', 'c', 'g', 't' };
             EnumerateCharSetForSimpleStringCompareByPreprocessing enumeration = new EnumerateCharSetForSimpleStringCompareByPreprocessing(
                 alphabet, patternLength, textLength);
             // act
@@ -68,10 +68,10 @@ namespace ExactStringCompareTest
             int bufferSize = 1000;
             int patternLength = 7;
             int textLength = 14;
-            StringCompareAccumulator statisticAccumulator = new StringCompareAccumulator(new StringCompareSaver(), SimpletStringCompareByPreprocessing.AlgorythmName,
-                patternLength, textLength, bufferSize);
-            statisticAccumulator.Delete();
             char[] alphabet = new char[] { 'a', 'c', 'g', 't' };
+            StringCompareAccumulator statisticAccumulator = new StringCompareAccumulator(new StringCompareSaver(), SimpletStringCompareByPreprocessing.AlgorythmName,
+                patternLength, textLength, bufferSize, alphabet.Length);
+            statisticAccumulator.Delete();
             int size = patternLength + textLength;
             long max = 1L << ( 2 * size); 
             long sequenceAsNumber = 0;
@@ -135,7 +135,7 @@ namespace ExactStringCompareTest
                 _step = pStep;
                 _stepCounter = 1;
                 _statisticAccumulator = new StringCompareAccumulator(new StringCompareSaver(), SimpletStringCompareByPreprocessing.AlgorythmName, 
-                    _patternLength, _textLength, bufferSize);
+                    _patternLength, _textLength, bufferSize, pCharSet.Length);
                 _statisticAccumulator.Delete();
             }
             //--------------------------------------------------------------------------------------
@@ -146,8 +146,10 @@ namespace ExactStringCompareTest
                     var currentSequence = _fCurrentSet.Select(i => _charSet[i]).ToList();
                     string pattern = new string( currentSequence.Take(_patternLength).ToArray());
                     string text = new string (currentSequence.Skip(_patternLength).Take(_textLength).ToArray());
-                    SimpletStringCompareByPreprocessing simpletStringCompareByPreprocessing = new SimpletStringCompareByPreprocessing();
-                    // act
+                    SimpletStringCompareByPreprocessing simpletStringCompareByPreprocessing = new SimpletStringCompareByPreprocessing()
+                    {
+                        StatisticAccumulator = _statisticAccumulator
+                    };                    // act
                     simpletStringCompareByPreprocessing.FindSubstring(text,pattern);
                     // assert
 

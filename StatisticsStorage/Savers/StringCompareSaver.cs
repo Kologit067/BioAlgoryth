@@ -24,10 +24,12 @@ namespace StatisticsStorage.Savers
                 performance.Columns.Add("Algorithm", System.Type.GetType("System.String"));
                 performance.Columns.Add("TextSize", System.Type.GetType("System.Int32"));
                 performance.Columns.Add("PatternSize", System.Type.GetType("System.Int32"));
+                performance.Columns.Add("AlphabetSize", System.Type.GetType("System.Int32"));
                 performance.Columns.Add("Text", System.Type.GetType("System.String"));
                 performance.Columns.Add("Pattern", System.Type.GetType("System.String"));
                 performance.Columns.Add("OutputPresentation", System.Type.GetType("System.String"));
                 performance.Columns.Add("NumberOfIteration", System.Type.GetType("System.Int64"));
+                performance.Columns.Add("NumberOfComparison", System.Type.GetType("System.Int64"));
                 performance.Columns.Add("Duration", System.Type.GetType("System.Int64"));
                 performance.Columns.Add("DurationMilliSeconds", System.Type.GetType("System.Int64"));
                 performance.Columns.Add("DateComplete", System.Type.GetType("System.DateTime"));
@@ -36,8 +38,8 @@ namespace StatisticsStorage.Savers
                 foreach (var ps in findPatternPerfomances)
                 {
 
-                    performance.Rows.Add(ps.Algorithm, ps.TextSize, ps.PatternSize,
-                        ps.Text, ps.Pattern, ps.OutputPresentation, ps.IterationCount,
+                    performance.Rows.Add(ps.Algorithm, ps.TextSize, ps.PatternSize, ps.AlphabetSize,
+                        ps.Text, ps.Pattern, ps.OutputPresentation, ps.IterationCount, ps.NumberOfComparison,
                         ps.Duration, ps.DurationMilliSeconds, ps.DateComplete);
 
                 }
@@ -69,7 +71,7 @@ namespace StatisticsStorage.Savers
 
         }
 
-        public string Delete(string algorythm, int patternLength, int textLength)
+        public string Delete(string algorythm, int patternLength, int textLength, int alphabetSize)
         {
             string error = null;
 
@@ -83,10 +85,12 @@ namespace StatisticsStorage.Savers
                 addCommand.CommandTimeout = 300;
                 SqlParameter tvpParam2 = addCommand.Parameters.AddWithValue("@Algorithm", algorythm);
                 tvpParam2.SqlDbType = SqlDbType.VarChar;
-                SqlParameter tvpParam3 = addCommand.Parameters.AddWithValue("@TextSize", patternLength);
+                SqlParameter tvpParam3 = addCommand.Parameters.AddWithValue("@TextSize", textLength);
                 tvpParam3.SqlDbType = SqlDbType.Int;
-                SqlParameter tvpParam = addCommand.Parameters.AddWithValue("@PatternSize", textLength);
+                SqlParameter tvpParam = addCommand.Parameters.AddWithValue("@PatternSize", patternLength);
                 tvpParam.SqlDbType = SqlDbType.Int;
+                SqlParameter tvpParam4 = addCommand.Parameters.AddWithValue("@AlphabetSize", alphabetSize);
+                tvpParam4.SqlDbType = SqlDbType.Int;
 
                 addCommand.ExecuteNonQuery();
             }
