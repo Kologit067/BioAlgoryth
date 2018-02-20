@@ -69,7 +69,7 @@ namespace ExactStringCompareTest
             int patternLength = 7;
             int textLength = 14;
             char[] alphabet = new char[] { 'a', 'c', 'g', 't' };
-            StringCompareAccumulator statisticAccumulator = new StringCompareAccumulator(new StringCompareSaver(), SimpletStringCompareByPreprocessing.AlgorythmName,
+            StringCompareAccumulator statisticAccumulator = new StringCompareAccumulator(new StringCompareSaver(), BoyerMooreCompare.AlgorythmName,
                 patternLength, textLength, bufferSize, alphabet.Length);
             statisticAccumulator.Delete();
             int size = patternLength + textLength;
