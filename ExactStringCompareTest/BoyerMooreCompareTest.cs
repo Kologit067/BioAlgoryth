@@ -16,13 +16,13 @@ namespace ExactStringCompareTest
         // multiple testing
         //--------------------------------------------------------------------------------------
         [TestMethod]
-        public void SimpletStringCompareByPreprocessingCharSet2PatterText()
+        public void BoyerMooreCompareCharSet2PatterText()
         {
             // arrange
             int patternLength = 6;
             int textLength = 18;
             char[] alphabet = new char[] { 'a', 'c' };
-            EnumerateCharSetForSimpleStringCompareByPreprocessing enumeration = new EnumerateCharSetForSimpleStringCompareByPreprocessing(
+            EnumerateCharSetForBoyerMooreCompare enumeration = new EnumerateCharSetForBoyerMooreCompare(
                 alphabet, patternLength, textLength);
             // act
             enumeration.Execute();
@@ -31,13 +31,13 @@ namespace ExactStringCompareTest
         }
         //--------------------------------------------------------------------------------------
         [TestMethod]
-        public void SimpletStringCompareByPreprocessingCharSet3PatterText()
+        public void BoyerMooreCompareCharSet3PatterText()
         {
             // arrange
             int patternLength = 5;
             int textLength = 10;
             char[] alphabet = new char[] { 'a', 'c', 'g' };
-            EnumerateCharSetForSimpleStringCompareByPreprocessing enumeration = new EnumerateCharSetForSimpleStringCompareByPreprocessing(
+            EnumerateCharSetForBoyerMooreCompare enumeration = new EnumerateCharSetForBoyerMooreCompare(
                 alphabet, patternLength, textLength);
             // act
             enumeration.Execute();
@@ -46,13 +46,13 @@ namespace ExactStringCompareTest
         }
         //--------------------------------------------------------------------------------------
         [TestMethod]
-        public void SimpletStringCompareByPreprocessingCharSet4PatterText()
+        public void BoyerMooreCompareCharSet4PatterText()
         {
             // arrange
             int patternLength = 4;
             int textLength = 7;
             char[] alphabet = new char[] { 'a', 'c', 'g', 't' };
-            EnumerateCharSetForSimpleStringCompareByPreprocessing enumeration = new EnumerateCharSetForSimpleStringCompareByPreprocessing(
+            EnumerateCharSetForBoyerMooreCompare enumeration = new EnumerateCharSetForBoyerMooreCompare(
                 alphabet, patternLength, textLength);
             // act
             enumeration.Execute();
@@ -98,12 +98,12 @@ namespace ExactStringCompareTest
                 charSequence = sequence.Select(j => alphabet[j]).ToArray();
                 string pattern = new string(charSequence.Take(patternLength).ToArray());
                 string text = new string(charSequence.Skip(patternLength).Take(textLength).ToArray());
-                SimpletStringCompareByPreprocessing simpletStringCompareByPreprocessing = new SimpletStringCompareByPreprocessing()
+                BoyerMooreCompare boyerMooreCompare = new BoyerMooreCompare()
                 {
                     StatisticAccumulator = statisticAccumulator
                 };
                 // act
-                simpletStringCompareByPreprocessing.FindSubstring(text, pattern);
+                boyerMooreCompare.FindSubstring(text, pattern);
 
             }
 

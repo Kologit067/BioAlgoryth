@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,9 +12,14 @@ namespace ExactStringCompare
     //--------------------------------------------------------------------------------------
     public class BoyerMooreCompare : StringPreprocessing
     {
+        public static readonly string AlgorythmName = "BMC";
         //--------------------------------------------------------------------------------------
         public List<int> FindSubstringBadSymbolAdv(string text, string pattern)
         {
+            stopwatch = new Stopwatch();
+            stopwatch.Start();
+            StatisticAccumulator.CreateStatistics(text, pattern);
+
             List<int> result = new List<int>();
             BadSymbolAdvPreprocessString(pattern);
             int lenPattern = pattern.Length;
@@ -55,6 +61,13 @@ namespace ExactStringCompare
                         i = j0 + 1;
                 }
             }
+
+            stopwatch.Stop();
+            long elapsedTicks = stopwatch.ElapsedTicks;
+            long durationMilliSeconds = stopwatch.ElapsedMilliseconds;
+            string outputPresentation = string.Join(",", result.Select(p => p.ToString()));
+
+            StatisticAccumulator.SaveStatisticData(outputPresentation, elapsedTicks, durationMilliSeconds, DateTime.Now);
 
             return result;
         }
