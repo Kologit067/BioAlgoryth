@@ -48,10 +48,12 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BoyerMooreCompare\BoyerMooreCompareBadSymbolTest.cs" />
     <Compile Include="SimpletStringCompareByPreprocessingTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BruteForceStringCompareTest.cs" />
-    <Compile Include="BoyerMooreCompareTest.cs" />
+    <Compile Include="BoyerMooreCompare\BoyerMooreCompareTest.cs" />
+    <Compile Include="BoyerMooreCompareBadSymbolAdvTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
