@@ -136,7 +136,7 @@ namespace ExactStringCompare
                             i++;
                         else
                         {
-                            i += rValue[text[j0]] - j;
+                            i += j - rValue[text[j0]];
                         }
                     }
                     else

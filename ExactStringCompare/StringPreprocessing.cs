@@ -207,6 +207,7 @@ namespace ExactStringCompare
                 lisValue[len - zReverseValue[i] + 1] = len - i - 1;
                 StatisticAccumulator.IterationCountInc();
             }
+            liValue = new int[len];
             liValue[1] = lisValue[1];
             StatisticAccumulator.IterationCountInc(2);
             for (int i = 2; i < line.Length; i++)
@@ -238,6 +239,7 @@ namespace ExactStringCompare
 
             int[] nvalue = NiPreprocessString(line);
             lisValue = new int[len];
+            liValue = new int[len];
             StatisticAccumulator.IterationCountInc(2);
             for (int i = 0; i < len; i++)
             {

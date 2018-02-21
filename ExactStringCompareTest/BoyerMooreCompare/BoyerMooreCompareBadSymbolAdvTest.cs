@@ -22,7 +22,7 @@ namespace ExactStringCompareTest
             int patternLength = 6;
             int textLength = 18;
             char[] alphabet = new char[] { 'a', 'c' };
-            EnumerateCharSetForBoyerMooreCompare enumeration = new EnumerateCharSetForBoyerMooreCompare(
+            EnumerateCharSetForBoyerMooreBadSymbolAdvCompare enumeration = new EnumerateCharSetForBoyerMooreBadSymbolAdvCompare(
                 alphabet, patternLength, textLength);
             // act
             enumeration.Execute();
@@ -37,7 +37,7 @@ namespace ExactStringCompareTest
             int patternLength = 5;
             int textLength = 10;
             char[] alphabet = new char[] { 'a', 'c', 'g' };
-            EnumerateCharSetForBoyerMooreCompare enumeration = new EnumerateCharSetForBoyerMooreCompare(
+            EnumerateCharSetForBoyerMooreBadSymbolAdvCompare enumeration = new EnumerateCharSetForBoyerMooreBadSymbolAdvCompare(
                 alphabet, patternLength, textLength);
             // act
             enumeration.Execute();
@@ -52,7 +52,7 @@ namespace ExactStringCompareTest
             int patternLength = 4;
             int textLength = 7;
             char[] alphabet = new char[] { 'a', 'c', 'g', 't' };
-            EnumerateCharSetForBoyerMooreCompare enumeration = new EnumerateCharSetForBoyerMooreCompare(
+            EnumerateCharSetForBoyerMooreBadSymbolAdvCompare enumeration = new EnumerateCharSetForBoyerMooreBadSymbolAdvCompare(
                 alphabet, patternLength, textLength);
             // act
             enumeration.Execute();
@@ -170,4 +170,4 @@ namespace ExactStringCompareTest
     }
     //--------------------------------------------------------------------------------------    
 }
-}
+
