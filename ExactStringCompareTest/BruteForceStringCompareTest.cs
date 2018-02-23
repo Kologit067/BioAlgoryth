@@ -20,7 +20,7 @@ namespace ExactStringCompareTest
         {
             // arrange
             int patternLength = 6;
-            int textLength = 18;
+            int textLength = 16;
             char[] alphabet = new char[] { 'a', 'c' };
             EnumerateCharSetForBruteForceStringCompare enumeration = new EnumerateCharSetForBruteForceStringCompare(
                 alphabet, patternLength, textLength);
@@ -34,7 +34,7 @@ namespace ExactStringCompareTest
         public void SimpletStringCompareByPreprocessingCharSet3PatterText()
         {
             // arrange
-            int patternLength = 5;
+            int patternLength = 4;
             int textLength = 10;
             char[] alphabet = new char[] { 'a', 'c', 'g' };
             EnumerateCharSetForBruteForceStringCompare enumeration = new EnumerateCharSetForBruteForceStringCompare(
@@ -64,7 +64,7 @@ namespace ExactStringCompareTest
         public void ProcessInputDataBuAdditionTestLength7Number3Pattern4Step987()
         {
             // arrange
-            int step = 98798111;
+            int step = 987981;
             int bufferSize = 1000;
             int patternLength = 7;
             int textLength = 14;

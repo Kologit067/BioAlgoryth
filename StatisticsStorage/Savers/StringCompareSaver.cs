@@ -82,7 +82,7 @@ namespace StatisticsStorage.Savers
             {
                 SqlCommand addCommand = new SqlCommand("[dbo].[deleteFindPatternPerfomance]", connection);
                 addCommand.CommandType = CommandType.StoredProcedure;
-                addCommand.CommandTimeout = 300;
+                addCommand.CommandTimeout = 1800;
                 SqlParameter tvpParam2 = addCommand.Parameters.AddWithValue("@Algorithm", algorythm);
                 tvpParam2.SqlDbType = SqlDbType.VarChar;
                 SqlParameter tvpParam3 = addCommand.Parameters.AddWithValue("@TextSize", textLength);

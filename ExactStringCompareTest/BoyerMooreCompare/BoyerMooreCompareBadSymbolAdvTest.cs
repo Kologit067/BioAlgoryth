@@ -20,7 +20,7 @@ namespace ExactStringCompareTest
         {
             // arrange
             int patternLength = 6;
-            int textLength = 18;
+            int textLength = 16;
             char[] alphabet = new char[] { 'a', 'c' };
             EnumerateCharSetForBoyerMooreBadSymbolAdvCompare enumeration = new EnumerateCharSetForBoyerMooreBadSymbolAdvCompare(
                 alphabet, patternLength, textLength);
@@ -34,7 +34,7 @@ namespace ExactStringCompareTest
         public void BoyerMooreCompareCharSet3PatterText()
         {
             // arrange
-            int patternLength = 5;
+            int patternLength = 4;
             int textLength = 10;
             char[] alphabet = new char[] { 'a', 'c', 'g' };
             EnumerateCharSetForBoyerMooreBadSymbolAdvCompare enumeration = new EnumerateCharSetForBoyerMooreBadSymbolAdvCompare(

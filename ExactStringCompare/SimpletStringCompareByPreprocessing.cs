@@ -20,11 +20,12 @@ namespace ExactStringCompare
             string totalString = pattern + ":" + text;
             zValue = PreprocessString(totalString);
             int lenPattern = pattern.Length;
-            for(int i = lenPattern; i < totalString.Length; i++)
+            int textShift = lenPattern + 1;
+            for (int i = lenPattern; i < totalString.Length; i++)
             {
                 StatisticAccumulator.IterationCountInc();
                 if (zValue[i] == lenPattern)
-                    result.Add(i);
+                    result.Add(i - textShift);
             }
 
             stopwatch.Stop();
