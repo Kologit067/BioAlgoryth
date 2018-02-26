@@ -9,9 +9,92 @@ using BaseContract;
 
 namespace ExactStringCompareTest
 {
+    //--------------------------------------------------------------------------------------
+    // lass SimpletStringCompareByPreprocessingTest
+    //--------------------------------------------------------------------------------------
     [TestClass]
     public class SimpletStringCompareByPreprocessingTest
     {
+        //--------------------------------------------------------------------------------------
+        [TestMethod]
+        public void SimpletStringCompareByPreprocessingCase1Text()
+        {
+
+            // arrange
+            char[] alphabet = new char[] { 'a', 'c' };
+            string pattern = "aacaac";
+            string text = "aaaaaaaacaaacaac";
+            SimpletStringCompareByPreprocessing simpletStringCompareByPreprocessing = new SimpletStringCompareByPreprocessing()
+            {
+                StatisticAccumulator = new FakeStringCompareAccumulator()
+            };                    
+            // act
+            simpletStringCompareByPreprocessing.FindSubstring(text, pattern);
+            // assert
+            string expected = "10";
+            Assert.AreEqual(simpletStringCompareByPreprocessing.OutputPresentation, expected, $"Wrong result:{simpletStringCompareByPreprocessing.OutputPresentation}, expected:{expected}");
+
+        }
+        //--------------------------------------------------------------------------------------
+        [TestMethod]
+        public void SimpletStringCompareByPreprocessingCase2Text()
+        {
+
+            // arrange
+            char[] alphabet = new char[] { 'a', 'c' };
+            string pattern = "aacaac";
+            string text = "aaaaaaacaaacaaca";
+            SimpletStringCompareByPreprocessing simpletStringCompareByPreprocessing = new SimpletStringCompareByPreprocessing()
+            {
+                StatisticAccumulator = new FakeStringCompareAccumulator()
+            };
+            // act
+            simpletStringCompareByPreprocessing.FindSubstring(text, pattern);
+            // assert
+            string expected = "9";
+            Assert.AreEqual(simpletStringCompareByPreprocessing.OutputPresentation, expected, $"Wrong result:{simpletStringCompareByPreprocessing.OutputPresentation}, expected:{expected}");
+
+        }
+        //--------------------------------------------------------------------------------------
+        [TestMethod]
+        public void SimpletStringCompareByPreprocessingCase3Text()
+        {
+
+            // arrange
+            char[] alphabet = new char[] { 'a', 'c' };
+            string pattern = "acaccc";
+            string text = "aaaaaaacaaccaccc";
+            SimpletStringCompareByPreprocessing simpletStringCompareByPreprocessing = new SimpletStringCompareByPreprocessing()
+            {
+                StatisticAccumulator = new FakeStringCompareAccumulator()
+            };
+            // act
+            simpletStringCompareByPreprocessing.FindSubstring(text, pattern);
+            // assert
+            string expected = "";
+            Assert.AreEqual(simpletStringCompareByPreprocessing.OutputPresentation, expected, $"Wrong result:{simpletStringCompareByPreprocessing.OutputPresentation}, expected:{expected}");
+
+        }
+        //--------------------------------------------------------------------------------------
+        [TestMethod]
+        public void SimpletStringCompareByPreprocessingCase4Text()
+        {
+
+            // arrange
+            char[] alphabet = new char[] { 'a', 'c' };
+            string pattern = "aacaac";
+            string text = "aaaaacaaacaacaac";
+            SimpletStringCompareByPreprocessing simpletStringCompareByPreprocessing = new SimpletStringCompareByPreprocessing()
+            {
+                StatisticAccumulator = new FakeStringCompareAccumulator()
+            };
+            // act
+            simpletStringCompareByPreprocessing.FindSubstring(text, pattern);
+            // assert
+            string expected = "7,10";
+            Assert.AreEqual(simpletStringCompareByPreprocessing.OutputPresentation, expected, $"Wrong result:{simpletStringCompareByPreprocessing.OutputPresentation}, expected:{expected}");
+
+        }
         //--------------------------------------------------------------------------------------
         // multiple testing
         //--------------------------------------------------------------------------------------

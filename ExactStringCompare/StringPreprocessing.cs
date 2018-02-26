@@ -75,7 +75,7 @@ namespace ExactStringCompare
 
                         StatisticAccumulator.IterationCountInc(2);
                         int j = ri+1;
-                        int j_ = zvalue[i0];
+                        int j_ = j - i;
                         StatisticAccumulator.NumberOfComparisonInc();
                         while (j < line.Length && line[j_] == line[j])
                         {

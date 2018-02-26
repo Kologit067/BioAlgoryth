@@ -10,6 +10,15 @@ namespace ExactStringCompare
     public class SimpletStringCompareByPreprocessing : StringPreprocessing
     {
         public static readonly string AlgorythmName = "SSCP";
+        private string _outputPresentation;
+        public string OutputPresentation
+        {
+            get
+            {
+                return _outputPresentation;
+            }
+        }
+
         public List<int> FindSubstring(string text, string pattern)
         {
             stopwatch = new Stopwatch();
@@ -17,7 +26,7 @@ namespace ExactStringCompare
             StatisticAccumulator.CreateStatistics(text, pattern);
 
             List<int> result = new List<int>();
-            string totalString = pattern + ":" + text;
+            string totalString = pattern + "#" + text;
             zValue = PreprocessString(totalString);
             int lenPattern = pattern.Length;
             int textShift = lenPattern + 1;
@@ -31,9 +40,9 @@ namespace ExactStringCompare
             stopwatch.Stop();
             long elapsedTicks = stopwatch.ElapsedTicks;
             long durationMilliSeconds = stopwatch.ElapsedMilliseconds;
-            string outputPresentation = string.Join(",", result.Select(p => p.ToString()));
+            _outputPresentation = string.Join(",", result.Select(p => p.ToString()));
 
-            StatisticAccumulator.SaveStatisticData(outputPresentation, elapsedTicks, durationMilliSeconds, DateTime.Now);
+            StatisticAccumulator.SaveStatisticData(_outputPresentation, elapsedTicks, durationMilliSeconds, DateTime.Now);
 
             return result;
         }
