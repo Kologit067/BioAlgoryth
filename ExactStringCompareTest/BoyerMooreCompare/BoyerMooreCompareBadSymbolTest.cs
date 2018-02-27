@@ -13,6 +13,46 @@ namespace ExactStringCompareTest
     public class BoyerMooreCompareBadSymbolTest
     {
         //--------------------------------------------------------------------------------------
+        [TestMethod]
+        public void SimpletStringCompareByPreprocessingCase1Text()
+        {
+
+            // arrange
+            char[] alphabet = new char[] { 'a', 'c' };
+            string pattern = "ccacaa";
+            string text = "aaacacaaaaccacaa";
+            BoyerMooreCompare boyerMooreCompare = new BoyerMooreCompare()
+            {
+                StatisticAccumulator = new FakeStringCompareAccumulator()
+            };
+            // act
+            boyerMooreCompare.FindSubstringBadSymbol(text, pattern);
+            // assert
+            string expected = "10";
+            Assert.AreEqual(boyerMooreCompare.OutputPresentation, expected, $"Wrong result:{boyerMooreCompare.OutputPresentation}, expected:{expected}");
+
+        }
+        //--------------------------------------------------------------------------------------
+        [TestMethod]
+        public void SimpletStringCompareByPreprocessingCase2Text()
+        {
+
+            // arrange
+            char[] alphabet = new char[] { 'a', 'c' };
+            string pattern = "accccc";
+            string text = "aaaaaaaaaaaccccc";
+            BoyerMooreCompare boyerMooreCompare = new BoyerMooreCompare()
+            {
+                StatisticAccumulator = new FakeStringCompareAccumulator()
+            };
+            // act
+            boyerMooreCompare.FindSubstringBadSymbol(text, pattern);
+            // assert
+            string expected = "10";
+            Assert.AreEqual(boyerMooreCompare.OutputPresentation, expected, $"Wrong result:{boyerMooreCompare.OutputPresentation}, expected:{expected}");
+
+        }
+        //--------------------------------------------------------------------------------------
         // multiple testing
         //--------------------------------------------------------------------------------------
         [TestMethod]

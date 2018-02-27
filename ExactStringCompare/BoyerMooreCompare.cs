@@ -18,6 +18,15 @@ namespace ExactStringCompare
         public static readonly string AlgorythmNameGoodSuffix = "BMCGS";
         public static readonly string AlgorythmNameGoodSuffixBadSymbol = "BMCGSBS";
         //--------------------------------------------------------------------------------------
+        private string _outputPresentation;
+        public string OutputPresentation
+        {
+            get
+            {
+                return _outputPresentation;
+            }
+        }
+        //--------------------------------------------------------------------------------------
         public List<int> FindSubstringBadSymbolAdv(string text, string pattern)
         {
             stopwatch = new Stopwatch();
@@ -28,7 +37,7 @@ namespace ExactStringCompare
             BadSymbolAdvPreprocessString(pattern);
             int lenPattern = pattern.Length;
             int i = 0;
-            while (i < text.Length - pattern.Length)
+            while (i <= text.Length - pattern.Length)
             {
                 int j = pattern.Length - 1;
                 int j0 = j + i;
@@ -68,13 +77,13 @@ namespace ExactStringCompare
                         }
                         StatisticAccumulator.IterationCountInc(2);
                         int maxPos = rAdvValue[text[j0]][l];
-                        if (l >= j)
+                        if (rAdvValue[text[j0]][l] >= j)
                         {
-                            i = j0 + 1;
+                            i += j + 1;
                         }
                         else
                         {
-                            i += maxPos - j;
+                            i += j - maxPos;
                         }
                     }
                     else
@@ -88,9 +97,9 @@ namespace ExactStringCompare
             stopwatch.Stop();
             long elapsedTicks = stopwatch.ElapsedTicks;
             long durationMilliSeconds = stopwatch.ElapsedMilliseconds;
-            string outputPresentation = string.Join(",", result.Select(p => p.ToString()));
+            _outputPresentation = string.Join(",", result.Select(p => p.ToString()));
 
-            StatisticAccumulator.SaveStatisticData(outputPresentation, elapsedTicks, durationMilliSeconds, DateTime.Now);
+            StatisticAccumulator.SaveStatisticData(_outputPresentation, elapsedTicks, durationMilliSeconds, DateTime.Now);
 
             return result;
         }
@@ -105,7 +114,7 @@ namespace ExactStringCompare
             BadSymbolPreprocessString(pattern);
             int lenPattern = pattern.Length;
             int i = 0;
-            while (i < text.Length - pattern.Length)
+            while (i <= text.Length - pattern.Length)
             {
                 int j = pattern.Length - 1;
                 int j0 = j + i;
@@ -147,9 +156,9 @@ namespace ExactStringCompare
             stopwatch.Stop();
             long elapsedTicks = stopwatch.ElapsedTicks;
             long durationMilliSeconds = stopwatch.ElapsedMilliseconds;
-            string outputPresentation = string.Join(",", result.Select(p => p.ToString()));
+            _outputPresentation = string.Join(",", result.Select(p => p.ToString()));
 
-            StatisticAccumulator.SaveStatisticData(outputPresentation, elapsedTicks, durationMilliSeconds, DateTime.Now);
+            StatisticAccumulator.SaveStatisticData(_outputPresentation, elapsedTicks, durationMilliSeconds, DateTime.Now);
 
             return result;
         }
@@ -210,9 +219,9 @@ namespace ExactStringCompare
             stopwatch.Stop();
             long elapsedTicks = stopwatch.ElapsedTicks;
             long durationMilliSeconds = stopwatch.ElapsedMilliseconds;
-            string outputPresentation = string.Join(",", result.Select(p => p.ToString()));
+            _outputPresentation = string.Join(",", result.Select(p => p.ToString()));
 
-            StatisticAccumulator.SaveStatisticData(outputPresentation, elapsedTicks, durationMilliSeconds, DateTime.Now);
+            StatisticAccumulator.SaveStatisticData(_outputPresentation, elapsedTicks, durationMilliSeconds, DateTime.Now);
 
             return result;
         }
@@ -290,9 +299,9 @@ namespace ExactStringCompare
             stopwatch.Stop();
             long elapsedTicks = stopwatch.ElapsedTicks;
             long durationMilliSeconds = stopwatch.ElapsedMilliseconds;
-            string outputPresentation = string.Join(",", result.Select(p => p.ToString()));
+            _outputPresentation = string.Join(",", result.Select(p => p.ToString()));
 
-            StatisticAccumulator.SaveStatisticData(outputPresentation, elapsedTicks, durationMilliSeconds, DateTime.Now);
+            StatisticAccumulator.SaveStatisticData(_outputPresentation, elapsedTicks, durationMilliSeconds, DateTime.Now);
 
             return result;
         }
@@ -386,9 +395,9 @@ namespace ExactStringCompare
             stopwatch.Stop();
             long elapsedTicks = stopwatch.ElapsedTicks;
             long durationMilliSeconds = stopwatch.ElapsedMilliseconds;
-            string outputPresentation = string.Join(",", result.Select(p => p.ToString()));
+            _outputPresentation = string.Join(",", result.Select(p => p.ToString()));
 
-            StatisticAccumulator.SaveStatisticData(outputPresentation, elapsedTicks, durationMilliSeconds, DateTime.Now);
+            StatisticAccumulator.SaveStatisticData(_outputPresentation, elapsedTicks, durationMilliSeconds, DateTime.Now);
 
             return result;
         }

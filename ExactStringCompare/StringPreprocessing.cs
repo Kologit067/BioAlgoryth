@@ -164,7 +164,7 @@ namespace ExactStringCompare
         {
             StatisticAccumulator.IterationCountInc();
             rValue = new Dictionary<char, int>();
-            for (int i = 1; i < line.Length; i++)
+            for (int i = 0; i < line.Length; i++)
             {
                 StatisticAccumulator.IterationCountInc(2);
                 if (rValue.ContainsKey(line[i]))
@@ -179,7 +179,7 @@ namespace ExactStringCompare
 
             StatisticAccumulator.IterationCountInc();
             rAdvValue = new Dictionary<char, List<int>>();
-            for (int i = 1; i < line.Length; i++)
+            for (int i = 0; i < line.Length; i++)
             {
                 StatisticAccumulator.IterationCountInc(2);
                 if (!rAdvValue.ContainsKey(line[i]))

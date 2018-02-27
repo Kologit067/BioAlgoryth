@@ -67,9 +67,6 @@
     <Folder Include="dbo\User Defined Types\" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="dbo\Tables\AlgorithmOptimalValueChange.sql" />
-    <Build Include="dbo\Tables\AlgorithmPerfomance.sql" />
-    <Build Include="dbo\Tables\AlgorithmPerfomanceArchive.sql" />
     <Build Include="dbo\Views\vw_Enumerate_vs_ByVertexEnumerate.sql" />
     <Build Include="dbo\Views\vw_place_eof_vs_place_eol.sql" />
     <Build Include="dbo\Views\vw_place_vs_placeadv.sql" />
