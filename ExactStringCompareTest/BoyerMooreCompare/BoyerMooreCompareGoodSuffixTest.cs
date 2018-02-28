@@ -4,14 +4,54 @@ using CommonLibrary;
 using BaseContract;
 using StatisticsStorage.Accumulators;
 using StatisticsStorage.Savers;
-using ExactStringCompare;
 using System.Linq;
+using ExactStringCompare;
 
-namespace ExactStringCompareTest
+namespace ExactStringCompareTest.BoyerMooreCompare
 {
     [TestClass]
-    public class BoyerMooreCompareTest
+    public class BoyerMooreCompareGoodSuffixTest
     {
+        //--------------------------------------------------------------------------------------
+        [TestMethod]
+        public void SimpletStringCompareByPreprocessingCase1Text()
+        {
+
+            // arrange
+            char[] alphabet = new char[] { 'a', 'c' };
+            string pattern = "ccacaa";
+            string text = "aaacacaaaaccacaa";
+            ExactStringCompare.BoyerMooreCompare boyerMooreCompare = new ExactStringCompare.BoyerMooreCompare()
+            {
+                StatisticAccumulator = new FakeStringCompareAccumulator()
+            };
+            // act
+            boyerMooreCompare.FindSubstringGoodSuffix(text, pattern);
+            // assert
+            string expected = "10";
+            Assert.AreEqual(boyerMooreCompare.OutputPresentation, expected, $"Wrong result:{boyerMooreCompare.OutputPresentation}, expected:{expected}");
+
+        }
+        //--------------------------------------------------------------------------------------
+        [TestMethod]
+        public void SimpletStringCompareByPreprocessingCase2Text()
+        {
+
+            // arrange
+            char[] alphabet = new char[] { 'a', 'c' };
+            string pattern = "accccc";
+            string text = "aaaaaaaaaaaccccc";
+            ExactStringCompare.BoyerMooreCompare boyerMooreCompare = new ExactStringCompare.BoyerMooreCompare()
+            {
+                StatisticAccumulator = new FakeStringCompareAccumulator()
+            };
+            // act
+            boyerMooreCompare.FindSubstringGoodSuffix(text, pattern);
+            // assert
+            string expected = "10";
+            Assert.AreEqual(boyerMooreCompare.OutputPresentation, expected, $"Wrong result:{boyerMooreCompare.OutputPresentation}, expected:{expected}");
+
+        }
         //--------------------------------------------------------------------------------------
         // multiple testing
         //--------------------------------------------------------------------------------------
@@ -22,7 +62,7 @@ namespace ExactStringCompareTest
             int patternLength = 6;
             int textLength = 16;
             char[] alphabet = new char[] { 'a', 'c' };
-            EnumerateCharSetForBoyerMooreCompare enumeration = new EnumerateCharSetForBoyerMooreCompare(
+            EnumerateCharSetForBoyerMooreBadSymbolCompare enumeration = new EnumerateCharSetForBoyerMooreBadSymbolCompare(
                 alphabet, patternLength, textLength);
             // act
             enumeration.Execute();
@@ -37,7 +77,7 @@ namespace ExactStringCompareTest
             int patternLength = 4;
             int textLength = 10;
             char[] alphabet = new char[] { 'a', 'c', 'g' };
-            EnumerateCharSetForBoyerMooreCompare enumeration = new EnumerateCharSetForBoyerMooreCompare(
+            EnumerateCharSetForBoyerMooreBadSymbolCompare enumeration = new EnumerateCharSetForBoyerMooreBadSymbolCompare(
                 alphabet, patternLength, textLength);
             // act
             enumeration.Execute();
@@ -52,7 +92,7 @@ namespace ExactStringCompareTest
             int patternLength = 4;
             int textLength = 7;
             char[] alphabet = new char[] { 'a', 'c', 'g', 't' };
-            EnumerateCharSetForBoyerMooreCompare enumeration = new EnumerateCharSetForBoyerMooreCompare(
+            EnumerateCharSetForBoyerMooreBadSymbolCompare enumeration = new EnumerateCharSetForBoyerMooreBadSymbolCompare(
                 alphabet, patternLength, textLength);
             // act
             enumeration.Execute();
@@ -69,7 +109,7 @@ namespace ExactStringCompareTest
             int patternLength = 7;
             int textLength = 14;
             char[] alphabet = new char[] { 'a', 'c', 'g', 't' };
-            StringCompareAccumulator statisticAccumulator = new StringCompareAccumulator(new StringCompareSaver(), BoyerMooreCompare.AlgorythmName,
+            StringCompareAccumulator statisticAccumulator = new StringCompareAccumulator(new StringCompareSaver(), ExactStringCompare.BoyerMooreCompare.AlgorythmNameGoodSuffix,
                 patternLength, textLength, bufferSize, alphabet.Length);
             statisticAccumulator.Delete();
             int size = patternLength + textLength;
@@ -103,7 +143,7 @@ namespace ExactStringCompareTest
                     StatisticAccumulator = statisticAccumulator
                 };
                 // act
-                boyerMooreCompare.FindSubstring(text, pattern);
+                boyerMooreCompare.FindSubstringGoodSuffix(text, pattern);
 
             }
 
@@ -112,10 +152,11 @@ namespace ExactStringCompareTest
         }
 
     }
+
     //--------------------------------------------------------------------------------------
-    // class EnumerateCharSetForBoyerMooreCompare 
+    // class EnumerateCharSetForBoyerMooreBadSymbolCompare 
     //--------------------------------------------------------------------------------------
-    public class EnumerateCharSetForBoyerMooreCompare : EnumerateIntegerCharSet
+    public class EnumerateCharSetForBoyerMooreGoodSuffixCompare : EnumerateIntegerCharSet
     {
         protected int _patternLength;
         protected int _textLength;
@@ -123,7 +164,7 @@ namespace ExactStringCompareTest
         protected int _stepCounter;
         protected IStringCompareAccumulator _statisticAccumulator { get; set; }
         //--------------------------------------------------------------------------------------
-        public EnumerateCharSetForBoyerMooreCompare(
+        public EnumerateCharSetForBoyerMooreGoodSuffixCompare(
             char[] pCharSet,
             int pPatternLength,
             int pTextLength,
@@ -135,7 +176,7 @@ namespace ExactStringCompareTest
             _textLength = pTextLength;
             _step = pStep;
             _stepCounter = 1;
-            _statisticAccumulator = new StringCompareAccumulator(new StringCompareSaver(), BoyerMooreCompare.AlgorythmName,
+            _statisticAccumulator = new StringCompareAccumulator(new StringCompareSaver(), ExactStringCompare.BoyerMooreCompare.AlgorythmNameGoodSuffix,
                 _patternLength, _textLength, bufferSize, pCharSet.Length);
             _statisticAccumulator.Delete();
         }
@@ -145,13 +186,13 @@ namespace ExactStringCompareTest
             if (_fCurrentPosition == _fSize - 1 && --_stepCounter == 0)
             {
                 var currentSequence = _fCurrentSet.Select(i => _charSet[i]).ToList();
-                string pattern = new string(currentSequence.Take(_patternLength).ToArray());
-                string text = new string(currentSequence.Skip(_patternLength).Take(_textLength).ToArray());
+                string text = new string(currentSequence.Take(_textLength).ToArray());
+                string pattern = new string(currentSequence.Skip(_textLength).Take(_patternLength).ToArray());
                 ExactStringCompare.BoyerMooreCompare boyerMooreCompare = new ExactStringCompare.BoyerMooreCompare()
                 {
                     StatisticAccumulator = _statisticAccumulator
                 };                    // act
-                boyerMooreCompare.FindSubstring(text, pattern);
+                boyerMooreCompare.FindSubstringGoodSuffix(text, pattern);
                 // assert
 
                 _stepCounter = _step;
@@ -167,4 +208,5 @@ namespace ExactStringCompareTest
         //--------------------------------------------------------------------------------------
     }
     //--------------------------------------------------------------------------------------    
+
 }

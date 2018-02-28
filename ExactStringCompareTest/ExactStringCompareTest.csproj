@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BoyerMooreCompare\BoyerMooreCompareBadSymbolTest.cs" />
+    <Compile Include="BoyerMooreCompare\BoyerMooreCompareGoodSuffixTest.cs" />
     <Compile Include="SimpletStringCompareByPreprocessingTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BruteForceStringCompareTest.cs" />
@@ -79,8 +80,8 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="Scripts\FindPatternPerfomance_2Algorythm_Compare.sql" />
-    <Content Include="Scripts\FindPatternPerfomance_Statistics.sql" />
+    <None Include="Scripts\FindPatternPerfomance_2Algorythm_Compare.sql" />
+    <None Include="Scripts\FindPatternPerfomance_Statistics.sql" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

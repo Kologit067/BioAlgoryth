@@ -98,7 +98,7 @@ namespace ExactStringCompareTest
                 charSequence = sequence.Select(j => alphabet[j]).ToArray();
                 string pattern = new string(charSequence.Take(patternLength).ToArray());
                 string text = new string(charSequence.Skip(patternLength).Take(textLength).ToArray());
-                BoyerMooreCompare boyerMooreCompare = new BoyerMooreCompare()
+                ExactStringCompare.BoyerMooreCompare boyerMooreCompare = new ExactStringCompare.BoyerMooreCompare()
                 {
                     StatisticAccumulator = statisticAccumulator
                 };
