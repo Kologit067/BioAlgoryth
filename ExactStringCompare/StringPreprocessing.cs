@@ -27,6 +27,44 @@ namespace ExactStringCompare
 
         public IStringCompareAccumulator StatisticAccumulator { get; set; }
 
+        protected string _outputPresentation;
+        public string OutputPresentation
+        {
+            get
+            {
+                return _outputPresentation;
+            }
+        }
+
+        protected long elapsedTicks;
+        public long ElapsedTicks
+        {
+            get
+            {
+                return elapsedTicks;
+            }
+        }
+
+        protected long durationMilliSeconds;
+        public long DurationMilliSeconds
+        {
+            get
+            {
+                return durationMilliSeconds;
+            }
+        }
+
+#if (DEBUG)
+        protected List<long> elapsedTicksList = new List<long>(200);
+        public List<long> ElapsedTicksList
+        {
+            get
+            {
+                return elapsedTicksList;
+            }
+        }
+#endif
+
         public int[] PreprocessString(string line)
         {
             int li = 0;
@@ -178,7 +216,13 @@ namespace ExactStringCompare
         {
 
             StatisticAccumulator.IterationCountInc();
+#if (DEBUG)
+            elapsedTicksList.Add(stopwatch.ElapsedTicks);
+#endif
             rAdvValue = new Dictionary<char, List<int>>();
+#if (DEBUG)
+            elapsedTicksList.Add(stopwatch.ElapsedTicks);
+#endif
             for (int i = 0; i < line.Length; i++)
             {
                 StatisticAccumulator.IterationCountInc(2);
@@ -188,6 +232,9 @@ namespace ExactStringCompare
                     StatisticAccumulator.IterationCountInc();
                 }
                 rAdvValue[line[i]].Add(i);
+#if (DEBUG)
+                elapsedTicksList.Add(stopwatch.ElapsedTicks);
+#endif
             }
 
         }

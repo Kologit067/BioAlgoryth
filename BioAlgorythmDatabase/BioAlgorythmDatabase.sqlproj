@@ -67,12 +67,6 @@
     <Folder Include="dbo\User Defined Types\" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="dbo\Views\vw_Enumerate_vs_ByVertexEnumerate.sql" />
-    <Build Include="dbo\Views\vw_place_eof_vs_place_eol.sql" />
-    <Build Include="dbo\Views\vw_place_vs_placeadv.sql" />
-    <Build Include="dbo\Views\vw_AlgorithmName.sql" />
-    <Build Include="dbo\Views\vwAlgorithmPerfomance.sql" />
-    <Build Include="dbo\Functions\PV_ComparePerfomance2Algorithm.sql" />
     <Build Include="dbo\Stored Procedures\addAlgorithmPerfomance.sql" />
     <Build Include="dbo\Stored Procedures\DeletePerformanceStatisticsForAlgorythm.sql" />
     <Build Include="dbo\Stored Procedures\SaveDataPerfomanceToArchive.sql" />
@@ -98,5 +92,6 @@
     <Build Include="dbo\Stored Procedures\deleteFindPatternPerfomance.sql" />
     <Build Include="dbo\Stored Procedures\addFindPatternPerfomance.sql" />
     <Build Include="dbo\User Defined Types\FindPatternPerfomanceType.sql" />
+    <Build Include="dbo\Functions\tvfFindPatternPerfomanceCompareOutput.sql" />
   </ItemGroup>
 </Project>

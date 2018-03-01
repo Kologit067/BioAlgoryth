@@ -4,8 +4,8 @@ using CommonLibrary;
 using BaseContract;
 using StatisticsStorage.Accumulators;
 using StatisticsStorage.Savers;
-using ExactStringCompare;
 using System.Linq;
+using ExactStringCompare;
 
 namespace ExactStringCompareTest
 {
@@ -21,7 +21,7 @@ namespace ExactStringCompareTest
             char[] alphabet = new char[] { 'a', 'c' };
             string pattern = "ccacaa";
             string text = "aaacacaaaaccacaa";
-            ExactStringCompare.BoyerMooreCompare boyerMooreCompare = new ExactStringCompare.BoyerMooreCompare()
+            BoyerMooreComparer boyerMooreCompare = new BoyerMooreComparer()
             {
                 StatisticAccumulator = new FakeStringCompareAccumulator()
             };
@@ -41,7 +41,7 @@ namespace ExactStringCompareTest
             char[] alphabet = new char[] { 'a', 'c' };
             string pattern = "accccc";
             string text = "aaaaaaaaaaaccccc";
-            BoyerMooreCompare boyerMooreCompare = new BoyerMooreCompare()
+            BoyerMooreComparer boyerMooreCompare = new BoyerMooreComparer()
             {
                 StatisticAccumulator = new FakeStringCompareAccumulator()
             };
@@ -109,7 +109,7 @@ namespace ExactStringCompareTest
             int patternLength = 7;
             int textLength = 14;
             char[] alphabet = new char[] { 'a', 'c', 'g', 't' };
-            StringCompareAccumulator statisticAccumulator = new StringCompareAccumulator(new StringCompareSaver(), BoyerMooreCompare.AlgorythmNameBadSymbol,
+            StringCompareAccumulator statisticAccumulator = new StringCompareAccumulator(new StringCompareSaver(), BoyerMooreComparer.AlgorythmNameBadSymbol,
                 patternLength, textLength, bufferSize, alphabet.Length);
             statisticAccumulator.Delete();
             int size = patternLength + textLength;
@@ -138,7 +138,7 @@ namespace ExactStringCompareTest
                 charSequence = sequence.Select(j => alphabet[j]).ToArray();
                 string pattern = new string(charSequence.Take(patternLength).ToArray());
                 string text = new string(charSequence.Skip(patternLength).Take(textLength).ToArray());
-                ExactStringCompare.BoyerMooreCompare boyerMooreCompare = new ExactStringCompare.BoyerMooreCompare()
+                BoyerMooreComparer boyerMooreCompare = new BoyerMooreComparer()
                 {
                     StatisticAccumulator = statisticAccumulator
                 };
@@ -177,7 +177,7 @@ namespace ExactStringCompareTest
             _textLength = pTextLength;
             _step = pStep;
             _stepCounter = 1;
-            _statisticAccumulator = new StringCompareAccumulator(new StringCompareSaver(), BoyerMooreCompare.AlgorythmNameBadSymbol,
+            _statisticAccumulator = new StringCompareAccumulator(new StringCompareSaver(), BoyerMooreComparer.AlgorythmNameBadSymbol,
                 _patternLength, _textLength, bufferSize, pCharSet.Length);
             _statisticAccumulator.Delete();
         }
@@ -189,7 +189,7 @@ namespace ExactStringCompareTest
                 var currentSequence = _fCurrentSet.Select(i => _charSet[i]).ToList();
                 string text = new string(currentSequence.Take(_textLength).ToArray());
                 string pattern = new string(currentSequence.Skip(_textLength).Take(_patternLength).ToArray());
-                ExactStringCompare.BoyerMooreCompare boyerMooreCompare = new ExactStringCompare.BoyerMooreCompare()
+                BoyerMooreComparer boyerMooreCompare = new BoyerMooreComparer()
                 {
                     StatisticAccumulator = _statisticAccumulator
                 };                    // act
