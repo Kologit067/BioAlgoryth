@@ -12,8 +12,11 @@
     [Duration]                BIGINT          NULL,
     [DurationMilliSeconds]    BIGINT          NULL,
     [DateComplete]            DATETIME        NULL,
+    [AdditionalInfo]          NVARCHAR (MAX)  NULL,
     PRIMARY KEY CLUSTERED ([FindPatternPerfomanceId] ASC)
 );
+
+
 
 
 

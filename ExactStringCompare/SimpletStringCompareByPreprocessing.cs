@@ -42,7 +42,7 @@ namespace ExactStringCompare
             long durationMilliSeconds = stopwatch.ElapsedMilliseconds;
             _outputPresentation = string.Join(",", result.Select(p => p.ToString()));
 
-            StatisticAccumulator.SaveStatisticData(_outputPresentation, elapsedTicks, durationMilliSeconds, DateTime.Now);
+            StatisticAccumulator.SaveStatisticData(_outputPresentation, elapsedTicks, durationMilliSeconds, DateTime.Now, null);
 
             return result;
         }

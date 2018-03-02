@@ -11,7 +11,7 @@ namespace BaseContract
         void IterationCountInc(int count = 1);
         void NumberOfComparisonInc(int count = 1);
         void CreateStatistics(string text, string pattern);
-        void SaveStatisticData(string outputPresentation, long duration, long durationMilliSeconds, DateTime dateComplete);
+        void SaveStatisticData(string outputPresentation, long duration, long durationMilliSeconds, DateTime dateComplete, string additionalInfo);
         void SaveRemain();
         string Delete();
     }

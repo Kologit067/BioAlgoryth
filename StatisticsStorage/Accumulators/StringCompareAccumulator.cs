@@ -60,10 +60,10 @@ namespace StatisticsStorage.Accumulators
             _currentFindPatternPerfomance.NumberOfComparisonInc(count);
         }
         //--------------------------------------------------------------------------------------------------------------------
-        public void SaveStatisticData(string outputPresentation, long duration, long durationMilliSeconds, DateTime dateComplete)
+        public void SaveStatisticData(string outputPresentation, long duration, long durationMilliSeconds, DateTime dateComplete, string additionalInfo)
         {
 
-            _currentFindPatternPerfomance.SaveStatisticData(outputPresentation, duration, durationMilliSeconds, dateComplete);
+            _currentFindPatternPerfomance.SaveStatisticData(outputPresentation, duration, durationMilliSeconds, dateComplete, additionalInfo);
             if (_findPatternPerfomances.Count >= _bufferSize)
             {
                 _stringCompareSaver.Save(_findPatternPerfomances);
@@ -98,7 +98,7 @@ namespace StatisticsStorage.Accumulators
         public void NumberOfComparisonInc(int count = 1)
         { }
         public void CreateStatistics(string text, string pattern) { }
-        public void SaveStatisticData(string outputPresentation, long duration, long durationMilliSeconds, DateTime dateComplete) { }
+        public void SaveStatisticData(string outputPresentation, long duration, long durationMilliSeconds, DateTime dateComplete, string additionalInfo) { }
         public void SaveRemain() { }
         public string Delete()
         {

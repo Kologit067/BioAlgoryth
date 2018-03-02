@@ -15,6 +15,7 @@ namespace StatisticsStorage.Accumulators.Objects
         public string Text { get; set; }
         public string Pattern { get; set; }
         public string OutputPresentation { get; set; }
+        public string AdditionalInfo { get; set; }
         public long IterationCount { get; set; }
         public long NumberOfComparison { get; set; }
         public long Duration { get; set; }
@@ -31,13 +32,14 @@ namespace StatisticsStorage.Accumulators.Objects
             NumberOfComparison += count;
         }
         //--------------------------------------------------------------------------------------------------------------------
-        public void SaveStatisticData(string outputPresentation, long duration, long durationMilliSeconds, DateTime dateComplete)
+        public void SaveStatisticData(string outputPresentation, long duration, long durationMilliSeconds, DateTime dateComplete, string additionalInfo)
         {
 
             OutputPresentation = outputPresentation;
             Duration = duration;
             DurationMilliSeconds = durationMilliSeconds;
             DateComplete = dateComplete;
+            AdditionalInfo = additionalInfo;
         }
     //--------------------------------------------------------------------------------------------------------------------
     }

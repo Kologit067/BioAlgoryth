@@ -27,6 +27,15 @@ namespace ExactStringCompare
 
         public IStringCompareAccumulator StatisticAccumulator { get; set; }
 
+        protected string additionalInfo;
+        public string AdditionalInfo
+        {
+            get
+            {
+                return additionalInfo;
+            }
+        }
+
         protected string _outputPresentation;
         public string OutputPresentation
         {
@@ -61,6 +70,15 @@ namespace ExactStringCompare
             get
             {
                 return elapsedTicksList;
+            }
+        }
+        //--------------------------------------------------------------------------------------
+        protected long preprocessingElapsedTicks;
+        public long PreprocessingElapsedTicks
+        {
+            get
+            {
+                return preprocessingElapsedTicks;
             }
         }
 #endif
@@ -214,10 +232,10 @@ namespace ExactStringCompare
         //--------------------------------------------------------------------------------------
         public void BadSymbolAdvPreprocessString(string line)
         {
-
             StatisticAccumulator.IterationCountInc();
 #if (DEBUG)
-            elapsedTicksList.Add(stopwatch.ElapsedTicks);
+            long startPreprocessingElapsedTicks = stopwatch.ElapsedTicks;
+            elapsedTicksList.Add(startPreprocessingElapsedTicks);
 #endif
             rAdvValue = new Dictionary<char, List<int>>();
 #if (DEBUG)
@@ -236,6 +254,9 @@ namespace ExactStringCompare
                 elapsedTicksList.Add(stopwatch.ElapsedTicks);
 #endif
             }
+#if (DEBUG)
+            preprocessingElapsedTicks = stopwatch.ElapsedTicks - startPreprocessingElapsedTicks;
+#endif
 
         }
         //--------------------------------------------------------------------------------------

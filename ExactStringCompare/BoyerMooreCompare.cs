@@ -30,7 +30,6 @@ namespace ExactStringCompare
                 return coreProcess;
             }
         }
-
         //--------------------------------------------------------------------------------------
         private long dictionaryProcess;
         public long DictionaryProcess
@@ -40,7 +39,6 @@ namespace ExactStringCompare
                 return dictionaryProcess;
             }
         }
-
         //--------------------------------------------------------------------------------------
         private long outerLoop;
         public long OuterLoop
@@ -48,6 +46,15 @@ namespace ExactStringCompare
             get
             {
                 return outerLoop;
+            }
+        }
+        //--------------------------------------------------------------------------------------
+        protected long coreElapsedTicks;
+        public long CoreElapsedTicks
+        {
+            get
+            {
+                return coreElapsedTicks;
             }
         }
 #endif
@@ -161,11 +168,15 @@ namespace ExactStringCompare
             elapsedTicks = stopwatch.ElapsedTicks;
             durationMilliSeconds = stopwatch.ElapsedMilliseconds;
             _outputPresentation = string.Join(",", result.Select(p => p.ToString()));
+            coreElapsedTicks = durationMilliSeconds - preprocessingElapsedTicks;
 
-            StatisticAccumulator.SaveStatisticData(_outputPresentation, elapsedTicks, durationMilliSeconds, DateTime.Now);
+            additionalInfo = $"Pre({PreprocessingElapsedTicks}) Core({CoreElapsedTicks}) ({string.Join(",", elapsedTicksList.Select(p => p.ToString()))})";
+
+            StatisticAccumulator.SaveStatisticData(_outputPresentation, elapsedTicks, durationMilliSeconds, DateTime.Now, additionalInfo);
 
             return result;
         }
+        //--------------------------------------------------------------------------------------
         public List<int> FindSubstringBadSymbolAdvImproved(string text, string pattern)
         {
             stopwatch = new Stopwatch();
@@ -272,7 +283,7 @@ namespace ExactStringCompare
             durationMilliSeconds = stopwatch.ElapsedMilliseconds;
             _outputPresentation = string.Join(",", result.Select(p => p.ToString()));
 
-            StatisticAccumulator.SaveStatisticData(_outputPresentation, elapsedTicks, durationMilliSeconds, DateTime.Now);
+            StatisticAccumulator.SaveStatisticData(_outputPresentation, elapsedTicks, durationMilliSeconds, DateTime.Now, null);
 
             return result;
         }
@@ -331,7 +342,7 @@ namespace ExactStringCompare
             durationMilliSeconds = stopwatch.ElapsedMilliseconds;
             _outputPresentation = string.Join(",", result.Select(p => p.ToString()));
 
-            StatisticAccumulator.SaveStatisticData(_outputPresentation, elapsedTicks, durationMilliSeconds, DateTime.Now);
+            StatisticAccumulator.SaveStatisticData(_outputPresentation, elapsedTicks, durationMilliSeconds, DateTime.Now, null);
 
             return result;
         }
@@ -394,7 +405,7 @@ namespace ExactStringCompare
             long durationMilliSeconds = stopwatch.ElapsedMilliseconds;
             _outputPresentation = string.Join(",", result.Select(p => p.ToString()));
 
-            StatisticAccumulator.SaveStatisticData(_outputPresentation, elapsedTicks, durationMilliSeconds, DateTime.Now);
+            StatisticAccumulator.SaveStatisticData(_outputPresentation, elapsedTicks, durationMilliSeconds, DateTime.Now, null);
 
             return result;
         }
@@ -474,7 +485,7 @@ namespace ExactStringCompare
             long durationMilliSeconds = stopwatch.ElapsedMilliseconds;
             _outputPresentation = string.Join(",", result.Select(p => p.ToString()));
 
-            StatisticAccumulator.SaveStatisticData(_outputPresentation, elapsedTicks, durationMilliSeconds, DateTime.Now);
+            StatisticAccumulator.SaveStatisticData(_outputPresentation, elapsedTicks, durationMilliSeconds, DateTime.Now, null);
 
             return result;
         }
@@ -570,7 +581,7 @@ namespace ExactStringCompare
             long durationMilliSeconds = stopwatch.ElapsedMilliseconds;
             _outputPresentation = string.Join(",", result.Select(p => p.ToString()));
 
-            StatisticAccumulator.SaveStatisticData(_outputPresentation, elapsedTicks, durationMilliSeconds, DateTime.Now);
+            StatisticAccumulator.SaveStatisticData(_outputPresentation, elapsedTicks, durationMilliSeconds, DateTime.Now, null);
 
             return result;
         }

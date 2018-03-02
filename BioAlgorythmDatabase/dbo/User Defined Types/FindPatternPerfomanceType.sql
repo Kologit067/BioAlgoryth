@@ -10,7 +10,10 @@
     [NumberOfComparison]   BIGINT         NULL,
     [Duration]             BIGINT         NULL,
     [DurationMilliSeconds] BIGINT         NULL,
-    [DateComplete]         DATETIME       NULL);
+    [DateComplete]         DATETIME       NULL,
+    [AdditionalInfo]       NVARCHAR (MAX) NULL);
+
+
 
 
 

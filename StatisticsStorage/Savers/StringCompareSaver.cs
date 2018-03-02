@@ -33,6 +33,7 @@ namespace StatisticsStorage.Savers
                 performance.Columns.Add("Duration", System.Type.GetType("System.Int64"));
                 performance.Columns.Add("DurationMilliSeconds", System.Type.GetType("System.Int64"));
                 performance.Columns.Add("DateComplete", System.Type.GetType("System.DateTime"));
+                performance.Columns.Add("AdditionalInfo", System.Type.GetType("System.String"));
 
 
                 foreach (var ps in findPatternPerfomances)
@@ -40,7 +41,7 @@ namespace StatisticsStorage.Savers
 
                     performance.Rows.Add(ps.Algorithm, ps.TextSize, ps.PatternSize, ps.AlphabetSize,
                         ps.Text, ps.Pattern, ps.OutputPresentation, ps.IterationCount, ps.NumberOfComparison,
-                        ps.Duration, ps.DurationMilliSeconds, ps.DateComplete);
+                        ps.Duration, ps.DurationMilliSeconds, ps.DateComplete, ps.AdditionalInfo);
 
                 }
 
