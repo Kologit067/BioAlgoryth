@@ -19,6 +19,8 @@ namespace ExactStringCompare
         public static readonly string AlgorythmNameGoodSuffix = "BMCGS";
         public static readonly string AlgorythmNameGoodSuffixBadSymbol = "BMCGSBS";
         //--------------------------------------------------------------------------------------
+        private List<int> result = new List<int>();
+        //--------------------------------------------------------------------------------------
 #if (DEBUG)
 
         //--------------------------------------------------------------------------------------
@@ -59,132 +61,132 @@ namespace ExactStringCompare
         }
 #endif
         //--------------------------------------------------------------------------------------
+//        public List<int> FindSubstringBadSymbolAdv(string text, string pattern)
+//        {
+//#if (DEBUG)
+//            elapsedTicksList.Clear();
+//#endif
+//            stopwatch = new Stopwatch();
+//            stopwatch.Start();
+
+//#if (DEBUG)
+//            elapsedTicksList.Add(stopwatch.ElapsedTicks);
+//            coreProcess = 0;
+//            dictionaryProcess = 0;
+//            outerLoop = 0;
+//#endif
+
+//        int dictAppl = 0;
+
+//            StatisticAccumulator.CreateStatistics(text, pattern);
+//#if (DEBUG)
+//            elapsedTicksList.Add(stopwatch.ElapsedTicks);
+//#endif
+//            result.Clear();
+//#if (DEBUG)
+//            elapsedTicksList.Add(stopwatch.ElapsedTicks);
+//#endif
+//            BadSymbolAdvPreprocessString(pattern);
+//            int lenPattern = pattern.Length;
+//            int i = 0;
+//#if (DEBUG)
+//            elapsedTicksList.Add(stopwatch.ElapsedTicks);
+//#endif
+//            while (i <= text.Length - pattern.Length)
+//            {
+//                int j = pattern.Length - 1;
+//                int j0 = j + i;
+//                StatisticAccumulator.IterationCountInc(2);
+//#if (DEBUG)
+//                outerLoop++;
+//#endif
+//                while (j >= 0)
+//                {
+//                    StatisticAccumulator.NumberOfComparisonInc();
+//                    StatisticAccumulator.IterationCountInc();
+//                    if (pattern[j] != text[j0])
+//                        break;
+//                    j--;
+//                    j0--;
+//                    StatisticAccumulator.IterationCountInc(2);
+//#if (DEBUG)
+//                    coreProcess++;
+//#endif
+//                }
+//                if (j < 0)
+//                {
+//                    result.Add(i);
+//                    i++;
+//                    StatisticAccumulator.IterationCountInc(2);
+//                }
+//                else
+//                {
+//                    StatisticAccumulator.IterationCountInc();
+//                    if (rAdvValue.ContainsKey(text[j0]))
+//                    {
+//                        int l = 0;
+//                        StatisticAccumulator.IterationCountInc(3);
+//                        dictAppl++;
+//                        while (l < rAdvValue[text[j0]].Count && rAdvValue[text[j0]][l] < j)
+//                        {
+//#if (DEBUG)
+//                            dictionaryProcess++;
+//#endif
+//                            dictAppl++;
+//                            dictAppl++;
+//                            l++;
+//                            StatisticAccumulator.IterationCountInc(3);
+//                        }
+//                        if (l > 0)
+//                        {
+//                            l--;
+//                            StatisticAccumulator.IterationCountInc();
+//                        }
+//                        StatisticAccumulator.IterationCountInc(2);
+//                        dictAppl++;
+//                        dictAppl++;
+//                        int maxPos = rAdvValue[text[j0]][l];
+//                        if (rAdvValue[text[j0]][l] >= j)
+//                        {
+//                            i += j + 1;
+//                        }
+//                        else
+//                        {
+//                            i += j - maxPos;
+//                        }
+//                    }
+//                    else
+//                    {
+//                        StatisticAccumulator.IterationCountInc();
+//                        i = j0 + 1;
+//                    }
+//                }
+//#if (DEBUG)
+//                elapsedTicksList.Add(stopwatch.ElapsedTicks);
+//#endif
+//            }
+
+//            stopwatch.Stop();
+//            elapsedTicks = stopwatch.ElapsedTicks;
+//            durationMilliSeconds = stopwatch.ElapsedMilliseconds;
+//            _outputPresentation = string.Join(",", result.Select(p => p.ToString()));
+//            coreElapsedTicks = durationMilliSeconds - preprocessingElapsedTicks;
+
+//            additionalInfo = $"Pre({PreprocessingElapsedTicks}) Core({CoreElapsedTicks}) ({string.Join(",", elapsedTicksList.Select(p => p.ToString()))})";
+
+//            StatisticAccumulator.SaveStatisticData(_outputPresentation, elapsedTicks, durationMilliSeconds, DateTime.Now, additionalInfo);
+//            ReturnToPool();
+//            return result;
+//        }
+        //--------------------------------------------------------------------------------------
         public List<int> FindSubstringBadSymbolAdv(string text, string pattern)
         {
-#if (DEBUG)
-            elapsedTicksList = new List<long>(200);
-#endif
-            stopwatch = new Stopwatch();
-            stopwatch.Start();
-
-#if (DEBUG)
-            elapsedTicksList.Add(stopwatch.ElapsedTicks);
-            coreProcess = 0;
-            dictionaryProcess = 0;
-            outerLoop = 0;
-#endif
-
-        int dictAppl = 0;
-
-            StatisticAccumulator.CreateStatistics(text, pattern);
-#if (DEBUG)
-            elapsedTicksList.Add(stopwatch.ElapsedTicks);
-#endif
-            List<int> result = new List<int>();
-#if (DEBUG)
-            elapsedTicksList.Add(stopwatch.ElapsedTicks);
-#endif
-            BadSymbolAdvPreprocessString(pattern);
-            int lenPattern = pattern.Length;
-            int i = 0;
-#if (DEBUG)
-            elapsedTicksList.Add(stopwatch.ElapsedTicks);
-#endif
-            while (i <= text.Length - pattern.Length)
-            {
-                int j = pattern.Length - 1;
-                int j0 = j + i;
-                StatisticAccumulator.IterationCountInc(2);
-#if (DEBUG)
-                outerLoop++;
-#endif
-                while (j >= 0)
-                {
-                    StatisticAccumulator.NumberOfComparisonInc();
-                    StatisticAccumulator.IterationCountInc();
-                    if (pattern[j] != text[j0])
-                        break;
-                    j--;
-                    j0--;
-                    StatisticAccumulator.IterationCountInc(2);
-#if (DEBUG)
-                    coreProcess++;
-#endif
-                }
-                if (j < 0)
-                {
-                    result.Add(i);
-                    i++;
-                    StatisticAccumulator.IterationCountInc(2);
-                }
-                else
-                {
-                    StatisticAccumulator.IterationCountInc();
-                    if (rAdvValue.ContainsKey(text[j0]))
-                    {
-                        int l = 0;
-                        StatisticAccumulator.IterationCountInc(3);
-                        dictAppl++;
-                        while (l < rAdvValue[text[j0]].Count && rAdvValue[text[j0]][l] < j)
-                        {
-#if (DEBUG)
-                            dictionaryProcess++;
-#endif
-                            dictAppl++;
-                            dictAppl++;
-                            l++;
-                            StatisticAccumulator.IterationCountInc(3);
-                        }
-                        if (l > 0)
-                        {
-                            l--;
-                            StatisticAccumulator.IterationCountInc();
-                        }
-                        StatisticAccumulator.IterationCountInc(2);
-                        dictAppl++;
-                        dictAppl++;
-                        int maxPos = rAdvValue[text[j0]][l];
-                        if (rAdvValue[text[j0]][l] >= j)
-                        {
-                            i += j + 1;
-                        }
-                        else
-                        {
-                            i += j - maxPos;
-                        }
-                    }
-                    else
-                    {
-                        StatisticAccumulator.IterationCountInc();
-                        i = j0 + 1;
-                    }
-                }
-#if (DEBUG)
-                elapsedTicksList.Add(stopwatch.ElapsedTicks);
-#endif
-            }
-
-            stopwatch.Stop();
-            elapsedTicks = stopwatch.ElapsedTicks;
-            durationMilliSeconds = stopwatch.ElapsedMilliseconds;
-            _outputPresentation = string.Join(",", result.Select(p => p.ToString()));
-            coreElapsedTicks = durationMilliSeconds - preprocessingElapsedTicks;
-
-            additionalInfo = $"Pre({PreprocessingElapsedTicks}) Core({CoreElapsedTicks}) ({string.Join(",", elapsedTicksList.Select(p => p.ToString()))})";
-
-            StatisticAccumulator.SaveStatisticData(_outputPresentation, elapsedTicks, durationMilliSeconds, DateTime.Now, additionalInfo);
-
-            return result;
-        }
-        //--------------------------------------------------------------------------------------
-        public List<int> FindSubstringBadSymbolAdvImproved(string text, string pattern)
-        {
             stopwatch = new Stopwatch();
             stopwatch.Start();
             StatisticAccumulator.CreateStatistics(text, pattern);
 
 #if (DEBUG)
-            elapsedTicksList = new List<long>(200);
+            elapsedTicksList.Clear();
             coreProcess = 0;
             dictionaryProcess = 0;
             outerLoop = 0;
@@ -192,7 +194,7 @@ namespace ExactStringCompare
 
             int dictAppl = 0;
 
-            List<int> result = new List<int>();
+            result.Clear();
 #if (DEBUG)
             elapsedTicksList.Add(stopwatch.ElapsedTicks);
 #endif
@@ -285,6 +287,7 @@ namespace ExactStringCompare
 
             StatisticAccumulator.SaveStatisticData(_outputPresentation, elapsedTicks, durationMilliSeconds, DateTime.Now, null);
 
+            ReturnToPool();
             return result;
         }
         //--------------------------------------------------------------------------------------
@@ -294,7 +297,7 @@ namespace ExactStringCompare
             stopwatch.Start();
             StatisticAccumulator.CreateStatistics(text, pattern);
 
-            List<int> result = new List<int>();
+            result.Clear();
             BadSymbolPreprocessString(pattern);
             int lenPattern = pattern.Length;
             int i = 0;
@@ -353,12 +356,12 @@ namespace ExactStringCompare
             stopwatch.Start();
             StatisticAccumulator.CreateStatistics(text, pattern);
 
-            List<int> result = new List<int>();
+            result.Clear();
             LliPreprocessString(pattern);
             LiByNPreprocessString(pattern);
             int lenPattern = pattern.Length;
             int i = 0;
-            while (i < text.Length - pattern.Length)
+            while (i <= text.Length - pattern.Length)
             {
                 int j = pattern.Length - 1;
                 int j0 = j + i;
@@ -416,13 +419,13 @@ namespace ExactStringCompare
             stopwatch.Start();
             StatisticAccumulator.CreateStatistics(text, pattern);
 
-            List<int> result = new List<int>();
+            result.Clear();
             LliPreprocessString(pattern);
             LiByNPreprocessString(pattern);
             BadSymbolPreprocessString(pattern);
             int lenPattern = pattern.Length;
             int i = 0;
-            while (i < text.Length - pattern.Length)
+            while (i <= text.Length - pattern.Length)
             {
                 int j = pattern.Length - 1;
                 int j0 = j + i;
@@ -496,13 +499,13 @@ namespace ExactStringCompare
             stopwatch.Start();
             StatisticAccumulator.CreateStatistics(text, pattern);
 
-            List<int> result = new List<int>();
+            result.Clear();
             LliPreprocessString(pattern);
             LiByNPreprocessString(pattern);
             BadSymbolAdvPreprocessString(pattern);
             int lenPattern = pattern.Length;
             int i = 0;
-            while (i < text.Length - pattern.Length)
+            while (i <= text.Length - pattern.Length)
             {
                 int j = pattern.Length - 1;
                 int j0 = j + i;

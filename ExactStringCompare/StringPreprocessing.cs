@@ -17,7 +17,7 @@ namespace ExactStringCompare
         protected int[] zValue;
         protected int[] zReverseValue;
         protected Dictionary<char, int> rValue;
-        protected Dictionary<char, List<int>> rAdvValue;
+        protected Dictionary<char, List<int>> rAdvValue = new Dictionary<char, List<int>>();
         protected int[] liValue;
         protected int[] lisValue;
         protected int[] llisValue;
@@ -82,7 +82,27 @@ namespace ExactStringCompare
             }
         }
 #endif
-
+        protected Stack<List<int>> poolOfListOfInt = new Stack<List<int>>();
+        //--------------------------------------------------------------------------------------
+        protected List<int> GetNewListOfInt()
+        {
+            List<int> newList;
+            if (poolOfListOfInt.Count > 0)
+                newList = poolOfListOfInt.Pop();
+            else
+                newList = new List<int>(16);
+            return newList;
+        }
+        //--------------------------------------------------------------------------------------
+        protected void ReturnToPool()
+        {
+            foreach (var p in rAdvValue)
+            {
+                p.Value.Clear();
+                poolOfListOfInt.Push(p.Value);
+            }
+        }
+        //--------------------------------------------------------------------------------------
         public int[] PreprocessString(string line)
         {
             int li = 0;
@@ -237,7 +257,7 @@ namespace ExactStringCompare
             long startPreprocessingElapsedTicks = stopwatch.ElapsedTicks;
             elapsedTicksList.Add(startPreprocessingElapsedTicks);
 #endif
-            rAdvValue = new Dictionary<char, List<int>>();
+            rAdvValue.Clear();
 #if (DEBUG)
             elapsedTicksList.Add(stopwatch.ElapsedTicks);
 #endif
@@ -246,7 +266,7 @@ namespace ExactStringCompare
                 StatisticAccumulator.IterationCountInc(2);
                 if (!rAdvValue.ContainsKey(line[i]))
                 {
-                    rAdvValue.Add(line[i], new List<int>());
+                    rAdvValue.Add(line[i], GetNewListOfInt());
                     StatisticAccumulator.IterationCountInc();
                 }
                 rAdvValue[line[i]].Add(i);

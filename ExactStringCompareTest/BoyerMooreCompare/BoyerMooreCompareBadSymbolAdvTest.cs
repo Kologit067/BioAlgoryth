@@ -285,6 +285,7 @@ namespace ExactStringCompareTest
         protected int _textLength;
         protected int _step;
         protected int _stepCounter;
+        protected BoyerMooreComparer boyerMooreCompare;
         protected IStringCompareAccumulator _statisticAccumulator { get; set; }
         //--------------------------------------------------------------------------------------
         public EnumerateCharSetForBoyerMooreBadSymbolAdvCompare(
@@ -302,6 +303,10 @@ namespace ExactStringCompareTest
             _statisticAccumulator = new StringCompareAccumulator(new StringCompareSaver(), BoyerMooreComparer.AlgorythmNameBadSymbolAdv,
                 _patternLength, _textLength, bufferSize, pCharSet.Length);
             _statisticAccumulator.Delete();
+            boyerMooreCompare = new BoyerMooreComparer()
+            {
+                StatisticAccumulator = _statisticAccumulator
+            };
         }
         //--------------------------------------------------------------------------------------
         protected override bool MakeAction()
@@ -311,10 +316,7 @@ namespace ExactStringCompareTest
                 var currentSequence = _fCurrentSet.Select(i => _charSet[i]).ToList();
                 string pattern = new string(currentSequence.Take(_patternLength).ToArray());
                 string text = new string(currentSequence.Skip(_patternLength).Take(_textLength).ToArray());
-                BoyerMooreComparer boyerMooreCompare = new BoyerMooreComparer()
-                {
-                    StatisticAccumulator = _statisticAccumulator
-                };                    // act
+                   // act
                 boyerMooreCompare.FindSubstringBadSymbolAdv(text, pattern);
                 // assert
 
