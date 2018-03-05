@@ -53,6 +53,26 @@ namespace ExactStringCompareTest.BoyerMooreCompare
 
         }
         //--------------------------------------------------------------------------------------
+        [TestMethod]
+        public void SimpletStringCompareByPreprocessingCase3Text()
+        {
+
+            // arrange
+            char[] alphabet = new char[] { 'a', 'c' };
+            string pattern = "aacccc";
+            string text = "aaaaaccccaaacacc";
+            BoyerMooreComparer boyerMooreCompare = new BoyerMooreComparer()
+            {
+                StatisticAccumulator = new FakeStringCompareAccumulator()
+            };
+            // act
+            boyerMooreCompare.FindSubstringGoodSuffix(text, pattern);
+            // assert
+            string expected = "3";
+            Assert.AreEqual(boyerMooreCompare.OutputPresentation, expected, $"Wrong result:{boyerMooreCompare.OutputPresentation}, expected:{expected}");
+
+        }
+        //--------------------------------------------------------------------------------------
         // multiple testing
         //--------------------------------------------------------------------------------------
         [TestMethod]
