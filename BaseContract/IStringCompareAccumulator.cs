@@ -14,5 +14,6 @@ namespace BaseContract
         void SaveStatisticData(string outputPresentation, long duration, long durationMilliSeconds, DateTime dateComplete, string additionalInfo);
         void SaveRemain();
         string Delete();
+        void RemoveStatisticData();
     }
 }

@@ -71,6 +71,11 @@ namespace StatisticsStorage.Accumulators
             }
         }
         //--------------------------------------------------------------------------------------------------------------------
+        public void RemoveStatisticData()
+        {
+            _findPatternPerfomances.Remove(_currentFindPatternPerfomance);
+        }
+        //--------------------------------------------------------------------------------------------------------------------
         public void SaveRemain()
         {
             if (_findPatternPerfomances.Count > 0)
@@ -103,6 +108,10 @@ namespace StatisticsStorage.Accumulators
         public string Delete()
         {
             return string.Empty;
+        }
+        //--------------------------------------------------------------------------------------------------------------------
+        public void RemoveStatisticData()
+        {
         }
         //--------------------------------------------------------------------------------------------------------------------
     }

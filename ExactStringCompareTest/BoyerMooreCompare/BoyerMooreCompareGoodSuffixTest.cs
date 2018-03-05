@@ -124,8 +124,8 @@ namespace ExactStringCompareTest.BoyerMooreCompare
         public void ProcessInputDataBuAdditionTestLength7Number3Pattern4Step987()
         {
             // arrange
-            int step = 98798111;
-            int bufferSize = 10;
+            int step = 9879811;
+            int bufferSize = 1000;
             int patternLength = 7;
             int textLength = 14;
             char[] alphabet = new char[] { 'a', 'c', 'g', 't' };

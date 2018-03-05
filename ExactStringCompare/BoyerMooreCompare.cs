@@ -412,6 +412,10 @@ namespace ExactStringCompare
 
                 StatisticAccumulator.SaveStatisticData(_outputPresentation, elapsedTicks, durationMilliSeconds, DateTime.Now, null);
             }
+            else 
+            {
+                StatisticAccumulator.RemoveStatisticData();
+            }
 
             return result;
         }
