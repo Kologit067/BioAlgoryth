@@ -350,7 +350,7 @@ namespace ExactStringCompare
             return result;
         }
         //--------------------------------------------------------------------------------------
-        public List<int> FindSubstringGoodSuffix(string text, string pattern)
+        public List<int> FindSubstringGoodSuffix(string text, string pattern, bool isSaveStatisticsForEmpty = true)
         {
             stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -387,11 +387,11 @@ namespace ExactStringCompare
                     StatisticAccumulator.IterationCountInc();
                     if (j < pattern.Length - 1)
                     {
-                        j++;
+//                        j++;
                         StatisticAccumulator.IterationCountInc();
                         if (lisValue[j] > 0)
                         {
-                            i += lenPattern - lisValue[j];
+                            i += lenPattern - lisValue[j] - 1;
                         }
                         else
                         {
@@ -404,11 +404,14 @@ namespace ExactStringCompare
             }
 
             stopwatch.Stop();
-            long elapsedTicks = stopwatch.ElapsedTicks;
-            long durationMilliSeconds = stopwatch.ElapsedMilliseconds;
-            _outputPresentation = string.Join(",", result.Select(p => p.ToString()));
+            if (result.Count > 0 || isSaveStatisticsForEmpty)
+            {
+                long elapsedTicks = stopwatch.ElapsedTicks;
+                long durationMilliSeconds = stopwatch.ElapsedMilliseconds;
+                _outputPresentation = string.Join(",", result.Select(p => p.ToString()));
 
-            StatisticAccumulator.SaveStatisticData(_outputPresentation, elapsedTicks, durationMilliSeconds, DateTime.Now, null);
+                StatisticAccumulator.SaveStatisticData(_outputPresentation, elapsedTicks, durationMilliSeconds, DateTime.Now, null);
+            }
 
             return result;
         }

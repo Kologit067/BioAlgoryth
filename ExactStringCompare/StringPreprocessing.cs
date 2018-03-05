@@ -308,8 +308,7 @@ namespace ExactStringCompare
         public int[] NiPreprocessString(string line)
         {
             int len = line.Length;
-            string lineReverse = line.ToString();
-            lineReverse.Reverse();
+            string lineReverse = new string( line.Reverse().ToArray() );
             StatisticAccumulator.IterationCountInc(4);
             zReverseValue = PreprocessString(lineReverse);
             int[] nvalue = new int[len];
@@ -334,7 +333,7 @@ namespace ExactStringCompare
                 StatisticAccumulator.IterationCountInc();
                 if (nvalue[i] > 0)
                 {
-                    lisValue[len - nvalue[i]] = i;
+                    lisValue[len - nvalue[i] - 1] = i;
                     StatisticAccumulator.IterationCountInc();
                 }
             }

@@ -125,7 +125,7 @@ namespace ExactStringCompareTest.BoyerMooreCompare
         {
             // arrange
             int step = 98798111;
-            int bufferSize = 1000;
+            int bufferSize = 10;
             int patternLength = 7;
             int textLength = 14;
             char[] alphabet = new char[] { 'a', 'c', 'g', 't' };
@@ -163,7 +163,7 @@ namespace ExactStringCompareTest.BoyerMooreCompare
                     StatisticAccumulator = statisticAccumulator
                 };
                 // act
-                boyerMooreCompare.FindSubstringGoodSuffix(text, pattern);
+                boyerMooreCompare.FindSubstringGoodSuffix(text, pattern, false);
 
             }
 
