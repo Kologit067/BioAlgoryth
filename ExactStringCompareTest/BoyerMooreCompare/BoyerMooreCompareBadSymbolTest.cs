@@ -104,7 +104,7 @@ namespace ExactStringCompareTest
         public void ProcessInputDataBuAdditionTestLength7Number3Pattern4Step987()
         {
             // arrange
-            int step = 98798111;
+            int step = 98798;
             int bufferSize = 1000;
             int patternLength = 7;
             int textLength = 14;
@@ -146,6 +146,7 @@ namespace ExactStringCompareTest
                 boyerMooreCompare.FindSubstringBadSymbol(text, pattern);
 
             }
+            statisticAccumulator.SaveRemain();
 
             // assert
 
