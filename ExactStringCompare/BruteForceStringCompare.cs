@@ -13,7 +13,7 @@ namespace ExactStringCompare
         public static readonly string AlgorythmName = "BFSC";
         public IStringCompareAccumulator StatisticAccumulator { get; set; }
 
-        public List<int> FindSubstring(string text, string pattern)
+        public List<int> FindSubstring(string text, string pattern, bool isSaveStatisticsForEmpty = true)
         {
             var stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -42,11 +42,19 @@ namespace ExactStringCompare
             }
 
             stopwatch.Stop();
-            long elapsedTicks = stopwatch.ElapsedTicks;
-            long durationMilliSeconds = stopwatch.ElapsedMilliseconds;
-            string outputPresentation = string.Join(",", result.Select(p => p.ToString()));
+            if (result.Count > 0 || isSaveStatisticsForEmpty)
+            {
+                long elapsedTicks = stopwatch.ElapsedTicks;
+                long durationMilliSeconds = stopwatch.ElapsedMilliseconds;
+                string outputPresentation = string.Join(",", result.Select(p => p.ToString()));
 
-            StatisticAccumulator.SaveStatisticData(outputPresentation, elapsedTicks, durationMilliSeconds, DateTime.Now, null);
+                StatisticAccumulator.SaveStatisticData(outputPresentation, elapsedTicks, durationMilliSeconds, DateTime.Now, null);
+            }
+            else
+            {
+                StatisticAccumulator.RemoveStatisticData();
+            }
+
             return result;
         }
     }

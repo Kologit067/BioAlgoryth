@@ -12,7 +12,7 @@ namespace ExactStringCompare
     public class KnuthCompare : StringPreprocessing
     {
         //--------------------------------------------------------------------------------------
-        public List<int> FindSubstring(string text, string pattern)
+        public List<int> FindSubstring(string text, string pattern, bool isSaveStatisticsForEmpty = true)
         {
             List<int> result = new List<int>();
             SpPreprocessString(pattern);
@@ -49,6 +49,18 @@ namespace ExactStringCompare
 
                     i += stiff;
                 }
+            }
+            if (result.Count > 0 || isSaveStatisticsForEmpty)
+            {
+                elapsedTicks = stopwatch.ElapsedTicks;
+                durationMilliSeconds = stopwatch.ElapsedMilliseconds;
+                _outputPresentation = string.Join(",", result.Select(p => p.ToString()));
+
+                StatisticAccumulator.SaveStatisticData(_outputPresentation, elapsedTicks, durationMilliSeconds, DateTime.Now, null);
+            }
+            else
+            {
+                StatisticAccumulator.RemoveStatisticData();
             }
 
             return result;

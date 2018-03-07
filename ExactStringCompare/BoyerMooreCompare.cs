@@ -179,7 +179,7 @@ namespace ExactStringCompare
 //            return result;
 //        }
         //--------------------------------------------------------------------------------------
-        public List<int> FindSubstringBadSymbolAdv(string text, string pattern)
+        public List<int> FindSubstringBadSymbolAdv(string text, string pattern, bool isSaveStatisticsForEmpty = true)
         {
             stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -281,17 +281,24 @@ namespace ExactStringCompare
             }
 
             stopwatch.Stop();
-            elapsedTicks = stopwatch.ElapsedTicks;
-            durationMilliSeconds = stopwatch.ElapsedMilliseconds;
-            _outputPresentation = string.Join(",", result.Select(p => p.ToString()));
+            if (result.Count > 0 || isSaveStatisticsForEmpty)
+            {
+                elapsedTicks = stopwatch.ElapsedTicks;
+                durationMilliSeconds = stopwatch.ElapsedMilliseconds;
+                _outputPresentation = string.Join(",", result.Select(p => p.ToString()));
 
-            StatisticAccumulator.SaveStatisticData(_outputPresentation, elapsedTicks, durationMilliSeconds, DateTime.Now, null);
+                StatisticAccumulator.SaveStatisticData(_outputPresentation, elapsedTicks, durationMilliSeconds, DateTime.Now, null);
+            }
+            else
+            {
+                StatisticAccumulator.RemoveStatisticData();
+            }
 
             ReturnToPool();
             return result;
         }
         //--------------------------------------------------------------------------------------
-        public List<int> FindSubstringBadSymbol(string text, string pattern)
+        public List<int> FindSubstringBadSymbol(string text, string pattern, bool isSaveStatisticsForEmpty = true)
         {
             stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -341,11 +348,18 @@ namespace ExactStringCompare
             }
 
             stopwatch.Stop();
-            elapsedTicks = stopwatch.ElapsedTicks;
-            durationMilliSeconds = stopwatch.ElapsedMilliseconds;
-            _outputPresentation = string.Join(",", result.Select(p => p.ToString()));
+            if (result.Count > 0 || isSaveStatisticsForEmpty)
+            {
+                elapsedTicks = stopwatch.ElapsedTicks;
+                durationMilliSeconds = stopwatch.ElapsedMilliseconds;
+                _outputPresentation = string.Join(",", result.Select(p => p.ToString()));
 
-            StatisticAccumulator.SaveStatisticData(_outputPresentation, elapsedTicks, durationMilliSeconds, DateTime.Now, null);
+                StatisticAccumulator.SaveStatisticData(_outputPresentation, elapsedTicks, durationMilliSeconds, DateTime.Now, null);
+            }
+            else
+            {
+                StatisticAccumulator.RemoveStatisticData();
+            }
 
             return result;
         }
@@ -420,7 +434,7 @@ namespace ExactStringCompare
             return result;
         }
         //--------------------------------------------------------------------------------------
-        public List<int> FindSubstring(string text, string pattern)
+        public List<int> FindSubstring(string text, string pattern, bool isSaveStatisticsForEmpty = true)
         {
             stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -491,16 +505,23 @@ namespace ExactStringCompare
             }
 
             stopwatch.Stop();
-            long elapsedTicks = stopwatch.ElapsedTicks;
-            long durationMilliSeconds = stopwatch.ElapsedMilliseconds;
-            _outputPresentation = string.Join(",", result.Select(p => p.ToString()));
+            if (result.Count > 0 || isSaveStatisticsForEmpty)
+            {
+                long elapsedTicks = stopwatch.ElapsedTicks;
+                long durationMilliSeconds = stopwatch.ElapsedMilliseconds;
+                _outputPresentation = string.Join(",", result.Select(p => p.ToString()));
 
-            StatisticAccumulator.SaveStatisticData(_outputPresentation, elapsedTicks, durationMilliSeconds, DateTime.Now, null);
+                StatisticAccumulator.SaveStatisticData(_outputPresentation, elapsedTicks, durationMilliSeconds, DateTime.Now, null);
+            }
+            else
+            {
+                StatisticAccumulator.RemoveStatisticData();
+            }
 
             return result;
         }
         //--------------------------------------------------------------------------------------
-        public List<int> FindSubstringByGoodSuffixBadSymbolAdv(string text, string pattern)
+        public List<int> FindSubstringByGoodSuffixBadSymbolAdv(string text, string pattern, bool isSaveStatisticsForEmpty = true)
         {
             stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -587,11 +608,18 @@ namespace ExactStringCompare
             }
 
             stopwatch.Stop();
-            long elapsedTicks = stopwatch.ElapsedTicks;
-            long durationMilliSeconds = stopwatch.ElapsedMilliseconds;
-            _outputPresentation = string.Join(",", result.Select(p => p.ToString()));
+            if (result.Count > 0 || isSaveStatisticsForEmpty)
+            {
+                long elapsedTicks = stopwatch.ElapsedTicks;
+                long durationMilliSeconds = stopwatch.ElapsedMilliseconds;
+                _outputPresentation = string.Join(",", result.Select(p => p.ToString()));
 
-            StatisticAccumulator.SaveStatisticData(_outputPresentation, elapsedTicks, durationMilliSeconds, DateTime.Now, null);
+                StatisticAccumulator.SaveStatisticData(_outputPresentation, elapsedTicks, durationMilliSeconds, DateTime.Now, null);
+            }
+            else
+            {
+                StatisticAccumulator.RemoveStatisticData();
+            }
 
             return result;
         }
