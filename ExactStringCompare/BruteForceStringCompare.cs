@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace ExactStringCompare
 {
+    //--------------------------------------------------------------------------------------
+    // class BruteForceStringCompare 
+    //--------------------------------------------------------------------------------------
     public class BruteForceStringCompare
     {
         public static readonly string AlgorythmName = "BFSC";

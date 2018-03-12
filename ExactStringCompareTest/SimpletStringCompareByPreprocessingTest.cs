@@ -10,7 +10,7 @@ using BaseContract;
 namespace ExactStringCompareTest
 {
     //--------------------------------------------------------------------------------------
-    // lass SimpletStringCompareByPreprocessingTest
+    // class SimpletStringCompareByPreprocessingTest
     //--------------------------------------------------------------------------------------
     [TestClass]
     public class SimpletStringCompareByPreprocessingTest

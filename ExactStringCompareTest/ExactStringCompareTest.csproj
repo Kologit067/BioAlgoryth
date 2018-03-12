@@ -55,6 +55,7 @@
     <Compile Include="BruteForceStringCompareTest.cs" />
     <Compile Include="BoyerMooreCompare\BoyerMooreCompareTest.cs" />
     <Compile Include="BoyerMooreCompare\BoyerMooreCompareBadSymbolAdvTest.cs" />
+    <Compile Include="AndShiftTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
