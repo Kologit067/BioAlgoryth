@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AndShift.cs" />
     <Compile Include="BoyerMooreCompare.cs" />
     <Compile Include="BruteForceStringCompare.cs" />
     <Compile Include="KnuthCompare.cs" />
