@@ -476,20 +476,20 @@ namespace ExactStringCompare
                     {
                         if (rValue[text[j0]] < j)
                         {
-                            symbolStiff  = rValue[text[j0]] - j;
+                            symbolStiff  = j - rValue[text[j0]];
                             StatisticAccumulator.IterationCountInc();
                         }
                     }
                     else
                         symbolStiff = j0 + 1 - i;
-
+ 
                     if (j < pattern.Length - 1)
                     {
                         StatisticAccumulator.IterationCountInc(2);
-                        j++;
+//                        j++;
                         if (lisValue[j] > 0)
                         {
-                            suffixStiff = lenPattern - lisValue[j];
+                            suffixStiff = lenPattern - lisValue[j] - 1;
                         }
                         else
                         {
