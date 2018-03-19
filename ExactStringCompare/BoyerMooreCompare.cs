@@ -560,11 +560,13 @@ namespace ExactStringCompare
                     int symbolStiff = 1;
 
                     StatisticAccumulator.IterationCountInc(4);
-                    if (rAdvValue.ContainsKey(text[j0]))
+                    List<int> rAdv = null;
+
+                    if (rAdvValue.TryGetValue(text[j0], out rAdv))
                     {
                         StatisticAccumulator.IterationCountInc(3);
                         int l = 0;
-                        while (l < rAdvValue[text[j0]].Count && rAdvValue[text[j0]][l] < j)
+                        while (l < rAdv.Count && rAdv[l] < j)
                         {
                             l++;
                             StatisticAccumulator.IterationCountInc(3);
@@ -575,12 +577,14 @@ namespace ExactStringCompare
                             StatisticAccumulator.IterationCountInc();
                         }
                         StatisticAccumulator.IterationCountInc(3);
-                        int maxPos = rAdvValue[text[j0]][l];
-                        if (l >= j)
-                            symbolStiff = j0 + 1 -i;
+                        int maxPos = rAdv[l];
+                        if (maxPos >= j)
+                        {
+                            symbolStiff = j + 1;
+                        }
                         else
                         {
-                            symbolStiff  = maxPos - j;
+                            symbolStiff = j - maxPos;
                         }
                     }
                     else
@@ -589,10 +593,10 @@ namespace ExactStringCompare
                     if (j < pattern.Length - 1)
                     {
                         StatisticAccumulator.IterationCountInc(3);
-                        j++;
+//                        j++;
                         if (lisValue[j] > 0)
                         {
-                            suffixStiff = lenPattern - lisValue[j];
+                            suffixStiff = lenPattern - lisValue[j] - 1;
                         }
                         else
                         {

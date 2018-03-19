@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="BoyerMooreCompare\BoyerMooreCompareBadSymbolTest.cs" />
     <Compile Include="BoyerMooreCompare\BoyerMooreCompareGoodSuffixTest.cs" />
+    <Compile Include="BoyerMooreCompare\BoyerMooreAdvComparerTest.cs" />
     <Compile Include="SimpletStringCompareByPreprocessingTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BruteForceStringCompareTest.cs" />
