@@ -51,7 +51,7 @@ namespace ExactStringCompareTest
             boyerMooreCompare.FindSubstringBadSymbolAdv(text, pattern);
             boyerMooreCompare.FindSubstringBadSymbol(text, pattern);
             // assert
-            string expected = "8,9,10";
+            //string expected = "8,9,10";
 //            Assert.AreEqual(boyerMooreCompare.OutputPresentation, expected, $"Wrong result:{boyerMooreCompare.OutputPresentation}, expected:{expected}");
 
         }
@@ -170,7 +170,7 @@ namespace ExactStringCompareTest
                 });
             }
             // assert
-            string expected = "8,9,10";
+            //string expected = "8,9,10";
             //Assert.AreEqual(boyerMooreCompare.OutputPresentation, expected, $"Wrong result:{boyerMooreCompare.OutputPresentation}, expected:{expected}");
 
         }

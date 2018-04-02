@@ -51,7 +51,7 @@ namespace ExactStringCompareTest
             // act
             andShift.FindSubstring(text, pattern);
             // assert
-            string expected = "8,9,10";
+            //string expected = "8,9,10";
             //            Assert.AreEqual(boyerMooreCompare.OutputPresentation, expected, $"Wrong result:{boyerMooreCompare.OutputPresentation}, expected:{expected}");
 
         }

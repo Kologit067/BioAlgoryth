@@ -47,6 +47,7 @@
     <Compile Include="EnumerateintegervariableSubsequence.cs" />
     <Compile Include="EnumerateNotDecreasedSubSequence.cs" />
     <Compile Include="EnumerateSetOnPosition.cs" />
+    <Compile Include="PermitationBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

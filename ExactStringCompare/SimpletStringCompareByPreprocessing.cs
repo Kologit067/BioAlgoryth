@@ -10,14 +10,14 @@ namespace ExactStringCompare
     public class SimpletStringCompareByPreprocessing : StringPreprocessing
     {
         public static readonly string AlgorythmName = "SSCP";
-        private string _outputPresentation;
-        public string OutputPresentation
-        {
-            get
-            {
-                return _outputPresentation;
-            }
-        }
+        //private string _outputPresentation;
+        //public string OutputPresentation
+        //{
+        //    get
+        //    {
+        //        return _outputPresentation;
+        //    }
+        //}
 
         public List<int> FindSubstring(string text, string pattern, bool isSaveStatisticsForEmpty = true)
         {

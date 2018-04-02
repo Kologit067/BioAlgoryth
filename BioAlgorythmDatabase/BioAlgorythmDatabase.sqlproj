@@ -80,8 +80,8 @@
     <Build Include="dbo\User Defined Types\DNAMappingSolutionType.sql" />
     <Build Include="dbo\User Defined Types\DNAMappingPerfomanceType.sql" />
     <Build Include="dbo\Stored Procedures\deleteDNAMappingPerfomance.sql" />
-    <Build Include="dbo\Views\vw_DNAMappingCompareTriangleDifferences.sql" />
-    <Build Include="dbo\Views\vw_DNAMappingCompareBoundaryBravhDifferences.sql" />
+    <None Include="dbo\Views\vw_DNAMappingCompareTriangleDifferences.sql" />
+    <None Include="dbo\Views\vw_DNAMappingCompareBoundaryBravhDifferences.sql" />
     <Build Include="dbo\Stored Procedures\deleteRegulatoryMotifPerfomance.sql" />
     <Build Include="dbo\Tables\FindPatternPerfomance.sql" />
     <Build Include="dbo\Stored Procedures\deleteFindPatternPerfomance.sql" />
