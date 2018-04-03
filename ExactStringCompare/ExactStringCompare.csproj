@@ -43,10 +43,12 @@
     <Compile Include="AndShift.cs" />
     <Compile Include="BoyerMooreCompare.cs" />
     <Compile Include="BruteForceStringCompare.cs" />
+    <Compile Include="Helpers\SuffixTreeNode.cs" />
     <Compile Include="KnuthCompare.cs" />
     <Compile Include="SimpletStringCompareByPreprocessing.cs" />
     <Compile Include="StringPreprocessing.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SuffixTreeSimple.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BaseContract\BaseContract.csproj">

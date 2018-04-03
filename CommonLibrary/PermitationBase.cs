@@ -15,26 +15,31 @@ namespace CommonLibrary
         public PermitationBase(int pSize, int pLimit)
             : base(pSize)
         {
+            _fBreakElement = -1;
             _fSize = pSize; 
             _fLimit = pLimit;
             _fCurrentSet = Enumerable.Repeat(0, pSize).ToList(); // new List<int>();
             _freePositions = new int[_fLimit];
+            _freePositions[0] = 1;
         }
         //--------------------------------------------------------------------------------------
         protected override int FirstElement(int pPosition)
         {
-            return NextElement(pPosition, 0);
+            return NextElementFromStart( 0);
         }
         //--------------------------------------------------------------------------------------
         protected override bool NextElement(int pPosition)
         {
-            int pos = NextElement(pPosition, _fCurrentSet[pPosition] + 1);
-            return pos != _fBreakElement;
+            int pos = NextElementFromStart( _fCurrentSet[pPosition] + 1);
+            bool result = pos != _fBreakElement;
+            if (result)
+            _fCurrentSet[pPosition] = pos;
+            return result;
         }
         //--------------------------------------------------------------------------------------
-        protected int NextElement(int pPosition, int pStart)
+        private int NextElementFromStart(int pStart)
         {
-            int i = 0;
+            int i = pStart;
             while (i < _fLimit)
             {
                 if (_freePositions[i] == 0)
@@ -54,7 +59,7 @@ namespace CommonLibrary
         //--------------------------------------------------------------------------------------
         protected override bool IsCompleteCondition()
         {
-            if (_fCurrentPosition > _fSize - 1)
+            if (_fCurrentPosition >= _fSize - 1)
             {
                 return true;
             }
@@ -88,6 +93,7 @@ namespace CommonLibrary
 
         protected override void RemoveAction(int p)
         {
+            _freePositions[p] = 0;
         }
 
         protected override void SupplementInitial()
