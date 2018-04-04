@@ -43,6 +43,7 @@
     <Compile Include="IDNAMappingStatisticAccumulator.cs" />
     <Compile Include="IRegulatoryMotifsStatisticAccumulator.cs" />
     <Compile Include="IStringCompareAccumulator.cs" />
+    <Compile Include="ISuffixTreeSimpleAccumulator.cs" />
     <Compile Include="Objects\AlgorythmParameters.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

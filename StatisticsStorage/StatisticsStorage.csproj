@@ -49,6 +49,7 @@
     <Compile Include="Accumulators\RegulatoryMotifsStatisticAccumulator.cs" />
     <Compile Include="Accumulators\Objects\StatisyicsPerfomance.cs" />
     <Compile Include="Accumulators\StringCompareAccumulator.cs" />
+    <Compile Include="Accumulators\SuffixTreeSimpleAccumulator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Savers\DNAMappingSaver.cs" />
     <Compile Include="Savers\RegulatoryMotifSaver.cs" />

@@ -57,6 +57,7 @@
     <Compile Include="BoyerMooreCompare\BoyerMooreCompareTest.cs" />
     <Compile Include="BoyerMooreCompare\BoyerMooreCompareBadSymbolAdvTest.cs" />
     <Compile Include="AndShiftTest.cs" />
+    <Compile Include="SuffixTreeSimpleTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
