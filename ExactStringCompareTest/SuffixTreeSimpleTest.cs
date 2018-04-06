@@ -2,12 +2,69 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CommonLibrary;
 using BaseContract;
+using StatisticsStorage.Accumulators;
+using ExactStringCompare;
+using StatisticsStorage.Savers;
+using System.Linq;
 
 namespace ExactStringCompareTest
 {
     [TestClass]
     public class SuffixTreeSimpleTest
     {
+        [TestMethod]
+        public void SuffixTreeSimpleVariant1()
+        {
+            // arrange
+            string text = "banana"; 
+            string expectedTree = "[0-0]([1-1]([6-6](),[2-3]([6-6](),[4-6]())),[0-6](),[2-3]([6-6](),[4-6]()))";
+            SuffixTreeSimple suffixTree = new SuffixTreeSimple()
+            {
+                StatisticAccumulator = new FakeSuffixTreeAccumulator()
+            };
+            // act
+            suffixTree.Execute(text);
+            // assert
+            var result = suffixTree.NodePresentationAsString();
+            Assert.AreEqual(result, expectedTree, "Wrong tree.");
+
+        }
+
+        [TestMethod]
+        public void SuffixTreeSimpleVariant2()
+        {
+            // arrange
+            string text = "aaaaa"; 
+            string expectedTree = "[0-0]([0-0]([5-5](),[1-1]([5-5](),[2-2]([5-5](),[3-3]([5-5](),[4-5]())))))";
+            SuffixTreeSimple suffixTree = new SuffixTreeSimple()
+            {
+                StatisticAccumulator = new FakeSuffixTreeAccumulator()
+            };
+            // act
+            suffixTree.Execute(text);
+            // assert
+            var result = suffixTree.NodePresentationAsString();
+            Assert.AreEqual(result, expectedTree, "Wrong tree.");
+
+        }
+
+        [TestMethod]
+        public void SuffixTreeSimpleVariant3()
+        {
+            // arrange
+            string text = "aaaca";
+            string expectedTree = "[0-0]([0-0]([5-5](),[1-1]([2-5](),[3-5]()),[3-5]()),[3-5]())";
+            SuffixTreeSimple suffixTree = new SuffixTreeSimple()
+            {
+                StatisticAccumulator = new FakeSuffixTreeAccumulator()
+            };
+            // act
+            suffixTree.Execute(text);
+            // assert
+            var result = suffixTree.NodePresentationAsString();
+            Assert.AreEqual(result, expectedTree, "Wrong tree.");
+
+        }
         //--------------------------------------------------------------------------------------
         // multiple testing
         //--------------------------------------------------------------------------------------
@@ -18,7 +75,7 @@ namespace ExactStringCompareTest
             int textLength = 20;
             char[] alphabet = new char[] { 'a', 'c' };
             EnumerateCharSetForSuffixTreeSimple enumeration = new EnumerateCharSetForSuffixTreeSimple(
-                alphabet, patternLength, textLength);
+                alphabet, textLength);
             // act
             enumeration.Execute();
             // assert
@@ -26,14 +83,13 @@ namespace ExactStringCompareTest
         }
         //--------------------------------------------------------------------------------------
         [TestMethod]
-        public void SimpletStringCompareByPreprocessingCharSet3PatterText()
+        public void SuffixTreeSimpleCharSet3Text14()
         {
             // arrange
-            int patternLength = 4;
-            int textLength = 10;
+            int textLength = 14;
             char[] alphabet = new char[] { 'a', 'c', 'g' };
             EnumerateCharSetForSuffixTreeSimple enumeration = new EnumerateCharSetForSuffixTreeSimple(
-                alphabet, patternLength, textLength);
+                alphabet, textLength);
             // act
             enumeration.Execute();
             // assert
@@ -41,14 +97,13 @@ namespace ExactStringCompareTest
         }
         //--------------------------------------------------------------------------------------
         [TestMethod]
-        public void SimpletStringCompareByPreprocessingCharSet4PatterText()
+        public void SuffixTreeSimpleCharSet4Text11()
         {
             // arrange
-            int patternLength = 4;
-            int textLength = 7;
+            int textLength = 11;
             char[] alphabet = new char[] { 'a', 'c', 'g', 't' };
             EnumerateCharSetForSuffixTreeSimple enumeration = new EnumerateCharSetForSuffixTreeSimple(
-                alphabet, patternLength, textLength);
+                alphabet, textLength);
             // act
             enumeration.Execute();
             // assert
@@ -56,18 +111,17 @@ namespace ExactStringCompareTest
         }
         //--------------------------------------------------------------------------------------
         [TestMethod]
-        public void ProcessInputDataBuAdditionTestLength7Number3Pattern4Step987()
+        public void SuffixTreeSimpleCharSet4Text21WithStep()
         {
             // arrange
             int step = 9879;
             int bufferSize = 1000;
-            int patternLength = 7;
-            int textLength = 14;
+            int textLength = 21;
             char[] alphabet = new char[] { 'a', 'c', 'g', 't' };
-            StringCompareAccumulator statisticAccumulator = new StringCompareAccumulator(new StringCompareSaver(), BruteForceStringCompare.AlgorythmName,
-                patternLength, textLength, bufferSize, alphabet.Length);
+            SuffixTreeAccumulator statisticAccumulator = new SuffixTreeAccumulator(new SuffixTreeSaver(), BruteForceStringCompare.AlgorythmName,
+                textLength, bufferSize, alphabet.Length);
             statisticAccumulator.Delete();
-            int size = patternLength + textLength;
+            int size = textLength;
             long max = 1L << (2 * size);
             long sequenceAsNumber = 0;
             int[] sequence = new int[size];
@@ -91,14 +145,13 @@ namespace ExactStringCompareTest
                 }
                 sequenceAsNumber += step;
                 charSequence = sequence.Select(j => alphabet[j]).ToArray();
-                string pattern = new string(charSequence.Take(patternLength).ToArray());
-                string text = new string(charSequence.Skip(patternLength).Take(textLength).ToArray());
-                BruteForceStringCompare bruteForceStringCompare = new BruteForceStringCompare()
+                string text = new string(charSequence);
+                SuffixTreeSimple suffixTreeSimple = new SuffixTreeSimple()
                 {
                     StatisticAccumulator = statisticAccumulator
                 };
                 // act
-                bruteForceStringCompare.FindSubstring(text, pattern, false);
+                suffixTreeSimple.Execute(text);
 
             }
             statisticAccumulator.SaveRemain();
@@ -114,7 +167,7 @@ namespace ExactStringCompareTest
             protected int _textLength;
             protected int _step;
             protected int _stepCounter;
-            protected ISuffixTreeSimpleAccumulator _statisticAccumulator { get; set; }
+            protected ISuffixTreeAccumulator _statisticAccumulator { get; set; }
             //--------------------------------------------------------------------------------------
             public EnumerateCharSetForSuffixTreeSimple(
                 char[] pCharSet,
@@ -126,8 +179,8 @@ namespace ExactStringCompareTest
                 _textLength = pTextLength;
                 _step = pStep;
                 _stepCounter = 1;
-                _statisticAccumulator = new SuffixTreeSimpleAccumulator(new StringCompareSaver(), BruteForceStringCompare.AlgorythmName,
-                    _patternLength, _textLength, bufferSize, pCharSet.Length);
+                _statisticAccumulator = new SuffixTreeAccumulator(new SuffixTreeSaver(), BruteForceStringCompare.AlgorythmName,
+                    _textLength, bufferSize, pCharSet.Length);
                 _statisticAccumulator.Delete();
             }
             //--------------------------------------------------------------------------------------
@@ -135,15 +188,13 @@ namespace ExactStringCompareTest
             {
                 if (_fCurrentPosition == _fSize - 1 && --_stepCounter == 0)
                 {
-                    var currentSequence = _fCurrentSet.Select(i => _charSet[i]).ToList();
-                    string pattern = new string(currentSequence.Take(_patternLength).ToArray());
-                    string text = new string(currentSequence.Skip(_patternLength).Take(_textLength).ToArray());
-                    BruteForceStringCompare bruteForceStringCompare = new BruteForceStringCompare()
+                    string text = new string(_fCurrentSet.Select(i => _charSet[i]).ToArray());
+                    SuffixTreeSimple suffixTreeSimple = new SuffixTreeSimple()
                     {
                         StatisticAccumulator = _statisticAccumulator
                     };
                     // act
-                    bruteForceStringCompare.FindSubstring(text, pattern);
+                    suffixTreeSimple.Execute(text);
                     // assert
 
                     _stepCounter = _step;

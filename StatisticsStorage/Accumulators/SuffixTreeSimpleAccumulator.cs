@@ -1,4 +1,6 @@
 ﻿using BaseContract;
+using StatisticsStorage.Accumulators.Objects;
+using StatisticsStorage.Savers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,96 +9,92 @@ using System.Threading.Tasks;
 
 namespace StatisticsStorage.Accumulators
 {
-    public class SuffixTreeSimpleAccumulator : ISuffixTreeSimpleAccumulator
+    public class SuffixTreeAccumulator : ISuffixTreeAccumulator
     {
         public static readonly int SolutionLimit = 20;
-        protected List<FindPatternPerfomance> _findPatternPerfomances;
-        protected FindPatternPerfomance _currentFindPatternPerfomance;
-        protected StringCompareSaver _stringCompareSaver;
+        protected List<SuffixTreePerfomance> _suffixTreePerfomances;
+        protected SuffixTreePerfomance _currentSuffixTreePerfomance;
+        protected SuffixTreeSaver _suffixTreeSaver;
         protected int _bufferSize;
-        protected int _patternLength;
         protected int _textLength;
         protected string _algorythm;
         protected int _alphabetSize;
         //--------------------------------------------------------------------------------------------------------------------
-        public SuffixTreeSimpleAccumulator(StringCompareSaver stringCompareSaver, string algorythm, int patternLength, int textLength, int bufferSize, int alphabetSize)
+        public SuffixTreeAccumulator(SuffixTreeSaver suffixTreeSaver, string algorythm, int textLength, int bufferSize, int alphabetSize)
         {
-            _patternLength = patternLength;
             _textLength = textLength;
             _bufferSize = bufferSize;
             _alphabetSize = alphabetSize;
             _algorythm = algorythm;
-            _findPatternPerfomances = new List<FindPatternPerfomance>();
-            _stringCompareSaver = stringCompareSaver;
+            _suffixTreePerfomances = new List<SuffixTreePerfomance>();
+            _suffixTreeSaver = suffixTreeSaver;
         }
         //--------------------------------------------------------------------------------------------------------------------
-        public void CreateStatistics(string text, string pattern)
+        public void CreateStatistics(string text)
         {
-            _currentFindPatternPerfomance = new FindPatternPerfomance()
+            _currentSuffixTreePerfomance = new SuffixTreePerfomance()
             {
                 Algorithm = _algorythm,
                 TextSize = _textLength,
-                PatternSize = _patternLength,
                 AlphabetSize = _alphabetSize,
                 Text = text,
-                Pattern = pattern
             };
-            _findPatternPerfomances.Add(_currentFindPatternPerfomance);
+            _suffixTreePerfomances.Add(_currentSuffixTreePerfomance);
         }
         //--------------------------------------------------------------------------------------------------------------------
         public void IterationCountInc(int count = 1)
         {
-            _currentFindPatternPerfomance.IterationCountInc(count);
+            _currentSuffixTreePerfomance.IterationCountInc(count);
         }
         //--------------------------------------------------------------------------------------------------------------------
         public void NumberOfComparisonInc(int count = 1)
         {
-            _currentFindPatternPerfomance.NumberOfComparisonInc(count);
+            _currentSuffixTreePerfomance.NumberOfComparisonInc(count);
         }
         //--------------------------------------------------------------------------------------------------------------------
         public void SaveStatisticData(string outputPresentation, long duration, long durationMilliSeconds, DateTime dateComplete, string additionalInfo)
         {
 
-            _currentFindPatternPerfomance.SaveStatisticData(outputPresentation, duration, durationMilliSeconds, dateComplete, additionalInfo);
-            if (_findPatternPerfomances.Count >= _bufferSize)
+            _currentSuffixTreePerfomance.SaveStatisticData(outputPresentation, duration, durationMilliSeconds, dateComplete, additionalInfo);
+            if (_suffixTreePerfomances.Count >= _bufferSize)
             {
-                _stringCompareSaver.Save(_findPatternPerfomances);
-                _findPatternPerfomances.Clear();
+                _suffixTreeSaver.Save(_suffixTreePerfomances);
+                _suffixTreePerfomances.Clear();
             }
         }
         //--------------------------------------------------------------------------------------------------------------------
         public void RemoveStatisticData()
         {
-            _findPatternPerfomances.Remove(_currentFindPatternPerfomance);
+            _suffixTreePerfomances.Remove(_currentSuffixTreePerfomance);
         }
         //--------------------------------------------------------------------------------------------------------------------
         public void SaveRemain()
         {
-            if (_findPatternPerfomances.Count > 0)
-                _stringCompareSaver.Save(_findPatternPerfomances);
-            _findPatternPerfomances.Clear();
+            if (_suffixTreePerfomances.Count > 0)
+                _suffixTreeSaver.Save(_suffixTreePerfomances);
+            _suffixTreePerfomances.Clear();
         }
         //--------------------------------------------------------------------------------------------------------------------
         public string Delete()
         {
-            return _stringCompareSaver.Delete(_algorythm, _patternLength, _textLength, _alphabetSize);
+            return _suffixTreeSaver.Delete(_algorythm, _textLength, _alphabetSize);
         }
         //--------------------------------------------------------------------------------------------------------------------
     }
     //--------------------------------------------------------------------------------------------------------------------
     //  class FakeStringCompareAccumulator
     //--------------------------------------------------------------------------------------------------------------------
-    public class FakeSuffixTreeSimpleAccumulator : IStringCompareAccumulator
+    public class FakeSuffixTreeAccumulator : ISuffixTreeAccumulator
     {
         //--------------------------------------------------------------------------------------------------------------------
-        public FakeSuffixTreeSimpleAccumulator()
+        public FakeSuffixTreeAccumulator()
         {
         }
         public void IterationCountInc(int count = 1)
         { }
         public void NumberOfComparisonInc(int count = 1)
         { }
-        public void CreateStatistics(string text, string pattern) { }
+        public void CreateStatistics(string text) { }
         public void SaveStatisticData(string outputPresentation, long duration, long durationMilliSeconds, DateTime dateComplete, string additionalInfo) { }
         public void SaveRemain() { }
         public string Delete()

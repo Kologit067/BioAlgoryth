@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BaseContract
 {
-    public interface ISuffixTreeSimpleAccumulator
+    public interface ISuffixTreeAccumulator
     {
         void IterationCountInc(int count = 1);
         void NumberOfComparisonInc(int count = 1);

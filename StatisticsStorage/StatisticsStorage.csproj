@@ -46,6 +46,7 @@
     <Compile Include="Accumulators\Objects\FindPatternPerfomance.cs" />
     <Compile Include="Accumulators\Objects\RegulatoryMotifOptimalValueChange.cs" />
     <Compile Include="Accumulators\Objects\RegulatoryMotifPerfomance.cs" />
+    <Compile Include="Accumulators\Objects\SuffixTreePerfomance.cs" />
     <Compile Include="Accumulators\RegulatoryMotifsStatisticAccumulator.cs" />
     <Compile Include="Accumulators\Objects\StatisyicsPerfomance.cs" />
     <Compile Include="Accumulators\StringCompareAccumulator.cs" />
@@ -54,6 +55,7 @@
     <Compile Include="Savers\DNAMappingSaver.cs" />
     <Compile Include="Savers\RegulatoryMotifSaver.cs" />
     <Compile Include="Savers\StringCompareSaver.cs" />
+    <Compile Include="Savers\SuffixTreeSaver.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
