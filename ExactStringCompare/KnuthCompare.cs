@@ -11,6 +11,7 @@ namespace ExactStringCompare
     //--------------------------------------------------------------------------------------
     public class KnuthCompare : StringPreprocessing
     {
+        public static readonly string AlgorythmName = "KMP";
         //--------------------------------------------------------------------------------------
         public List<int> FindSubstring(string text, string pattern, bool isSaveStatisticsForEmpty = true)
         {

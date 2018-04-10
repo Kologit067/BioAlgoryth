@@ -48,6 +48,8 @@
     <Compile Include="SimpletStringCompareByPreprocessing.cs" />
     <Compile Include="StringPreprocessing.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SuffixTreeBase.cs" />
+    <Compile Include="SuffixTreeCompare.cs" />
     <Compile Include="SuffixTreeSimple.cs" />
   </ItemGroup>
   <ItemGroup>

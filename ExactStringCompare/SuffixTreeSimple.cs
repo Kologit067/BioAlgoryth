@@ -1,25 +1,22 @@
 ﻿using BaseContract;
 using ExactStringCompare.Helpers;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ExactStringCompare
 {
     //--------------------------------------------------------------------------------------
     // class SuffixTreeSimple 
     //--------------------------------------------------------------------------------------
-    public class SuffixTreeSimple
+    public class SuffixTreeSimple : SuffixTreeBase
     {
         public static readonly string AlgorythmName = "STSMP";
-        protected Stopwatch stopwatch;
-        SuffixTreeNode root;
-        public ISuffixTreeAccumulator StatisticAccumulator { get; set; }
-        //--------------------------------------------------------------------------------------
-        public SuffixTreeNode Execute(string text)
+        public SuffixTreeSimple()
+        {
+        }
+
+        public override SuffixTreeNode Execute(string text)
         {
             stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -38,9 +35,9 @@ namespace ExactStringCompare
                     {
                         SuffixTreeNode next = current.Chields[text[j]];
                         int j0 = j;
-                        int k = next.StarPosition;
+                        int k = next.StarSegment;
                         StatisticAccumulator.IterationCountInc(3);
-                        while (k <= next.EndPosition)
+                        while (k <= next.EndSegment)
                         {
                             StatisticAccumulator.IterationCountInc();
                             StatisticAccumulator.NumberOfComparisonInc();
@@ -48,7 +45,7 @@ namespace ExactStringCompare
                                 break;
                             k++;
                         }
-                        if (k > next.EndPosition)
+                        if (k > next.EndSegment)
                         {
                             StatisticAccumulator.IterationCountInc();
                             current = next;
@@ -59,22 +56,23 @@ namespace ExactStringCompare
                             SuffixTreeNode newMiddle = new SuffixTreeNode()
                             {
                                 Parent = next.Parent,
-                                StarPosition = next.StarPosition,
-                                EndPosition = k - 1,
+                                StarSegment = next.StarSegment,
+                                EndSegment = k - 1,
                                 StartSymbol = next.StartSymbol
                             };
                             SuffixTreeNode newLeaf = new SuffixTreeNode()
                             {
                                 Parent = newMiddle,
-                                StarPosition = j-1,
-                                EndPosition = lastPositionInText,
-                                StartSymbol = text[j-1]
+                                StarSegment = j - 1,
+                                EndSegment = lastPositionInText,
+                                StartSymbol = text[j - 1],
+                                StarPosition = i
                             };
                             newMiddle.Chields.Add(text[k], next);
                             newMiddle.Chields.Add(text[j-1], newLeaf);
                             newMiddle.Parent.Chields[newMiddle.StartSymbol] = newMiddle;
                             next.Parent = newMiddle;
-                            next.StarPosition = k;
+                            next.StarSegment = k;
                             next.StartSymbol = text[k];
                             break;
                         }
@@ -85,9 +83,10 @@ namespace ExactStringCompare
                         current.Chields.Add(text[j], new SuffixTreeNode()
                         {
                             Parent = current,
-                            StarPosition = j,
-                            EndPosition = lastPositionInText,
-                            StartSymbol = text[j]
+                            StarSegment = j,
+                            EndSegment = lastPositionInText,
+                            StartSymbol = text[j],
+                            StarPosition = i
                         });
                         break;
                     }
@@ -103,17 +102,6 @@ namespace ExactStringCompare
 
             return root;
         }
-        //--------------------------------------------------------------------------------------
-        public string NodePresentationAsString()
-        {
-            return NodePresentationAsString(root);
-        }
-        //--------------------------------------------------------------------------------------
-        private string NodePresentationAsString(SuffixTreeNode node)
-        {
-            return $"[{node.StarPosition}-{node.EndPosition}]({string.Join(",", node.Chields.OrderBy(n => n.Key).Select(n => NodePresentationAsString(n.Value)))})";
-        }
-        //--------------------------------------------------------------------------------------
     }
     //--------------------------------------------------------------------------------------
 }

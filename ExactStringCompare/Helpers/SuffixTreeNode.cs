@@ -10,15 +10,16 @@ namespace ExactStringCompare.Helpers
     {
         public SuffixTreeNode Parent { get; set; }
         public Dictionary<char, SuffixTreeNode> Chields { get; set; }
-        public int StarPosition { get; set; }
-        public int EndPosition { get; set; }
+        public int StarSegment { get; set; }
+        public int EndSegment { get; set; }
         public char StartSymbol { get; set; }
+        public int StarPosition { get; set; }
 
         public SuffixTreeNode()
         {
             Chields = new Dictionary<char, SuffixTreeNode>();
-            StarPosition = 0;
-            EndPosition = 0;
+            StarSegment = 0;
+            EndSegment = 0;
         }
     }
 }

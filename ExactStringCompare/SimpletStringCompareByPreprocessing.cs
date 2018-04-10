@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace ExactStringCompare
 {
+    //--------------------------------------------------------------------------------------
+    // class SimpletStringCompareByPreprocessing 
+    //--------------------------------------------------------------------------------------
     public class SimpletStringCompareByPreprocessing : StringPreprocessing
     {
         public static readonly string AlgorythmName = "SSCP";
