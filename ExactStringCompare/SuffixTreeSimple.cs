@@ -18,9 +18,12 @@ namespace ExactStringCompare
 
         public override SuffixTreeNode Execute(string text)
         {
-            stopwatch = new Stopwatch();
-            stopwatch.Start();
-            StatisticAccumulator.CreateStatistics(text);
+            if (StatisticAccumulator != null)
+            {
+                stopwatch = new Stopwatch();
+                stopwatch.Start();
+                StatisticAccumulator.CreateStatistics(text);
+            }
 
             int lastPositionInText = text.Length;
             text += "$";
@@ -36,23 +39,29 @@ namespace ExactStringCompare
                         SuffixTreeNode next = current.Chields[text[j]];
                         int j0 = j;
                         int k = next.StarSegment;
-                        StatisticAccumulator.IterationCountInc(3);
+                        if (StatisticAccumulator != null)
+                            StatisticAccumulator.IterationCountInc(3);
                         while (k <= next.EndSegment)
                         {
-                            StatisticAccumulator.IterationCountInc();
-                            StatisticAccumulator.NumberOfComparisonInc();
+                            if (StatisticAccumulator != null)
+                            {
+                                StatisticAccumulator.IterationCountInc();
+                                StatisticAccumulator.NumberOfComparisonInc();
+                            }
                             if (text[j++] != text[k])
                                 break;
                             k++;
                         }
                         if (k > next.EndSegment)
                         {
-                            StatisticAccumulator.IterationCountInc();
+                            if (StatisticAccumulator != null)
+                                StatisticAccumulator.IterationCountInc();
                             current = next;
                         }
                         else
                         {
-                            StatisticAccumulator.IterationCountInc(14);
+                            if (StatisticAccumulator != null)
+                                StatisticAccumulator.IterationCountInc(14);
                             SuffixTreeNode newMiddle = new SuffixTreeNode()
                             {
                                 Parent = next.Parent,
@@ -79,7 +88,8 @@ namespace ExactStringCompare
                     }
                     else
                     {
-                        StatisticAccumulator.IterationCountInc(2);
+                        if (StatisticAccumulator != null)
+                            StatisticAccumulator.IterationCountInc(2);
                         current.Chields.Add(text[j], new SuffixTreeNode()
                         {
                             Parent = current,
@@ -93,12 +103,15 @@ namespace ExactStringCompare
                 }
             }
 
-            stopwatch.Stop();
-            long elapsedTicks = stopwatch.ElapsedTicks;
-            long durationMilliSeconds = stopwatch.ElapsedMilliseconds;
             string outputPresentation = NodePresentationAsString(root);
+            if (StatisticAccumulator != null)
+            {
+                stopwatch.Stop();
+                long elapsedTicks = stopwatch.ElapsedTicks;
+                long durationMilliSeconds = stopwatch.ElapsedMilliseconds;
+                StatisticAccumulator.SaveStatisticData(outputPresentation, elapsedTicks, durationMilliSeconds, DateTime.Now, null);
+            }
 
-            StatisticAccumulator.SaveStatisticData(outputPresentation, elapsedTicks, durationMilliSeconds, DateTime.Now, null);
 
             return root;
         }

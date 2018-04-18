@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3706F70C-A364-4622-9D0F-C2192536C3CF}</ProjectGuid>
+    <ProjectGuid>{57276443-05FA-42B0-8456-C444F6D3E75E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ExactStringCompareTest</RootNamespace>
-    <AssemblyName>ExactStringCompareTest</AssemblyName>
+    <RootNamespace>ExactStringCompareTest1</RootNamespace>
+    <AssemblyName>ExactStringCompareTest1</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -48,21 +48,11 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BoyerMooreCompare\BoyerMooreCompareBadSymbolTest.cs" />
-    <Compile Include="BoyerMooreCompare\BoyerMooreCompareGoodSuffixTest.cs" />
-    <Compile Include="BoyerMooreCompare\BoyerMooreAdvComparerTest.cs" />
-    <Compile Include="SimpletStringCompareByPreprocessingTest.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="BruteForceStringCompareTest.cs" />
-    <Compile Include="BoyerMooreCompare\BoyerMooreCompareTest.cs" />
-    <Compile Include="BoyerMooreCompare\BoyerMooreCompareBadSymbolAdvTest.cs" />
-    <Compile Include="AndShiftTest.cs" />
-    <Compile Include="SuffixTreeSimpleTest.cs" />
     <Compile Include="SuffixTreeCompareTest.cs" />
-    <Compile Include="KnuthCompareTest.cs" />
+    <Compile Include="UnitTest1.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -83,10 +73,8 @@
       <Name>StatisticsStorage</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <None Include="Scripts\FindPatternPerfomance_2Algorythm_Compare.sql" />
-    <None Include="Scripts\FindPatternPerfomance_Statistics.sql" />
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

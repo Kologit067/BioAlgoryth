@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace ExactStringCompareTest
+namespace ExactStringCompareTest1
 {
     [TestClass]
     public class UnitTest1
