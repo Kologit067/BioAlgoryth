@@ -12,7 +12,7 @@ namespace CommonLibrary
     //--------------------------------------------------------------------------------------
     public abstract class EnumerateSetOnPosition<T,R>
     {
-        protected List<T> _fCurrentSet;		// текущий набор элементов
+        protected List<T> _fCurrentSet;		    // текущий набор элементов
         protected int _fCurrentPosition;		// текущая глубина при обходе дерева
         protected T _fBreakElement = default(T);
         // statistics
