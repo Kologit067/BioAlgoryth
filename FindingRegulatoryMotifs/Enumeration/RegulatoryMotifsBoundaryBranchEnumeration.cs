@@ -96,7 +96,7 @@ namespace FindingRegulatoryMotifs.Enumeration
             }
             if (_fCurrentPosition >= _fSize - 1)
             {
-                return true;
+                //return true;
                 if (!_isOptimizitaion)
                 {
                     _motif = _fCurrentSet.Select(i => _charSet[i]).ToList();

@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EnumerateBinVectors.cs" />
     <Compile Include="EnumerateIntegerCharSet.cs" />
     <Compile Include="EnumerateIntegerFullSet.cs" />
     <Compile Include="EnumerateIntegerTrangle.cs" />

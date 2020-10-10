@@ -18,10 +18,11 @@ namespace ArticulationPoints
         public List<int> FindArticulationPoints(IGraph<T> pGraph) 
         {
             _fGraph = pGraph;
+            _fArticulationPoints.Clear();
 
             ProcessLevel(0, _fGraph.Vertices[0], 0);
 
-            return _fArticulationPoints;
+            return _fArticulationPoints.OrderBy(p => p).ToList();
         }
         //-------------------------------------------------------------------------------------------------------
         private int ProcessLevel(int pVertexNumber, IVertex pVertex, int pLevel)
@@ -29,6 +30,7 @@ namespace ArticulationPoints
             int result = pLevel;
             int topFromSelf = pLevel;
             int topFromChildren = pLevel;
+            int bottomFromChildren = 0;
             pVertex.SetProcessed();
             pVertex.Level = pLevel;
             int newChildren = 0;
@@ -46,11 +48,13 @@ namespace ArticulationPoints
                     int childRev = ProcessLevel(pVertex.AdjacentVertices[i], curVertex, pLevel + 1);
                     if (childRev < topFromChildren)
                         topFromChildren = childRev;
+                    if (childRev > bottomFromChildren)
+                        bottomFromChildren = childRev;
                     newChildren++;
                 }
             }
 
-            if (topFromChildren >= pLevel && (newChildren > 0 && pLevel > 0 || newChildren > 1 ))
+            if (bottomFromChildren >= pLevel && (newChildren > 0 && pLevel > 0 || newChildren > 1 ))
                 _fArticulationPoints.Add(pVertexNumber);
 
             return Math.Min(topFromChildren, topFromSelf);

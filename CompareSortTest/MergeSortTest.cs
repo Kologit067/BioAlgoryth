@@ -165,7 +165,6 @@ namespace CompareSortTest
     //--------------------------------------------------------------------------------------
     public class RepeatedEnumerateMergeSort : EnumerateIntegerFullSet
     {
-        protected int _fSize;
         protected int _step;
         protected int _stepCounter;
         protected ISortingAccumulator _sortingAccumulator { get; set; }

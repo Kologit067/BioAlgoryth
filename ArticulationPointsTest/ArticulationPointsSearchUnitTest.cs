@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using ArticulationPoints;
 using GraphLib;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -118,8 +119,66 @@ namespace ArticulationPointsTest
             Assert.AreEqual(expectedResult, actualResult, "");
         }
         //-------------------------------------------------------------------------------------------------------
+        [TestMethod]
+        public void FindArticulationPointsTest6()
+        {
+            // arrange
+            ArticulationPointsSearch<CVertex> articulationPointsSearch = new ArticulationPointsSearch<CVertex>();
+            Graph<CVertex> graph = new Graph<CVertex>(6);
+            graph.AddEdge(0, 1);
+            graph.AddEdge(0, 2);
+            graph.AddEdge(0, 3);
+            graph.AddEdge(0, 4);
+            graph.AddEdge(0, 5);
+            string expectedResult = "0";
+            // act            
+            List<int> points = articulationPointsSearch.FindArticulationPoints(graph);
+            string actualResult = string.Join(",", points.OrderBy(p => p));
+            // assert
+            Assert.AreEqual(expectedResult, actualResult, "");
+        }
         //-------------------------------------------------------------------------------------------------------
         [TestMethod]
+        public void FindArticulationPointsTest7()
+        {
+            // arrange
+            ArticulationPointsSearch<CVertex> articulationPointsSearch = new ArticulationPointsSearch<CVertex>();
+            Graph<CVertex> graph = new Graph<CVertex>(6);
+            graph.AddEdge(0, 1);
+            graph.AddEdge(1, 2);
+            graph.AddEdge(0, 3);
+            graph.AddEdge(0, 4);
+            graph.AddEdge(1, 3);
+            string expectedResult = "0,1";
+            // act            
+            List<int> points = articulationPointsSearch.FindArticulationPoints(graph);
+            string actualResult = string.Join(",", points.OrderBy(p => p));
+            // assert
+            Assert.AreEqual(expectedResult, actualResult, "");
+        }
+        //-------------------------------------------------------------------------------------------------------
+        [TestMethod]
+        public void FindArticulationPointsTest8()
+        {
+            // arrange
+            ArticulationPointsSearch<CVertex> articulationPointsSearch = new ArticulationPointsSearch<CVertex>();
+            Graph<CVertex> graph = new Graph<CVertex>(5);
+            graph.AddEdge(0, 1);
+            graph.AddEdge(0, 2);
+            graph.AddEdge(0, 3);
+            graph.AddEdge(0, 4);
+            graph.AddEdge(1, 2);
+            string expectedResult = "0";
+            // act            
+            List<int> points = articulationPointsSearch.FindArticulationPoints(graph);
+            string actualResult = string.Join(",", points.OrderBy(p => p));
+            // assert
+            Assert.AreEqual(expectedResult, actualResult, "");
+        }
+        //-------------------------------------------------------------------------------------------------------
+        // Brute force
+        //-------------------------------------------------------------------------------------------------------
+        [TestMethod] 
         public void ArticulationPointsBruteForceTest1()
         {
             // arrange
@@ -228,6 +287,36 @@ namespace ArticulationPointsTest
         public void FindArticulationPointsTest()
         {
             // arrange
+            int size = 5;
+            // act            
+            EnumerateGraphBySize(size);
+            // assert
+        }
+        //-------------------------------------------------------------------------------------------------------
+        [TestMethod]
+        public void FindArticulationPointsTestBulk6()
+        {
+            // arrange
+            int size = 6;
+            // act            
+            EnumerateGraphBySize(size);
+            // assert
+        }
+        //-------------------------------------------------------------------------------------------------------
+        [TestMethod]
+        public void FindArticulationPointsTestBulk7()
+        {
+            // arrange
+            int size = 7;
+            // act            
+            EnumerateGraphBySize(size);
+            // assert
+        }
+        //-------------------------------------------------------------------------------------------------------
+        [TestMethod]
+        public void FindArticulationPointsTestBulk8()
+        {
+            // arrange
             int size = 8;
             // act            
             EnumerateGraphBySize(size);
@@ -248,9 +337,10 @@ namespace ArticulationPointsTest
                 Graph<CVertex> graph1 = new Graph<CVertex>(pSize);
                 Graph<CVertex> graph2 = new Graph<CVertex>(pSize);
                 int val = k;
-                for (int i = 0; i < maxI; i++)
+                StringBuilder iAsString = new StringBuilder();
+                for (int i = 0; i < pSize; i++)
                 {
-                    for (int j = 0; j < pSize; j++)
+                    for (int j = i+1; j < pSize; j++)
                     {
                         int bin = val & 1;
                         if (bin != 0)
@@ -260,15 +350,18 @@ namespace ArticulationPointsTest
                             graph2.AddEdge(i, j);
                         }
                         val >>= 1;
-                    }
-                    if (connectedСomponent.IsConnected(graph))
-                    {
-                        List<int> points1 = articulationPointsSearch.FindArticulationPoints(graph1);
-                        List<int> points2 = articulationPointsBruteForce.FindArticulationPoints(graph2);
-                        Assert.AreEqual(string.Join(",", points2), string.Join(",", points1), "Different result - articulationPointsSearch and articulationPointsBruteForce.");
+                        string sbin = (bin == 0 ? "0" : "1");
+                        iAsString.Append(sbin);
                     }
                 }
-
+                if (connectedСomponent.IsConnected(graph))
+                {
+                    List<int> points1 = articulationPointsSearch.FindArticulationPoints(graph1);
+                    List<int> points2 = articulationPointsBruteForce.FindArticulationPoints(graph2);
+                    string points1AsString = string.Join(",", points1);
+                    string points2AsString = string.Join(",", points2);
+                    Assert.AreEqual(points2AsString, points1AsString, "Different result - articulationPointsSearch and articulationPointsBruteForce.");
+                }
             }
         }
         //-------------------------------------------------------------------------------------------------------

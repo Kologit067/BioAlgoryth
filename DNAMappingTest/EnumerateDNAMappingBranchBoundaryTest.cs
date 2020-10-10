@@ -12,6 +12,7 @@ namespace DNAMappingTest
 {
     [TestClass]
     //--------------------------------------------------------------------------------------
+    // class EnumerateDNAMappingBranchBoundaryTest
     //--------------------------------------------------------------------------------------
     public class EnumerateDNAMappingBranchBoundaryTest
     {
