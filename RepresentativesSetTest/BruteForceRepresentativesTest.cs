@@ -8,6 +8,67 @@ namespace RepresentativesSetTest
     [TestClass]
     public class BruteForceRepresentativesTest
     {
+        //--------------------------------------------------------------------------------------
+        [TestMethod]
+        public void DefineSumOfBitTest()
+        {
+            // arrange
+            int[] expected = { 0, 1, 1, 2, 1, 2, 2, 3, 1, 2, 2, 3, 2, 3, 3, 4, 1};
+
+            for (int i = 0; i < expected.Length; i++)
+            {
+                // act 
+                int result = BruteForceRepresentatives.DefineSumOfBit(i, 32, 6);
+                // assert
+                Assert.AreEqual(expected[i], result, $"Unexpected DefineSumOfBit result for {i} - {result}, Expected - {expected[i]}");
+            }
+        }
+
+        //--------------------------------------------------------------------------------------
+        [TestMethod]
+        public void DefineSumOfBitCompareTest()
+        {
+            // arrange
+
+            for (long i = 0; i < (long)1 << 12; i++)
+            {
+                // act 
+                long result1 = BruteForceRepresentatives.DefineSumOfBit((int)i, 1 << 12, 64);
+                long result2 = BruteForceRepresentatives.DefineSumOfBitVer2(i);
+                // assert
+                Assert.AreEqual(result1, result2, $"Unexpected  result for {i} - DefineSumOfBit - {result1}, Expected - {result2}");
+            }
+        }
+        //--------------------------------------------------------------------------------------
+        [TestMethod]
+        public void DefineSumOfBitVer2Test()
+        {
+            // arrange
+            long[] expected = { 0, 1, 1, 2, 1, 2, 2, 3, 1, 2, 2, 3, 2, 3, 3, 4, 1 };
+
+            for (long i = 0; i < (long)expected.Length; i++)
+            {
+                // act 
+                long result = BruteForceRepresentatives.DefineSumOfBitVer2(i);
+                // assert
+                Assert.AreEqual(expected[i], result, $"Unexpected DefineSumOfBitVer2 result for {i} - {result}, Expected - {expected[i]}");
+            }
+        }
+
+        //--------------------------------------------------------------------------------------
+        [TestMethod]
+        public void DefineSumOfBitVer2Case3Test()
+        {
+            // arrange
+            long expected = 2;
+            long inputValue = 3;
+
+            // act 
+            long result = BruteForceRepresentatives.DefineSumOfBitVer2(inputValue);
+            // assert
+            Assert.AreEqual(expected, result, $"Unexpected DefineSumOfBitVer2 result for {inputValue} - {result}, Expected - {expected}");
+        }
+
         [TestMethod]
         public void ExecuteTestCase1()
         {

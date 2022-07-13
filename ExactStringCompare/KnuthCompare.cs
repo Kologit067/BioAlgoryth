@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ExactStringCompare
 {
     //--------------------------------------------------------------------------------------
-    // class BoyerMooreCompare 
+    // class KnuthCompare 
     //--------------------------------------------------------------------------------------
     public class KnuthCompare : StringPreprocessing
     {

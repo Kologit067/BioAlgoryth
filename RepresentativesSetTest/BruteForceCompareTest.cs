@@ -13,6 +13,7 @@ namespace RepresentativesSetTest
     [TestClass]
     public class BruteForceCompareTest
     {
+
         //--------------------------------------------------------------------------------------
         [TestMethod]
         public void BruteForceCompareTestCase1()
