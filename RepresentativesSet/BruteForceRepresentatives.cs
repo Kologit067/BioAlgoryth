@@ -24,11 +24,6 @@ namespace RepresentativesSet
             int maxNumber = pListOfSubSet.Max(s => s.Max()) + 1;
 
             long[] listOfSetAsBinary = pListOfSubSet.Select(s => BruteForceRepresentatives.ElementNumbersToLongAsBinaryVector(s)).ToArray();
-            //            long[] listOfSetAsBinary = new long[pListOfSubSet.Length];
-            //for (int i = 0; i < listOfSetAsBinary.Length; i++)
-            //{
-            //    listOfSetAsBinary[i] = BruteForceRepresentatives.ElementNumbersToLongAsBinaryVector(pListOfSubSet[i]);
-            //}
 
             return ExecuteByLongAsBinaryVector(listOfSetAsBinary, maxNumber);
         }
@@ -48,67 +43,11 @@ namespace RepresentativesSet
                 }
                 return isIntersect;
             });
-            /*
-            long limit = 1 << maxNumber;
-            long currentMinimumSet = limit - 1;
-            int currentMinimum = maxNumber;
-            for (int i = 0; i < limit; i++)
-            {
-                bool isIntersect = true;
-                for (int k = 0; k < listOfSetAsBinary.Length; k++)
-                {
-                    if ((listOfSetAsBinary[k] & i) == 0)
-                    {
-                        isIntersect = false;
-                        break;
-                    }
-                }
-                if (isIntersect)
-                {
-                    int candidatValue = DefineSumOfBit(i, limit, currentMinimum);
-                    if (candidatValue <= currentMinimum)
-                    {
-                        if (candidatValue < currentMinimum)
-                        {
-                            currentMinimum = candidatValue;
-                            currentMinimumSet = i;
-                            _fOptimalSets.Clear();
-                        }
-                        _fOptimalSets.Add(string.Join(",", GetAsElementNumbers(i, maxNumber)));
-                    }
-                }
-            }
-            List<int> result = GetAsElementNumbers(currentMinimumSet, maxNumber);
-            return result;
-            */
         }
         //--------------------------------------------------------------------------------------
         public List<int> ExecuteByLongAsBinaryVectorVer2(long[] listOfSetAsBinary, int maxNumber)
         {
-            return ExecuteByLongAsBinaryVectorGen(listOfSetAsBinary, maxNumber, (l,i) => !l.Any(s => (s & i) == 0));
-            //long limit = 1 << maxNumber;
-            //long currentMinimumSet = limit - 1;
-            //int currentMinimum = maxNumber;
-            //for (int i = 0; i < limit; i++)
-            //{
-            //    bool isIntersect = !listOfSetAsBinary.Any(s => (s & i) == 0);
-            //    if (isIntersect)
-            //    {
-            //        int candidatValue = DefineSumOfBit(i, limit, currentMinimum);
-            //        if (candidatValue <= currentMinimum)
-            //        {
-            //            if (candidatValue < currentMinimum)
-            //            {
-            //                currentMinimum = candidatValue;
-            //                currentMinimumSet = i;
-            //                _fOptimalSets.Clear();
-            //            }
-            //            _fOptimalSets.Add(string.Join(",", GetAsElementNumbers(i, maxNumber)));
-            //        }
-            //    }
-            //}
-            //List<int> result = GetAsElementNumbers(currentMinimumSet, maxNumber);
-            //return result;
+            return ExecuteByLongAsBinaryVectorGen(listOfSetAsBinary, maxNumber, (l,i) => l.All(s => (s & i) != 0));
         }
         //--------------------------------------------------------------------------------------
         private List<int> ExecuteByLongAsBinaryVectorGen(long[] listOfSetAsBinary, int maxNumber, Func<long[], int, bool> IsIntersect)
