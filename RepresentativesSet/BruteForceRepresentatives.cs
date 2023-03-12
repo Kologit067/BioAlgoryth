@@ -12,7 +12,7 @@ namespace RepresentativesSet
         int[][] jaggedArray2 = {
     new int[] { 1, 3, 5, 7, 9 },
     new int[] { 0, 2, 4, 6 },
-    new int[] { 11, 22 }
+    new int[] { 11, 12 }
 };
 
         protected List<string> _fOptimalSets;		        // 
@@ -30,7 +30,7 @@ namespace RepresentativesSet
         //--------------------------------------------------------------------------------------
         public List<int> ExecuteByLongAsBinaryVector(long[] listOfSetAsBinary, int maxNumber)
         {
-            return ExecuteByLongAsBinaryVectorGen(listOfSetAsBinary, maxNumber, (l, i) =>
+            return ExecuteByLongAsBinaryVectorGeneric(listOfSetAsBinary, maxNumber, (l, i) =>
             {
                 bool isIntersect = true;
                 for (int k = 0; k < listOfSetAsBinary.Length; k++)
@@ -47,10 +47,10 @@ namespace RepresentativesSet
         //--------------------------------------------------------------------------------------
         public List<int> ExecuteByLongAsBinaryVectorVer2(long[] listOfSetAsBinary, int maxNumber)
         {
-            return ExecuteByLongAsBinaryVectorGen(listOfSetAsBinary, maxNumber, (l,i) => l.All(s => (s & i) != 0));
+            return ExecuteByLongAsBinaryVectorGeneric(listOfSetAsBinary, maxNumber, (l,i) => l.All(s => (s & i) != 0));
         }
         //--------------------------------------------------------------------------------------
-        private List<int> ExecuteByLongAsBinaryVectorGen(long[] listOfSetAsBinary, int maxNumber, Func<long[], int, bool> IsIntersect)
+        private List<int> ExecuteByLongAsBinaryVectorGeneric(long[] listOfSetAsBinary, int maxNumber, Func<long[], int, bool> IsIntersect)
         {
             long limit = 1 << maxNumber;
             long currentMinimumSet = limit - 1;
@@ -94,7 +94,7 @@ namespace RepresentativesSet
         {
             long result = 0;
             foreach (int pos in numberElements)
-                result |= 1 << pos;
+                result |= 1L << pos;
             return result;
         }        
         //--------------------------------------------------------------------------------------
