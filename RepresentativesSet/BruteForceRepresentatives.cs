@@ -27,6 +27,15 @@ namespace RepresentativesSet
 
             return ExecuteByLongAsBinaryVector(listOfSetAsBinary, maxNumber);
         }
+        public List<int> ExecuteByBinaryVer2(int[][] pListOfSubSet)
+        {
+            _fOptimalSets = new List<string>();
+            int maxNumber = pListOfSubSet.Max(s => s.Max()) + 1;
+
+            long[] listOfSetAsBinary = pListOfSubSet.Select(s => BruteForceRepresentatives.ElementNumbersToLongAsBinaryVector(s)).ToArray();
+
+            return ExecuteByLongAsBinaryVectorVer2(listOfSetAsBinary, maxNumber);
+        }
         //--------------------------------------------------------------------------------------
         public List<int> ExecuteByLongAsBinaryVector(long[] listOfSetAsBinary, int maxNumber)
         {

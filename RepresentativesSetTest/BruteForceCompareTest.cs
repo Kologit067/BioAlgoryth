@@ -252,19 +252,7 @@ namespace RepresentativesSetTest
             // assert
 
         }
-        //--------------------------------------------------------------------------------------
-        [TestMethod]
-        public void BruteForceCompareTestCase19()
-        {
-            // arrange
-            int сardinality = 4;
-            int length = 15;
-            EnumerateIntegerTrangleForBruteForceRepresentativesCompare enumeration = new EnumerateIntegerTrangleForBruteForceRepresentativesCompare(сardinality, length);
-            // act
-            enumeration.Execute();
-            // assert
-
-        }
+ 
         //--------------------------------------------------------------------------------------
         [TestMethod]
         public void BruteForceCompareTestCase20()
@@ -312,6 +300,7 @@ namespace RepresentativesSetTest
     public class EnumerateIntegerTrangleForBruteForceRepresentativesCompare : EnumerateIntegerTrangle
     {
         private int _fCardinality;
+        private long _countOperation = 0;
         private List<string> _result = new List<string>();
         //--------------------------------------------------------------------------------------
         public List<string> Result
@@ -336,21 +325,27 @@ namespace RepresentativesSetTest
                 // arrange
                 int[][] listOfSet = _fCurrentSet.Select(t => BruteForceRepresentatives.GetAsElementNumbers(t, _fCardinality).ToArray()).ToArray();
                 BruteForceRepresentatives bruteForce = new BruteForceRepresentatives();
+                BruteForceRepresentatives bruteForceVer2 = new BruteForceRepresentatives();
                 BruteForceRepresentativesAsTree bruteForceAsTree = new BruteForceRepresentativesAsTree(_fCardinality, listOfSet);
 
                 // act
                 List<int> result = bruteForce.ExecuteByBinary(listOfSet);
+                List<int> resultVer2 = bruteForceVer2.ExecuteByBinaryVer2(listOfSet);
                 bruteForceAsTree.Execute();
                 bruteForce.OptimalSets = bruteForce.OptimalSets.OrderBy(s => s).ToList();
+                bruteForceVer2.OptimalSets = bruteForceVer2.OptimalSets.OrderBy(s => s).ToList();
                 bruteForceAsTree.OptimalSets = bruteForceAsTree.OptimalSets.OrderBy(s => s).ToList();
 
                 // assert
                 Assert.AreEqual(bruteForceAsTree.OptimalSets.Count, bruteForce.OptimalSets.Count, "Wrong number rows in result");
+                Assert.AreEqual(bruteForceAsTree.OptimalSets.Count, bruteForceVer2.OptimalSets.Count, "Wrong number rows in result");
                 for (int i = 0; i < bruteForceAsTree.OptimalSets.Count; i++)
                 {
                     Assert.AreEqual(bruteForceAsTree.OptimalSets[i], bruteForce.OptimalSets[i], $"Wrong string in position {i} - {bruteForceAsTree.OptimalSets[i]}. Expected - {bruteForce.OptimalSets[i]}");
+                    Assert.AreEqual(bruteForceAsTree.OptimalSets[i], bruteForceVer2.OptimalSets[i], $"Wrong string in position {i} - {bruteForceAsTree.OptimalSets[i]}. Expected - {bruteForceVer2.OptimalSets[i]}");
                 }
- 
+                _countOperation++;
+
             }
             return false;
         }

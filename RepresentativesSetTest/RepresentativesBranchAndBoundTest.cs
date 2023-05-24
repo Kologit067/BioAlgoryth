@@ -478,19 +478,24 @@ namespace RepresentativesSetTest
                 // arrange
                 int[][] listOfSet = _fCurrentSet.Select(t => BruteForceRepresentatives.GetAsElementNumbers(t, _fCardinality).ToArray()).ToArray();
                 BruteForceRepresentatives bruteForce = new BruteForceRepresentatives();
+                BruteForceRepresentatives bruteForceVer2 = new BruteForceRepresentatives();
                 RepresentativesBranchAndBound branchAndBound = new RepresentativesBranchAndBound(_fCardinality, listOfSet);
 
                 // act
                 List<int> result = bruteForce.ExecuteByBinary(listOfSet);
+                List<int> resultVer2 = bruteForceVer2.ExecuteByBinaryVer2(listOfSet);
                 branchAndBound.Execute();
                 bruteForce.OptimalSets = bruteForce.OptimalSets.OrderBy(s => s).ToList();
+                bruteForceVer2.OptimalSets = bruteForceVer2.OptimalSets.OrderBy(s => s).ToList();
                 branchAndBound.OptimalSets = branchAndBound.OptimalSets.OrderBy(s => s).ToList();
 
                 // assert
                 Assert.AreEqual(branchAndBound.OptimalSets.Count, bruteForce.OptimalSets.Count, "Wrong number rows in result");
+                Assert.AreEqual(branchAndBound.OptimalSets.Count, bruteForceVer2.OptimalSets.Count, "Wrong number rows in result");
                 for (int i = 0; i < branchAndBound.OptimalSets.Count; i++)
                 {
                     Assert.AreEqual(branchAndBound.OptimalSets[i], bruteForce.OptimalSets[i], $"Wrong string in position {i} - {branchAndBound.OptimalSets[i]}. Expected - {bruteForce.OptimalSets[i]}");
+                    Assert.AreEqual(branchAndBound.OptimalSets[i], bruteForceVer2.OptimalSets[i], $"Wrong string in position {i} - {branchAndBound.OptimalSets[i]}. Expected - {bruteForceVer2.OptimalSets[i]}");
                 }
 
             }
