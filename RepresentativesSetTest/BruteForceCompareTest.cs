@@ -221,8 +221,6 @@ namespace RepresentativesSetTest
             enumeration.Execute();
             // assert
 
-            
-
         }
         //--------------------------------------------------------------------------------------
         [TestMethod]
@@ -235,9 +233,6 @@ namespace RepresentativesSetTest
             // act
             enumeration.Execute();
             // assert
-
-
-
         }
         //--------------------------------------------------------------------------------------
         [TestMethod]
@@ -327,22 +322,28 @@ namespace RepresentativesSetTest
                 BruteForceRepresentatives bruteForce = new BruteForceRepresentatives();
                 BruteForceRepresentatives bruteForceVer2 = new BruteForceRepresentatives();
                 BruteForceRepresentativesAsTree bruteForceAsTree = new BruteForceRepresentativesAsTree(_fCardinality, listOfSet);
+                BruteForceRepresentativesAsTreeDirect bruteForceAsTreeDirect = new BruteForceRepresentativesAsTreeDirect(_fCardinality, listOfSet);
 
                 // act
                 List<int> result = bruteForce.ExecuteByBinary(listOfSet);
                 List<int> resultVer2 = bruteForceVer2.ExecuteByBinaryVer2(listOfSet);
                 bruteForceAsTree.Execute();
+                bruteForceAsTreeDirect.Execute();
                 bruteForce.OptimalSets = bruteForce.OptimalSets.OrderBy(s => s).ToList();
                 bruteForceVer2.OptimalSets = bruteForceVer2.OptimalSets.OrderBy(s => s).ToList();
                 bruteForceAsTree.OptimalSets = bruteForceAsTree.OptimalSets.OrderBy(s => s).ToList();
+                bruteForceAsTreeDirect.OptimalSets = bruteForceAsTreeDirect.OptimalSets.OrderBy(s => s).ToList();
 
                 // assert
                 Assert.AreEqual(bruteForceAsTree.OptimalSets.Count, bruteForce.OptimalSets.Count, "Wrong number rows in result");
                 Assert.AreEqual(bruteForceAsTree.OptimalSets.Count, bruteForceVer2.OptimalSets.Count, "Wrong number rows in result");
+                Assert.AreEqual(bruteForceAsTree.OptimalSets.Count, bruteForceAsTreeDirect.OptimalSets.Count, "Wrong number rows in result");
+                Assert.AreEqual(bruteForceAsTreeDirect.OptimalSets.Count, bruteForce.OptimalSets.Count, "Wrong number rows in result");
                 for (int i = 0; i < bruteForceAsTree.OptimalSets.Count; i++)
                 {
                     Assert.AreEqual(bruteForceAsTree.OptimalSets[i], bruteForce.OptimalSets[i], $"Wrong string in position {i} - {bruteForceAsTree.OptimalSets[i]}. Expected - {bruteForce.OptimalSets[i]}");
                     Assert.AreEqual(bruteForceAsTree.OptimalSets[i], bruteForceVer2.OptimalSets[i], $"Wrong string in position {i} - {bruteForceAsTree.OptimalSets[i]}. Expected - {bruteForceVer2.OptimalSets[i]}");
+                    Assert.AreEqual(bruteForceAsTreeDirect.OptimalSets[i], bruteForceAsTree.OptimalSets[i], $"Wrong string in position {i} - {bruteForceAsTreeDirect.OptimalSets[i]}. Expected - {bruteForceAsTree.OptimalSets[i]}");
                 }
                 _countOperation++;
 

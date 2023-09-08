@@ -50,15 +50,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BruteForceRepresentativesTest.cs" />
+    <Compile Include="Greedy\RepresentativesGreedyTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BruteForceRepresentativesAsTreeTest.cs" />
     <Compile Include="BruteForceCompareTest.cs" />
     <Compile Include="RepresentativesBranchAndBoundTest.cs" />
+    <Compile Include="RepresentativesCompareWithSkipTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BaseContract\BaseContract.csproj">
+      <Project>{B8C5FEDA-931E-439F-9661-D533D482352B}</Project>
+      <Name>BaseContract</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CommonLibrary\CommonLibrary.csproj">
       <Project>{6208c3eb-138f-4b2e-93a8-6469d8a75379}</Project>
       <Name>CommonLibrary</Name>
@@ -66,6 +72,10 @@
     <ProjectReference Include="..\RepresentativesSet\RepresentativesSet.csproj">
       <Project>{F89C8B30-7195-45F0-88D7-9CA07E21DC69}</Project>
       <Name>RepresentativesSet</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StatisticsStorage\StatisticsStorage.csproj">
+      <Project>{475C38D6-BD97-455C-A52D-AFA461C533F7}</Project>
+      <Name>StatisticsStorage</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

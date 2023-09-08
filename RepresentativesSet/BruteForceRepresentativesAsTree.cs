@@ -1,4 +1,6 @@
-﻿using CommonLibrary;
+﻿using BaseContract;
+using CommonLibrary;
+using StatisticsStorage.Accumulators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,60 +10,28 @@ namespace RepresentativesSet
     //--------------------------------------------------------------------------------------
     // class BruteForceRepresentativesAsTree
     //--------------------------------------------------------------------------------------
-    public class BruteForceRepresentativesAsTree : EnumerateReverseBinVectors
+    public class BruteForceRepresentativesAsTree : RepresentativesAsTree
     {
-        private int[][] listOfSet;
-        private int currentMinimum;
-        protected List<int> _fCurrentOptimalSet;		    // текущий оптимальный набор элементов
-        protected List<string> _fOptimalSets;		        // 
         //--------------------------------------------------------------------------------------
         public BruteForceRepresentativesAsTree(int pLength, int[][] pListOfSet)
-            : base(pLength)
+            : base(pLength, pListOfSet)
         {
-            listOfSet = pListOfSet;
-            if (listOfSet.Any(s => s.Any(e => e >= pLength)))
-                throw new ArgumentException("Element of set can not be > Length.");
-            _fCurrentOptimalSet = _fCurrentSet.ToList();
-            currentMinimum = pLength;
-            _fOptimalSets = new List<string>();
         }
         //--------------------------------------------------------------------------------------
         protected override bool MakeAction()
         {
             if (_fCurrentPosition == _fSize - 1)
             {
-                bool isIntersect = true;
-                for (int k = 0; k < listOfSet.Length; k++)
-                {
-                    if (!listOfSet[k].Any(s => _fCurrentSet[s] > 0))
-                    {
-                        isIntersect = false;
-                        break;
-                    }
-                }
+                bool isIntersect = IsIntersect();
                 if (isIntersect)
                 {
                     int candidatValue = _fCurrentSet.Sum();
                     if (candidatValue <= currentMinimum)
                     {
-                        if (candidatValue < currentMinimum)
-                        {
-                            for (int i = 0; i < _fCurrentSet.Count; i++)
-                            {
-                                _fCurrentOptimalSet[i] = _fCurrentSet[i];
-                            }
-                            currentMinimum = candidatValue;
-                            _fOptimalSets.Clear();
-                        }
-                        List<int> result = new List<int>();
-                        for (int i = 0; i < _fCurrentSet.Count; i++)
-                        {
-                            if (_fCurrentSet[i] != 0)
-                                result.Add(i);
-                        }
-                        _fOptimalSets.Add(string.Join(",", result));
+                        UpdateOptimalResults(candidatValue);
                     }
                 }
+                StatisticAccumulator.TerminalCountInc();
             }
             return false;
         }

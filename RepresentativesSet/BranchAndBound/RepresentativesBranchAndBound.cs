@@ -11,11 +11,27 @@ namespace RepresentativesSet
     //--------------------------------------------------------------------------------------
     public class RepresentativesBranchAndBound : RepresentativesBranchAndBoundByValue
     {
-        protected int[][] listOfSetAsBinary;
+//        protected int[][] listOfSetAsBinary;
+        protected List<int>[] listOfElements;
+        protected int numberOfElement;
+        protected int[] counterOfSet;
+        protected int commonCounter;
         //--------------------------------------------------------------------------------------
         public RepresentativesBranchAndBound(int pLength, int[][] pListOfSet)
             : base(pLength, pListOfSet)
         {
+            numberOfElement = pListOfSet.Max(x => x.Max());
+            listOfElements = new List<int>[numberOfElement];
+            counterOfSet = new int[pListOfSet.Length];
+            for(int i = 0; i < pListOfSet.Length; i++)
+            {
+                foreach(int e in pListOfSet[i])
+                {
+                    if (listOfElements[e] == null)
+                        listOfElements[e] = new List<int>();
+                    listOfElements[e].Add(i);
+                }
+            }
             //listOfSetAsBinary = new int[listOfSet.Length][];
             //for (int i = 0; i < listOfSetAsBinary.Length; i++)
             //{
@@ -35,54 +51,48 @@ namespace RepresentativesSet
         protected override void RemoveAction(int element)
         {
             base.RemoveAction(element);
+            foreach(int i in listOfElements[_fCurrentPosition])
+            {
+                counterOfSet[i] -= 1;
+                if (counterOfSet[i] == 0)
+                    commonCounter--;
+            }
         }
         //--------------------------------------------------------------------------------------
         protected override void AddAction(int element)
         {
             base.AddAction(element);
+            foreach (int i in listOfElements[_fCurrentPosition])
+            {
+                counterOfSet[i] += 1;
+                if (counterOfSet[i] == 1)
+                    commonCounter++;
+            }
+        }
+        //--------------------------------------------------------------------------------------
+        protected override void SupplementInitial()
+        {
+            base.SupplementInitial();
         }
         //--------------------------------------------------------------------------------------
         protected override bool MakeAction()
         {
-            return base.MakeAction();
-            if (_fCurrentCardinality > currentMinimum)
-                return false;
-
 
             if (_fCurrentPosition == _fSize - 1)
             {
-                bool isIntersect = true;
-                for (int k = 0; k < listOfSet.Length; k++)
+                if (commonCounter == counterOfSet.Length)
                 {
-                    if (!listOfSet[k].Any(s => _fCurrentSet[s] > 0))
-                    {
-                        isIntersect = false;
-                        break;
-                    }
-                }
-                if (isIntersect)
-                {
-                    if (_fCurrentCardinality < currentMinimum)
-                    {
-                        for (int i = 0; i < _fCurrentSet.Count; i++)
-                        {
-                            _fCurrentOptimalSet[i] = _fCurrentSet[i];
-                        }
-                        currentMinimum = _fCurrentCardinality;
-                        _fOptimalSets.Clear();
-                    }
-                    List<int> result = new List<int>();
-                    for (int i = 0; i < _fCurrentSet.Count; i++)
-                    {
-                        if (_fCurrentSet[i] != 0)
-                            result.Add(i);
-                    }
-                    _fOptimalSets.Add(string.Join(",", result));
+                    UpdateOptimalResults(_currentCardinality);
                 }
             }
             return false;
 
         }
+        //-----------------------------------------------------------------------------------
+        protected override bool IsCompleteByCardinality()
+        {
+            return _currentCardinality > currentMinimum || commonCounter == counterOfSet.Length;
+        }        
         //--------------------------------------------------------------------------------------
     }
 }

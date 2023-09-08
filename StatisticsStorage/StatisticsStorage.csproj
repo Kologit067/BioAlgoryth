@@ -34,11 +34,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.2.0.143\lib\net461\Dapper.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\MSTest.TestFramework.1.2.1\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\MSTest.TestFramework.1.2.1\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -56,15 +62,18 @@
     <Compile Include="Accumulators\Objects\FindPatternPerfomance.cs" />
     <Compile Include="Accumulators\Objects\RegulatoryMotifOptimalValueChange.cs" />
     <Compile Include="Accumulators\Objects\RegulatoryMotifPerfomance.cs" />
+    <Compile Include="Accumulators\Objects\RepresentativesPerfomance.cs" />
     <Compile Include="Accumulators\Objects\SuffixTreePerfomance.cs" />
     <Compile Include="Accumulators\RegulatoryMotifsStatisticAccumulator.cs" />
     <Compile Include="Accumulators\Objects\StatisyicsPerfomance.cs" />
+    <Compile Include="Accumulators\RepresentativesStatisticAccumulator.cs" />
     <Compile Include="Accumulators\SortingAccumulator.cs" />
     <Compile Include="Accumulators\StringCompareAccumulator.cs" />
     <Compile Include="Accumulators\SuffixTreeSimpleAccumulator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Savers\DNAMappingSaver.cs" />
     <Compile Include="Savers\RegulatoryMotifSaver.cs" />
+    <Compile Include="Savers\RepresentativesSaver.cs" />
     <Compile Include="Savers\SortingSaver.cs" />
     <Compile Include="Savers\StringCompareSaver.cs" />
     <Compile Include="Savers\SuffixTreeSaver.cs" />

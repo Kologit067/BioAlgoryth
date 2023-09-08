@@ -37,7 +37,7 @@ namespace RepresentativesSet
             return ExecuteByLongAsBinaryVectorVer2(listOfSetAsBinary, maxNumber);
         }
         //--------------------------------------------------------------------------------------
-        public List<int> ExecuteByLongAsBinaryVector(long[] listOfSetAsBinary, int maxNumber)
+        private List<int> ExecuteByLongAsBinaryVector(long[] listOfSetAsBinary, int maxNumber)
         {
             return ExecuteByLongAsBinaryVectorGeneric(listOfSetAsBinary, maxNumber, (l, i) =>
             {
@@ -54,7 +54,7 @@ namespace RepresentativesSet
             });
         }
         //--------------------------------------------------------------------------------------
-        public List<int> ExecuteByLongAsBinaryVectorVer2(long[] listOfSetAsBinary, int maxNumber)
+        private List<int> ExecuteByLongAsBinaryVectorVer2(long[] listOfSetAsBinary, int maxNumber)
         {
             return ExecuteByLongAsBinaryVectorGeneric(listOfSetAsBinary, maxNumber, (l,i) => l.All(s => (s & i) != 0));
         }
@@ -118,6 +118,23 @@ namespace RepresentativesSet
                 pos <<= 1;
             }
             return sum;
+        }
+        //--------------------------------------------------------------------------------------
+        public static long GetNumberLeafOfTriangleTree(int length, int cardinality)
+        {
+            int n = 1 << cardinality;
+            int k = length;
+            int n_k = n-k;
+            long result = 1;
+            for(int i = n-1; i >= n_k; i--)
+            {
+                result *= i;
+            }
+            for (int i = 2; i <= k; i++)
+            {
+                result /= i;
+            }
+            return result;
         }
         //--------------------------------------------------------------------------------------
         public static long DefineSumOfBitVer2(long numberAsSet)

@@ -33,7 +33,7 @@ namespace StatisticsStorage.Savers
                 performance.Columns.Add("DateComplete", System.Type.GetType("System.DateTime"));
                 performance.Columns.Add("IsComplete", System.Type.GetType("System.Boolean"));
                 performance.Columns.Add("LastRoute", System.Type.GetType("System.String"));
-                performance.Columns.Add("OptimalRoute", System.Type.GetType("System.String"));
+                performance.Columns.Add("OptimalSets", System.Type.GetType("System.String"));
                 performance.Columns.Add("OptimalValue", System.Type.GetType("System.Int64"));
                 performance.Columns.Add("StartPosition", System.Type.GetType("System.String"));
                 performance.Columns.Add("Motif", System.Type.GetType("System.String"));
