@@ -108,6 +108,7 @@ namespace RepresentativesSet.Greedy.Tests
             _greedyStatisticAccumulator.SaveRemain();
         }
         //--------------------------------------------------------------------------------------
+                representativesGreedyImp.ExecuteImproved();
 
     }
 }
