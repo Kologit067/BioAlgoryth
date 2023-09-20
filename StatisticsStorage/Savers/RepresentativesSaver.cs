@@ -54,9 +54,23 @@ namespace StatisticsStorage.Savers
 
                 foreach (var ps in representativesPerfomances)
                 {
-                    performance.Rows.Add(ps.NumberOfSet, ps.Dimension, ps.InputData, ps.InputDataShort, ps.Algorithm,
-                        ps.IterationCount, ps.Duration, ps.DurationMilliSeconds, ps.DateComplete, ps.IsComplete,
-                        ps.LastRoute, ps.CountTerminal, ps.BestValue, ps.UpdateOptcount, ps.ElemenationCount);
+                    performance.Rows.Add(
+                        ps.NumberOfSet, 
+                        ps.Dimension, 
+                        ps.InputData, 
+                        ps.InputDataShort, 
+                        ps.Algorithm,
+                        ps.IterationCount, 
+                        ps.Duration, 
+                        ps.DurationMilliSeconds, 
+                        ps.DateComplete, 
+                        ps.IsComplete,
+                        ps.LastRoute,
+                        ps.OptimalRoute,
+                        ps.CountTerminal, 
+                        ps.BestValue, 
+                        ps.UpdateOptcount, 
+                        ps.ElemenationCount);
 
                     for (int i = 0; i < ps.OptimalSets.Count; i++)
                     {

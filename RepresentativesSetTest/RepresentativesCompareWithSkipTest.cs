@@ -86,7 +86,7 @@ namespace RepresentativesSetTest
             // arrange
             int limit = 43;
             int length = 11;
-            long number = RepresentativesBranchAndBoundByValue.Combination(limit, length);
+            long number = RepresentativesAsTree.Combination(limit, length);
             int step = (int)(number / 100000);
             //step = 678;
             EnumerateIntegerTrangleForSkipCalculation enumeration = new EnumerateIntegerTrangleForSkipCalculation(limit, length, step);

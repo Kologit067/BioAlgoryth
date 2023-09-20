@@ -11,7 +11,11 @@ namespace CommonLibrary.Helpers
     {
         public static string AsString(this int[][] collection )
         {
-            return String.Join("  ", collection.Select(e => string.Join(",", e.ToString())));
+            return String.Join("  ", collection.Select(e => $"({string.Join(",", e)})"));
+        }
+        public static string AsString(this List<List<int>> collection)
+        {
+            return String.Join("  ", collection.Select(e => $"({string.Join(",", e)})"));
         }
     }
 }

@@ -25,10 +25,10 @@ namespace RepresentativesSet.Tests
             long expectedC74 = 35;
 
             // act
-            long realC32 = RepresentativesBranchAndBound.Combination(3, 2);
-            long realC42 = RepresentativesBranchAndBound.Combination(4, 2);
-            long realC52 = RepresentativesBranchAndBound.Combination(5, 2);
-            long realC74 = RepresentativesBranchAndBound.Combination(7, 4);
+            long realC32 = RepresentativesAsTree.Combination(3, 2);
+            long realC42 = RepresentativesAsTree.Combination(4, 2);
+            long realC52 = RepresentativesAsTree.Combination(5, 2);
+            long realC74 = RepresentativesAsTree.Combination(7, 4);
 
             // assert
             Assert.AreEqual(expectedC32, realC32);
@@ -46,8 +46,8 @@ namespace RepresentativesSet.Tests
                 {
 
                     // act
-                    long direct = RepresentativesBranchAndBound.Combination(n, k);
-                    long rec = RepresentativesBranchAndBound.CombinationRec(n, k);
+                    long direct = RepresentativesAsTree.Combination(n, k);
+                    long rec = RepresentativesAsTree.CombinationRec(n, k);
 
                     // assert
                     Assert.AreEqual(direct, rec);
@@ -62,7 +62,7 @@ namespace RepresentativesSet.Tests
             long expected = 3;
 
             // act
-            long rec = RepresentativesBranchAndBound.CombinationRec(3, 2);
+            long rec = RepresentativesAsTree.CombinationRec(3, 2);
 
             // assert
             Assert.AreEqual(expected, rec);

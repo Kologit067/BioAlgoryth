@@ -61,6 +61,11 @@ namespace RepresentativesSet
                 _fOptimalSets = value;
             }
         }
+        //-----------------------------------------------------------------------------------
+        protected override void SupplementInitial()
+        {
+            StatisticAccumulator.CreateStatistics(_inputData, _inputDataShort, nameof(BruteForceRepresentativesAsTree));
+        }       
         //--------------------------------------------------------------------------------------
     }
     //--------------------------------------------------------------------------------------

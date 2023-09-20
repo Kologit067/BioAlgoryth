@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CommonLibrary.Helpers;
 
 namespace RepresentativesSet.Greedy
 {
@@ -17,6 +18,13 @@ namespace RepresentativesSet.Greedy
         public List<int> Solution { get; set; }
         public IRepresentativesStatisticAccumulator StatisticAccumulator { get; set; }
         protected Stopwatch stopwatch;
+        public string CurrenttData
+        {
+            get
+            {
+                return listOfSet.AsString();
+            }
+        }
         //--------------------------------------------------------------------------------------
         protected long _fElapsedTicks;
         public long ElapsedTicks
@@ -51,6 +59,20 @@ namespace RepresentativesSet.Greedy
                 return _inputDataShort;
             }
         }
+        public string ListOfSetAsString
+        {
+            get
+            {
+                return (Newtonsoft.Json.JsonConvert.SerializeObject(listOfSet));
+            }
+        }
+        public string ElementAsString
+        {
+            get
+            {
+                return (Newtonsoft.Json.JsonConvert.SerializeObject(elements));
+            }
+        }   
         //--------------------------------------------------------------------------------------
         public string SolutionAsString
         {
@@ -65,16 +87,15 @@ namespace RepresentativesSet.Greedy
         {
             this.listOfSet = pListOfSet.Select(l => l.ToList()).ToList();
             listOfSetAsNumber = listOfSet.Select(s => BruteForceRepresentatives.ElementNumbersToLongAsBinaryVector(s.ToArray())).ToArray();
-            int numberOfElemnts = pListOfSet.SelectMany(l => l.Select(i => i)).Distinct().Count();
+            int numberOfElemnts = pListOfSet.SelectMany(l => l.Select(i => i)).Max()+1;
             elements = new List<int>[numberOfElemnts];
             for (int i = 0; i < elements.Length; i++)
             {
                 elements[i] = listOfSet.Select((l, k) => (l, k)).Where(o => o.l.Any(n => n == i)).Select(o => o.k).ToList();
             }
             StatisticAccumulator = new FakeRepresentativesStatisticAccumulator();
-            _inputData = (Newtonsoft.Json.JsonConvert.SerializeObject(listOfSet));
+            _inputData = listOfSet.AsString(); // (Newtonsoft.Json.JsonConvert.SerializeObject(listOfSet));
             _inputDataShort = (Newtonsoft.Json.JsonConvert.SerializeObject(listOfSetAsNumber));
-            StatisticAccumulator.CreateStatistics(_inputData, _inputDataShort, nameof(RepresentativesBranchAndBoundByValue));
             Solution = new List<int>();
         }
 
@@ -82,6 +103,7 @@ namespace RepresentativesSet.Greedy
         {
             stopwatch = new Stopwatch();
             stopwatch.Start();
+            StatisticAccumulator.CreateStatistics(_inputData, _inputDataShort, nameof(RepresentativesGreedy)+"Simple");
             while (listOfSet.Where(s => s.Count() > 0).Count() > 0)
             {
                 var max = elements.Select((e, i) => (e, i)).OrderBy(o => o.e.Count).Last();
@@ -112,10 +134,11 @@ namespace RepresentativesSet.Greedy
 
             stopwatch = new Stopwatch();
             stopwatch.Start();
+            StatisticAccumulator.CreateStatistics(_inputData, _inputDataShort, nameof(RepresentativesGreedy) + "Improve");
             while (listOfSet.Where(s => s.Count() > 0).Count() > 0)
             {
                 var maxCount = elements.Max(e => e.Count);
-                var maxList = elements.Where(e => e.Count() == maxCount).Select((e, i) => (e, i)).ToList();
+                var maxList = elements.Select((e, i) => (e, i)).Where(s => s.e.Count() == maxCount).ToList();
                 (List<int> e, int i) max = maxList.First();
                 StatisticAccumulator.IterationCountInc();
                 if (maxList.Count > 1)
