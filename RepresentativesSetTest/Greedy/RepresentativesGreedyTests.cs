@@ -55,6 +55,44 @@ namespace RepresentativesSet.Greedy.Tests
         }
         //--------------------------------------------------------------------------------------
         [TestMethod]
+        public void RepresentativesGreedyCase3()
+        {
+            // arrange
+            List<int> list = new List<int>() { 5, 11, 12, 18, 21 };
+            int[][] listOfSet = list.Select(t => BruteForceRepresentatives.GetAsElementNumbers(t, 5).ToArray()).ToArray();
+            RepresentativesGreedy representativesGreedy = new RepresentativesGreedy(listOfSet);
+            string solutionAsStringExpected = "1,2,4";
+
+            // act
+            representativesGreedy.ExecuteImproved();
+            representativesGreedy.Solution = representativesGreedy.Solution.OrderBy(s => s).ToList();
+            string solutionAsString = string.Join(",", representativesGreedy.Solution);
+
+            // assert
+            Assert.AreEqual(solutionAsStringExpected, solutionAsString);
+
+        }
+        //--------------------------------------------------------------------------------------
+        [TestMethod]
+        public void RepresentativesGreedyCase4()
+        {
+            // arrange
+            List<int> list = new List<int>() { 3, 5, 7, 10, 20 };
+            int[][] listOfSet = list.Select(t => BruteForceRepresentatives.GetAsElementNumbers(t, 5).ToArray()).ToArray();
+            RepresentativesGreedy representativesGreedy = new RepresentativesGreedy(listOfSet);
+            string solutionAsStringExpected = "1,2,4";
+
+            // act
+            representativesGreedy.ExecuteImproved();
+            representativesGreedy.Solution = representativesGreedy.Solution.OrderBy(s => s).ToList();
+            string solutionAsString = string.Join(",", representativesGreedy.Solution);
+
+            // assert
+            Assert.AreEqual(solutionAsStringExpected, solutionAsString);
+
+        }
+        //--------------------------------------------------------------------------------------
+        [TestMethod]
         public void BranchAndBoundCompareGreedyTest()
         {
             // arrange

@@ -144,7 +144,7 @@ namespace RepresentativesSet.Greedy
                 if (maxList.Count > 1)
                 {
                     StatisticAccumulator.IterationCountInc();
-                    max = maxList.OrderBy(m => m.e.Sum(k => listOfSet[k].Count())).Last();
+                    max = maxList.OrderBy(m => m.e.Sum(k => listOfSet[k].Count())).First();
                 }
 
                 Solution.Add(max.i);
@@ -168,6 +168,53 @@ namespace RepresentativesSet.Greedy
             StatisticAccumulator.SaveStatisticData(ElapsedTicks, DurationMilliSeconds, DateTime.Now,
                 false, SolutionAsString, new List<string> { SolutionAsString }, Solution.Count);
         }
+        public void ExecuteImprovedRD()
+        {
+
+            stopwatch = new Stopwatch();
+            stopwatch.Start();
+            StatisticAccumulator.CreateStatistics(_inputData, _inputDataShort, nameof(RepresentativesGreedy) + "Improve");
+            while (listOfSet.Where(s => s.Count() > 0).Count() > 0)
+            {
+                var maxCount = elements.Max(e => e.Count);
+                var maxList = elements.Select((e, i) => (e, i)).Where(s => s.e.Count() == maxCount).ToList();
+                (List<int> e, int i) max = maxList.First();
+                StatisticAccumulator.IterationCountInc();
+                if (maxList.Count > 1)
+                {
+                    StatisticAccumulator.IterationCountInc();
+                    max = maxList.OrderBy(m => RelationCountDistinct(listOfSet, m.i)).First();
+                }
+
+                Solution.Add(max.i);
+                var deletedSets = max.e.ToList();
+                for (int i = 0; i < listOfSet.Count; i++)
+                {
+                    StatisticAccumulator.IterationCountInc();
+                    if (deletedSets.Contains(i))
+                        listOfSet[i].Clear();
+                }
+                for (int i = 0; i < elements.Length; i++)
+                {
+                    StatisticAccumulator.IterationCountInc();
+                    deletedSets.ForEach(d => elements[i].Remove(d));
+                }
+            }
+            StatisticAccumulator.UpdateOptcountInc();
+            stopwatch.Stop();
+            _fElapsedTicks = stopwatch.ElapsedTicks;
+            _fDurationMilliSeconds = stopwatch.ElapsedMilliseconds;
+            StatisticAccumulator.SaveStatisticData(ElapsedTicks, DurationMilliSeconds, DateTime.Now,
+                false, SolutionAsString, new List<string> { SolutionAsString }, Solution.Count);
+        }
+
+        private static double RelationCountDistinct(List<List<int>> listOfSet, int i)
+        {
+            double count = listOfSet.Where(s => !s.Contains(i)).Sum(s => s.Count);
+            double distinct = listOfSet.Where(s => !s.Contains(i)).SelectMany(s => s).Distinct().Count();
+            return count / distinct;
+        }
+
         public void ExecuteRelation()
         {
 
