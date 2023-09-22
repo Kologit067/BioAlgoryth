@@ -285,6 +285,7 @@ namespace RepresentativesSet.Greedy.Tests
         private RepresentativesStatisticAccumulator _statisticAccumulator;
         private RepresentativesStatisticAccumulator _greedyStatisticAccumulator;
         private RepresentativesStatisticAccumulator _greedyImpStatisticAccumulator;
+        private RepresentativesStatisticAccumulator _greedyImpRDStatisticAccumulator;
         //--------------------------------------------------------------------------------------
         private int _wrongResultCount = 0;
         //--------------------------------------------------------------------------------------
@@ -303,6 +304,16 @@ namespace RepresentativesSet.Greedy.Tests
             get
             {
                 return _wrongResultImpCount;
+            }
+        }
+        //--------------------------------------------------------------------------------------
+        private int _wrongResultImpRDCount = 0;
+        //--------------------------------------------------------------------------------------
+        public int WrongResultImpRDCount
+        {
+            get
+            {
+                return _wrongResultImpRDCount;
             }
         }
         //--------------------------------------------------------------------------------------
@@ -357,6 +368,8 @@ namespace RepresentativesSet.Greedy.Tests
             _greedyStatisticAccumulator.DeleteAlgorithm(nameof(RepresentativesGreedy) + "Simple");
             _greedyImpStatisticAccumulator = new RepresentativesStatisticAccumulator(new RepresentativesSaver(), pLength, pCardinality);
             _greedyImpStatisticAccumulator.DeleteAlgorithm(nameof(RepresentativesGreedy) + "Improve");
+            _greedyImpRDStatisticAccumulator = new RepresentativesStatisticAccumulator(new RepresentativesSaver(), pLength, pCardinality);
+            _greedyImpRDStatisticAccumulator.DeleteAlgorithm(nameof(RepresentativesGreedy) + "ImproveRD");
         }
         //--------------------------------------------------------------------------------------
         protected override bool MakeAction()
@@ -388,6 +401,10 @@ namespace RepresentativesSet.Greedy.Tests
                 {
                     StatisticAccumulator = _greedyImpStatisticAccumulator
                 };
+                RepresentativesGreedy representativesGreedyImpRD = new RepresentativesGreedy(listOfSet)
+                {
+                    StatisticAccumulator = _greedyImpRDStatisticAccumulator
+                };
                 RepresentativesBranchAndBoundByValue branchAndBound = new RepresentativesBranchAndBoundByValue(_fCardinality, listOfSet)
                 {
                     StatisticAccumulator = _statisticAccumulator
@@ -397,9 +414,11 @@ namespace RepresentativesSet.Greedy.Tests
                 branchAndBound.Execute();
                 representativesGreedy.ExecuteSimple();
                 representativesGreedyImp.ExecuteImproved();
+                representativesGreedyImpRD.ExecuteImprovedRD();
                 branchAndBound.OptimalSets = branchAndBound.OptimalSets.OrderBy(s => s).ToList();
                 representativesGreedy.Solution = representativesGreedy.Solution.OrderBy(s => s).ToList();
                 representativesGreedyImp.Solution = representativesGreedyImp.Solution.OrderBy(s => s).ToList();
+                representativesGreedyImpRD.Solution = representativesGreedyImpRD.Solution.OrderBy(s => s).ToList();
 
                 // assert
                 if (branchAndBound.CurrentMinimum == representativesGreedy.Solution.Count)
@@ -419,6 +438,15 @@ namespace RepresentativesSet.Greedy.Tests
                 else
                 {
                     _wrongResultImpCount++;
+                }
+                if (branchAndBound.CurrentMinimum == representativesGreedyImpRD.Solution.Count)
+                {
+                    String solutionAsString = representativesGreedyImpRD.SolutionAsString;
+                    Assert.IsTrue(branchAndBound.OptimalSets.Any(o => o == solutionAsString));
+                }
+                else
+                {
+                    _wrongResultImpRDCount++;
                 }
             }
             return false;

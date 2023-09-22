@@ -173,7 +173,7 @@ namespace RepresentativesSet.Greedy
 
             stopwatch = new Stopwatch();
             stopwatch.Start();
-            StatisticAccumulator.CreateStatistics(_inputData, _inputDataShort, nameof(RepresentativesGreedy) + "Improve");
+            StatisticAccumulator.CreateStatistics(_inputData, _inputDataShort, nameof(RepresentativesGreedy) + "ImproveRD");
             while (listOfSet.Where(s => s.Count() > 0).Count() > 0)
             {
                 var maxCount = elements.Max(e => e.Count);
