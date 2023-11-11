@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommonLibrary.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,6 +25,33 @@ namespace StatisticsStorage.Accumulators.Objects
             get
             {
                 return _dimension;
+            }
+        }
+        //--------------------------------------------------------------------------------------
+        protected string _inputLen;
+        public string InputLen 
+        {
+            get
+            {
+                return _inputLen;
+            }
+        }
+        //--------------------------------------------------------------------------------------
+        protected string _inputLenSort;
+        public string InputLenSort 
+        {
+            get
+            {
+                return _inputLenSort;
+            }
+        }
+        //--------------------------------------------------------------------------------------
+        protected double _inputLenAvg;
+        public double InputLenAvg
+        {
+            get
+            {
+                return _inputLenAvg;
             }
         }
         //--------------------------------------------------------------------------------------
@@ -200,13 +228,18 @@ namespace StatisticsStorage.Accumulators.Objects
             _elemenationCount++;
         }
         //--------------------------------------------------------------------------------------
-        public RepresentativesPerfomance(int numberOfSet, int dimension, string inputData, string inputDataShort, string algorithm)
+        public RepresentativesPerfomance(int numberOfSet, int dimension, int[][] listOfSet, string inputDataShort, string algorithm)
         {
+            string inputData = listOfSet.AsString();
+            List<double> lengthArray = listOfSet.Select(l => (double)l.Length).ToList();
             _numberOfSet = numberOfSet;
             _dimension= dimension;
             _inputData = inputData;
             _inputDataShort = inputDataShort;
             _algorithm = algorithm;
+            _inputLenAvg = lengthArray.Average();
+            _inputLen = string.Join(",", lengthArray);
+            _inputLenSort = string.Join(",", lengthArray.OrderBy(l => l));
         }
         //--------------------------------------------------------------------------------------------------------------------
         public void SaveStatisticData(long duration, long durationMilliSeconds, DateTime dateComplete,

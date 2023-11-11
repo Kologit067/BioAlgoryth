@@ -31,9 +31,9 @@ namespace StatisticsStorage.Accumulators
             _representativesPerfomances = new List<RepresentativesPerfomance>();
         }
         //--------------------------------------------------------------------------------------------------------------------
-        public void CreateStatistics(string inputData, string inputDataShort, string algorithm)
+        public void CreateStatistics(int[][] listOfSet, string inputDataShort, string algorithm)
         {
-            _currentRepresentativesPerfomance = new RepresentativesPerfomance(_numberOfSet, _dimension, inputData, inputDataShort, algorithm);
+            _currentRepresentativesPerfomance = new RepresentativesPerfomance(_numberOfSet, _dimension, listOfSet, inputDataShort, algorithm);
             _representativesPerfomances.Add(_currentRepresentativesPerfomance);
         }
         //--------------------------------------------------------------------------------------------------------------------
@@ -81,9 +81,15 @@ namespace StatisticsStorage.Accumulators
             return _representativesSaver.Delete(algorithm, _numberOfSet, _dimension);
         }
         //--------------------------------------------------------------------------------------------------------------------
-        public string DeleteAlgorithm(string algorithm)
+        public string DeleteAlgorithm(string algorithm, int? numberOfSet = null, int? dimension = null)
         {
-            return _representativesSaver.Delete(algorithm);
+            return _representativesSaver.Delete(algorithm, numberOfSet, dimension);
+        }
+
+        public void RemoveLastStatistic()
+        {
+            if (_representativesPerfomances.Count > 0)
+                _representativesPerfomances.RemoveAt(_representativesPerfomances.Count - 1);
         }
         //--------------------------------------------------------------------------------------------------------------------
     }
@@ -97,7 +103,7 @@ namespace StatisticsStorage.Accumulators
         {
         }
         //--------------------------------------------------------------------------------------------------------------------
-        public void CreateStatistics(string inputData, string inputDataShort, string algorithm)
+        public void CreateStatistics(int[][] listOfSet, string inputDataShort, string algorithm)
         {
         }
         //--------------------------------------------------------------------------------------------------------------------

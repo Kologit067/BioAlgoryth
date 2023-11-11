@@ -64,7 +64,7 @@ namespace RepresentativesSet
         //-----------------------------------------------------------------------------------
         protected override void SupplementInitial()
         {
-            StatisticAccumulator.CreateStatistics(_inputData, _inputDataShort, nameof(BruteForceRepresentativesAsTree));
+            StatisticAccumulator.CreateStatistics(listOfSet, _inputDataShort, nameof(BruteForceRepresentativesAsTree));
         }       
         //--------------------------------------------------------------------------------------
     }

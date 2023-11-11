@@ -30,6 +30,9 @@ namespace StatisticsStorage.Savers
                 DataTable performance = new DataTable();
                 performance.Columns.Add("NumberOfSet", System.Type.GetType("System.Int32"));
                 performance.Columns.Add("Dimension", System.Type.GetType("System.Int32"));
+                performance.Columns.Add("InputLen", System.Type.GetType("System.String"));
+                performance.Columns.Add("InputLenSort", System.Type.GetType("System.String"));
+                performance.Columns.Add("InputLenAvg", System.Type.GetType("System.Decimal"));
                 performance.Columns.Add("InputData", System.Type.GetType("System.String"));
                 performance.Columns.Add("InputDataShort", System.Type.GetType("System.String"));
                 performance.Columns.Add("Algorithm", System.Type.GetType("System.String"));
@@ -57,7 +60,10 @@ namespace StatisticsStorage.Savers
                     performance.Rows.Add(
                         ps.NumberOfSet, 
                         ps.Dimension, 
-                        ps.InputData, 
+                        ps.InputLen,
+                        ps.InputLenSort,
+                        (decimal)ps.InputLenAvg,
+                        ps.InputData,
                         ps.InputDataShort, 
                         ps.Algorithm,
                         ps.IterationCount, 

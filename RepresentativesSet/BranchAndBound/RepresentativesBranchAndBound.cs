@@ -72,7 +72,7 @@ namespace RepresentativesSet
         //--------------------------------------------------------------------------------------
         protected override void SupplementInitial()
         {
-            StatisticAccumulator.CreateStatistics(_inputData, _inputDataShort, nameof(RepresentativesBranchAndBound));
+            StatisticAccumulator.CreateStatistics(listOfSet, _inputDataShort, nameof(RepresentativesBranchAndBound));
             _currentCardinality = _fCurrentSet[0];
         }
         //--------------------------------------------------------------------------------------

@@ -10,7 +10,7 @@ namespace BaseContract
     public interface IRepresentativesStatisticAccumulator
     {
         //--------------------------------------------------------------------------------------------------------------------
-        void CreateStatistics(string inputData, string inputDataShort, string algorithm);
+        void CreateStatistics(int[][] listOfSet, string inputDataShort, string algorithm);
         //--------------------------------------------------------------------------------------------------------------------
         void SaveStatisticData(long duration, long durationMilliSeconds, DateTime dateComplete,
             bool isComplete, string lastRoute, List<string> optimalSets, int bestValue);

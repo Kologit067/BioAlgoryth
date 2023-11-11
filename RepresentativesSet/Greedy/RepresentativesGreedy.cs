@@ -103,7 +103,7 @@ namespace RepresentativesSet.Greedy
         {
             stopwatch = new Stopwatch();
             stopwatch.Start();
-            StatisticAccumulator.CreateStatistics(_inputData, _inputDataShort, nameof(RepresentativesGreedy)+"Simple");
+            StatisticAccumulator.CreateStatistics(listOfSet.Select(l => l.ToArray()).ToArray(), _inputDataShort, nameof(RepresentativesGreedy)+"Simple");
             while (listOfSet.Where(s => s.Count() > 0).Count() > 0)
             {
                 var max = elements.Select((e, i) => (e, i)).OrderBy(o => o.e.Count).Last();
@@ -134,7 +134,7 @@ namespace RepresentativesSet.Greedy
 
             stopwatch = new Stopwatch();
             stopwatch.Start();
-            StatisticAccumulator.CreateStatistics(_inputData, _inputDataShort, nameof(RepresentativesGreedy) + "Improve");
+            StatisticAccumulator.CreateStatistics(listOfSet.Select(l => l.ToArray()).ToArray(), _inputDataShort, nameof(RepresentativesGreedy) + "Improve");
             while (listOfSet.Where(s => s.Count() > 0).Count() > 0)
             {
                 var maxCount = elements.Max(e => e.Count);
@@ -173,7 +173,7 @@ namespace RepresentativesSet.Greedy
 
             stopwatch = new Stopwatch();
             stopwatch.Start();
-            StatisticAccumulator.CreateStatistics(_inputData, _inputDataShort, nameof(RepresentativesGreedy) + "ImproveRD");
+            StatisticAccumulator.CreateStatistics(listOfSet.Select(l => l.ToArray()).ToArray(), _inputDataShort, nameof(RepresentativesGreedy) + "ImproveRD");
             while (listOfSet.Where(s => s.Count() > 0).Count() > 0)
             {
                 var maxCount = elements.Max(e => e.Count);
@@ -183,7 +183,7 @@ namespace RepresentativesSet.Greedy
                 if (maxList.Count > 1)
                 {
                     StatisticAccumulator.IterationCountInc();
-                    max = maxList.OrderBy(m => RelationCountDistinct(listOfSet, m.i)).First();
+                    max = maxList.OrderBy(m => RelationCountDistinct(listOfSet, m.i)).Last();
                 }
 
                 Solution.Add(max.i);

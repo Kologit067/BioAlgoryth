@@ -57,7 +57,7 @@ namespace RepresentativesSet
         //-----------------------------------------------------------------------------------
         protected override void SupplementInitial()
         {
-            StatisticAccumulator.CreateStatistics(_inputData, _inputDataShort, nameof(RepresentativesAsTree));
+            StatisticAccumulator.CreateStatistics(listOfSet, _inputDataShort, nameof(RepresentativesAsTree));
         }
         //--------------------------------------------------------------------------------------
         protected bool IsIntersect()
