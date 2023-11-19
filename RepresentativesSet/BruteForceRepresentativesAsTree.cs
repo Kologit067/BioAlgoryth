@@ -13,6 +13,11 @@ namespace RepresentativesSet
     public class BruteForceRepresentativesAsTree : RepresentativesAsTree
     {
         //--------------------------------------------------------------------------------------
+        public BruteForceRepresentativesAsTree(int pLength, string setAsString)
+            : this(pLength, RepresentativesTriangle.StringToArray(setAsString))
+        {
+        }
+        //--------------------------------------------------------------------------------------
         public BruteForceRepresentativesAsTree(int pLength, int[][] pListOfSet)
             : base(pLength, pListOfSet)
         {

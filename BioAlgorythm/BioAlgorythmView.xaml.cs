@@ -1,4 +1,5 @@
-﻿using FindingRegulatoryMotifs.Enumeration;
+﻿using BioAlgorythmViewModel.BipartiteGraphModel;
+using FindingRegulatoryMotifs.Enumeration;
 using StatisticsStorage.Accumulators;
 using System;
 using System.Collections.Generic;
@@ -56,5 +57,34 @@ namespace BioAlgorythm
                 MessageBox.Show($"Result is wrong.");
 
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            var viewModel = new BipartiteGraphViewModel();
+            DataContext = viewModel;
+        }
     }
+    //-------------------------------------------------------------------------------------------------------------------
+    // class VisibilityConverter
+    //-------------------------------------------------------------------------------------------------------------------
+    [ValueConversion(typeof(bool), typeof(Visibility))]
+    public class VisibilityConverter : IValueConverter
+    {
+        //-------------------------------------------------------------------------------------------------------------------
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            bool visibility = (bool)value;
+            if (visibility)
+                return Visibility.Visible;
+            return Visibility.Collapsed;
+        }
+        //-------------------------------------------------------------------------------------------------------------------
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            return null;
+        }
+        //-------------------------------------------------------------------------------------------------------------------
+    }
+    //-------------------------------------------------------------------------------------------------------------------
+
 }

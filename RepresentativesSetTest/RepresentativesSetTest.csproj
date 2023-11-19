@@ -56,6 +56,7 @@
     <Compile Include="BruteForceCompareTest.cs" />
     <Compile Include="RepresentativesBranchAndBoundTest.cs" />
     <Compile Include="RepresentativesCompareWithSkipTest.cs" />
+    <Compile Include="Triangle\RepresentativesTriangleTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

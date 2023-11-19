@@ -4,9 +4,125 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BioAlgorythm"
+        xmlns:v="clr-namespace:BioAlgorythmViewModel.BipartiteGraphModel;assembly=BioAlgorithmViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Bio Algorythms" Height="800" Width="1000"
+        Loaded="Window_Loaded" WindowStartupLocation="CenterScreen" WindowState="Maximized">
+    <Window.Resources>
+        <local:VisibilityConverter x:Key="visibilityConverter"/>
+        <FrameworkElement x:Key="ProxyElement" DataContext="{Binding}"/>
+        <DataTemplate DataType="{x:Type v:BipartiteGraphLeftVertexViewModel}">
+            <DataTemplate.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="FontSize" Value="15"/>
+                    <Setter Property="TextAlignment" Value="Center"/>
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                </Style>
+            </DataTemplate.Resources>
+            <Canvas Background="#DD00AA" Width="0" Left="0" HorizontalAlignment="Left">
+                <Ellipse Fill="{Binding RectangleFill}" Stroke="Black" StrokeThickness="{Binding StrokeThickness}"  
+                           Canvas.Left="{Binding Path=Left}" Canvas.Top="{Binding Path=Top}"
+                           Height="{Binding Path=Height}" Width="{Binding Path=Width}" >
+                </Ellipse>
+                <TextBlock Margin="0"  Text="{Binding Path=VertexNumber}" 
+                           Canvas.Left="{Binding Path=Left}" 
+                           Canvas.Top="{Binding Path=Top}"
+                          Height="{Binding Path=Height}" Width="{Binding Path=Width}" Padding="0"/>
+                <TextBlock Margin="3,2,2,7"  Text="{Binding Path=AdjacentsAsString}" 
+                           Canvas.Left="{Binding Path=AdjacentVerticesLeftPosition}"
+                           Canvas.Top="{Binding Path=Top}" Height="{Binding Path=Height}" />
+            </Canvas>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type v:BipartiteGraphRightVertexViewModel}">
+            <DataTemplate.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="FontSize" Value="15"/>
+                    <Setter Property="TextAlignment" Value="Center"/>
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                </Style>
+            </DataTemplate.Resources>
+            <Canvas Background="#DD00AA" Width="0" Left="0" HorizontalAlignment="Left">
+                <Ellipse Fill="{Binding RectangleFill}" Stroke="Black" StrokeThickness="{Binding StrokeThickness}"  
+                           Canvas.Left="{Binding Path=Left}" Canvas.Top="{Binding Path=Top}"
+                           Height="{Binding Path=Height}" Width="{Binding Path=Width}" >
+                </Ellipse>
+                <TextBlock Margin="0"  Text="{Binding Path=VertexNumber}" 
+                           Canvas.Left="{Binding Path=Left}" 
+                           Canvas.Top="{Binding Path=Top}"
+                          Height="{Binding Path=Height}" Width="{Binding Path=Width}" Padding="0"/>
+                <TextBlock Margin="3,2,2,7"  Text="{Binding Path=AdjacentsAsString}" 
+                           Canvas.Left="{Binding Path=AdjacentVerticesLeftPosition}" 
+                           Canvas.Top="{Binding Path=Top}" Height="{Binding Path=Height}" />
+            </Canvas>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type v:BipartiteGraphEdgeViewModel}">
+            <Canvas Background="#DD00AA" Width="0" Left="0" HorizontalAlignment="Left" >
+                <Polyline   Points="{Binding Path=Points}"    Stroke="Black"   StrokeThickness="2" />
+            </Canvas>
+        </DataTemplate>
+
+    </Window.Resources>
     <Grid>
-        <Button Click="Button_Click"/>
+        <TabControl>
+            <TabItem Header="Bipartite Graph">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition  Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Content="Left position"/>
+                        <TextBox Grid.Column="1" Text="{Binding Graph}" VerticalContentAlignment="Center"/>
+                        <Label Grid.Column="2" Content="Left position"/>
+                        <TextBox Grid.Column="3" Text="{Binding LeftPosition}" VerticalContentAlignment="Center"/>
+                        <Label Grid.Column="4" Content="Right position"/>
+                        <TextBox Grid.Column="5" Text="{Binding RightPosition}" VerticalContentAlignment="Center"/>
+                        <Label Grid.Column="6" Content="Vertical position"/>
+                        <TextBox Grid.Column="7" Text="{Binding VerticalPosition}" VerticalContentAlignment="Center"/>
+                        <Label Grid.Column="8" Content="Vertical step"/>
+                        <TextBox Grid.Column="9" Text="{Binding VerticalStep}" VerticalContentAlignment="Center"/>
+                        <Label Grid.Column="10" Content="Radius"/>
+                        <TextBox Grid.Column="11" Text="{Binding VertexRadius}" VerticalContentAlignment="Center"/>
+                        <Button Grid.Column="12" Padding="4" Margin="3,1,3,1" Content="Make"  Command="{Binding CreateGraphCommand}"/>
+                    </Grid>
+                    <Grid Grid.Row="1" Background="#E9FAFB">
+                        <Border BorderBrush="Black" BorderThickness="2" x:Name="pnlBipartiteGraph">
+                            <ScrollViewer x:Name="svDia" HorizontalScrollBarVisibility="Visible">
+                                <ItemsControl x:Name="icDia" Margin="5"  ItemsSource="{Binding BipartiteGraphElements}">
+                                    <ItemsControl.Template>
+                                        <ControlTemplate TargetType="ItemsControl">
+                                            <Border BorderBrush="#00000000" BorderThickness="1" HorizontalAlignment="Left">
+                                                <ItemsPresenter/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </ItemsControl.Template>
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <Grid Background="#00000000" />
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                </ItemsControl>
+                            </ScrollViewer>
+                        </Border>
+                    </Grid>
+
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>

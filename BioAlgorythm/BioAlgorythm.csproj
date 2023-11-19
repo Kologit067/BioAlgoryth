@@ -139,6 +139,14 @@
       <Project>{475c38d6-bd97-455c-a52d-afa461c533f7}</Project>
       <Name>StatisticsStorage</Name>
     </ProjectReference>
+    <ProjectReference Include="Model\BioAlgorythmModel\BioAlgorythmModel.csproj">
+      <Project>{4af71807-5109-4163-89bc-a284326fb680}</Project>
+      <Name>BioAlgorythmModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="ViewModel\BioAlgorithmViewModel\BioAlgorithmViewModel.csproj">
+      <Project>{c577980b-edb5-421a-8639-1d312cb2ffb2}</Project>
+      <Name>BioAlgorithmViewModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

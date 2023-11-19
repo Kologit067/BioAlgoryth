@@ -54,6 +54,7 @@
     <Compile Include="EnumerateIntegerCharSet.cs" />
     <Compile Include="EnumerateIntegerFullSet.cs" />
     <Compile Include="EnumerateIntegerTrangle.cs" />
+    <Compile Include="EnumerateIntegerTrangleOrdered.cs" />
     <Compile Include="EnumerateintegervariableSet.cs" />
     <Compile Include="EnumerateintegervariableSubsequence.cs" />
     <Compile Include="EnumerateNotDecreasedSubSequence.cs" />

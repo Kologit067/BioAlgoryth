@@ -4,14 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F89C8B30-7195-45F0-88D7-9CA07E21DC69}</ProjectGuid>
+    <ProjectGuid>{4AF71807-5109-4163-89BC-A284326FB680}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>RepresentativesSet</RootNamespace>
-    <AssemblyName>RepresentativesSet</AssemblyName>
+    <RootNamespace>BioAlgorythmModel</RootNamespace>
+    <AssemblyName>BioAlgorythmModel</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
+    <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,9 +31,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -44,33 +42,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BruteForceRepresentatives.cs" />
-    <Compile Include="BruteForceRepresentativesAsTree.cs" />
-    <Compile Include="Greedy\RepresentativesGreedy.cs" />
-    <Compile Include="Model\ElementInfo.cs" />
-    <Compile Include="Model\SetInfo.cs" />
+    <Compile Include="BipartiteGraphModel\BipartiteGraph.cs" />
+    <Compile Include="BipartiteGraphModel\BipartiteVertex.cs" />
+    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RepresentativesAsTree.cs" />
-    <Compile Include="BranchAndBound\RepresentativesBranchAndBound.cs" />
-    <Compile Include="BranchAndBound\RepresentativesBranchAndBoundByValue.cs" />
-    <Compile Include="RepresentativesTriangle.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BaseContract\BaseContract.csproj">
-      <Project>{B8C5FEDA-931E-439F-9661-D533D482352B}</Project>
-      <Name>BaseContract</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CommonLibrary\CommonLibrary.csproj">
-      <Project>{6208C3EB-138F-4B2E-93A8-6469D8A75379}</Project>
-      <Name>CommonLibrary</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\StatisticsStorage\StatisticsStorage.csproj">
-      <Project>{475C38D6-BD97-455C-A52D-AFA461C533F7}</Project>
-      <Name>StatisticsStorage</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
