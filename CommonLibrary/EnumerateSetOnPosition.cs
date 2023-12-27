@@ -147,8 +147,12 @@ namespace CommonLibrary
                     AddAction(_fCurrentSet[_fCurrentPosition]);
                     return;
                 }
+                CurrentPositionBackAction();
                 _fCurrentSet[_fCurrentPosition--] = _fBreakElement;
             }
+        }
+        protected virtual void CurrentPositionBackAction()
+        {
         }
         //--------------------------------------------------------------------------------------
         /// <summary>

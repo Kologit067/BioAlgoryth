@@ -22,6 +22,12 @@ namespace RepresentativesSet.Model
         {
             return $"{Number}: Weight {Weight}. {string.Join(",", SetList)}";
         }
-        public string ShortString =>  $"{Number}: W- {Weight}. {string.Join(",", SetList)}";
+        public string ShortString
+        {
+            get
+            {
+                return $"{Number}: W- {Weight}. {string.Join(",", SetList)}";
+            }
+        }
     }
 }

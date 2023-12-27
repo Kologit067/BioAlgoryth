@@ -22,6 +22,12 @@ namespace RepresentativesSet.Model
         {
             return $"{Number}: Included {IncludedInSolution}. {string.Join(",", Elements)}";
         }
-        public string ShortString => $"{Number}: I-{IncludedInSolution}. {string.Join(",", Elements)}";
+        public string ShortString
+        {
+            get
+            {
+                return $"{Number}: I-{IncludedInSolution}. {string.Join(",", Elements)}";
+            }
+        }
     }
 }

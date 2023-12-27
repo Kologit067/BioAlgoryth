@@ -36,8 +36,8 @@ namespace RepresentativesSetTest.Triangle
                 Assert.AreEqual(expectedResultBruteForce[i], representativesTriangle.Result[i], $"Wrong string in position {i} - {representativesTriangle.Result[i]}. Expected - {expectedResultBruteForce[i]}");
             }
 
-            //Assert.IsTrue(bruteForce.OptimalSets.Contains(expectedResult2));
-            //Assert.IsTrue(representativesTriangle.OptimalSets.Contains(expectedResultDirect2));
+            Assert.IsTrue(bruteForce.OptimalSets.Contains(expectedResult2));
+            Assert.IsTrue(representativesTriangle.OptimalSets.Contains(expectedResultDirect2));
 
         }
 

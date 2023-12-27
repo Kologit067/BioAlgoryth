@@ -55,17 +55,35 @@ namespace RepresentativesSet
         {
             get
             {
-                List<int> result = new List<int>();
-                for (int i = 0; i < _fCurrentOptimalSet.Count; i++)
-                {
-                    if (_fCurrentOptimalSet[i] != 0)
-                        result.Add(i);
-                }
-                return result;
+                return _fCurrentOptimalSet.Take(currentMinimum).ToList();
             }
         }
-        public string SetListAsString => string.Join(" ", $"[{SetList.Select(s => s.ShortString)}]");
-        public string ElementsAsString => string.Join(" ", $"[{Elements.Select(s => s.ShortString)}]");
+        public string SetListAsString
+        {
+            get
+            {
+                return string.Join(" ", SetList.Select(s => $"[{s.ShortString}]"));
+            }
+        }
+        public string ElementsAsString
+        {
+            get
+            {
+                return string.Join(" ", Elements.Select(s => $"[{s.ShortString}]"));
+            }
+        }
+        //--------------------------------------------------------------------------------------
+        public List<string> OptimalSets
+        {
+            get
+            {
+                return _fOptimalSets;
+            }
+            //set
+            //{
+            //    _fOptimalSets = value;
+            //}
+        }
         //--------------------------------------------------------------------------------------
         public RepresentativesTriangle(int pLength, string pListOfSetAsString) : this(pLength, StringToArray(pListOfSetAsString))
         {
@@ -122,6 +140,8 @@ namespace RepresentativesSet
                     maxInd = i;
                 }
             }
+            if (max == 0)
+                return _fBreakElement;
             int selected = rest[pPosition][maxInd];
             Elements[selected].SetList.ForEach(s =>
             {
@@ -156,6 +176,8 @@ namespace RepresentativesSet
             if (_fCurrentSet[pPosition] == _fBreakElement)
                 return false;
             _fCurrentSet[pPosition] = FirstElement(pPosition);
+            if (_fCurrentSet[pPosition] == _fBreakElement)
+                return false;
             return true;
         }
         //--------------------------------------------------------------------------------------
@@ -166,11 +188,13 @@ namespace RepresentativesSet
             {
                 SetList[s].IncludedInSolution--;
                 if (SetList[s].IncludedInSolution == 0)
-                    commonCounter--;
-                SetList[s].Elements.ForEach(e =>
                 {
-                    Elements[e].Weight += 1;
-                });
+                    commonCounter--;
+                    SetList[s].Elements.ForEach(e =>
+                    {
+                        Elements[e].Weight += 1;
+                    });
+                }
             });
 
         }
@@ -180,7 +204,7 @@ namespace RepresentativesSet
 
             if (commonCounter == SetList.Count)
             {
-                UpdateOptimalResults(_fCurrentPosition);
+                UpdateOptimalResults(_fCurrentPosition+1);
             }
             return false;
 
@@ -198,13 +222,10 @@ namespace RepresentativesSet
                 currentMinimum = candidatValue;
                 _fOptimalSets.Clear();
             }
-            List<int> result = new List<int>();
-            for (int i = 0; i < _fCurrentSet.Count; i++)
+            if (candidatValue <= currentMinimum)
             {
-                if (_fCurrentSet[i] != 0)
-                    result.Add(i);
+                _fOptimalSets.Add(string.Join(",", _fCurrentSet.Take(candidatValue)));
             }
-            _fOptimalSets.Add(string.Join(",", result));
         }
         //--------------------------------------------------------------------------------------
         /// <summary>
@@ -219,6 +240,16 @@ namespace RepresentativesSet
                 return true;
             }
             return false;
+        }
+        //--------------------------------------------------------------------------------------
+        protected override void CurrentPositionBackAction()
+        {
+            passed[_fCurrentPosition].Clear();
+            for (int i = 0; i < _fSize; i++)
+            {
+                if (!rest[_fCurrentPosition].Contains(i))
+                    rest[_fCurrentPosition].Add(i);
+            }
         }
         //--------------------------------------------------------------------------------------
     }
