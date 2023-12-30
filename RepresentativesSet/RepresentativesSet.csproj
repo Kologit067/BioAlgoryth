@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BranchAndBound\RepresentativesTriangleBranchAndBound.cs" />
     <Compile Include="BruteForceRepresentatives.cs" />
     <Compile Include="BruteForceRepresentativesAsTree.cs" />
     <Compile Include="Greedy\RepresentativesGreedy.cs" />

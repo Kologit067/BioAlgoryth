@@ -128,8 +128,22 @@ namespace RepresentativesSet
         //--------------------------------------------------------------------------------------
         protected override int FirstElement(int pPosition)
         {
+            if (_fCurrentPosition < pPosition)
+            {
+                passed[_fCurrentPosition].ForEach(r =>
+                {
+                    if (rest[pPosition].Contains(r))
+                        rest[pPosition].Remove(r);
+                    if (!passed[pPosition].Contains(r))
+                        passed[pPosition].Add(r);
+                });
+            }
             if (rest[pPosition].Count == 0)
+            {
+                if (_fCurrentPosition < pPosition)
+                    CurrentPositionBackAction(pPosition);
                 return _fBreakElement;
+            }
             int max = Elements[rest[pPosition][0]].Weight;
             int maxInd = 0;
             for(int i = 0; i < rest[pPosition].Count; i++)
@@ -141,7 +155,11 @@ namespace RepresentativesSet
                 }
             }
             if (max == 0)
+            {
+                if (_fCurrentPosition < pPosition)
+                    CurrentPositionBackAction(pPosition);
                 return _fBreakElement;
+            }
             int selected = rest[pPosition][maxInd];
             Elements[selected].SetList.ForEach(s =>
             {
@@ -157,17 +175,17 @@ namespace RepresentativesSet
             });
             rest[pPosition].Remove(selected);
             passed[pPosition].Add(selected);
-            int nextpPosition = pPosition + 1;
-            if (nextpPosition < rest.Count)
-            {
-                passed[pPosition].ForEach(r =>
-                {
-                    if (rest[nextpPosition].Contains(r))
-                        rest[nextpPosition].Remove(r);
-                    if (!passed[nextpPosition].Contains(r))
-                        passed[nextpPosition].Add(r);
-                });
-            }
+            //int nextpPosition = _fCurrentPosition + 1;
+            //if (_fCurrentPosition == pPosition && nextpPosition < rest.Count)
+            //{
+            //    passed[_fCurrentPosition].ForEach(r =>
+            //    {
+            //        if (rest[nextpPosition].Contains(r))
+            //            rest[nextpPosition].Remove(r);
+            //        if (!passed[nextpPosition].Contains(r))
+            //            passed[nextpPosition].Add(r);
+            //    });
+            //}
             return selected;
         }
         //--------------------------------------------------------------------------------------
@@ -224,7 +242,7 @@ namespace RepresentativesSet
             }
             if (candidatValue <= currentMinimum)
             {
-                _fOptimalSets.Add(string.Join(",", _fCurrentSet.Take(candidatValue)));
+                _fOptimalSets.Add(string.Join(",", _fCurrentSet.Take(candidatValue).OrderBy(c => c)));
             }
         }
         //--------------------------------------------------------------------------------------
@@ -242,14 +260,31 @@ namespace RepresentativesSet
             return false;
         }
         //--------------------------------------------------------------------------------------
-        protected override void CurrentPositionBackAction()
+        protected override void CurrentPositionBackAction(int position)
         {
-            passed[_fCurrentPosition].Clear();
+            passed[position].Clear();
             for (int i = 0; i < _fSize; i++)
             {
-                if (!rest[_fCurrentPosition].Contains(i))
-                    rest[_fCurrentPosition].Add(i);
+                if (!rest[position].Contains(i))
+                    rest[position].Add(i);
             }
+        }
+        //--------------------------------------------------------------------------------------
+        protected override void SupplementInitial()
+        {
+            StatisticAccumulator.CreateStatistics(listOfSet, _inputDataShort, nameof(RepresentativesTriangle));
+        }
+        //--------------------------------------------------------------------------------------
+        public void SortSolutions()
+        {
+            _fOptimalSets = OptimalSets.OrderBy(s => s).ToList();
+
+        }
+        //-----------------------------------------------------------------------------------
+        protected override void PostAction()
+        {
+            StatisticAccumulator.SaveStatisticData(ElapsedTicks, DurationMilliSeconds, DateTime.Now,
+                IsComplete, CurrentSetAsString, _fOptimalSets, currentMinimum);
         }
         //--------------------------------------------------------------------------------------
     }

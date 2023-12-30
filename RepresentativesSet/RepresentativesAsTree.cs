@@ -95,7 +95,6 @@ namespace RepresentativesSet
             _fOptimalSets.Add(string.Join(",", result));
         }
         //--------------------------------------------------------------------------------------
-        //--------------------------------------------------------------------------------------
         public static long Combination(int n, int k)
         {
             long numerator = 1;
