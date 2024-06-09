@@ -77,22 +77,22 @@ namespace StatisticsStorage.Accumulators
             }
         }
         //--------------------------------------------------------------------------------------------------------------------
-        protected AlgorythmParameters _algorythmParameters;
-        public AlgorythmParameters AlgorythmParameters
+        protected AlgorithmParameters _algorithmParameters;
+        public AlgorithmParameters AlgorithmParameters
         {
             get
             {
-                return _algorythmParameters;
+                return _algorithmParameters;
             }
         }
         //--------------------------------------------------------------------------------------------------------------------
         public RegulatoryMotifPerfomance(int size, string inputData, string algorithm, int numberOfSequence,
-                string sequenceLengthes, int motifLength, AlgorythmParameters algorythmParameters) : base(size, inputData, algorithm)
+                string sequenceLengthes, int motifLength, AlgorithmParameters algorithmParameters) : base(size, inputData, algorithm)
         {
             _numberOfSequence = numberOfSequence;
             _sequenceLengthes = sequenceLengthes;
             _motifLength = motifLength;
-            _algorythmParameters = algorythmParameters;
+            _algorithmParameters = algorithmParameters;
         }
         //--------------------------------------------------------------------------------------------------------------------
         public void SaveStatisticData(string outputPresentation,int optimalValue, long duration, long durationMilliSeconds, DateTime dateComplete,

@@ -48,6 +48,10 @@
     <Compile Include="BruteForceRepresentatives.cs" />
     <Compile Include="BruteForceRepresentativesAsTree.cs" />
     <Compile Include="Greedy\RepresentativesGreedy.cs" />
+    <Compile Include="Greedy\RepresentativesGreedyImprove.cs" />
+    <Compile Include="Greedy\RepresentativesGreedyImproveRD.cs" />
+    <Compile Include="Greedy\RepresentativesGreedyRelation.cs" />
+    <Compile Include="Greedy\RepresentativesGreedySimple.cs" />
     <Compile Include="Model\ElementInfo.cs" />
     <Compile Include="Model\SetInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -16,9 +16,9 @@ namespace StatisticsStorage.Accumulators
         public static readonly int SolutionLimit = 20;
         protected SortingSaver _sortingSaver;
         protected int _size;
-        protected string _algorythm;
+        protected string _algorithm;
         //--------------------------------------------------------------------------------------------------------------------
-        public SortingAccumulator(SortingSaver sortingSaver, string algorythm,  int size)
+        public SortingAccumulator(SortingSaver sortingSaver, string algorithm,  int size)
         {
         }
         //--------------------------------------------------------------------------------------------------------------------

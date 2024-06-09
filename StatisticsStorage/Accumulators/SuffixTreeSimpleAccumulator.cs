@@ -17,15 +17,15 @@ namespace StatisticsStorage.Accumulators
         protected SuffixTreeSaver _suffixTreeSaver;
         protected int _bufferSize;
         protected int _textLength;
-        protected string _algorythm;
+        protected string _algorithm;
         protected int _alphabetSize;
         //--------------------------------------------------------------------------------------------------------------------
-        public SuffixTreeAccumulator(SuffixTreeSaver suffixTreeSaver, string algorythm, int textLength, int bufferSize, int alphabetSize)
+        public SuffixTreeAccumulator(SuffixTreeSaver suffixTreeSaver, string algorithm, int textLength, int bufferSize, int alphabetSize)
         {
             _textLength = textLength;
             _bufferSize = bufferSize;
             _alphabetSize = alphabetSize;
-            _algorythm = algorythm;
+            _algorithm = algorithm;
             _suffixTreePerfomances = new List<SuffixTreePerfomance>();
             _suffixTreeSaver = suffixTreeSaver;
         }
@@ -34,7 +34,7 @@ namespace StatisticsStorage.Accumulators
         {
             _currentSuffixTreePerfomance = new SuffixTreePerfomance()
             {
-                Algorithm = _algorythm,
+                Algorithm = _algorithm,
                 TextSize = _textLength,
                 AlphabetSize = _alphabetSize,
                 Text = text,
@@ -77,7 +77,7 @@ namespace StatisticsStorage.Accumulators
         //--------------------------------------------------------------------------------------------------------------------
         public string Delete()
         {
-            return _suffixTreeSaver.Delete(_algorythm, _textLength, _alphabetSize);
+            return _suffixTreeSaver.Delete(_algorithm, _textLength, _alphabetSize);
         }
         //--------------------------------------------------------------------------------------------------------------------
     }

@@ -12,7 +12,7 @@ namespace StatisticsStorage.Savers
         private string _connectionString;
         public StringCompareSaver()
         {
-            _connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["bioalgorythm"].ConnectionString;
+            _connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["bioalgorithm"].ConnectionString;
         }
         public string Save(List<FindPatternPerfomance> findPatternPerfomances)
         {
@@ -72,7 +72,7 @@ namespace StatisticsStorage.Savers
 
         }
 
-        public string Delete(string algorythm, int patternLength, int textLength, int alphabetSize)
+        public string Delete(string algorithm, int patternLength, int textLength, int alphabetSize)
         {
             string error = null;
 
@@ -84,7 +84,7 @@ namespace StatisticsStorage.Savers
                 SqlCommand addCommand = new SqlCommand("[dbo].[deleteFindPatternPerfomance]", connection);
                 addCommand.CommandType = CommandType.StoredProcedure;
                 addCommand.CommandTimeout = 1800;
-                SqlParameter tvpParam2 = addCommand.Parameters.AddWithValue("@Algorithm", algorythm);
+                SqlParameter tvpParam2 = addCommand.Parameters.AddWithValue("@Algorithm", algorithm);
                 tvpParam2.SqlDbType = SqlDbType.VarChar;
                 SqlParameter tvpParam3 = addCommand.Parameters.AddWithValue("@TextSize", textLength);
                 tvpParam3.SqlDbType = SqlDbType.Int;

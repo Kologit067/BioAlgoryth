@@ -69,7 +69,7 @@ namespace StatisticsStorage.Savers
 
         }
 
-        public string Delete(string algorythm, int textLength, int alphabetSize)
+        public string Delete(string algorithm, int textLength, int alphabetSize)
         {
             string error = null;
 
@@ -81,7 +81,7 @@ namespace StatisticsStorage.Savers
                 SqlCommand addCommand = new SqlCommand("[dbo].[deleteStringExactPerfomance]", connection);
                 addCommand.CommandType = CommandType.StoredProcedure;
                 addCommand.CommandTimeout = 1800;
-                SqlParameter tvpParam2 = addCommand.Parameters.AddWithValue("@Algorithm", algorythm);
+                SqlParameter tvpParam2 = addCommand.Parameters.AddWithValue("@Algorithm", algorithm);
                 tvpParam2.SqlDbType = SqlDbType.VarChar;
                 SqlParameter tvpParam3 = addCommand.Parameters.AddWithValue("@TextSize", textLength);
                 tvpParam3.SqlDbType = SqlDbType.Int;

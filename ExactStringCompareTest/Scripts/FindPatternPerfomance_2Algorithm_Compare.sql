@@ -1,4 +1,4 @@
-﻿USE [BioAlgorythm]
+﻿USE [BioAlgorithm]
 DECLARE @Algorithm1 VARCHAR(500) = 'BFSC';
 DECLARE @Algorithm2 VARCHAR(500) = 'SSCP';
 DECLARE @TextSize INT = 16;

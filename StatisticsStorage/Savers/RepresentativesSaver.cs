@@ -16,8 +16,8 @@ namespace StatisticsStorage.Savers
         private string _connectionString;
         public RepresentativesSaver()
         {
- //           _connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["bioalgorythm"].ConnectionString;
-            _connectionString = "Data Source=.\\SQLEXPRESS;Initial Catalog=BioAlgorythm;Integrated Security=true";
+ //           _connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["bioalgorithm"].ConnectionString;
+            _connectionString = "Data Source=.\\SQLEXPRESS;Initial Catalog=BioAlgorithm;Integrated Security=true";
         }
 
         public string Save(List<RepresentativesPerfomance> representativesPerfomances)

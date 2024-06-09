@@ -152,7 +152,7 @@ namespace ExactStringCompareTest
             int patternLength = 7;
             int textLength = 14;
             char[] alphabet = new char[] { 'a', 'c', 'g', 't' };
-            StringCompareAccumulator statisticAccumulator = new StringCompareAccumulator(new StringCompareSaver(), SimpletStringCompareByPreprocessing.AlgorythmName,
+            StringCompareAccumulator statisticAccumulator = new StringCompareAccumulator(new StringCompareSaver(), SimpletStringCompareByPreprocessing.AlgorithmName,
                 patternLength, textLength, bufferSize, alphabet.Length);
             statisticAccumulator.Delete();
             int size = patternLength + textLength;
@@ -218,7 +218,7 @@ namespace ExactStringCompareTest
                 _textLength = pTextLength;
                 _step = pStep;
                 _stepCounter = 1;
-                _statisticAccumulator = new StringCompareAccumulator(new StringCompareSaver(), SimpletStringCompareByPreprocessing.AlgorythmName, 
+                _statisticAccumulator = new StringCompareAccumulator(new StringCompareSaver(), SimpletStringCompareByPreprocessing.AlgorithmName, 
                     _patternLength, _textLength, bufferSize, pCharSet.Length);
                 _statisticAccumulator.Delete();
             }

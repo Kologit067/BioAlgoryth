@@ -4,13 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CommonLibrary.Helpers;
 
 namespace RepresentativesSet.Greedy
 {
-    public class RepresentativesGreedy
+    public abstract class RepresentativesGreedy
     {
         protected List<List<int>> listOfSet;
         protected long[] listOfSetAsNumber;
@@ -99,151 +97,14 @@ namespace RepresentativesSet.Greedy
             Solution = new List<int>();
         }
 
-        public void ExecuteSimple()
-        {
-            stopwatch = new Stopwatch();
-            stopwatch.Start();
-            StatisticAccumulator.CreateStatistics(listOfSet.Select(l => l.ToArray()).ToArray(), _inputDataShort, nameof(RepresentativesGreedy)+"Simple");
-            while (listOfSet.Where(s => s.Count() > 0).Count() > 0)
-            {
-                var max = elements.Select((e, i) => (e, i)).OrderBy(o => o.e.Count).Last();
-                Solution.Add(max.i);
-                var deletedSets = max.e.ToList();
-                StatisticAccumulator.IterationCountInc();
-                for (int i = 0; i < listOfSet.Count; i++)
-                {
-                    StatisticAccumulator.IterationCountInc();
-                    if (deletedSets.Contains(i))
-                        listOfSet[i].Clear();
-                }
-                for (int i = 0; i < elements.Length; i++)
-                {
-                    StatisticAccumulator.IterationCountInc();
-                    deletedSets.ForEach(d => elements[i].Remove(d));
-                }
-            }
-            StatisticAccumulator.UpdateOptcountInc();
-            stopwatch.Stop();
-            _fElapsedTicks = stopwatch.ElapsedTicks;
-            _fDurationMilliSeconds = stopwatch.ElapsedMilliseconds;
-            StatisticAccumulator.SaveStatisticData(ElapsedTicks, DurationMilliSeconds, DateTime.Now,
-                false, SolutionAsString, new List<string> { SolutionAsString }, Solution.Count);
-        }
-        public void ExecuteImproved()
-        {
+        public abstract void Execute();
 
-            stopwatch = new Stopwatch();
-            stopwatch.Start();
-            StatisticAccumulator.CreateStatistics(listOfSet.Select(l => l.ToArray()).ToArray(), _inputDataShort, nameof(RepresentativesGreedy) + "Improve");
-            while (listOfSet.Where(s => s.Count() > 0).Count() > 0)
-            {
-                var maxCount = elements.Max(e => e.Count);
-                var maxList = elements.Select((e, i) => (e, i)).Where(s => s.e.Count() == maxCount).ToList();
-                (List<int> e, int i) max = maxList.First();
-                StatisticAccumulator.IterationCountInc();
-                if (maxList.Count > 1)
-                {
-                    StatisticAccumulator.IterationCountInc();
-                    max = maxList.OrderBy(m => m.e.Sum(k => listOfSet[k].Count())).First();
-                }
-
-                Solution.Add(max.i);
-                var deletedSets = max.e.ToList();
-                for (int i = 0; i < listOfSet.Count; i++)
-                {
-                    StatisticAccumulator.IterationCountInc();
-                    if (deletedSets.Contains(i))
-                        listOfSet[i].Clear();
-                }
-                for (int i = 0; i < elements.Length; i++)
-                {
-                    StatisticAccumulator.IterationCountInc();
-                    deletedSets.ForEach(d => elements[i].Remove(d));
-                }
-            }
-            StatisticAccumulator.UpdateOptcountInc();
-            stopwatch.Stop();
-            _fElapsedTicks = stopwatch.ElapsedTicks;
-            _fDurationMilliSeconds = stopwatch.ElapsedMilliseconds;
-            StatisticAccumulator.SaveStatisticData(ElapsedTicks, DurationMilliSeconds, DateTime.Now,
-                false, SolutionAsString, new List<string> { SolutionAsString }, Solution.Count);
-        }
-        public void ExecuteImprovedRD()
-        {
-
-            stopwatch = new Stopwatch();
-            stopwatch.Start();
-            StatisticAccumulator.CreateStatistics(listOfSet.Select(l => l.ToArray()).ToArray(), _inputDataShort, nameof(RepresentativesGreedy) + "ImproveRD");
-            while (listOfSet.Where(s => s.Count() > 0).Count() > 0)
-            {
-                var maxCount = elements.Max(e => e.Count);
-                var maxList = elements.Select((e, i) => (e, i)).Where(s => s.e.Count() == maxCount).ToList();
-                (List<int> e, int i) max = maxList.First();
-                StatisticAccumulator.IterationCountInc();
-                if (maxList.Count > 1)
-                {
-                    StatisticAccumulator.IterationCountInc();
-                    max = maxList.OrderBy(m => RelationCountDistinct(listOfSet, m.i)).Last();
-                }
-
-                Solution.Add(max.i);
-                var deletedSets = max.e.ToList();
-                for (int i = 0; i < listOfSet.Count; i++)
-                {
-                    StatisticAccumulator.IterationCountInc();
-                    if (deletedSets.Contains(i))
-                        listOfSet[i].Clear();
-                }
-                for (int i = 0; i < elements.Length; i++)
-                {
-                    StatisticAccumulator.IterationCountInc();
-                    deletedSets.ForEach(d => elements[i].Remove(d));
-                }
-            }
-            StatisticAccumulator.UpdateOptcountInc();
-            stopwatch.Stop();
-            _fElapsedTicks = stopwatch.ElapsedTicks;
-            _fDurationMilliSeconds = stopwatch.ElapsedMilliseconds;
-            StatisticAccumulator.SaveStatisticData(ElapsedTicks, DurationMilliSeconds, DateTime.Now,
-                false, SolutionAsString, new List<string> { SolutionAsString }, Solution.Count);
-        }
-
-        private static double RelationCountDistinct(List<List<int>> listOfSet, int i)
+        protected static double RelationCountDistinct(List<List<int>> listOfSet, int i)
         {
             double count = listOfSet.Where(s => !s.Contains(i)).Sum(s => s.Count);
             double distinct = listOfSet.Where(s => !s.Contains(i)).SelectMany(s => s).Distinct().Count();
             return count / distinct;
         }
 
-        public void ExecuteRelation()
-        {
-
-            stopwatch = new Stopwatch();
-            stopwatch.Start();
-            while (listOfSet.Where(s => s.Count() > 0).Count() > 0)
-            {
-                var max = elements.Select((e, i) => (e, i)).OrderBy(o => 1.0 * o.e.Sum(k => listOfSet[k].Count()) / o.e.Count).First();
-
-                Solution.Add(max.i);
-                var deletedSets = max.e.ToList();
-                for (int i = 0; i < listOfSet.Count; i++)
-                {
-                    StatisticAccumulator.IterationCountInc();
-                    if (deletedSets.Contains(i))
-                        listOfSet[i].Clear();
-                }
-                for (int i = 0; i < elements.Length; i++)
-                {
-                    StatisticAccumulator.IterationCountInc();
-                    deletedSets.ForEach(d => elements[i].Remove(d));
-                }
-            }
-            StatisticAccumulator.UpdateOptcountInc();
-            stopwatch.Stop();
-            _fElapsedTicks = stopwatch.ElapsedTicks;
-            _fDurationMilliSeconds = stopwatch.ElapsedMilliseconds;
-            StatisticAccumulator.SaveStatisticData(ElapsedTicks, DurationMilliSeconds, DateTime.Now,
-                false, SolutionAsString, new List<string> { SolutionAsString }, Solution.Count);
-        }
     }
 }

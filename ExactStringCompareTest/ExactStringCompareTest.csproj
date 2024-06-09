@@ -86,7 +86,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <None Include="Scripts\FindPatternPerfomance_2Algorythm_Compare.sql" />
+    <None Include="Scripts\FindPatternPerfomance_2Algorithm_Compare.sql" />
     <None Include="Scripts\FindPatternPerfomance_Statistics.sql" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

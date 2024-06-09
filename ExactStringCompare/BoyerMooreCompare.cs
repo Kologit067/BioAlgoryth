@@ -13,11 +13,11 @@ namespace ExactStringCompare
     //--------------------------------------------------------------------------------------
     public class BoyerMooreComparer : StringPreprocessing
     {
-        public static readonly string AlgorythmName = "BMC";
-        public static readonly string AlgorythmNameBadSymbolAdv = "BMCBSA";
-        public static readonly string AlgorythmNameBadSymbol = "BMCBS";
-        public static readonly string AlgorythmNameGoodSuffix = "BMCGS";
-        public static readonly string AlgorythmNameGoodSuffixBadSymbol = "BMCGSBS";
+        public static readonly string AlgorithmName = "BMC";
+        public static readonly string AlgorithmNameBadSymbolAdv = "BMCBSA";
+        public static readonly string AlgorithmNameBadSymbol = "BMCBS";
+        public static readonly string AlgorithmNameGoodSuffix = "BMCGS";
+        public static readonly string AlgorithmNameGoodSuffixBadSymbol = "BMCGSBS";
         //--------------------------------------------------------------------------------------
         private List<int> result = new List<int>();
         //--------------------------------------------------------------------------------------

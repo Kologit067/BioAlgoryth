@@ -1,22 +1,12 @@
-﻿using BioAlgorythmViewModel.BipartiteGraphModel;
+﻿using BioAlgorithmViewModel;
+using BioAlgorithmViewModel.BipartiteGraphModel;
 using FindingRegulatoryMotifs.Enumeration;
 using StatisticsStorage.Accumulators;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
-namespace BioAlgorythm
+namespace BioAlgorithm
 {
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
@@ -60,7 +50,7 @@ namespace BioAlgorythm
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            var viewModel = new BipartiteGraphViewModel();
+            var viewModel = new AlgorithmViewModel();
             DataContext = viewModel;
         }
     }

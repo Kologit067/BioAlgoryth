@@ -118,7 +118,7 @@ namespace ExactStringCompareTest
             int bufferSize = 1000;
             int textLength = 21;
             char[] alphabet = new char[] { 'a', 'c', 'g', 't' };
-            SuffixTreeAccumulator statisticAccumulator = new SuffixTreeAccumulator(new SuffixTreeSaver(), BruteForceStringCompare.AlgorythmName,
+            SuffixTreeAccumulator statisticAccumulator = new SuffixTreeAccumulator(new SuffixTreeSaver(), BruteForceStringCompare.AlgorithmName,
                 textLength, bufferSize, alphabet.Length);
             statisticAccumulator.Delete();
             int size = textLength;
@@ -179,7 +179,7 @@ namespace ExactStringCompareTest
                 _textLength = pTextLength;
                 _step = pStep;
                 _stepCounter = 1;
-                _statisticAccumulator = new SuffixTreeAccumulator(new SuffixTreeSaver(), BruteForceStringCompare.AlgorythmName,
+                _statisticAccumulator = new SuffixTreeAccumulator(new SuffixTreeSaver(), BruteForceStringCompare.AlgorithmName,
                     _textLength, bufferSize, pCharSet.Length);
                 _statisticAccumulator.Delete();
             }

@@ -12,7 +12,7 @@ namespace ExactStringCompare
     //--------------------------------------------------------------------------------------
     public class SimpletStringCompareByPreprocessing : StringPreprocessing
     {
-        public static readonly string AlgorythmName = "SSCP";
+        public static readonly string AlgorithmName = "SSCP";
         //private string _outputPresentation;
         //public string OutputPresentation
         //{

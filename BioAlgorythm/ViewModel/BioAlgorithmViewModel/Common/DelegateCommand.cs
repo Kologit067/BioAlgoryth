@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace BioAlgorythmViewModel.Common
+namespace BioAlgorithmViewModel.Common
 {
     /// <summary>
     ///     This class allows delegating the commanding logic to methods passed as parameters,

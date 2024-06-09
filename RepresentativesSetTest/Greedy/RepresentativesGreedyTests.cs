@@ -24,10 +24,10 @@ namespace RepresentativesSet.Greedy.Tests
             // arrange
             List<int> list = new List<int>() { 3, 5, 6, 7, 16 };
             int[][] listOfSet = list.Select(t => BruteForceRepresentatives.GetAsElementNumbers(t, 5).ToArray()).ToArray();
-            RepresentativesGreedy representativesGreedy = new RepresentativesGreedy(listOfSet);
+            RepresentativesGreedy representativesGreedy = new RepresentativesGreedySimple(listOfSet);
 
             // act
-            representativesGreedy.ExecuteSimple();
+            representativesGreedy.Execute();
             representativesGreedy.Solution = representativesGreedy.Solution.OrderBy(s => s).ToList();
 
             // assert
@@ -41,11 +41,11 @@ namespace RepresentativesSet.Greedy.Tests
             // arrange
             List<int> list = new List<int>() { 3, 5, 7, 10, 24 };
             int[][] listOfSet = list.Select(t => BruteForceRepresentatives.GetAsElementNumbers(t, 5).ToArray()).ToArray();
-            RepresentativesGreedy representativesGreedy = new RepresentativesGreedy(listOfSet);
+            RepresentativesGreedyImprove representativesGreedy = new RepresentativesGreedyImprove(listOfSet);
             string solutionAsStringExpected = "1,2,4";
 
             // act
-            representativesGreedy.ExecuteImproved();
+            representativesGreedy.Execute();
             representativesGreedy.Solution = representativesGreedy.Solution.OrderBy(s => s).ToList();
             string solutionAsString = string.Join(",", representativesGreedy.Solution);
 
@@ -60,11 +60,11 @@ namespace RepresentativesSet.Greedy.Tests
             // arrange
             List<int> list = new List<int>() { 5, 11, 12, 18, 21 };
             int[][] listOfSet = list.Select(t => BruteForceRepresentatives.GetAsElementNumbers(t, 5).ToArray()).ToArray();
-            RepresentativesGreedy representativesGreedy = new RepresentativesGreedy(listOfSet);
+            RepresentativesGreedy representativesGreedy = new RepresentativesGreedyImprove(listOfSet);
             string solutionAsStringExpected = "1,2,4";
 
             // act
-            representativesGreedy.ExecuteImproved();
+            representativesGreedy.Execute();
             representativesGreedy.Solution = representativesGreedy.Solution.OrderBy(s => s).ToList();
             string solutionAsString = string.Join(",", representativesGreedy.Solution);
 
@@ -79,11 +79,11 @@ namespace RepresentativesSet.Greedy.Tests
             // arrange
             List<int> list = new List<int>() { 3, 5, 7, 10, 20 };
             int[][] listOfSet = list.Select(t => BruteForceRepresentatives.GetAsElementNumbers(t, 5).ToArray()).ToArray();
-            RepresentativesGreedy representativesGreedy = new RepresentativesGreedy(listOfSet);
+            RepresentativesGreedy representativesGreedy = new RepresentativesGreedySimple(listOfSet);
             string solutionAsStringExpected = "1,2,4";
 
             // act
-            representativesGreedy.ExecuteImproved();
+            representativesGreedy.Execute();
             representativesGreedy.Solution = representativesGreedy.Solution.OrderBy(s => s).ToList();
             string solutionAsString = string.Join(",", representativesGreedy.Solution);
 
@@ -98,11 +98,11 @@ namespace RepresentativesSet.Greedy.Tests
             // arrange
             List<int> list = new List<int>() { 6, 7, 9, 10, 20 };
             int[][] listOfSet = list.Select(t => BruteForceRepresentatives.GetAsElementNumbers(t, 5).ToArray()).ToArray();
-            RepresentativesGreedy representativesGreedy = new RepresentativesGreedy(listOfSet);
+            RepresentativesGreedy representativesGreedy = new RepresentativesGreedyImproveRD(listOfSet);
             string solutionAsStringExpected = "2,3";
 
             // act
-            representativesGreedy.ExecuteImprovedRD();
+            representativesGreedy.Execute();
             representativesGreedy.Solution = representativesGreedy.Solution.OrderBy(s => s).ToList();
             string solutionAsString = string.Join(",", representativesGreedy.Solution);
 
@@ -221,7 +221,7 @@ namespace RepresentativesSet.Greedy.Tests
             _statisticAccumulator = new RepresentativesStatisticAccumulator(new RepresentativesSaver(), pLength, pCardinality);
             _statisticAccumulator.DeleteAlgorithm(nameof(RepresentativesBranchAndBoundByValue));
             _greedyStatisticAccumulator = new RepresentativesStatisticAccumulator(new RepresentativesSaver(), pLength, pCardinality);
-            _greedyStatisticAccumulator.DeleteAlgorithm(nameof(RepresentativesGreedy));
+            _greedyStatisticAccumulator.DeleteAlgorithm(nameof(RepresentativesGreedySimple));
         }
         //--------------------------------------------------------------------------------------
         protected override bool MakeAction()
@@ -245,7 +245,7 @@ namespace RepresentativesSet.Greedy.Tests
                     _oneCount++;
                     return false;
                 }
-                RepresentativesGreedy representativesGreedy = new RepresentativesGreedy(listOfSet)
+                RepresentativesGreedy representativesGreedy = new RepresentativesGreedySimple(listOfSet)
                 {
                     StatisticAccumulator = _greedyStatisticAccumulator
                 };
@@ -256,7 +256,7 @@ namespace RepresentativesSet.Greedy.Tests
 
                 // act
                 branchAndBound.Execute();
-                representativesGreedy.ExecuteSimple();
+                representativesGreedy.Execute();
                 branchAndBound.OptimalSets = branchAndBound.OptimalSets.OrderBy(s => s).ToList();
                 representativesGreedy.Solution = representativesGreedy.Solution.OrderBy(s => s).ToList();
 
@@ -398,11 +398,11 @@ namespace RepresentativesSet.Greedy.Tests
             _statisticAccumulator = new RepresentativesStatisticAccumulator(new RepresentativesSaver(), pLength, pCardinality);
             _statisticAccumulator.DeleteAlgorithm(nameof(RepresentativesBranchAndBoundByValue));
             _greedyStatisticAccumulator = new RepresentativesStatisticAccumulator(new RepresentativesSaver(), pLength, pCardinality);
-            _greedyStatisticAccumulator.DeleteAlgorithm(nameof(RepresentativesGreedy) + "Simple");
+            _greedyStatisticAccumulator.DeleteAlgorithm(nameof(RepresentativesGreedySimple));
             _greedyImpStatisticAccumulator = new RepresentativesStatisticAccumulator(new RepresentativesSaver(), pLength, pCardinality);
-            _greedyImpStatisticAccumulator.DeleteAlgorithm(nameof(RepresentativesGreedy) + "Improve");
+            _greedyImpStatisticAccumulator.DeleteAlgorithm(nameof(RepresentativesGreedyImprove) );
             _greedyImpRDStatisticAccumulator = new RepresentativesStatisticAccumulator(new RepresentativesSaver(), pLength, pCardinality);
-            _greedyImpRDStatisticAccumulator.DeleteAlgorithm(nameof(RepresentativesGreedy) + "ImproveRD");
+            _greedyImpRDStatisticAccumulator.DeleteAlgorithm(nameof(RepresentativesGreedyImproveRD));
         }
         //--------------------------------------------------------------------------------------
         protected override bool MakeAction()
@@ -426,15 +426,15 @@ namespace RepresentativesSet.Greedy.Tests
                     _oneCount++;
                     return false;
                 }
-                RepresentativesGreedy representativesGreedy = new RepresentativesGreedy(listOfSet)
+                RepresentativesGreedy representativesGreedy = new RepresentativesGreedySimple(listOfSet)
                 {
                     StatisticAccumulator = _greedyStatisticAccumulator
                 };
-                RepresentativesGreedy representativesGreedyImp = new RepresentativesGreedy(listOfSet)
+                RepresentativesGreedy representativesGreedyImp = new RepresentativesGreedyImprove(listOfSet)
                 {
                     StatisticAccumulator = _greedyImpStatisticAccumulator
                 };
-                RepresentativesGreedy representativesGreedyImpRD = new RepresentativesGreedy(listOfSet)
+                RepresentativesGreedy representativesGreedyImpRD = new RepresentativesGreedyImproveRD(listOfSet)
                 {
                     StatisticAccumulator = _greedyImpRDStatisticAccumulator
                 };
@@ -445,9 +445,9 @@ namespace RepresentativesSet.Greedy.Tests
 
                 // act
                 branchAndBound.Execute();
-                representativesGreedy.ExecuteSimple();
-                representativesGreedyImp.ExecuteImproved();
-                representativesGreedyImpRD.ExecuteImprovedRD();
+                representativesGreedy.Execute();
+                representativesGreedyImp.Execute();
+                representativesGreedyImpRD.Execute();
                 branchAndBound.OptimalSets = branchAndBound.OptimalSets.OrderBy(s => s).ToList();
                 representativesGreedy.Solution = representativesGreedy.Solution.OrderBy(s => s).ToList();
                 representativesGreedyImp.Solution = representativesGreedyImp.Solution.OrderBy(s => s).ToList();
@@ -595,7 +595,7 @@ namespace RepresentativesSet.Greedy.Tests
             _statisticAccumulator = new RepresentativesStatisticAccumulator(new RepresentativesSaver(), pLength, pCardinality);
             _statisticAccumulator.DeleteAlgorithm(nameof(RepresentativesBranchAndBoundByValue), pLength, pCardinality);
             _greedyStatisticAccumulator = new RepresentativesStatisticAccumulator(new RepresentativesSaver(), pLength, pCardinality);
-            _greedyStatisticAccumulator.DeleteAlgorithm(nameof(RepresentativesGreedy) + "ImproveRD", pLength, pCardinality);
+            _greedyStatisticAccumulator.DeleteAlgorithm(nameof(RepresentativesGreedyImproveRD), pLength, pCardinality);
         }
         //--------------------------------------------------------------------------------------
         protected override bool MakeAction()
@@ -619,7 +619,7 @@ namespace RepresentativesSet.Greedy.Tests
                     return false;
                 }
                 _count++;
-                RepresentativesGreedy representativesGreedy = new RepresentativesGreedy(listOfSet)
+                RepresentativesGreedy representativesGreedy = new RepresentativesGreedyImproveRD(listOfSet)
                 {
                     StatisticAccumulator = _greedyStatisticAccumulator
                 };
@@ -630,7 +630,7 @@ namespace RepresentativesSet.Greedy.Tests
 
                 // act
                 branchAndBound.Execute();
-                representativesGreedy.ExecuteImprovedRD();
+                representativesGreedy.Execute();
                 branchAndBound.OptimalSets = branchAndBound.OptimalSets.OrderBy(s => s).ToList();
                 representativesGreedy.Solution = representativesGreedy.Solution.OrderBy(s => s).ToList();
 

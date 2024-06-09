@@ -13,7 +13,7 @@ namespace ExactStringCompare
     //--------------------------------------------------------------------------------------
     public class AndShift
     {
-        public static readonly string AlgorythmName = "ASH";
+        public static readonly string AlgorithmName = "ASH";
         protected Dictionary<char, long> letterVectors = new Dictionary<char, long>();
         public IStringCompareAccumulator StatisticAccumulator { get; set; }
 

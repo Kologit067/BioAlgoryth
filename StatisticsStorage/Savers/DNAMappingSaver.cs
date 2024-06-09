@@ -14,7 +14,7 @@ namespace StatisticsStorage.Savers
         private string _connectionString;
         public DNAMappingSaver()
         {
-            _connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["bioalgorythm"].ConnectionString;
+            _connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["bioalgorithm"].ConnectionString;
         }
 
         public string Save(List<DNAMappingPerfomance> dnaMappingPerfomances)
@@ -54,7 +54,7 @@ namespace StatisticsStorage.Savers
                     performance.Rows.Add( ps.Size, ps.Limit, ps.InputData, ps.OutputPresentation, ps.Algorithm,
                         ps.IterationCount, ps.Duration, ps.DurationMilliSeconds, ps.DateComplete, ps.IsComplete,
                         ps.LastRoute, ps.OptimalRoute, ps.CountTerminal, ps.UpdateOptcount, ps.ElemenationCount,
-                        ps.AlgorythmParameters.IsAllResult);
+                        ps.AlgorithmParameters.IsAllResult);
 
                     for (int i = 0; i < ps.ListOfSolution.Count; i++)
                     {

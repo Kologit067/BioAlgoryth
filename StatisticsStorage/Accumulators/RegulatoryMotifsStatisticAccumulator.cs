@@ -42,9 +42,9 @@ namespace StatisticsStorage.Accumulators
         }
         //--------------------------------------------------------------------------------------------------------------------
         public void CreateStatistics(int size, string inputData, string algorithm, int numberOfSequence,
-                string sequenceLengthes, int motifLength, AlgorythmParameters algorythmParameters)
+                string sequenceLengthes, int motifLength, AlgorithmParameters algorithmParameters)
         {
-            _currentRegulatoryMotifPerfomance = new RegulatoryMotifPerfomance(size, inputData, algorithm, numberOfSequence, sequenceLengthes, motifLength, algorythmParameters);
+            _currentRegulatoryMotifPerfomance = new RegulatoryMotifPerfomance(size, inputData, algorithm, numberOfSequence, sequenceLengthes, motifLength, algorithmParameters);
             _regulatoryMotifPerfomances.Add(_currentRegulatoryMotifPerfomance);
         }
         //--------------------------------------------------------------------------------------------------------------------
@@ -116,7 +116,7 @@ namespace StatisticsStorage.Accumulators
         }
         //--------------------------------------------------------------------------------------------------------------------
         public void CreateStatistics(int size, string inputData, string algorithm, int numberOfSequence,
-                string sequenceLengthes, int motifLength, AlgorythmParameters algorythmParameters)
+                string sequenceLengthes, int motifLength, AlgorithmParameters algorithmParameters)
         {
         }
         //--------------------------------------------------------------------------------------------------------------------

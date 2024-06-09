@@ -11,7 +11,7 @@ namespace ExactStringCompare
     //--------------------------------------------------------------------------------------
     public class SuffixTreeSimple : SuffixTreeBase
     {
-        public static readonly string AlgorythmName = "STSMP";
+        public static readonly string AlgorithmName = "STSMP";
         public SuffixTreeSimple()
         {
         }

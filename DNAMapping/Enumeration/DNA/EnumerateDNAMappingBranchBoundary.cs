@@ -138,7 +138,7 @@ namespace DNAMapping.Enumeration.DNA
         //-----------------------------------------------------------------------------------
         protected override void SupplementInitial()
         {
-            StatisticAccumulator.CreateStatistics(string.Join(",", _originePairwiseDifferences.Select(p => p.Data)), "EnumerateDNAMappingBranchBoundary", new AlgorythmParameters()
+            StatisticAccumulator.CreateStatistics(string.Join(",", _originePairwiseDifferences.Select(p => p.Data)), "EnumerateDNAMappingBranchBoundary", new AlgorithmParameters()
             {
                 IsAllResult = _isAllResult
             });

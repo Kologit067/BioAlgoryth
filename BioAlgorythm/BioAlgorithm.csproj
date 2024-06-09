@@ -82,7 +82,7 @@
     </ApplicationDefinition>
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
-    <Page Include="BioAlgorythmView.xaml">
+    <Page Include="BioAlgorithmView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -90,8 +90,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="BioAlgorythmView.xaml.cs">
-      <DependentUpon>BioAlgorythmView.xaml</DependentUpon>
+    <Compile Include="BioAlgorithmView.xaml.cs">
+      <DependentUpon>BioAlgorithmView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -139,9 +139,9 @@
       <Project>{475c38d6-bd97-455c-a52d-afa461c533f7}</Project>
       <Name>StatisticsStorage</Name>
     </ProjectReference>
-    <ProjectReference Include="Model\BioAlgorythmModel\BioAlgorythmModel.csproj">
+    <ProjectReference Include="Model\BioAlgorythmModel\BioAlgorithmModel.csproj">
       <Project>{4af71807-5109-4163-89bc-a284326fb680}</Project>
-      <Name>BioAlgorythmModel</Name>
+      <Name>BioAlgorithmModel</Name>
     </ProjectReference>
     <ProjectReference Include="ViewModel\BioAlgorithmViewModel\BioAlgorithmViewModel.csproj">
       <Project>{c577980b-edb5-421a-8639-1d312cb2ffb2}</Project>

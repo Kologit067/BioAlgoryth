@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BioAlgorythmViewModel.Common
+namespace BioAlgorithmViewModel.Common
 {
     // Summary:
     //     A base class for the ViewModel classes in the MVVM pattern.

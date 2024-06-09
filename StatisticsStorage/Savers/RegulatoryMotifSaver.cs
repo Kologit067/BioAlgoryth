@@ -11,7 +11,7 @@ namespace StatisticsStorage.Savers
         private string _connectionString;
         public RegulatoryMotifSaver()
         {
-            _connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["bioalgorythm"].ConnectionString;
+            _connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["bioalgorithm"].ConnectionString;
         }
         public string Save(List<RegulatoryMotifPerfomance> regulatoryMotifPerfomances)
         {
@@ -82,14 +82,14 @@ namespace StatisticsStorage.Savers
                         (ps.SolutionStartPositionList?.Count ?? 0) == 0  ? "" : string.Join(",", ps.SolutionStartPositionList[0]),
                         (ps.ListOfMotif?.Count ?? 0) == 0 ? "" : string.Join("", ps.ListOfMotif[0]), 
                         ps.CountTerminal, ps.UpdateOptcount, ps.ElemenationCount, 
-                        ps.AlgorythmParameters.IsOptimizitaion, ps.AlgorythmParameters.IsSumAsCriteria, ps.AlgorythmParameters.IsAllResult, ps.AlgorythmParameters.AcceptibleDistance);
+                        ps.AlgorithmParameters.IsOptimizitaion, ps.AlgorithmParameters.IsSumAsCriteria, ps.AlgorithmParameters.IsAllResult, ps.AlgorithmParameters.AcceptibleDistance);
 
                     for (int i = 0; i < (ps.ListOfMotif?.Count ?? 0); i++)
                     {
                         solutions.Rows.Add(ps.Algorithm, ps.SequenceLengthes,
-                        ps.MotifLength, ps.AlgorythmParameters.IsOptimizitaion, 
-                        ps.AlgorythmParameters.IsSumAsCriteria, 
-                        ps.AlgorythmParameters.IsAllResult, ps.AlgorythmParameters.AcceptibleDistance,
+                        ps.MotifLength, ps.AlgorithmParameters.IsOptimizitaion, 
+                        ps.AlgorithmParameters.IsSumAsCriteria, 
+                        ps.AlgorithmParameters.IsAllResult, ps.AlgorithmParameters.AcceptibleDistance,
                         ps.InputData,
                         string.Join(",", ps.SolutionStartPositionList[i]), 
                         string.Join("", ps.ListOfMotif[i]));
@@ -99,9 +99,9 @@ namespace StatisticsStorage.Savers
                         foreach ( var ch in ps.RegulatoryMotifOptimalValueChanges)
                         {
                             valueChanges.Rows.Add(ps.Algorithm, ps.SequenceLengthes,
-                            ps.MotifLength, ps.AlgorythmParameters.IsOptimizitaion, 
-                            ps.AlgorythmParameters.IsSumAsCriteria, ps.AlgorythmParameters.IsAllResult, 
-                            ps.AlgorythmParameters.AcceptibleDistance,
+                            ps.MotifLength, ps.AlgorithmParameters.IsOptimizitaion, 
+                            ps.AlgorithmParameters.IsSumAsCriteria, ps.AlgorithmParameters.IsAllResult, 
+                            ps.AlgorithmParameters.AcceptibleDistance,
                             ps.InputData, ch.IterationCount, ch.Duration, ch.DurationMilliSeconds,
                             ch.OptimalValue, ch.StartPosition, ch.Motif);
                         }

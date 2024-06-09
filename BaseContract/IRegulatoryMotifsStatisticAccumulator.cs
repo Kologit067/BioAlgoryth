@@ -14,7 +14,7 @@ namespace BaseContract
         void UpdateOptcountInc();
         void ElemenationCountInc();
         void CreateStatistics(int size, string inputData, string algorithm, int numberOfSequence,
-                string sequenceLengthes, int motifLength, AlgorythmParameters algorythmParameters);
+                string sequenceLengthes, int motifLength, AlgorithmParameters algorithmParameters);
         void AddRegulatoryMotifOptimalValueChange(long duration, long durationMilliSeconds,
             int optimalValue, string startPosition, string motif);
         void SaveStatisticData(string outputPresentation, int optimalValue, long duration, long durationMilliSeconds, DateTime dateComplete,

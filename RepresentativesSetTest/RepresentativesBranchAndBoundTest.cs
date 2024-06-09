@@ -284,7 +284,7 @@ namespace RepresentativesSetTest
         {
             int y = 3;
 
-            var task = Task.FromResult(3 + x);
+            var task = Task.FromResult(y + x);
             return await task;
         }
     }

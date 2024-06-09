@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CommonLibrary.Objects
 {
-    public class AlgorythmParameters
+    public class AlgorithmParameters
     {
         public bool IsOptimizitaion { get; set; }
         public bool IsSumAsCriteria { get; set; }

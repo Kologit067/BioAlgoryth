@@ -44,8 +44,8 @@
   <ItemGroup>
     <Compile Include="BipartiteGraphModel\BipartiteGraph.cs" />
     <Compile Include="BipartiteGraphModel\BipartiteVertex.cs" />
-    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RepresentativesModel\RepresentativeAlgorithmGroup.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

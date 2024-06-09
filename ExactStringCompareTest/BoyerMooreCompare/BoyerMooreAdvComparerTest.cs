@@ -69,7 +69,7 @@ namespace ExactStringCompareTest.BoyerMooreCompare
             int patternLength = 7;
             int textLength = 14;
             char[] alphabet = new char[] { 'a', 'c', 'g', 't' };
-            StringCompareAccumulator statisticAccumulator = new StringCompareAccumulator(new StringCompareSaver(), BoyerMooreComparer.AlgorythmNameGoodSuffixBadSymbol,
+            StringCompareAccumulator statisticAccumulator = new StringCompareAccumulator(new StringCompareSaver(), BoyerMooreComparer.AlgorithmNameGoodSuffixBadSymbol,
                 patternLength, textLength, bufferSize, alphabet.Length);
             statisticAccumulator.Delete();
             int size = patternLength + textLength;
@@ -136,7 +136,7 @@ namespace ExactStringCompareTest.BoyerMooreCompare
             _textLength = pTextLength;
             _step = pStep;
             _stepCounter = 1;
-            _statisticAccumulator = new StringCompareAccumulator(new StringCompareSaver(), BoyerMooreComparer.AlgorythmNameGoodSuffixBadSymbol,
+            _statisticAccumulator = new StringCompareAccumulator(new StringCompareSaver(), BoyerMooreComparer.AlgorithmNameGoodSuffixBadSymbol,
                 _patternLength, _textLength, bufferSize, pCharSet.Length);
             _statisticAccumulator.Delete();
         }

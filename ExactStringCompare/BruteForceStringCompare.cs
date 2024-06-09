@@ -13,7 +13,7 @@ namespace ExactStringCompare
     //--------------------------------------------------------------------------------------
     public class BruteForceStringCompare
     {
-        public static readonly string AlgorythmName = "BFSC";
+        public static readonly string AlgorithmName = "BFSC";
         public IStringCompareAccumulator StatisticAccumulator { get; set; }
 
         public List<int> FindSubstring(string text, string pattern, bool isSaveStatisticsForEmpty = true)

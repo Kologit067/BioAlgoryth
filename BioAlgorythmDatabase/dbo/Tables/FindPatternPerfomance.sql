@@ -28,6 +28,6 @@
 
 
 GO
-CREATE NONCLUSTERED INDEX [Idx_FindPatternPerfomance_algorythm_size]
+CREATE NONCLUSTERED INDEX [Idx_FindPatternPerfomance_algorithm_size]
     ON [dbo].[FindPatternPerfomance]([Algorithm] ASC, [TextSize] ASC, [PatternSize] ASC, [AlphabetSize] ASC);
 

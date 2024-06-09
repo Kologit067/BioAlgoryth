@@ -56,7 +56,7 @@
     <Compile Include="ISortingAccumulator.cs" />
     <Compile Include="IStringCompareAccumulator.cs" />
     <Compile Include="ISuffixTreeSimpleAccumulator.cs" />
-    <Compile Include="Objects\AlgorythmParameters.cs" />
+    <Compile Include="Objects\AlgorithmParameters.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

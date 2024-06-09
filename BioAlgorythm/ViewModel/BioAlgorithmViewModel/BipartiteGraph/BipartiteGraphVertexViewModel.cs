@@ -1,11 +1,11 @@
-﻿using BioAlgorythmModel.BipartiteGraphModel;
+﻿using BioAlgorithmModel.BipartiteGraphModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BioAlgorythmViewModel.BipartiteGraphModel
+namespace BioAlgorithmViewModel.BipartiteGraphModel
 {
     //----------------------------------------------------------------------------------------------------------------------
     // class BipartiteGraphVertexViewModel

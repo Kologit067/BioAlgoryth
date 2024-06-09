@@ -1,4 +1,4 @@
-﻿using BioAlgorythmViewModel.Common;
+﻿using BioAlgorithmViewModel.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 
-namespace BioAlgorythmViewModel.BipartiteGraphModel
+namespace BioAlgorithmViewModel.BipartiteGraphModel
 {
     //----------------------------------------------------------------------------------------------------------------------
     // class BipartiteGraphElementViewModel

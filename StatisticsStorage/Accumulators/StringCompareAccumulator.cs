@@ -22,16 +22,16 @@ namespace StatisticsStorage.Accumulators
         protected int _bufferSize;
         protected int _patternLength;
         protected int _textLength;
-        protected string _algorythm;
+        protected string _algorithm;
         protected int _alphabetSize;
         //--------------------------------------------------------------------------------------------------------------------
-        public StringCompareAccumulator(StringCompareSaver stringCompareSaver, string algorythm, int patternLength, int textLength, int bufferSize, int alphabetSize)
+        public StringCompareAccumulator(StringCompareSaver stringCompareSaver, string algorithm, int patternLength, int textLength, int bufferSize, int alphabetSize)
         {
             _patternLength = patternLength;
             _textLength = textLength;
             _bufferSize = bufferSize;
             _alphabetSize = alphabetSize;
-            _algorythm = algorythm;
+            _algorithm = algorithm;
             _findPatternPerfomances = new List<FindPatternPerfomance>();
             _stringCompareSaver = stringCompareSaver;
         }
@@ -40,7 +40,7 @@ namespace StatisticsStorage.Accumulators
         {
             _currentFindPatternPerfomance = new FindPatternPerfomance()
             {
-                Algorithm = _algorythm,
+                Algorithm = _algorithm,
                 TextSize = _textLength,
                 PatternSize = _patternLength,
                 AlphabetSize = _alphabetSize,
@@ -85,7 +85,7 @@ namespace StatisticsStorage.Accumulators
         //--------------------------------------------------------------------------------------------------------------------
         public string Delete()
         {
-            return _stringCompareSaver.Delete(_algorythm, _patternLength, _textLength, _alphabetSize);
+            return _stringCompareSaver.Delete(_algorithm, _patternLength, _textLength, _alphabetSize);
         }
         //--------------------------------------------------------------------------------------------------------------------
     }

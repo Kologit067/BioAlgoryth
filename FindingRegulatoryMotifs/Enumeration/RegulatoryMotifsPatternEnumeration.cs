@@ -163,7 +163,7 @@ namespace FindingRegulatoryMotifs.Enumeration
         protected override void SupplementInitial()
         {
             StatisticAccumulator.CreateStatistics(_fSize, string.Join(",", _sequenceLIst.Select(s => new string(s))), "RegulatoryMotifsPatternEnumeration", _sequenceLIst.Length,
-                string.Join(",", _sequenceLIst.Select(s => s.Length)), _patternLength, new AlgorythmParameters()
+                string.Join(",", _sequenceLIst.Select(s => s.Length)), _patternLength, new AlgorithmParameters()
                 {
                     IsOptimizitaion = _isOptimizitaion,
                     IsSumAsCriteria = _isSumAsCriteria,

@@ -72,7 +72,7 @@ namespace DNAMapping.Enumeration.DNA
         //-----------------------------------------------------------------------------------
         protected override void SupplementInitial()
         {
-            StatisticAccumulator.CreateStatistics( string.Join(",", _pairwiseDifferences.Select(p => p.ToString())), "EnumerateDNAMappingByIntegerTrangle", new AlgorythmParameters()
+            StatisticAccumulator.CreateStatistics( string.Join(",", _pairwiseDifferences.Select(p => p.ToString())), "EnumerateDNAMappingByIntegerTrangle", new AlgorithmParameters()
             {
                 IsAllResult = _isAllResult
             });

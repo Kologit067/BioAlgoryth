@@ -13,7 +13,7 @@ namespace ExactStringCompare
     //--------------------------------------------------------------------------------------
     public class SuffixTreeCompare : StringPreprocessing
     {
-        public static readonly string AlgorythmName = "SFTCMP";
+        public static readonly string AlgorithmName = "SFTCMP";
         //--------------------------------------------------------------------------------------
 
         public List<int> FindSubstring(string text, string pattern, SuffixTreeBase suffixTreeBase,  bool isSaveStatisticsForEmpty = true)
