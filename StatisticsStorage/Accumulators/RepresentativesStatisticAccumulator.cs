@@ -1,12 +1,8 @@
 ﻿using BaseContract;
-using CommonLibrary.Objects;
 using StatisticsStorage.Accumulators.Objects;
 using StatisticsStorage.Savers;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StatisticsStorage.Accumulators
 {
@@ -20,12 +16,14 @@ namespace StatisticsStorage.Accumulators
         protected RepresentativesSaver _representativesSaver;
         protected int _bufferSize;
         protected int _numberOfSet;
-        protected int _dimension;        
+        protected int _dimension;
+        protected long _step;
         //--------------------------------------------------------------------------------------------------------------------
-        public RepresentativesStatisticAccumulator(RepresentativesSaver representativesSaver, int numberOfSet, int dimension, int bufferSize = 100)
+        public RepresentativesStatisticAccumulator(RepresentativesSaver representativesSaver, int numberOfSet, int dimension, long step = 1, int bufferSize = 100)
         {
             _numberOfSet = numberOfSet;
             _dimension = dimension;
+            _step = step;
             _representativesSaver = representativesSaver;
             _bufferSize = bufferSize;
             _representativesPerfomances = new List<RepresentativesPerfomance>();
@@ -33,7 +31,7 @@ namespace StatisticsStorage.Accumulators
         //--------------------------------------------------------------------------------------------------------------------
         public void CreateStatistics(int[][] listOfSet, string inputDataShort, string algorithm)
         {
-            _currentRepresentativesPerfomance = new RepresentativesPerfomance(_numberOfSet, _dimension, listOfSet, inputDataShort, algorithm);
+            _currentRepresentativesPerfomance = new RepresentativesPerfomance(_numberOfSet, _dimension, _step, listOfSet, inputDataShort, algorithm);
             _representativesPerfomances.Add(_currentRepresentativesPerfomance);
         }
         //--------------------------------------------------------------------------------------------------------------------
@@ -78,12 +76,12 @@ namespace StatisticsStorage.Accumulators
         //--------------------------------------------------------------------------------------------------------------------
         public string Delete(string algorithm)
         {
-            return _representativesSaver.Delete(algorithm, _numberOfSet, _dimension);
+            return _representativesSaver.Delete(algorithm, _numberOfSet, _dimension, _step);
         }
         //--------------------------------------------------------------------------------------------------------------------
-        public string DeleteAlgorithm(string algorithm, int? numberOfSet = null, int? dimension = null)
+        public string DeleteAlgorithm(string algorithm, int? numberOfSet = null, int? dimension = null, long? step = null)
         {
-            return _representativesSaver.Delete(algorithm, numberOfSet, dimension);
+            return _representativesSaver.Delete(algorithm, numberOfSet, dimension, step);
         }
 
         public void RemoveLastStatistic()

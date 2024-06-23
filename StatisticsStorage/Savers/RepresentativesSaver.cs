@@ -114,7 +114,7 @@ namespace StatisticsStorage.Savers
 
         }
 
-        public string Delete(string algorithm, int? numberOfSet = null, int? dimension = null)
+        public string Delete(string algorithm, int? numberOfSet = null, int? dimension = null, long? step = null)
         {
             string error = null;
 
@@ -132,6 +132,8 @@ namespace StatisticsStorage.Savers
                 tvpParam3.SqlDbType = SqlDbType.VarChar;
                 SqlParameter tvpParam = addCommand.Parameters.AddWithValue("@NumberOfSet", numberOfSet);
                 tvpParam.SqlDbType = SqlDbType.VarChar;
+                SqlParameter tvpParam4 = addCommand.Parameters.AddWithValue("@Step", step);
+                tvpParam4.SqlDbType = SqlDbType.VarChar;
                 addCommand.ExecuteNonQuery();
             }
             catch (Exception ex)

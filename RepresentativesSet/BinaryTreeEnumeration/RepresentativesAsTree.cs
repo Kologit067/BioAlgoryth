@@ -44,7 +44,7 @@ namespace RepresentativesSet
         public RepresentativesAsTree(int pLength, int[][] pListOfSet) : base(pLength)
         {
             listOfSet = pListOfSet;
-            listOfSetAsNumber = listOfSet.Select(s => BruteForceRepresentatives.ElementNumbersToLongAsBinaryVector(s)).ToArray();
+            listOfSetAsNumber = listOfSet.Select(s => BruteForceRepresentativesBinaryNumbders.ElementNumbersToLongAsBinaryVector(s)).ToArray();
             if (listOfSet.Any(s => s.Any(e => e >= pLength)))
                 throw new ArgumentException("Element of set can not be > Length.");
             _fCurrentOptimalSet = _fCurrentSet.ToList();
@@ -195,7 +195,7 @@ namespace RepresentativesSet
                 }
                 --j;
             }
-            return (0, 0, 0l);
+            return (0, 0, 0L);
         }
 
         private static long GetCountForPosition(int n, int m, int i, int j)

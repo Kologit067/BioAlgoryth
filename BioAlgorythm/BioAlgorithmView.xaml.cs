@@ -1,5 +1,4 @@
 ﻿using BioAlgorithmViewModel;
-using BioAlgorithmViewModel.BipartiteGraphModel;
 using FindingRegulatoryMotifs.Enumeration;
 using StatisticsStorage.Accumulators;
 using System;

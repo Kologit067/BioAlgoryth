@@ -4,11 +4,7 @@ using RepresentativesSet.Model;
 using StatisticsStorage.Accumulators;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.PerformanceData;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Schema;
 
 namespace RepresentativesSet
 {
@@ -106,7 +102,7 @@ namespace RepresentativesSet
         public RepresentativesTriangle(int pLength, int[][] pListOfSet) : base(pLength, pLength)
         {
             listOfSet = pListOfSet;
-            listOfSetAsNumber = listOfSet.Select(s => BruteForceRepresentatives.ElementNumbersToLongAsBinaryVector(s)).ToArray();
+            listOfSetAsNumber = listOfSet.Select(s => BruteForceRepresentativesBinaryNumbders.ElementNumbersToLongAsBinaryVector(s)).ToArray();
             if (listOfSet.Any(s => s.Any(e => e >= pLength)))
                 throw new ArgumentException("Element of set can not be > Length.");
             _fCurrentOptimalSet = _fCurrentSet.ToList();

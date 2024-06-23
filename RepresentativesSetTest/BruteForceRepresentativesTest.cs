@@ -18,7 +18,7 @@ namespace RepresentativesSetTest
             for (int i = 0; i < expected.Length; i++)
             {
                 // act 
-                int result = BruteForceRepresentatives.DefineSumOfBit(i, 64, 6);
+                int result = BruteForceRepresentativesBinaryNumbders.DefineSumOfBit(i, 64, 6);
                 // assert
                 Assert.AreEqual(expected[i], result, $"Unexpected DefineSumOfBit result for {i} - {result}, Expected - {expected[i]}");
             }
@@ -33,8 +33,8 @@ namespace RepresentativesSetTest
             for (long i = 0; i < (long)1 << 13; i++)
             {
                 // act 
-                long result1 = BruteForceRepresentatives.DefineSumOfBit((int)i, 1 << 12, 64);
-                long result2 = BruteForceRepresentatives.DefineSumOfBitVer2(i);
+                long result1 = BruteForceRepresentativesBinaryNumbders.DefineSumOfBit((int)i, 1 << 12, 64);
+                long result2 = BruteForceRepresentativesBinaryNumbders.DefineSumOfBitVer2(i);
                 // assert
                 Assert.AreEqual(result1, result2, $"Unexpected  result for {i} - DefineSumOfBit - {result1}, Expected - {result2}");
             }
@@ -49,7 +49,7 @@ namespace RepresentativesSetTest
             for (long i = 0; i < (long)expected.Length; i++)
             {
                 // act 
-                long result = BruteForceRepresentatives.DefineSumOfBitVer2(i);
+                long result = BruteForceRepresentativesBinaryNumbders.DefineSumOfBitVer2(i);
                 // assert
                 Assert.AreEqual(expected[i], result, $"Unexpected DefineSumOfBitVer2 result for {i} - {result}, Expected - {expected[i]}");
             }
@@ -64,7 +64,7 @@ namespace RepresentativesSetTest
             long inputValue = 3;
 
             // act 
-            long result = BruteForceRepresentatives.DefineSumOfBitVer2(inputValue);
+            long result = BruteForceRepresentativesBinaryNumbders.DefineSumOfBitVer2(inputValue);
             // assert
             Assert.AreEqual(expected, result, $"Unexpected DefineSumOfBitVer2 result for {inputValue} - {result}, Expected - {expected}");
         }
@@ -74,8 +74,8 @@ namespace RepresentativesSetTest
         {
             // arrange
             int[][] listOfSet = new int[][] {new int[] { 0, 1 }, new int[] { 2, 3}, new int[] { 4 } };
-            BruteForceRepresentatives bruteForce = new BruteForceRepresentatives();
-            BruteForceRepresentatives bruteForceVer2 = new BruteForceRepresentatives();
+            BruteForceRepresentativesBinaryNumbders bruteForce = new BruteForceRepresentativesBinaryNumbders();
+            BruteForceRepresentativesBinaryNumbders bruteForceVer2 = new BruteForceRepresentativesBinaryNumbders();
             List<int> expectedResult = new List<int>() { 0, 2, 4};
             string expectedResult2 = "1,3,4";
 
@@ -102,8 +102,8 @@ namespace RepresentativesSetTest
         {
             // arrange
             int[][] listOfSet = new int[][] { new int[] { 0, 1, 3 }, new int[] { 0, 2, 3 }, new int[] { 0, 3, 4 } }; ;
-            BruteForceRepresentatives bruteForce = new BruteForceRepresentatives();
-            BruteForceRepresentatives bruteForceVer2 = new BruteForceRepresentatives();
+            BruteForceRepresentativesBinaryNumbders bruteForce = new BruteForceRepresentativesBinaryNumbders();
+            BruteForceRepresentativesBinaryNumbders bruteForceVer2 = new BruteForceRepresentativesBinaryNumbders();
             List<int> expectedResult = new List<int>() { 0 };
             string expectedResult2 = "3";
 
@@ -130,8 +130,8 @@ namespace RepresentativesSetTest
         {
             // arrange
             int[][] listOfSet = new int[][] { new int[] { 0, 1 }, new int[] { 2, 3 }, new int[] { 0, 4 } }; ;
-            BruteForceRepresentatives bruteForce = new BruteForceRepresentatives();
-            BruteForceRepresentatives bruteForceVer2 = new BruteForceRepresentatives();
+            BruteForceRepresentativesBinaryNumbders bruteForce = new BruteForceRepresentativesBinaryNumbders();
+            BruteForceRepresentativesBinaryNumbders bruteForceVer2 = new BruteForceRepresentativesBinaryNumbders();
             List<int> expectedResult = new List<int>() {0, 2 };
             string expectedResult2 = "0,3";
 
@@ -158,8 +158,8 @@ namespace RepresentativesSetTest
         {
             // arrange
             int[][] listOfSet = new int[][] { new int[] { 0, 1 }, new int[] { 2, 3 }, new int[] { 4 }, new int[] { 1, 3 } };
-            BruteForceRepresentatives bruteForce = new BruteForceRepresentatives();
-            BruteForceRepresentatives bruteForceVer2 = new BruteForceRepresentatives();
+            BruteForceRepresentativesBinaryNumbders bruteForce = new BruteForceRepresentativesBinaryNumbders();
+            BruteForceRepresentativesBinaryNumbders bruteForceVer2 = new BruteForceRepresentativesBinaryNumbders();
             List<int> expectedResult = new List<int>() { 1, 2, 4 };
             string expectedResult2 = "1,3,4";
 
@@ -215,24 +215,24 @@ namespace RepresentativesSetTest
             long expectedResult13 = 13;
             long expectedResult14 = 14;
             long expectedResult15 = 15;
-            BruteForceRepresentatives bruteForce = new BruteForceRepresentatives();
+            BruteForceRepresentativesBinaryNumbders bruteForce = new BruteForceRepresentativesBinaryNumbders();
 
             // act
-            long result1  = BruteForceRepresentatives.ElementNumbersToLongAsBinaryVector(vector1);
-            long result2  = BruteForceRepresentatives.ElementNumbersToLongAsBinaryVector(vector2);
-            long result3  = BruteForceRepresentatives.ElementNumbersToLongAsBinaryVector(vector3);
-            long result4  = BruteForceRepresentatives.ElementNumbersToLongAsBinaryVector(vector4);
-            long result5  = BruteForceRepresentatives.ElementNumbersToLongAsBinaryVector(vector5);
-            long result6  = BruteForceRepresentatives.ElementNumbersToLongAsBinaryVector(vector6);
-            long result7  = BruteForceRepresentatives.ElementNumbersToLongAsBinaryVector(vector7);
-            long result8  = BruteForceRepresentatives.ElementNumbersToLongAsBinaryVector(vector8);
-            long result9  = BruteForceRepresentatives.ElementNumbersToLongAsBinaryVector(vector9);
-            long result10 = BruteForceRepresentatives.ElementNumbersToLongAsBinaryVector(vector10);
-            long result11 = BruteForceRepresentatives.ElementNumbersToLongAsBinaryVector(vector11);
-            long result12 = BruteForceRepresentatives.ElementNumbersToLongAsBinaryVector(vector12);
-            long result13 = BruteForceRepresentatives.ElementNumbersToLongAsBinaryVector(vector13);
-            long result14 = BruteForceRepresentatives.ElementNumbersToLongAsBinaryVector(vector14);
-            long result15 = BruteForceRepresentatives.ElementNumbersToLongAsBinaryVector(vector15);
+            long result1  = BruteForceRepresentativesBinaryNumbders.ElementNumbersToLongAsBinaryVector(vector1);
+            long result2  = BruteForceRepresentativesBinaryNumbders.ElementNumbersToLongAsBinaryVector(vector2);
+            long result3  = BruteForceRepresentativesBinaryNumbders.ElementNumbersToLongAsBinaryVector(vector3);
+            long result4  = BruteForceRepresentativesBinaryNumbders.ElementNumbersToLongAsBinaryVector(vector4);
+            long result5  = BruteForceRepresentativesBinaryNumbders.ElementNumbersToLongAsBinaryVector(vector5);
+            long result6  = BruteForceRepresentativesBinaryNumbders.ElementNumbersToLongAsBinaryVector(vector6);
+            long result7  = BruteForceRepresentativesBinaryNumbders.ElementNumbersToLongAsBinaryVector(vector7);
+            long result8  = BruteForceRepresentativesBinaryNumbders.ElementNumbersToLongAsBinaryVector(vector8);
+            long result9  = BruteForceRepresentativesBinaryNumbders.ElementNumbersToLongAsBinaryVector(vector9);
+            long result10 = BruteForceRepresentativesBinaryNumbders.ElementNumbersToLongAsBinaryVector(vector10);
+            long result11 = BruteForceRepresentativesBinaryNumbders.ElementNumbersToLongAsBinaryVector(vector11);
+            long result12 = BruteForceRepresentativesBinaryNumbders.ElementNumbersToLongAsBinaryVector(vector12);
+            long result13 = BruteForceRepresentativesBinaryNumbders.ElementNumbersToLongAsBinaryVector(vector13);
+            long result14 = BruteForceRepresentativesBinaryNumbders.ElementNumbersToLongAsBinaryVector(vector14);
+            long result15 = BruteForceRepresentativesBinaryNumbders.ElementNumbersToLongAsBinaryVector(vector15);
 
             // assert
             Assert.AreEqual(expectedResult1,  result1,  $"Wrong result: {result1}.  Expected: {expectedResult1}");

@@ -113,6 +113,19 @@ namespace RepresentativesSetTest.Triangle
 
         }
         //--------------------------------------------------------------------------------------
+        [TestMethod]
+        public void RepresentativesTriangleBBCompareTestCase6_6()
+        {
+            // arrange
+            int сardinality = 6;
+            int length = 6;
+            EnumerateIntegerTrangleForRepresentativesTriangleBBCompare enumeration = new EnumerateIntegerTrangleForRepresentativesTriangleBBCompare(сardinality, length);
+            // act
+            enumeration.Execute();
+            // assert
+
+        }
+        //--------------------------------------------------------------------------------------
 
     }
 
@@ -195,7 +208,7 @@ namespace RepresentativesSetTest.Triangle
             if (_fCurrentPosition == _fSize - 1)
             {
                 // arrange
-                int[][] listOfSet = _fCurrentSet.Select(t => BruteForceRepresentatives.GetAsElementNumbers(t, _fCardinality).ToArray()).ToArray();
+                int[][] listOfSet = _fCurrentSet.Select(t => BruteForceRepresentativesBinaryNumbders.GetAsElementNumbers(t, _fCardinality).ToArray()).ToArray();
                 int count = listOfSet.SelectMany(l => l).Distinct().Count();
                 int max = listOfSet.SelectMany(l => l).Max();
                 string listAsString = listOfSet.AsString();
@@ -318,7 +331,7 @@ namespace RepresentativesSetTest.Triangle
         {
             _fBreakElement = 0;
             _fCardinality = pCardinality;
-            _statisticAccumulator = new RepresentativesStatisticAccumulator(new RepresentativesSaver(), pLength, pCardinality, 1000);
+            _statisticAccumulator = new RepresentativesStatisticAccumulator(new RepresentativesSaver(), pLength, pCardinality, 1, 1000);
             _statisticAccumulator.Delete(nameof(RepresentativesTriangleBranchAndBound));
         }
         //--------------------------------------------------------------------------------------
@@ -327,7 +340,7 @@ namespace RepresentativesSetTest.Triangle
             if (_fCurrentPosition == _fSize - 1)
             {
                 // arrange
-                int[][] listOfSet = _fCurrentSet.Select(t => BruteForceRepresentatives.GetAsElementNumbers(t, _fCardinality).ToArray()).ToArray();
+                int[][] listOfSet = _fCurrentSet.Select(t => BruteForceRepresentativesBinaryNumbders.GetAsElementNumbers(t, _fCardinality).ToArray()).ToArray();
                 int count = listOfSet.SelectMany(l => l).Distinct().Count();
                 int max = listOfSet.SelectMany(l => l).Max();
                 string listAsString = listOfSet.AsString();

@@ -4,6 +4,7 @@ using System.Linq;
 using CommonLibrary;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RepresentativesSet;
+using RepresentativesSet.BinaryTreeEnumeration;
 
 namespace RepresentativesSetTest
 {
@@ -318,9 +319,9 @@ namespace RepresentativesSetTest
             if (_fCurrentPosition == _fSize - 1)
             {
                 // arrange
-                int[][] listOfSet = _fCurrentSet.Select(t => BruteForceRepresentatives.GetAsElementNumbers(t, _fCardinality).ToArray()).ToArray();
-                BruteForceRepresentatives bruteForce = new BruteForceRepresentatives();
-                BruteForceRepresentatives bruteForceVer2 = new BruteForceRepresentatives();
+                int[][] listOfSet = _fCurrentSet.Select(t => BruteForceRepresentativesBinaryNumbders.GetAsElementNumbers(t, _fCardinality).ToArray()).ToArray();
+                BruteForceRepresentativesBinaryNumbders bruteForce = new BruteForceRepresentativesBinaryNumbders();
+                BruteForceRepresentativesBinaryNumbders bruteForceVer2 = new BruteForceRepresentativesBinaryNumbders();
                 BruteForceRepresentativesAsTree bruteForceAsTree = new BruteForceRepresentativesAsTree(_fCardinality, listOfSet);
                 BruteForceRepresentativesAsTreeDirect bruteForceAsTreeDirect = new BruteForceRepresentativesAsTreeDirect(_fCardinality, listOfSet);
 

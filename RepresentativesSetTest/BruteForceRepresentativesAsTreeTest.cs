@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RepresentativesSet;
+using RepresentativesSet.BinaryTreeEnumeration;
 
 namespace RepresentativesSetTest
 {

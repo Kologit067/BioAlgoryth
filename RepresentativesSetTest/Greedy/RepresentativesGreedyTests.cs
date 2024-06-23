@@ -23,7 +23,7 @@ namespace RepresentativesSet.Greedy.Tests
         {
             // arrange
             List<int> list = new List<int>() { 3, 5, 6, 7, 16 };
-            int[][] listOfSet = list.Select(t => BruteForceRepresentatives.GetAsElementNumbers(t, 5).ToArray()).ToArray();
+            int[][] listOfSet = list.Select(t => BruteForceRepresentativesBinaryNumbders.GetAsElementNumbers(t, 5).ToArray()).ToArray();
             RepresentativesGreedy representativesGreedy = new RepresentativesGreedySimple(listOfSet);
 
             // act
@@ -40,7 +40,7 @@ namespace RepresentativesSet.Greedy.Tests
         {
             // arrange
             List<int> list = new List<int>() { 3, 5, 7, 10, 24 };
-            int[][] listOfSet = list.Select(t => BruteForceRepresentatives.GetAsElementNumbers(t, 5).ToArray()).ToArray();
+            int[][] listOfSet = list.Select(t => BruteForceRepresentativesBinaryNumbders.GetAsElementNumbers(t, 5).ToArray()).ToArray();
             RepresentativesGreedyImprove representativesGreedy = new RepresentativesGreedyImprove(listOfSet);
             string solutionAsStringExpected = "1,2,4";
 
@@ -59,7 +59,7 @@ namespace RepresentativesSet.Greedy.Tests
         {
             // arrange
             List<int> list = new List<int>() { 5, 11, 12, 18, 21 };
-            int[][] listOfSet = list.Select(t => BruteForceRepresentatives.GetAsElementNumbers(t, 5).ToArray()).ToArray();
+            int[][] listOfSet = list.Select(t => BruteForceRepresentativesBinaryNumbders.GetAsElementNumbers(t, 5).ToArray()).ToArray();
             RepresentativesGreedy representativesGreedy = new RepresentativesGreedyImprove(listOfSet);
             string solutionAsStringExpected = "1,2,4";
 
@@ -78,7 +78,7 @@ namespace RepresentativesSet.Greedy.Tests
         {
             // arrange
             List<int> list = new List<int>() { 3, 5, 7, 10, 20 };
-            int[][] listOfSet = list.Select(t => BruteForceRepresentatives.GetAsElementNumbers(t, 5).ToArray()).ToArray();
+            int[][] listOfSet = list.Select(t => BruteForceRepresentativesBinaryNumbders.GetAsElementNumbers(t, 5).ToArray()).ToArray();
             RepresentativesGreedy representativesGreedy = new RepresentativesGreedySimple(listOfSet);
             string solutionAsStringExpected = "1,2,4";
 
@@ -97,7 +97,7 @@ namespace RepresentativesSet.Greedy.Tests
         {
             // arrange
             List<int> list = new List<int>() { 6, 7, 9, 10, 20 };
-            int[][] listOfSet = list.Select(t => BruteForceRepresentatives.GetAsElementNumbers(t, 5).ToArray()).ToArray();
+            int[][] listOfSet = list.Select(t => BruteForceRepresentativesBinaryNumbders.GetAsElementNumbers(t, 5).ToArray()).ToArray();
             RepresentativesGreedy representativesGreedy = new RepresentativesGreedyImproveRD(listOfSet);
             string solutionAsStringExpected = "2,3";
 
@@ -229,7 +229,7 @@ namespace RepresentativesSet.Greedy.Tests
             if (_fCurrentPosition == _fSize - 1)
             {
                 // arrange
-                int[][] listOfSet = _fCurrentSet.Select(t => BruteForceRepresentatives.GetAsElementNumbers(t, _fCardinality).ToArray()).ToArray();
+                int[][] listOfSet = _fCurrentSet.Select(t => BruteForceRepresentativesBinaryNumbders.GetAsElementNumbers(t, _fCardinality).ToArray()).ToArray();
                 _count++;
                 int count = listOfSet.SelectMany(l => l).Distinct().Count();
                 int max = listOfSet.SelectMany(l => l).Max();
@@ -291,7 +291,7 @@ namespace RepresentativesSet.Greedy.Tests
             if (pPosition == 0)
                 return 3;
             int first = _fCurrentSet[pPosition - 1] + _forwardAdditive;
-            while (BruteForceRepresentatives.DefineSumOfBitVer2(first) == 1 && (first < _fLimit))
+            while (BruteForceRepresentativesBinaryNumbders.DefineSumOfBitVer2(first) == 1 && (first < _fLimit))
                 first += _forwardAdditive;
             return first;
         }
@@ -300,10 +300,10 @@ namespace RepresentativesSet.Greedy.Tests
         {
             if (_fCurrentSet[pPosition] >= _fLimit)
                 return false;
-            if (BruteForceRepresentatives.DefineSumOfBitVer2(_fCurrentSet[pPosition]) == 1)
+            if (BruteForceRepresentativesBinaryNumbders.DefineSumOfBitVer2(_fCurrentSet[pPosition]) == 1)
                 return false;
             _fCurrentSet[pPosition]++;
-            if (BruteForceRepresentatives.DefineSumOfBitVer2(_fCurrentSet[pPosition]) == 1)
+            if (BruteForceRepresentativesBinaryNumbders.DefineSumOfBitVer2(_fCurrentSet[pPosition]) == 1)
                 _fCurrentSet[pPosition]++;
             return true;
         }
@@ -410,7 +410,7 @@ namespace RepresentativesSet.Greedy.Tests
             if (_fCurrentPosition == _fSize - 1)
             {
                 // arrange
-                int[][] listOfSet = _fCurrentSet.Select(t => BruteForceRepresentatives.GetAsElementNumbers(t, _fCardinality).ToArray()).ToArray();
+                int[][] listOfSet = _fCurrentSet.Select(t => BruteForceRepresentativesBinaryNumbders.GetAsElementNumbers(t, _fCardinality).ToArray()).ToArray();
                 _count++;
                 int count = listOfSet.SelectMany(l => l).Distinct().Count();
                 int max = listOfSet.SelectMany(l => l).Max();
@@ -502,7 +502,7 @@ namespace RepresentativesSet.Greedy.Tests
             if (pPosition == 0)
                 return 3;
             int first = _fCurrentSet[pPosition - 1] + _forwardAdditive;
-            while (BruteForceRepresentatives.DefineSumOfBitVer2(first) == 1 && (first < _fLimit))
+            while (BruteForceRepresentativesBinaryNumbders.DefineSumOfBitVer2(first) == 1 && (first < _fLimit))
                 first += _forwardAdditive;
             return first;
         }
@@ -511,10 +511,10 @@ namespace RepresentativesSet.Greedy.Tests
         {
             if (_fCurrentSet[pPosition] >= _fLimit)
                 return false;
-            if (BruteForceRepresentatives.DefineSumOfBitVer2(_fCurrentSet[pPosition]) == 1)
+            if (BruteForceRepresentativesBinaryNumbders.DefineSumOfBitVer2(_fCurrentSet[pPosition]) == 1)
                 return false;
             _fCurrentSet[pPosition]++;
-            if (BruteForceRepresentatives.DefineSumOfBitVer2(_fCurrentSet[pPosition]) == 1)
+            if (BruteForceRepresentativesBinaryNumbders.DefineSumOfBitVer2(_fCurrentSet[pPosition]) == 1)
                 _fCurrentSet[pPosition]++;
             return true;
         }
@@ -592,10 +592,10 @@ namespace RepresentativesSet.Greedy.Tests
         {
             _fBreakElement = 0;
             _fCardinality = pCardinality;
-            _statisticAccumulator = new RepresentativesStatisticAccumulator(new RepresentativesSaver(), pLength, pCardinality);
-            _statisticAccumulator.DeleteAlgorithm(nameof(RepresentativesBranchAndBoundByValue), pLength, pCardinality);
-            _greedyStatisticAccumulator = new RepresentativesStatisticAccumulator(new RepresentativesSaver(), pLength, pCardinality);
-            _greedyStatisticAccumulator.DeleteAlgorithm(nameof(RepresentativesGreedyImproveRD), pLength, pCardinality);
+            _statisticAccumulator = new RepresentativesStatisticAccumulator(new RepresentativesSaver(), pLength, pCardinality,1);
+            _statisticAccumulator.DeleteAlgorithm(nameof(RepresentativesBranchAndBoundByValue), pLength, pCardinality,1);
+            _greedyStatisticAccumulator = new RepresentativesStatisticAccumulator(new RepresentativesSaver(), pLength, pCardinality, 1);
+            _greedyStatisticAccumulator.DeleteAlgorithm(nameof(RepresentativesGreedyImproveRD), pLength, pCardinality, 1);
         }
         //--------------------------------------------------------------------------------------
         protected override bool MakeAction()
@@ -603,7 +603,7 @@ namespace RepresentativesSet.Greedy.Tests
             if (_fCurrentPosition == _fSize - 1)
             {
                 // arrange
-                int[][] listOfSet = _fCurrentSet.Select(t => BruteForceRepresentatives.GetAsElementNumbers(t, _fCardinality).ToArray()).ToArray();
+                int[][] listOfSet = _fCurrentSet.Select(t => BruteForceRepresentativesBinaryNumbders.GetAsElementNumbers(t, _fCardinality).ToArray()).ToArray();
                 int count = listOfSet.SelectMany(l => l).Distinct().Count();
                 int max = listOfSet.SelectMany(l => l).Max();
                 string listAsString = listOfSet.AsString();
@@ -667,7 +667,7 @@ namespace RepresentativesSet.Greedy.Tests
             if (pPosition == 0)
                 return 3;
             int first = _fCurrentSet[pPosition - 1] + _forwardAdditive;
-            while (BruteForceRepresentatives.DefineSumOfBitVer2(first) == 1 && (first < _fLimit))
+            while (BruteForceRepresentativesBinaryNumbders.DefineSumOfBitVer2(first) == 1 && (first < _fLimit))
                 first += _forwardAdditive;
             return first;
         }
@@ -676,10 +676,10 @@ namespace RepresentativesSet.Greedy.Tests
         {
             if (_fCurrentSet[pPosition] >= _fLimit)
                 return false;
-            if (BruteForceRepresentatives.DefineSumOfBitVer2(_fCurrentSet[pPosition]) == 1)
+            if (BruteForceRepresentativesBinaryNumbders.DefineSumOfBitVer2(_fCurrentSet[pPosition]) == 1)
                 return false;
             _fCurrentSet[pPosition]++;
-            if (BruteForceRepresentatives.DefineSumOfBitVer2(_fCurrentSet[pPosition]) == 1)
+            if (BruteForceRepresentativesBinaryNumbders.DefineSumOfBitVer2(_fCurrentSet[pPosition]) == 1)
                 _fCurrentSet[pPosition]++;
             return true;
         }

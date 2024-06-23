@@ -7,7 +7,7 @@ namespace RepresentativesSet
     //--------------------------------------------------------------------------------------
     // class BruteForceRepresentatives
     //--------------------------------------------------------------------------------------
-    public class BruteForceRepresentatives
+    public class BruteForceRepresentativesBinaryNumbders
     {
         int[][] jaggedArray2 = {
     new int[] { 1, 3, 5, 7, 9 },
@@ -23,16 +23,17 @@ namespace RepresentativesSet
             _fOptimalSets = new List<string>();
             int maxNumber = pListOfSubSet.Max(s => s.Max()) + 1;
 
-            long[] listOfSetAsBinary = pListOfSubSet.Select(s => BruteForceRepresentatives.ElementNumbersToLongAsBinaryVector(s)).ToArray();
+            long[] listOfSetAsBinary = pListOfSubSet.Select(s => BruteForceRepresentativesBinaryNumbders.ElementNumbersToLongAsBinaryVector(s)).ToArray();
 
             return ExecuteByLongAsBinaryVector(listOfSetAsBinary, maxNumber);
         }
+        //--------------------------------------------------------------------------------------
         public List<int> ExecuteByBinaryVer2(int[][] pListOfSubSet)
         {
             _fOptimalSets = new List<string>();
             int maxNumber = pListOfSubSet.Max(s => s.Max()) + 1;
 
-            long[] listOfSetAsBinary = pListOfSubSet.Select(s => BruteForceRepresentatives.ElementNumbersToLongAsBinaryVector(s)).ToArray();
+            long[] listOfSetAsBinary = pListOfSubSet.Select(s => BruteForceRepresentativesBinaryNumbders.ElementNumbersToLongAsBinaryVector(s)).ToArray();
 
             return ExecuteByLongAsBinaryVectorVer2(listOfSetAsBinary, maxNumber);
         }

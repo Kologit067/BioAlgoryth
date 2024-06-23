@@ -320,8 +320,8 @@ namespace RepresentativesSetTest
             if (_fCurrentPosition == _fSize - 1)
             {
                 // arrange
-                int[][] listOfSet = _fCurrentSet.Select(t => BruteForceRepresentatives.GetAsElementNumbers(t, _fCardinality).ToArray()).ToArray();
-                BruteForceRepresentatives bruteForce = new BruteForceRepresentatives();
+                int[][] listOfSet = _fCurrentSet.Select(t => BruteForceRepresentativesBinaryNumbders.GetAsElementNumbers(t, _fCardinality).ToArray()).ToArray();
+                BruteForceRepresentativesBinaryNumbders bruteForce = new BruteForceRepresentativesBinaryNumbders();
 //                BruteForceRepresentatives bruteForceVer2 = new BruteForceRepresentatives();
                 BruteForceRepresentativesAsTree bruteForceAsTree = new BruteForceRepresentativesAsTree(_fCardinality, listOfSet);
                 RepresentativesBranchAndBound branchAndBound = new RepresentativesBranchAndBound(_fCardinality, listOfSet)

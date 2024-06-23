@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
+using BioAlgorithmViewModel.Mappings;
+using BioAlgorithmViewModel.Representatives.Utility;
+using BioAlgorithmViewModel.Representatives.Messages;
+using BioAlgorythmModel.RepresentativesModel;
 
 namespace BioAlgorithmViewModel.BipartiteGraphModel
 {
@@ -122,6 +126,7 @@ namespace BioAlgorithmViewModel.BipartiteGraphModel
             VerticalPosition = 40;
             VerticalStep = 40;
             VertexRadius = 10;
+            Messenger.Default.Register<InputDataToGraphMessage>(this, OnInputDataToGraphMessageReceived, typeof(InputDataToGraphMessage));
         }
         //----------------------------------------------------------------------------------------------------------------------
         private ICommand createGraphCommand;
@@ -174,6 +179,10 @@ namespace BioAlgorithmViewModel.BipartiteGraphModel
         {
             return true;
         }
+        private void OnInputDataToGraphMessageReceived(InputDataToGraphMessage inputDataToGraphMessage)
+        {
+            Graph = inputDataToGraphMessage.InputData;
+        }      
         //----------------------------------------------------------------------------------------------------------------------
     }
     //----------------------------------------------------------------------------------------------------------------------

@@ -46,6 +46,9 @@
     <Compile Include="BipartiteGraphModel\BipartiteVertex.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RepresentativesModel\RepresentativeAlgorithmGroup.cs" />
+    <Compile Include="RepresentativesModel\RepresentativeAlgorithmGroupDimension.cs" />
+    <Compile Include="RepresentativesModel\RepresentativesPerfomance.cs" />
+    <Compile Include="RepresentativesModel\RepresentativesPerfomanceFilter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -84,7 +84,7 @@ namespace RepresentativesSet.Greedy
         public RepresentativesGreedy(int[][] pListOfSet)
         {
             this.listOfSet = pListOfSet.Select(l => l.ToList()).ToList();
-            listOfSetAsNumber = listOfSet.Select(s => BruteForceRepresentatives.ElementNumbersToLongAsBinaryVector(s.ToArray())).ToArray();
+            listOfSetAsNumber = listOfSet.Select(s => BruteForceRepresentativesBinaryNumbders.ElementNumbersToLongAsBinaryVector(s.ToArray())).ToArray();
             int numberOfElemnts = pListOfSet.SelectMany(l => l.Select(i => i)).Max()+1;
             elements = new List<int>[numberOfElemnts];
             for (int i = 0; i < elements.Length; i++)

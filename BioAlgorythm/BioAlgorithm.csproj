@@ -80,6 +80,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Representative\BipartiteGraphControl.xaml.cs">
+      <DependentUpon>BipartiteGraphControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Representative\RepresentativeAlgorithmControl.xaml.cs">
+      <DependentUpon>RepresentativeAlgorithmControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Representative\RepresentativeAlgorithmGroupControl.xaml.cs">
+      <DependentUpon>RepresentativeAlgorithmGroupControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Representative\RepresentativeControl.xaml.cs">
+      <DependentUpon>RepresentativeControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Page Include="BioAlgorithmView.xaml">
@@ -94,6 +106,22 @@
       <DependentUpon>BioAlgorithmView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Representative\BipartiteGraphControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Representative\RepresentativeAlgorithmControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Representative\RepresentativeAlgorithmGroupControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Representative\RepresentativeControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

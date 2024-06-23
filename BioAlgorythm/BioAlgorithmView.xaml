@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BioAlgorithm"
         xmlns:v="clr-namespace:BioAlgorithmViewModel.BipartiteGraphModel;assembly=BioAlgorithmViewModel"
+        xmlns:ac="clr-namespace:BioAlgorythm.Representative"
         mc:Ignorable="d"
         Title="Bio Algorithms" Height="800" Width="1000"
         Loaded="Window_Loaded" WindowStartupLocation="CenterScreen" WindowState="Maximized">
@@ -68,89 +69,17 @@
             <ColumnDefinition Width="941*"/>
         </Grid.ColumnDefinitions>
         <TabControl Grid.ColumnSpan="2">
+            <TabItem Header="Representative Performance">
+                <ac:RepresentativeControl DataContext="{Binding Representatives.RepresentativePerformance}"/>
+            </TabItem>
             <TabItem Header="Alg Repr List">
-                <Grid DataContext="{Binding Representatives}">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <StackPanel Grid.Row="0" Orientation="Horizontal">
-                        <Button Content="Refresh" Command="{Binding RefreshRepresentativeAlgorithmListCommand}"/>
-                    </StackPanel>
-                    <DataGrid Grid.Row="1" ItemsSource="{Binding RepresentativeAlgorithmGroups}" IsReadOnly="false" AutoGenerateColumns="False" Margin="1"
-                           AlternationCount="2" RowBackground="#DDDDFF" AlternatingRowBackground="#CCCCEE"
-                           SelectedItem="{Binding SelectedTable}"
-                           SelectionMode="Single" SelectionUnit="FullRow" CanUserAddRows="False" CanUserDeleteRows="False">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Algorithm" Binding="{Binding Algorithm}" MinWidth="200"></DataGridTextColumn>
-                            <DataGridTextColumn Header="TotalCount" Binding="{Binding TotalCount}" MinWidth="200"></DataGridTextColumn>
-                            <DataGridTextColumn Header="CountByDimension" Binding="{Binding CountByDimension}" MinWidth="200"></DataGridTextColumn>
-                            <DataGridTextColumn Header="NumberOfIteration" Binding="{Binding NumberOfIteration}" MinWidth="200"></DataGridTextColumn>
-                            <DataGridTextColumn Header="TotalDuration" Binding="{Binding TotalDuration}" MinWidth="200"></DataGridTextColumn>
-                            <DataGridTextColumn Header="AverageDuration" Binding="{Binding AverageDuration}" MinWidth="200"></DataGridTextColumn>
-                        </DataGrid.Columns>
-
-                    </DataGrid>
-                </Grid>
+                <ac:RepresentativeAlgorithmControl DataContext="{Binding Representatives.RepresentativePerformanceAlgorithm}"/>
+            </TabItem>
+            <TabItem Header="Dim Group Alg Repr List">
+                <ac:RepresentativeAlgorithmGroupControl DataContext="{Binding Representatives.RepresentativePerformanceGroup}"/>
             </TabItem>
             <TabItem Header="Bipartite Graph">
-                <Grid DataContext="{Binding BipartiteGraph}">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="3*"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition  Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0" Content="Graph"/>
-                        <TextBox Grid.Column="1" Text="{Binding Graph}" VerticalContentAlignment="Center"/>
-                        <Label Grid.Column="2" Content="Left position"/>
-                        <TextBox Grid.Column="3" Text="{Binding LeftPosition}" VerticalContentAlignment="Center"/>
-                        <Label Grid.Column="4" Content="Right position"/>
-                        <TextBox Grid.Column="5" Text="{Binding RightPosition}" VerticalContentAlignment="Center"/>
-                        <Label Grid.Column="6" Content="Vertical position"/>
-                        <TextBox Grid.Column="7" Text="{Binding VerticalPosition}" VerticalContentAlignment="Center"/>
-                        <Label Grid.Column="8" Content="Vertical step"/>
-                        <TextBox Grid.Column="9" Text="{Binding VerticalStep}" VerticalContentAlignment="Center"/>
-                        <Label Grid.Column="10" Content="Radius"/>
-                        <TextBox Grid.Column="11" Text="{Binding VertexRadius}" VerticalContentAlignment="Center"/>
-                        <Button Grid.Column="12" Padding="4" Margin="3,1,3,1" Content="Make"  Command="{Binding CreateGraphCommand}"/>
-                    </Grid>
-                    <Grid Grid.Row="1" Background="#E9FAFB">
-                        <Border BorderBrush="Black" BorderThickness="2" x:Name="pnlBipartiteGraph">
-                            <ScrollViewer x:Name="svDia" HorizontalScrollBarVisibility="Visible">
-                                <ItemsControl x:Name="icDia" Margin="5"  ItemsSource="{Binding BipartiteGraphElements}">
-                                    <ItemsControl.Template>
-                                        <ControlTemplate TargetType="ItemsControl">
-                                            <Border BorderBrush="#00000000" BorderThickness="1" HorizontalAlignment="Left">
-                                                <ItemsPresenter/>
-                                            </Border>
-                                        </ControlTemplate>
-                                    </ItemsControl.Template>
-                                    <ItemsControl.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <Grid Background="#00000000" />
-                                        </ItemsPanelTemplate>
-                                    </ItemsControl.ItemsPanel>
-                                </ItemsControl>
-                            </ScrollViewer>
-                        </Border>
-                    </Grid>
-
-                </Grid>
+                <ac:BipartiteGraphControl DataContext="{Binding Representatives.BipartiteGraph}"/>
             </TabItem>
         </TabControl>
     </Grid>

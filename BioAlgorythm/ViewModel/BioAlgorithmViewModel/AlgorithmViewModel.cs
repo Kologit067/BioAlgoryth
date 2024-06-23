@@ -15,19 +15,6 @@ namespace BioAlgorithmViewModel
     //----------------------------------------------------------------------------------------------------------------------
     public class AlgorithmViewModel : ViewModelBase
     {
-        private BipartiteGraphViewModel bipartiteGraph;
-        public BipartiteGraphViewModel BipartiteGraph
-        {
-            get
-            {
-                return bipartiteGraph;
-            }
-            set
-            {
-                bipartiteGraph = value;
-                OnPropertyChanged(nameof(BipartiteGraph));
-            }
-        }
         private RepresentativesViewModel representatives;
         public RepresentativesViewModel Representatives
         {
@@ -43,7 +30,6 @@ namespace BioAlgorithmViewModel
         }
         public AlgorithmViewModel()
         {
-            BipartiteGraph = new BipartiteGraphViewModel();
             Representatives = new RepresentativesViewModel();
         }
 

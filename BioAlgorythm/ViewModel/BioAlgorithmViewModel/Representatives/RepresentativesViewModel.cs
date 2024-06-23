@@ -1,14 +1,9 @@
-﻿using BioAlgorithmModel.BipartiteGraphModel;
-using BioAlgorithmViewModel.BipartiteGraphModel;
+﻿using BioAlgorithmViewModel.BipartiteGraphModel;
 using BioAlgorithmViewModel.Common;
 using BioAlgorythmModel.RepresentativesModel;
 using Representatives.Data;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace BioAlgorithmViewModel.Representatives
@@ -20,49 +15,69 @@ namespace BioAlgorithmViewModel.Representatives
     {
         private RepresentativesRepository representativesRepository;
         //----------------------------------------------------------------------------------------------------------------------
-        private ObservableCollection<RepresentativeAlgorithmGroup> representativeAlgorithmGroups;
-        public ObservableCollection<RepresentativeAlgorithmGroup> RepresentativeAlgorithmGroups
+        private RepresentativePerformanceViewModel representativePerformance;
+        public RepresentativePerformanceViewModel RepresentativePerformance
         {
             get
             {
-                return representativeAlgorithmGroups;
+                return representativePerformance;
             }
             set
             {
-                representativeAlgorithmGroups = value;
-                OnPropertyChanged(nameof(RepresentativeAlgorithmGroups));
+                representativePerformance = value;
+                OnPropertyChanged(nameof(RepresentativePerformance));
             }
         }
-        public RepresentativesViewModel()
-        {
-            RepresentativeAlgorithmGroups = new ObservableCollection<RepresentativeAlgorithmGroup>();
-            representativesRepository = new RepresentativesRepository();
-        }
         //----------------------------------------------------------------------------------------------------------------------
-        private ICommand refreshRepresentativeAlgorithmListCommand;
-        public ICommand RefreshRepresentativeAlgorithmListCommand
+        private RepresentativePerformanceAlgorithmViewModel representativePerformanceAlgorithm;
+        public RepresentativePerformanceAlgorithmViewModel RepresentativePerformanceAlgorithm
         {
             get
             {
-                if (refreshRepresentativeAlgorithmListCommand == null)
-                {
-                    refreshRepresentativeAlgorithmListCommand = new DelegateCommand(RefreshRepresentativeAlgorithmListAction, CanRefreshRepresentativeAlgorithmListAction);
-                }
-                return refreshRepresentativeAlgorithmListCommand;
+                return representativePerformanceAlgorithm;
+            }
+            set
+            {
+                representativePerformanceAlgorithm = value;
+                OnPropertyChanged(nameof(RepresentativePerformanceAlgorithm));
             }
         }
         //----------------------------------------------------------------------------------------------------------------------
-        private void RefreshRepresentativeAlgorithmListAction()
+        private RepresentativePerformanceGroupViewModel representativePerformanceGroup;
+        public RepresentativePerformanceGroupViewModel RepresentativePerformanceGroup
         {
-            RepresentativeAlgorithmGroups.Clear();
-            List<RepresentativeAlgorithmGroup> algorithms = representativesRepository.GetRepresentativeAlgorithmGroups();
-            foreach(RepresentativeAlgorithmGroup a in algorithms)
-                RepresentativeAlgorithmGroups.Add(a);
+            get
+            {
+                return representativePerformanceGroup;
+            }
+            set
+            {
+                representativePerformanceGroup = value;
+                OnPropertyChanged(nameof(RepresentativePerformanceGroup));
+            }
         }
         //----------------------------------------------------------------------------------------------------------------------
-        private bool CanRefreshRepresentativeAlgorithmListAction()
+        private BipartiteGraphViewModel bipartiteGraph;
+        public BipartiteGraphViewModel BipartiteGraph
         {
-            return true;
+            get
+            {
+                return bipartiteGraph;
+            }
+            set
+            {
+                bipartiteGraph = value;
+                OnPropertyChanged(nameof(BipartiteGraph));
+            }
+        }
+        //----------------------------------------------------------------------------------------------------------------------
+        public RepresentativesViewModel()
+        {
+            representativesRepository = new RepresentativesRepository();
+            RepresentativePerformance = new RepresentativePerformanceViewModel(representativesRepository);
+            RepresentativePerformanceAlgorithm = new RepresentativePerformanceAlgorithmViewModel(representativesRepository);
+            RepresentativePerformanceGroup = new RepresentativePerformanceGroupViewModel(representativesRepository);
+            BipartiteGraph = new BipartiteGraphViewModel();
         }
         //----------------------------------------------------------------------------------------------------------------------
     }

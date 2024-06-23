@@ -22,7 +22,7 @@ namespace RepresentativesSetTest
             // arrange
             int сardinality = 4;
             int length = 4;
-            long number = BruteForceRepresentatives.GetNumberLeafOfTriangleTree(length, сardinality);
+            long number = BruteForceRepresentativesBinaryNumbders.GetNumberLeafOfTriangleTree(length, сardinality);
             int step = (int)(number/100);
             EnumerateIntegerTrangleRepresentativesCompare enumeration = new EnumerateIntegerTrangleRepresentativesCompare(сardinality, length, step);
             // act
@@ -38,7 +38,7 @@ namespace RepresentativesSetTest
             // arrange
             int сardinality = 5;
             int length = 6;
-            long number = BruteForceRepresentatives.GetNumberLeafOfTriangleTree(length, сardinality);
+            long number = BruteForceRepresentativesBinaryNumbders.GetNumberLeafOfTriangleTree(length, сardinality);
             int step = (int)(number / 100);
             EnumerateIntegerTrangleRepresentativesCompare enumeration = new EnumerateIntegerTrangleRepresentativesCompare(сardinality, length, step);
             // act
