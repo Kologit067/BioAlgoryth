@@ -50,6 +50,7 @@
     <Compile Include="BipartiteGraph\BipartiteGraphViewModel.cs" />
     <Compile Include="Common\DelegateCommand.cs" />
     <Compile Include="Common\ViewModelBase.cs" />
+    <Compile Include="Representatives\Messages\AlgorithmGroupOpenWindowMessage.cs" />
     <Compile Include="Representatives\Messages\AlgorithmGroupToFilterMessage.cs" />
     <Compile Include="Mappings\RepresentativesPerfomanceFilterMappings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

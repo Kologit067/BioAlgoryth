@@ -1,5 +1,6 @@
 ﻿using BioAlgorithmViewModel.Common;
 using BioAlgorithmViewModel.Mappings;
+using BioAlgorithmViewModel.Representatives.Messages;
 using BioAlgorithmViewModel.Representatives.Utility;
 using BioAlgorythmModel.RepresentativesModel;
 using Representatives.Data;
@@ -137,6 +138,35 @@ namespace BioAlgorithmViewModel.Representatives
         }
         //----------------------------------------------------------------------------------------------------------------------
         private bool CanToFilterAction()
+        {
+            return true;
+        }
+        //----------------------------------------------------------------------------------------------------------------------
+        private ICommand openInWindowCommand;
+        public ICommand OpenInWindowCommand
+        {
+            get
+            {
+                if (openInWindowCommand == null)
+                {
+                    openInWindowCommand = new DelegateCommand(OpenInWindowAction, CanOpenInWindowAction);
+                }
+                return openInWindowCommand;
+            }
+        }
+        //----------------------------------------------------------------------------------------------------------------------
+        private void OpenInWindowAction()
+        {
+            Messenger.Default.Send<AlgorithmGroupOpenWindowMessage>(new AlgorithmGroupOpenWindowMessage()
+            {
+                Algorithm = SelectedAlgorithmGroup.Algorithm,
+                Dimension = SelectedAlgorithmGroup.Dimension,
+                NumberOfSet = SelectedAlgorithmGroup.NumberOfSet,
+                Step = SelectedAlgorithmGroup.Step
+            }, typeof(AlgorithmGroupOpenWindowMessage));
+        }
+        //----------------------------------------------------------------------------------------------------------------------
+        private bool CanOpenInWindowAction()
         {
             return true;
         }

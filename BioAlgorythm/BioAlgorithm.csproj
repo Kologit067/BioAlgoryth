@@ -89,6 +89,9 @@
     <Compile Include="Representative\RepresentativeAlgorithmGroupControl.xaml.cs">
       <DependentUpon>RepresentativeAlgorithmGroupControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Representative\RepresentativeAlgorithmWindow.xaml.cs">
+      <DependentUpon>RepresentativeAlgorithmWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Representative\RepresentativeControl.xaml.cs">
       <DependentUpon>RepresentativeControl.xaml</DependentUpon>
     </Compile>
@@ -115,6 +118,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Representative\RepresentativeAlgorithmGroupControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Representative\RepresentativeAlgorithmWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -154,6 +161,10 @@
     <ProjectReference Include="..\BaseContract\BaseContract.csproj">
       <Project>{b8c5feda-931e-439f-9661-d533d482352b}</Project>
       <Name>BaseContract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ClassLibrary1\Representatives.Data.csproj">
+      <Project>{666B43C8-A180-4B4B-80AF-E3B3F73C2B3B}</Project>
+      <Name>Representatives.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\CommonLibrary\CommonLibrary.csproj">
       <Project>{6208c3eb-138f-4b2e-93a8-6469d8a75379}</Project>

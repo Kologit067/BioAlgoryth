@@ -90,15 +90,29 @@ namespace BioAlgorithmViewModel.Representatives
             RepresentativePerformanceSortItems = new List<string>()
             {
                 "Algorithm, Dimension, NumberOfSet, Step, InputDataShort",
+                "Algorithm, Dimension, NumberOfSet, Step, RepresentativesPerfomanceId",
                 "Algorithm, NumberOfSet, NumberOfSet, Step, InputDataShort",
+                "Algorithm, NumberOfSet, NumberOfSet, Step, RepresentativesPerfomanceId",
                 "Dimension, NumberOfSet, Algorithm, Step, InputDataShort",
-                "NumberOfSet, Dimension, Algorithm, Step, InputDataShort"
+                "Dimension, NumberOfSet, Algorithm, Step, RepresentativesPerfomanceId",
+                "NumberOfSet, Dimension, Algorithm, Step, InputDataShort",
+                "NumberOfSet, Dimension, Algorithm, Step, RepresentativesPerfomanceId"
             };
             SelectedRepresentativePerformanceSort = RepresentativePerformanceSortItems[0];
             this.representativesRepository = representativesRepository;
             RepresentativesPerfomanceFilter = new RepresentativesPerfomanceFilterViewModel();
             Messenger.Default.Register<AlgorithmToFilterMessage>(this, OnAlgorithmToFilterMessageReceived, typeof(AlgorithmToFilterMessage));
             Messenger.Default.Register<AlgorithmGroupToFilterMessage>(this, OnAlgorithmGroupToFilterMessageReceived, typeof(AlgorithmGroupToFilterMessage));
+        }
+        //----------------------------------------------------------------------------------------------------------------------
+        public RepresentativePerformanceViewModel(RepresentativesRepository representativesRepository, AlgorithmGroupOpenWindowMessage message)
+            : this(representativesRepository)
+        {
+            RepresentativesPerfomanceFilter = new RepresentativesPerfomanceFilterViewModel();
+            RepresentativesPerfomanceFilter.Algorithm = message.Algorithm;
+            RepresentativesPerfomanceFilter.Dimension = message.Dimension;
+            RepresentativesPerfomanceFilter.NumberOfSet = message.NumberOfSet;
+            RepresentativesPerfomanceFilter.Step = message.Step;
         }
         //----------------------------------------------------------------------------------------------------------------------
         private ICommand refreshRepresentativePerformanceListCommand;

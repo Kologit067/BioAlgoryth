@@ -37,6 +37,16 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel>
+                                    <Button Content="Open in Win" Margin="1" Padding="1" 
+                                        Command="{Binding Path=DataContext.OpenInWindowCommand, ElementName=GroupGrid}" CommandParameter="{Binding}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
                                     <Button Content="Delete" Margin="1" Padding="1" 
                                         Command="{Binding Path=DataContext.DeleteGroupCommand, ElementName=GroupGrid}" CommandParameter="{Binding}" />
                                 </StackPanel>

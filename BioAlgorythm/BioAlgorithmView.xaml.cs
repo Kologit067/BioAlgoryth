@@ -1,4 +1,7 @@
 ﻿using BioAlgorithmViewModel;
+using BioAlgorithmViewModel.Representatives.Messages;
+using BioAlgorithmViewModel.Representatives.Utility;
+using BioAlgorythm.Representative;
 using FindingRegulatoryMotifs.Enumeration;
 using StatisticsStorage.Accumulators;
 using System;
@@ -15,6 +18,14 @@ namespace BioAlgorithm
         public MainWindow()
         {
             InitializeComponent();
+            Messenger.Default.Register<AlgorithmGroupOpenWindowMessage>(this, OnAlgorithmGroupOpenWindowMessageReceived, typeof(AlgorithmGroupOpenWindowMessage));
+
+        }
+
+        private void OnAlgorithmGroupOpenWindowMessageReceived(AlgorithmGroupOpenWindowMessage message)
+        {
+            RepresentativeAlgorithmWindow window = new RepresentativeAlgorithmWindow(message);
+            window.Show();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
