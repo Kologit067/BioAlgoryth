@@ -3,6 +3,7 @@ using StatisticsStorage.Accumulators.Objects;
 using StatisticsStorage.Savers;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace StatisticsStorage.Accumulators
 {
@@ -17,9 +18,11 @@ namespace StatisticsStorage.Accumulators
         protected int _bufferSize;
         protected int _numberOfSet;
         protected int _dimension;
-        protected long _step;
+        protected decimal _step;
+        Stopwatch stopWatchSave;
+        Stopwatch stopWatchCalc;
         //--------------------------------------------------------------------------------------------------------------------
-        public RepresentativesStatisticAccumulator(RepresentativesSaver representativesSaver, int numberOfSet, int dimension, long step = 1, int bufferSize = 100)
+        public RepresentativesStatisticAccumulator(RepresentativesSaver representativesSaver, int numberOfSet, int dimension, decimal step = 1, int bufferSize = 100)
         {
             _numberOfSet = numberOfSet;
             _dimension = dimension;
@@ -27,6 +30,9 @@ namespace StatisticsStorage.Accumulators
             _representativesSaver = representativesSaver;
             _bufferSize = bufferSize;
             _representativesPerfomances = new List<RepresentativesPerfomance>();
+            stopWatchSave = new Stopwatch();
+            stopWatchCalc = new Stopwatch();
+            stopWatchCalc.Start();
         }
         //--------------------------------------------------------------------------------------------------------------------
         public void CreateStatistics(int[][] listOfSet, string inputDataShort, string algorithm)
@@ -42,7 +48,18 @@ namespace StatisticsStorage.Accumulators
             isComplete, lastRoute, optimalSets, bestValue);
             if (_representativesPerfomances.Count > _bufferSize)
             {
+                stopWatchCalc.Stop();
+                long timeCalc = stopWatchCalc.ElapsedMilliseconds;
+                stopWatchSave = new Stopwatch();
+                stopWatchSave.Start();
                 _representativesSaver.Save(_representativesPerfomances);
+                stopWatchSave.Stop();
+                long timeSave = stopWatchSave.ElapsedMilliseconds;
+                double rel = timeSave * 1.0 / timeCalc;
+                string stat = $"{timeSave} / {timeCalc} = {rel}. timeSave/buffer = {1.0*timeSave/_bufferSize}";
+                stopWatchCalc = new Stopwatch();
+                stopWatchCalc.Start();
+
                 _representativesPerfomances.Clear();
             }
         }
@@ -79,7 +96,7 @@ namespace StatisticsStorage.Accumulators
             return _representativesSaver.Delete(algorithm, _numberOfSet, _dimension, _step);
         }
         //--------------------------------------------------------------------------------------------------------------------
-        public string DeleteAlgorithm(string algorithm, int? numberOfSet = null, int? dimension = null, long? step = null)
+        public string DeleteAlgorithm(string algorithm, int? numberOfSet = null, int? dimension = null, decimal? step = null)
         {
             return _representativesSaver.Delete(algorithm, numberOfSet, dimension, step);
         }

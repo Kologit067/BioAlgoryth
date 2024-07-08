@@ -114,7 +114,7 @@ namespace StatisticsStorage.Savers
 
         }
 
-        public string Delete(string algorithm, int? numberOfSet = null, int? dimension = null, long? step = null)
+        public string Delete(string algorithm, int? numberOfSet = null, int? dimension = null, decimal? step = null)
         {
             string error = null;
 

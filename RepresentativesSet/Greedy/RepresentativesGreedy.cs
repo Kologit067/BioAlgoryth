@@ -81,23 +81,26 @@ namespace RepresentativesSet.Greedy
                 return "Empty";
             }
         }
-        public RepresentativesGreedy(int[][] pListOfSet)
+        public RepresentativesGreedy()
+        {
+            StatisticAccumulator = new FakeRepresentativesStatisticAccumulator();
+            Solution = new List<int>();
+        }
+
+        public virtual void Execute(int[][] pListOfSet)
         {
             this.listOfSet = pListOfSet.Select(l => l.ToList()).ToList();
             listOfSetAsNumber = listOfSet.Select(s => BruteForceRepresentativesBinaryNumbders.ElementNumbersToLongAsBinaryVector(s.ToArray())).ToArray();
-            int numberOfElemnts = pListOfSet.SelectMany(l => l.Select(i => i)).Max()+1;
+            int numberOfElemnts = pListOfSet.SelectMany(l => l.Select(i => i)).Max() + 1;
             elements = new List<int>[numberOfElemnts];
             for (int i = 0; i < elements.Length; i++)
             {
                 elements[i] = listOfSet.Select((l, k) => (l, k)).Where(o => o.l.Any(n => n == i)).Select(o => o.k).ToList();
             }
-            StatisticAccumulator = new FakeRepresentativesStatisticAccumulator();
             _inputData = listOfSet.AsString(); // (Newtonsoft.Json.JsonConvert.SerializeObject(listOfSet));
             _inputDataShort = (Newtonsoft.Json.JsonConvert.SerializeObject(listOfSetAsNumber));
-            Solution = new List<int>();
+            Solution.Clear();
         }
-
-        public abstract void Execute();
 
         protected static double RelationCountDistinct(List<List<int>> listOfSet, int i)
         {

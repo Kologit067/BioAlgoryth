@@ -64,7 +64,6 @@ namespace CompareSortTest
     //--------------------------------------------------------------------------------------
     public class EnumerateInsertionSort : PermitationBase
     {
-        protected int _fSize;
         protected int _step;
         protected int _stepCounter;
         protected ISortingAccumulator _sortingAccumulator { get; set; }
@@ -113,7 +112,6 @@ namespace CompareSortTest
     //--------------------------------------------------------------------------------------
     public class RepeatedEnumerateInsertionSort : EnumerateIntegerFullSet
     {
-        protected int _fSize;
         protected int _step;
         protected int _stepCounter;
         protected ISortingAccumulator _sortingAccumulator { get; set; }

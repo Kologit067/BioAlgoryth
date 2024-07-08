@@ -17,15 +17,19 @@ namespace RepresentativesSet
         protected int[] counterOfSet;
         protected int commonCounter;
         //--------------------------------------------------------------------------------------
-        public RepresentativesBranchAndBound(int pLength, int[][] pListOfSet)
-            : base(pLength, pListOfSet)
+        public RepresentativesBranchAndBound(int pLength)
+            : base(pLength)
+        {
+        }
+        //-----------------------------------------------------------------------------------
+        public override void Execute(int[][] pListOfSet)
         {
             numberOfElement = pListOfSet.Max(x => x.Max());
             listOfElements = new List<int>[numberOfElement];
             counterOfSet = new int[pListOfSet.Length];
-            for(int i = 0; i < pListOfSet.Length; i++)
+            for (int i = 0; i < pListOfSet.Length; i++)
             {
-                foreach(int e in pListOfSet[i])
+                foreach (int e in pListOfSet[i])
                 {
                     if (listOfElements[e] == null)
                         listOfElements[e] = new List<int>();
@@ -46,7 +50,8 @@ namespace RepresentativesSet
             //        listOfSetAsBinary[i][(1 << p)] = 1;
 
             //});
-        }
+            Execute();
+        }        
         //--------------------------------------------------------------------------------------
         protected override void RemoveAction(int element)
         {

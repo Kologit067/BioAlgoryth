@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CommonLibrary;
+using CommonLibrary.Helpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RepresentativesSet;
 using StatisticsStorage.Accumulators;
@@ -25,10 +26,10 @@ namespace RepresentativesSet.Tests
             long expectedC74 = 35;
 
             // act
-            long realC32 = RepresentativesAsTree.Combination(3, 2);
-            long realC42 = RepresentativesAsTree.Combination(4, 2);
-            long realC52 = RepresentativesAsTree.Combination(5, 2);
-            long realC74 = RepresentativesAsTree.Combination(7, 4);
+            long realC32 = Combinatorics.Combination(3, 2);
+            long realC42 = Combinatorics.Combination(4, 2);
+            long realC52 = Combinatorics.Combination(5, 2);
+            long realC74 = Combinatorics.Combination(7, 4);
 
             // assert
             Assert.AreEqual(expectedC32, realC32);
@@ -46,8 +47,8 @@ namespace RepresentativesSet.Tests
                 {
 
                     // act
-                    long direct = RepresentativesAsTree.Combination(n, k);
-                    long rec = RepresentativesAsTree.CombinationRec(n, k);
+                    long direct = Combinatorics.Combination(n, k);
+                    long rec = Combinatorics.CombinationRec(n, k);
 
                     // assert
                     Assert.AreEqual(direct, rec);
@@ -62,7 +63,7 @@ namespace RepresentativesSet.Tests
             long expected = 3;
 
             // act
-            long rec = RepresentativesAsTree.CombinationRec(3, 2);
+            long rec = Combinatorics.CombinationRec(3, 2);
 
             // assert
             Assert.AreEqual(expected, rec);
@@ -84,13 +85,13 @@ namespace RepresentativesSetTest
         {
             // arrange
             int[][] listOfSet = new int[][] { new int[] { 0, 1 }, new int[] { 2, 3 }, new int[] { 4 } };
-            RepresentativesBranchAndBound branchAndBound = new RepresentativesBranchAndBound(5, listOfSet);
+            RepresentativesBranchAndBound branchAndBound = new RepresentativesBranchAndBound(5);
             List<int> expectedResult = new List<int>() { 0, 2, 4 };
             string expectedResult2 = "1,3,4";
             int expectedCount = 4;
 
             // act
-            branchAndBound.Execute();
+            branchAndBound.Execute(listOfSet);
 
             // assert
             Assert.AreEqual(expectedResult.Count, branchAndBound.Result.Count, "Wrong number rows in result");
@@ -109,12 +110,12 @@ namespace RepresentativesSetTest
         {
             // arrange
             int[][] listOfSet = new int[][] { new int[] { 0, 1, 3 }, new int[] { 0, 2, 3 }, new int[] { 0, 3, 4 } }; ;
-            RepresentativesBranchAndBound branchAndBound = new RepresentativesBranchAndBound(5, listOfSet);
+            RepresentativesBranchAndBound branchAndBound = new RepresentativesBranchAndBound(5);
             List<int> expectedResult = new List<int>() { 0 };
             string expectedResult2 = "3";
 
             // act
-            branchAndBound.Execute();
+            branchAndBound.Execute(listOfSet);
 
             // assert
             Assert.AreEqual(expectedResult.Count, branchAndBound.Result.Count, "Wrong number rows in result");
@@ -132,12 +133,12 @@ namespace RepresentativesSetTest
         {
             // arrange
             int[][] listOfSet = new int[][] { new int[] { 0, 1 }, new int[] { 2, 3 }, new int[] { 0, 4 } }; ;
-            RepresentativesBranchAndBound branchAndBound = new RepresentativesBranchAndBound(5, listOfSet);
+            RepresentativesBranchAndBound branchAndBound = new RepresentativesBranchAndBound(5);
             List<int> expectedResult = new List<int>() { 0, 2 };
             string expectedResult2 = "0,3";
 
             // act
-            branchAndBound.Execute();
+            branchAndBound.Execute(listOfSet);
 
             // assert
             Assert.AreEqual(expectedResult.Count, branchAndBound.Result.Count, "Wrong number rows in result");
@@ -155,12 +156,12 @@ namespace RepresentativesSetTest
         {
             // arrange
             int[][] listOfSet = new int[][] { new int[] { 0, 1 }, new int[] { 2, 3 }, new int[] { 4 }, new int[] { 1, 3 } };
-            RepresentativesBranchAndBound branchAndBound = new RepresentativesBranchAndBound(5, listOfSet);
+            RepresentativesBranchAndBound branchAndBound = new RepresentativesBranchAndBound(5);
             List<int> expectedResult = new List<int>() { 0, 3, 4 };
             string expectedResult2 = "1,3,4";
 
             // act
-            branchAndBound.Execute();
+            branchAndBound.Execute(listOfSet);
 
             // assert
             Assert.AreEqual(expectedResult.Count, branchAndBound.Result.Count, "Wrong number rows in result");
@@ -323,8 +324,8 @@ namespace RepresentativesSetTest
                 int[][] listOfSet = _fCurrentSet.Select(t => BruteForceRepresentativesBinaryNumbders.GetAsElementNumbers(t, _fCardinality).ToArray()).ToArray();
                 BruteForceRepresentativesBinaryNumbders bruteForce = new BruteForceRepresentativesBinaryNumbders();
 //                BruteForceRepresentatives bruteForceVer2 = new BruteForceRepresentatives();
-                BruteForceRepresentativesAsTree bruteForceAsTree = new BruteForceRepresentativesAsTree(_fCardinality, listOfSet);
-                RepresentativesBranchAndBound branchAndBound = new RepresentativesBranchAndBound(_fCardinality, listOfSet)
+//                BruteForceRepresentativesAsTree bruteForceAsTree = new BruteForceRepresentativesAsTree(_fCardinality);
+                RepresentativesBranchAndBound branchAndBound = new RepresentativesBranchAndBound(_fCardinality)
                 {
                     StatisticAccumulator = _statisticAccumulator
                 };
@@ -332,7 +333,7 @@ namespace RepresentativesSetTest
                 // act
                 List<int> result = bruteForce.ExecuteByBinary(listOfSet);
 //                List<int> resultVer2 = bruteForceVer2.ExecuteByBinaryVer2(listOfSet);
-                branchAndBound.Execute();
+                branchAndBound.Execute(listOfSet);
                 bruteForce.OptimalSets = bruteForce.OptimalSets.OrderBy(s => s).ToList();
 //                bruteForceVer2.OptimalSets = bruteForceVer2.OptimalSets.OrderBy(s => s).ToList();
                 branchAndBound.OptimalSets = branchAndBound.OptimalSets.OrderBy(s => s).ToList();

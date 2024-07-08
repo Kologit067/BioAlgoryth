@@ -7,12 +7,12 @@ namespace RepresentativesSet.Greedy
 {
     public class RepresentativesGreedyRelation : RepresentativesGreedy
     {
-        public RepresentativesGreedyRelation(int[][] pListOfSet) : base(pListOfSet)
+        public RepresentativesGreedyRelation() : base()
         {
         }
-        public override void Execute()
+        public override void Execute(int[][] pListOfSet)
         {
-
+            base.Execute(pListOfSet);
             stopwatch = new Stopwatch();
             stopwatch.Start();
             while (listOfSet.Where(s => s.Count() > 0).Count() > 0)

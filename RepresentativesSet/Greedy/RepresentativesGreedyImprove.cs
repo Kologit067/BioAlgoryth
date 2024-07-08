@@ -7,11 +7,13 @@ namespace RepresentativesSet.Greedy
 {
     public class RepresentativesGreedyImprove : RepresentativesGreedy
     {
-        public RepresentativesGreedyImprove(int[][] pListOfSet) : base(pListOfSet)
+        public RepresentativesGreedyImprove() : base()
         {
         }
-        public override void Execute()
+        public override void Execute(int[][] pListOfSet)
         {
+
+            base.Execute(pListOfSet);
             stopwatch = new Stopwatch();
             stopwatch.Start();
             StatisticAccumulator.CreateStatistics(listOfSet.Select(l => l.ToArray()).ToArray(), _inputDataShort, nameof(RepresentativesGreedy) + "Improve");

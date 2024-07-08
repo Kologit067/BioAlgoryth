@@ -116,7 +116,6 @@ namespace CompareSortTest
     //--------------------------------------------------------------------------------------
     public class EnumerateMergeSort : PermitationBase
     {
-        protected int _fSize;
         protected int _step;
         protected int _stepCounter;
         protected ISortingAccumulator _sortingAccumulator { get; set; }

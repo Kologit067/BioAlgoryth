@@ -1,4 +1,5 @@
 ﻿using CommonLibrary;
+using StatisticsStorage.Accumulators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,15 +14,20 @@ namespace RepresentativesSet.BinaryTreeEnumeration
         protected List<int> _fCurrentOptimalSet;		    // текущий оптимальный набор элементов
         protected List<string> _fOptimalSets;		        // 
         //--------------------------------------------------------------------------------------
-        public BruteForceRepresentativesAsTreeDirect(int pLength, int[][] pListOfSet)
-            : base(pLength)
+        public BruteForceRepresentativesAsTreeDirect(int pLength)  : base(pLength)
+        {
+        }
+        //-----------------------------------------------------------------------------------
+        public virtual void Execute(int[][] pListOfSet)
         {
             listOfSet = pListOfSet;
-            if (listOfSet.Any(s => s.Any(e => e >= pLength)))
+            if (listOfSet.Any(s => s.Any(e => e >= _fSize)))
                 throw new ArgumentException("Element of set can not be > Length.");
             _fCurrentOptimalSet = _fCurrentSet.ToList();
-            currentMinimum = pLength;
+            currentMinimum = _fSize;
             _fOptimalSets = new List<string>();
+
+            Execute();
         }
         //--------------------------------------------------------------------------------------
         protected override bool MakeAction()

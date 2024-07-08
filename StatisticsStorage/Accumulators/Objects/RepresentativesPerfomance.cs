@@ -237,7 +237,7 @@ namespace StatisticsStorage.Accumulators.Objects
             _elemenationCount++;
         }
         //--------------------------------------------------------------------------------------
-        public RepresentativesPerfomance(int numberOfSet, int dimension, long step, int[][] listOfSet, string inputDataShort, string algorithm)
+        public RepresentativesPerfomance(int numberOfSet, int dimension, decimal step, int[][] listOfSet, string inputDataShort, string algorithm)
         {
             string inputData = listOfSet.AsString();
             List<double> lengthArray = listOfSet.Select(l => (double)l.Length).ToList();

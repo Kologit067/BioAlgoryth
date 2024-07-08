@@ -10,16 +10,21 @@ namespace RepresentativesSet
     {
         protected int _currentCardinality;
         //--------------------------------------------------------------------------------------
-        public RepresentativesBranchAndBoundByValue(int pLength, int[][] pListOfSet)
-            : base(pLength, pListOfSet)
+        public RepresentativesBranchAndBoundByValue(int pLength)
+            : base(pLength)
         {
-            _currentCardinality = 0;
         }
         //-----------------------------------------------------------------------------------
         protected override void SupplementInitial()
         {
             StatisticAccumulator.CreateStatistics(listOfSet, _inputDataShort, nameof(RepresentativesBranchAndBoundByValue));
             _currentCardinality = _fCurrentSet[0];
+        }
+        //-----------------------------------------------------------------------------------
+        public override void Execute(int[][] pListOfSet)
+        {
+            _currentCardinality = 0;
+            base.Execute(pListOfSet);
         }
         //--------------------------------------------------------------------------------------
         protected override void RemoveAction(int element)
@@ -105,8 +110,8 @@ namespace RepresentativesSet
     public class RepresentativesBranchAndBoundFirst : RepresentativesBranchAndBoundByValue
     {
         //--------------------------------------------------------------------------------------
-        public RepresentativesBranchAndBoundFirst(int pLength, int[][] pListOfSet)
-            : base(pLength, pListOfSet)
+        public RepresentativesBranchAndBoundFirst(int pLength)
+            : base(pLength)
         {
         }
         //-----------------------------------------------------------------------------------

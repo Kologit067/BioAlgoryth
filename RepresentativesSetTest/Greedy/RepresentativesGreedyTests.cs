@@ -1,16 +1,12 @@
 ﻿using CommonLibrary;
 using CommonLibrary.Helpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RepresentativesSet.Greedy;
-using RepresentativesSetTest;
+using RepresentativesSetTest.Base;
 using StatisticsStorage.Accumulators;
 using StatisticsStorage.Savers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RepresentativesSet.Greedy.Tests
 {
@@ -24,10 +20,10 @@ namespace RepresentativesSet.Greedy.Tests
             // arrange
             List<int> list = new List<int>() { 3, 5, 6, 7, 16 };
             int[][] listOfSet = list.Select(t => BruteForceRepresentativesBinaryNumbders.GetAsElementNumbers(t, 5).ToArray()).ToArray();
-            RepresentativesGreedy representativesGreedy = new RepresentativesGreedySimple(listOfSet);
+            RepresentativesGreedy representativesGreedy = new RepresentativesGreedySimple();
 
             // act
-            representativesGreedy.Execute();
+            representativesGreedy.Execute(listOfSet);
             representativesGreedy.Solution = representativesGreedy.Solution.OrderBy(s => s).ToList();
 
             // assert
@@ -41,11 +37,11 @@ namespace RepresentativesSet.Greedy.Tests
             // arrange
             List<int> list = new List<int>() { 3, 5, 7, 10, 24 };
             int[][] listOfSet = list.Select(t => BruteForceRepresentativesBinaryNumbders.GetAsElementNumbers(t, 5).ToArray()).ToArray();
-            RepresentativesGreedyImprove representativesGreedy = new RepresentativesGreedyImprove(listOfSet);
-            string solutionAsStringExpected = "1,2,4";
+            RepresentativesGreedyImprove representativesGreedy = new RepresentativesGreedyImprove();
+            string solutionAsStringExpected = "0,3";
 
             // act
-            representativesGreedy.Execute();
+            representativesGreedy.Execute(listOfSet);
             representativesGreedy.Solution = representativesGreedy.Solution.OrderBy(s => s).ToList();
             string solutionAsString = string.Join(",", representativesGreedy.Solution);
 
@@ -60,11 +56,11 @@ namespace RepresentativesSet.Greedy.Tests
             // arrange
             List<int> list = new List<int>() { 5, 11, 12, 18, 21 };
             int[][] listOfSet = list.Select(t => BruteForceRepresentativesBinaryNumbders.GetAsElementNumbers(t, 5).ToArray()).ToArray();
-            RepresentativesGreedy representativesGreedy = new RepresentativesGreedyImprove(listOfSet);
-            string solutionAsStringExpected = "1,2,4";
+            RepresentativesGreedy representativesGreedy = new RepresentativesGreedyImprove();
+            string solutionAsStringExpected = "1,2";
 
             // act
-            representativesGreedy.Execute();
+            representativesGreedy.Execute(listOfSet);
             representativesGreedy.Solution = representativesGreedy.Solution.OrderBy(s => s).ToList();
             string solutionAsString = string.Join(",", representativesGreedy.Solution);
 
@@ -79,11 +75,11 @@ namespace RepresentativesSet.Greedy.Tests
             // arrange
             List<int> list = new List<int>() { 3, 5, 7, 10, 20 };
             int[][] listOfSet = list.Select(t => BruteForceRepresentativesBinaryNumbders.GetAsElementNumbers(t, 5).ToArray()).ToArray();
-            RepresentativesGreedy representativesGreedy = new RepresentativesGreedySimple(listOfSet);
-            string solutionAsStringExpected = "1,2,4";
+            RepresentativesGreedy representativesGreedy = new RepresentativesGreedySimple();
+            string solutionAsStringExpected = "1,2";
 
             // act
-            representativesGreedy.Execute();
+            representativesGreedy.Execute(listOfSet);
             representativesGreedy.Solution = representativesGreedy.Solution.OrderBy(s => s).ToList();
             string solutionAsString = string.Join(",", representativesGreedy.Solution);
 
@@ -98,11 +94,11 @@ namespace RepresentativesSet.Greedy.Tests
             // arrange
             List<int> list = new List<int>() { 6, 7, 9, 10, 20 };
             int[][] listOfSet = list.Select(t => BruteForceRepresentativesBinaryNumbders.GetAsElementNumbers(t, 5).ToArray()).ToArray();
-            RepresentativesGreedy representativesGreedy = new RepresentativesGreedyImproveRD(listOfSet);
+            RepresentativesGreedy representativesGreedy = new RepresentativesGreedyImproveRD();
             string solutionAsStringExpected = "2,3";
 
             // act
-            representativesGreedy.Execute();
+            representativesGreedy.Execute(listOfSet);
             representativesGreedy.Solution = representativesGreedy.Solution.OrderBy(s => s).ToList();
             string solutionAsString = string.Join(",", representativesGreedy.Solution);
 
@@ -122,7 +118,7 @@ namespace RepresentativesSet.Greedy.Tests
             enumeration.Execute();
             // assert
             int n = 1 << сardinality;
-            long comb = RepresentativesAsTree.Combination(n, length);
+            long comb = Combinatorics.Combination(n, length);
         }
         //--------------------------------------------------------------------------------------
         [TestMethod]
@@ -136,7 +132,7 @@ namespace RepresentativesSet.Greedy.Tests
             enumeration.Execute();
             // assert
             int n = 1 << сardinality;
-            long comb = RepresentativesAsTree.Combination(n, length);
+            long comb = Combinatorics.Combination(n, length);
         }
         //--------------------------------------------------------------------------------------
         [TestMethod]
@@ -145,76 +141,29 @@ namespace RepresentativesSet.Greedy.Tests
             // arrange
             int сardinality = 6;
             int length = 6;
-            EnumerateIntegerTrangleForRepresentativesGreedyCompareOnlyDif enumeration = new EnumerateIntegerTrangleForRepresentativesGreedyCompareOnlyDif(сardinality, length);
+            EnumerateIntegerTrangleForRepresentativesGreedyCompareOnlyDif enumeration = 
+                new EnumerateIntegerTrangleForRepresentativesGreedyCompareOnlyDif(сardinality, length, 10000);
             // act
             enumeration.Execute();
             // assert
             int n = 1 << сardinality;
-            long comb = RepresentativesAsTree.Combination(n, length);
+            long comb = Combinatorics.Combination(n, length);
         }
     }
 
     //--------------------------------------------------------------------------------------
     // class EnumerateIntegerTrangleForRepresentativesGreedyCompare
     //--------------------------------------------------------------------------------------
-    public class EnumerateIntegerTrangleForRepresentativesGreedyCompare : EnumerateIntegerTrangle
+    public class EnumerateIntegerTrangleForRepresentativesGreedyCompare : EnumerateRepresentativesTestBase
     {
-        private int _fCardinality;
         private RepresentativesStatisticAccumulator _statisticAccumulator;
         private RepresentativesStatisticAccumulator _greedyStatisticAccumulator;
-        //--------------------------------------------------------------------------------------
-        private int _wrongResultCount = 0;
-        //--------------------------------------------------------------------------------------
-        public int WrongResultCount
-        {
-            get
-            {
-                return _wrongResultCount;
-            }
-        }
-        //--------------------------------------------------------------------------------------
-        private int _gapCount = 0;
-        //--------------------------------------------------------------------------------------
-        public int GapCount
-        {
-            get
-            {
-                return _gapCount;
-            }
-        }
-        //--------------------------------------------------------------------------------------
-        private int _oneCount = 0;
-        //--------------------------------------------------------------------------------------
-        public int OneCount
-        {
-            get
-            {
-                return _oneCount;
-            }
-        }
-        //--------------------------------------------------------------------------------------
-        private long _count = 0;
-        //--------------------------------------------------------------------------------------
-        public long Count
-        {
-            get
-            {
-                return _count;
-            }
-        }
-        //--------------------------------------------------------------------------------------
-        private List<string> _result = new List<string>();
-        //--------------------------------------------------------------------------------------
-        public List<string> Result
-        {
-            get
-            {
-                return _result;
-            }
-        }
+
+        private RepresentativesGreedy representativesGreedy;
+        private RepresentativesBranchAndBoundByValue branchAndBound;
         //--------------------------------------------------------------------------------------
         public EnumerateIntegerTrangleForRepresentativesGreedyCompare(int pCardinality, int pLength, int pMinimumValue = 1, int pForwardAdditive = 1)
-            : base((1 << pCardinality) - 1, pLength, pMinimumValue, pForwardAdditive)
+            : base(pCardinality, pLength, pMinimumValue, pForwardAdditive)
         {
             _fBreakElement = 0;
             _fCardinality = pCardinality;
@@ -222,62 +171,37 @@ namespace RepresentativesSet.Greedy.Tests
             _statisticAccumulator.DeleteAlgorithm(nameof(RepresentativesBranchAndBoundByValue));
             _greedyStatisticAccumulator = new RepresentativesStatisticAccumulator(new RepresentativesSaver(), pLength, pCardinality);
             _greedyStatisticAccumulator.DeleteAlgorithm(nameof(RepresentativesGreedySimple));
-        }
-        //--------------------------------------------------------------------------------------
-        protected override bool MakeAction()
-        {
-            if (_fCurrentPosition == _fSize - 1)
+
+            representativesGreedy = new RepresentativesGreedySimple()
             {
-                // arrange
-                int[][] listOfSet = _fCurrentSet.Select(t => BruteForceRepresentativesBinaryNumbders.GetAsElementNumbers(t, _fCardinality).ToArray()).ToArray();
-                _count++;
-                int count = listOfSet.SelectMany(l => l).Distinct().Count();
-                int max = listOfSet.SelectMany(l => l).Max();
-                string listAsString = listOfSet.AsString();
-                if (max+1 != count)
-                {
-                    _gapCount++;
-                    return false;
-                }
-                bool isAnyOne = listOfSet.Any(l => l.Count() == 1);
-                if (isAnyOne)
-                {
-                    _oneCount++;
-                    return false;
-                }
-                RepresentativesGreedy representativesGreedy = new RepresentativesGreedySimple(listOfSet)
-                {
-                    StatisticAccumulator = _greedyStatisticAccumulator
-                };
-                RepresentativesBranchAndBoundByValue branchAndBound = new RepresentativesBranchAndBoundByValue(_fCardinality, listOfSet)
-                {
-                    StatisticAccumulator = _statisticAccumulator
-                };
-
-                // act
-                branchAndBound.Execute();
-                representativesGreedy.Execute();
-                branchAndBound.OptimalSets = branchAndBound.OptimalSets.OrderBy(s => s).ToList();
-                representativesGreedy.Solution = representativesGreedy.Solution.OrderBy(s => s).ToList();
-
-                // assert
-                if (branchAndBound.CurrentMinimum == representativesGreedy.Solution.Count)
-                {
-                    String solutionAsString = representativesGreedy.SolutionAsString;
-                    Assert.IsTrue(branchAndBound.OptimalSets.Any(o => o == solutionAsString));
-                }
-                else
-                {
-                    _wrongResultCount++;
-                }
-
-             }
-            return false;
+                StatisticAccumulator = _greedyStatisticAccumulator
+            };
+            branchAndBound = new RepresentativesBranchAndBoundByValue(_fCardinality)
+            {
+                StatisticAccumulator = _statisticAccumulator
+            };
         }
         //--------------------------------------------------------------------------------------
-        protected override bool IsCompleteCondition()
+        protected override void ActAction(int[][] listOfSet)
         {
-            return base.IsCompleteCondition();
+            branchAndBound.Execute(listOfSet);
+            representativesGreedy.Execute(listOfSet);
+            branchAndBound.OptimalSets = branchAndBound.OptimalSets.OrderBy(s => s).ToList();
+            representativesGreedy.Solution = representativesGreedy.Solution.OrderBy(s => s).ToList();
+        }
+        //--------------------------------------------------------------------------------------
+        protected override void AssertAction()
+        {
+            if (branchAndBound.CurrentMinimum == representativesGreedy.Solution.Count)
+            {
+                String solutionAsString = representativesGreedy.SolutionAsString;
+                Assert.IsTrue(branchAndBound.OptimalSets.Any(o => o == solutionAsString));
+            }
+            else
+            {
+                _wrongResultCount++;
+            }
+
         }
         //--------------------------------------------------------------------------------------
         protected override void PostAction()
@@ -286,49 +210,21 @@ namespace RepresentativesSet.Greedy.Tests
             _greedyStatisticAccumulator.SaveRemain();
         }
         //--------------------------------------------------------------------------------------
-        protected override int FirstElement(int pPosition)
-        {
-            if (pPosition == 0)
-                return 3;
-            int first = _fCurrentSet[pPosition - 1] + _forwardAdditive;
-            while (BruteForceRepresentativesBinaryNumbders.DefineSumOfBitVer2(first) == 1 && (first < _fLimit))
-                first += _forwardAdditive;
-            return first;
-        }
-        //--------------------------------------------------------------------------------------
-        protected override bool NextElement(int pPosition)
-        {
-            if (_fCurrentSet[pPosition] >= _fLimit)
-                return false;
-            if (BruteForceRepresentativesBinaryNumbders.DefineSumOfBitVer2(_fCurrentSet[pPosition]) == 1)
-                return false;
-            _fCurrentSet[pPosition]++;
-            if (BruteForceRepresentativesBinaryNumbders.DefineSumOfBitVer2(_fCurrentSet[pPosition]) == 1)
-                _fCurrentSet[pPosition]++;
-            return true;
-        }
-        //--------------------------------------------------------------------------------------
     }
     //--------------------------------------------------------------------------------------
     // class EnumerateIntegerTrangleForRepresentativesGreedyCompare
     //--------------------------------------------------------------------------------------
-    public class EnumerateIntegerTrangleForRepresentativesGreedyImpCompare : EnumerateIntegerTrangle
+    public class EnumerateIntegerTrangleForRepresentativesGreedyImpCompare : EnumerateRepresentativesTestBase
     {
-        private int _fCardinality;
         private RepresentativesStatisticAccumulator _statisticAccumulator;
         private RepresentativesStatisticAccumulator _greedyStatisticAccumulator;
         private RepresentativesStatisticAccumulator _greedyImpStatisticAccumulator;
         private RepresentativesStatisticAccumulator _greedyImpRDStatisticAccumulator;
-        //--------------------------------------------------------------------------------------
-        private int _wrongResultCount = 0;
-        //--------------------------------------------------------------------------------------
-        public int WrongResultCount
-        {
-            get
-            {
-                return _wrongResultCount;
-            }
-        }
+
+        private RepresentativesGreedy representativesGreedy;
+        private RepresentativesGreedy representativesGreedyImp;
+        private RepresentativesGreedy representativesGreedyImpRD;
+        private RepresentativesBranchAndBoundByValue branchAndBound;
         //--------------------------------------------------------------------------------------
         private int _wrongResultImpCount = 0;
         //--------------------------------------------------------------------------------------
@@ -350,48 +246,8 @@ namespace RepresentativesSet.Greedy.Tests
             }
         }
         //--------------------------------------------------------------------------------------
-        private int _gapCount = 0;
-        //--------------------------------------------------------------------------------------
-        public int GapCount
-        {
-            get
-            {
-                return _gapCount;
-            }
-        }
-        //--------------------------------------------------------------------------------------
-        private int _oneCount = 0;
-        //--------------------------------------------------------------------------------------
-        public int OneCount
-        {
-            get
-            {
-                return _oneCount;
-            }
-        }
-        //--------------------------------------------------------------------------------------
-        private long _count = 0;
-        //--------------------------------------------------------------------------------------
-        public long Count
-        {
-            get
-            {
-                return _count;
-            }
-        }
-        //--------------------------------------------------------------------------------------
-        private List<string> _result = new List<string>();
-        //--------------------------------------------------------------------------------------
-        public List<string> Result
-        {
-            get
-            {
-                return _result;
-            }
-        }
-        //--------------------------------------------------------------------------------------
         public EnumerateIntegerTrangleForRepresentativesGreedyImpCompare(int pCardinality, int pLength, int pMinimumValue = 1, int pForwardAdditive = 1)
-            : base((1 << pCardinality) - 1, pLength, pMinimumValue, pForwardAdditive)
+            : base(pCardinality, pLength, pMinimumValue, pForwardAdditive)
         {
             _fBreakElement = 0;
             _fCardinality = pCardinality;
@@ -403,91 +259,69 @@ namespace RepresentativesSet.Greedy.Tests
             _greedyImpStatisticAccumulator.DeleteAlgorithm(nameof(RepresentativesGreedyImprove) );
             _greedyImpRDStatisticAccumulator = new RepresentativesStatisticAccumulator(new RepresentativesSaver(), pLength, pCardinality);
             _greedyImpRDStatisticAccumulator.DeleteAlgorithm(nameof(RepresentativesGreedyImproveRD));
-        }
-        //--------------------------------------------------------------------------------------
-        protected override bool MakeAction()
-        {
-            if (_fCurrentPosition == _fSize - 1)
+
+            representativesGreedy = new RepresentativesGreedySimple()
             {
-                // arrange
-                int[][] listOfSet = _fCurrentSet.Select(t => BruteForceRepresentativesBinaryNumbders.GetAsElementNumbers(t, _fCardinality).ToArray()).ToArray();
-                _count++;
-                int count = listOfSet.SelectMany(l => l).Distinct().Count();
-                int max = listOfSet.SelectMany(l => l).Max();
-                string listAsString = listOfSet.AsString();
-                if (max + 1 != count)
-                {
-                    _gapCount++;
-                    return false;
-                }
-                bool isAnyOne = listOfSet.Any(l => l.Count() == 1);
-                if (isAnyOne)
-                {
-                    _oneCount++;
-                    return false;
-                }
-                RepresentativesGreedy representativesGreedy = new RepresentativesGreedySimple(listOfSet)
-                {
-                    StatisticAccumulator = _greedyStatisticAccumulator
-                };
-                RepresentativesGreedy representativesGreedyImp = new RepresentativesGreedyImprove(listOfSet)
-                {
-                    StatisticAccumulator = _greedyImpStatisticAccumulator
-                };
-                RepresentativesGreedy representativesGreedyImpRD = new RepresentativesGreedyImproveRD(listOfSet)
-                {
-                    StatisticAccumulator = _greedyImpRDStatisticAccumulator
-                };
-                RepresentativesBranchAndBoundByValue branchAndBound = new RepresentativesBranchAndBoundByValue(_fCardinality, listOfSet)
-                {
-                    StatisticAccumulator = _statisticAccumulator
-                };
+                StatisticAccumulator = _greedyStatisticAccumulator
+            };
+            representativesGreedyImp = new RepresentativesGreedyImprove()
+            {
+                StatisticAccumulator = _greedyImpStatisticAccumulator
+            };
+            representativesGreedyImpRD = new RepresentativesGreedyImproveRD()
+            {
+                StatisticAccumulator = _greedyImpRDStatisticAccumulator
+            };
+            branchAndBound = new RepresentativesBranchAndBoundByValue(_fCardinality)
+            {
+                StatisticAccumulator = _statisticAccumulator
+            };
 
-                // act
-                branchAndBound.Execute();
-                representativesGreedy.Execute();
-                representativesGreedyImp.Execute();
-                representativesGreedyImpRD.Execute();
-                branchAndBound.OptimalSets = branchAndBound.OptimalSets.OrderBy(s => s).ToList();
-                representativesGreedy.Solution = representativesGreedy.Solution.OrderBy(s => s).ToList();
-                representativesGreedyImp.Solution = representativesGreedyImp.Solution.OrderBy(s => s).ToList();
-                representativesGreedyImpRD.Solution = representativesGreedyImpRD.Solution.OrderBy(s => s).ToList();
-
-                // assert
-                if (branchAndBound.CurrentMinimum == representativesGreedy.Solution.Count)
-                {
-                    String solutionAsString = representativesGreedy.SolutionAsString;
-                    Assert.IsTrue(branchAndBound.OptimalSets.Any(o => o == solutionAsString));
-                }
-                else
-                {
-                    _wrongResultCount++;
-                }
-                if (branchAndBound.CurrentMinimum == representativesGreedyImp.Solution.Count)
-                {
-                    String solutionAsString = representativesGreedyImp.SolutionAsString;
-                    Assert.IsTrue(branchAndBound.OptimalSets.Any(o => o == solutionAsString));
-                }
-                else
-                {
-                    _wrongResultImpCount++;
-                }
-                if (branchAndBound.CurrentMinimum == representativesGreedyImpRD.Solution.Count)
-                {
-                    String solutionAsString = representativesGreedyImpRD.SolutionAsString;
-                    Assert.IsTrue(branchAndBound.OptimalSets.Any(o => o == solutionAsString));
-                }
-                else
-                {
-                    _wrongResultImpRDCount++;
-                }
-            }
-            return false;
         }
         //--------------------------------------------------------------------------------------
-        protected override bool IsCompleteCondition()
+        protected override void ActAction(int[][] listOfSet)
         {
-            return base.IsCompleteCondition();
+            branchAndBound.Execute(listOfSet);
+            representativesGreedy.Execute(listOfSet);
+            representativesGreedyImp.Execute(listOfSet);
+            representativesGreedyImpRD.Execute(listOfSet);
+            branchAndBound.OptimalSets = branchAndBound.OptimalSets.OrderBy(s => s).ToList();
+            representativesGreedy.Solution = representativesGreedy.Solution.OrderBy(s => s).ToList();
+            representativesGreedyImp.Solution = representativesGreedyImp.Solution.OrderBy(s => s).ToList();
+            representativesGreedyImpRD.Solution = representativesGreedyImpRD.Solution.OrderBy(s => s).ToList();
+
+        }
+        //--------------------------------------------------------------------------------------
+        protected override void AssertAction()
+        {
+            if (branchAndBound.CurrentMinimum == representativesGreedy.Solution.Count)
+            {
+                String solutionAsString = representativesGreedy.SolutionAsString;
+                Assert.IsTrue(branchAndBound.OptimalSets.Any(o => o == solutionAsString));
+            }
+            else
+            {
+                _wrongResultCount++;
+            }
+            if (branchAndBound.CurrentMinimum == representativesGreedyImp.Solution.Count)
+            {
+                String solutionAsString = representativesGreedyImp.SolutionAsString;
+                Assert.IsTrue(branchAndBound.OptimalSets.Any(o => o == solutionAsString));
+            }
+            else
+            {
+                _wrongResultImpCount++;
+            }
+            if (branchAndBound.CurrentMinimum == representativesGreedyImpRD.Solution.Count)
+            {
+                String solutionAsString = representativesGreedyImpRD.SolutionAsString;
+                Assert.IsTrue(branchAndBound.OptimalSets.Any(o => o == solutionAsString));
+            }
+            else
+            {
+                _wrongResultImpRDCount++;
+            }
+
         }
         //--------------------------------------------------------------------------------------
         protected override void PostAction()
@@ -497,191 +331,65 @@ namespace RepresentativesSet.Greedy.Tests
             _greedyImpStatisticAccumulator.SaveRemain();
         }
         //--------------------------------------------------------------------------------------
-        protected override int FirstElement(int pPosition)
-        {
-            if (pPosition == 0)
-                return 3;
-            int first = _fCurrentSet[pPosition - 1] + _forwardAdditive;
-            while (BruteForceRepresentativesBinaryNumbders.DefineSumOfBitVer2(first) == 1 && (first < _fLimit))
-                first += _forwardAdditive;
-            return first;
-        }
-        //--------------------------------------------------------------------------------------
-        protected override bool NextElement(int pPosition)
-        {
-            if (_fCurrentSet[pPosition] >= _fLimit)
-                return false;
-            if (BruteForceRepresentativesBinaryNumbders.DefineSumOfBitVer2(_fCurrentSet[pPosition]) == 1)
-                return false;
-            _fCurrentSet[pPosition]++;
-            if (BruteForceRepresentativesBinaryNumbders.DefineSumOfBitVer2(_fCurrentSet[pPosition]) == 1)
-                _fCurrentSet[pPosition]++;
-            return true;
-        }
-        //--------------------------------------------------------------------------------------
     }
     //--------------------------------------------------------------------------------------
     // class EnumerateIntegerTrangleForRepresentativesGreedyCompareOnlyDif
     //--------------------------------------------------------------------------------------
-    public class EnumerateIntegerTrangleForRepresentativesGreedyCompareOnlyDif : EnumerateIntegerTrangle
+    public class EnumerateIntegerTrangleForRepresentativesGreedyCompareOnlyDif : EnumerateRepresentativesTestBase
     {
-        private int _fCardinality;
         private RepresentativesStatisticAccumulator _statisticAccumulator;
         private RepresentativesStatisticAccumulator _greedyStatisticAccumulator;
+
+        private RepresentativesGreedy representativesGreedy;
+        private RepresentativesBranchAndBoundByValue branchAndBound;
         //--------------------------------------------------------------------------------------
-        private int _wrongResultCount = 0;
-        //--------------------------------------------------------------------------------------
-        public int WrongResultCount
+        public EnumerateIntegerTrangleForRepresentativesGreedyCompareOnlyDif(int pCardinality, int pLength,int bufferSize, int pMinimumValue = 1, int pForwardAdditive = 1)
+            : base(pCardinality, pLength, pMinimumValue, pForwardAdditive)
         {
-            get
-            {
-                return _wrongResultCount;
-            }
-        }
-        //--------------------------------------------------------------------------------------
-        private int _gapCount = 0;
-        //--------------------------------------------------------------------------------------
-        public int GapCount
-        {
-            get
-            {
-                return _gapCount;
-            }
-        }
-        //--------------------------------------------------------------------------------------
-        private int _oneCount = 0;
-        //--------------------------------------------------------------------------------------
-        public int OneCount
-        {
-            get
-            {
-                return _oneCount;
-            }
-        }
-        //--------------------------------------------------------------------------------------
-        private long _count = 0;
-        //--------------------------------------------------------------------------------------
-        public long Count
-        {
-            get
-            {
-                return _count;
-            }
-        }
-        //--------------------------------------------------------------------------------------
-        public double WrongRelation
-        {
-            get
-            {
-                return 1.0*_wrongResultCount/_count;
-            }
-        }
-        //--------------------------------------------------------------------------------------
-        private List<string> _result = new List<string>();
-        //--------------------------------------------------------------------------------------
-        public List<string> Result
-        {
-            get
-            {
-                return _result;
-            }
-        }
-        //--------------------------------------------------------------------------------------
-        public EnumerateIntegerTrangleForRepresentativesGreedyCompareOnlyDif(int pCardinality, int pLength, int pMinimumValue = 1, int pForwardAdditive = 1)
-            : base((1 << pCardinality) - 1, pLength, pMinimumValue, pForwardAdditive)
-        {
-            _fBreakElement = 0;
-            _fCardinality = pCardinality;
-            _statisticAccumulator = new RepresentativesStatisticAccumulator(new RepresentativesSaver(), pLength, pCardinality,1);
+            _statisticAccumulator = new RepresentativesStatisticAccumulator(new RepresentativesSaver(), pLength, pCardinality,1, bufferSize);
             _statisticAccumulator.DeleteAlgorithm(nameof(RepresentativesBranchAndBoundByValue), pLength, pCardinality,1);
-            _greedyStatisticAccumulator = new RepresentativesStatisticAccumulator(new RepresentativesSaver(), pLength, pCardinality, 1);
+            _greedyStatisticAccumulator = new RepresentativesStatisticAccumulator(new RepresentativesSaver(), pLength, pCardinality, 1, bufferSize);
             _greedyStatisticAccumulator.DeleteAlgorithm(nameof(RepresentativesGreedyImproveRD), pLength, pCardinality, 1);
-        }
-        //--------------------------------------------------------------------------------------
-        protected override bool MakeAction()
-        {
-            if (_fCurrentPosition == _fSize - 1)
+
+            representativesGreedy = new RepresentativesGreedyImproveRD()
             {
-                // arrange
-                int[][] listOfSet = _fCurrentSet.Select(t => BruteForceRepresentativesBinaryNumbders.GetAsElementNumbers(t, _fCardinality).ToArray()).ToArray();
-                int count = listOfSet.SelectMany(l => l).Distinct().Count();
-                int max = listOfSet.SelectMany(l => l).Max();
-                string listAsString = listOfSet.AsString();
-                if (max + 1 != count)
-                {
-                    _gapCount++;
-                    return false;
-                }
-                bool isAnyOne = listOfSet.Any(l => l.Count() == 1);
-                if (isAnyOne)
-                {
-                    _oneCount++;
-                    return false;
-                }
-                _count++;
-                RepresentativesGreedy representativesGreedy = new RepresentativesGreedyImproveRD(listOfSet)
-                {
-                    StatisticAccumulator = _greedyStatisticAccumulator
-                };
-                RepresentativesBranchAndBoundByValue branchAndBound = new RepresentativesBranchAndBoundByValue(_fCardinality, listOfSet)
-                {
-                    StatisticAccumulator = _statisticAccumulator
-                };
-
-                // act
-                branchAndBound.Execute();
-                representativesGreedy.Execute();
-                branchAndBound.OptimalSets = branchAndBound.OptimalSets.OrderBy(s => s).ToList();
-                representativesGreedy.Solution = representativesGreedy.Solution.OrderBy(s => s).ToList();
-
-                // assert
-                if (branchAndBound.CurrentMinimum == representativesGreedy.Solution.Count)
-                {
-                    String solutionAsString = representativesGreedy.SolutionAsString;
-                    Assert.IsTrue(branchAndBound.OptimalSets.Any(o => o == solutionAsString));
-                    _statisticAccumulator.RemoveLastStatistic();
-                    _greedyStatisticAccumulator.RemoveLastStatistic();
-                }
-                else
-                {
-                    _wrongResultCount++;
-                }
-
-            }
-            return false;
+                StatisticAccumulator = _greedyStatisticAccumulator
+            };
+            branchAndBound = new RepresentativesBranchAndBoundByValue(_fCardinality)
+            {
+                StatisticAccumulator = _statisticAccumulator
+            };
         }
         //--------------------------------------------------------------------------------------
-        protected override bool IsCompleteCondition()
+        protected override void ActAction(int[][] listOfSet)
         {
-            return base.IsCompleteCondition();
+            branchAndBound.Execute(listOfSet);
+            representativesGreedy.Execute(listOfSet);
+            branchAndBound.OptimalSets = branchAndBound.OptimalSets.OrderBy(s => s).ToList();
+            representativesGreedy.Solution = representativesGreedy.Solution.OrderBy(s => s).ToList();
+
+        }
+        //--------------------------------------------------------------------------------------
+        protected override void AssertAction()
+        {
+            if (branchAndBound.CurrentMinimum == representativesGreedy.Solution.Count)
+            {
+                String solutionAsString = representativesGreedy.SolutionAsString;
+                Assert.IsTrue(branchAndBound.OptimalSets.Any(o => o == solutionAsString));
+                _statisticAccumulator.RemoveLastStatistic();
+                _greedyStatisticAccumulator.RemoveLastStatistic();
+            }
+            else
+            {
+                _wrongResultCount++;
+            }
+
         }
         //--------------------------------------------------------------------------------------
         protected override void PostAction()
         {
             _statisticAccumulator.SaveRemain();
             _greedyStatisticAccumulator.SaveRemain();
-        }
-        //--------------------------------------------------------------------------------------
-        protected override int FirstElement(int pPosition)
-        {
-            if (pPosition == 0)
-                return 3;
-            int first = _fCurrentSet[pPosition - 1] + _forwardAdditive;
-            while (BruteForceRepresentativesBinaryNumbders.DefineSumOfBitVer2(first) == 1 && (first < _fLimit))
-                first += _forwardAdditive;
-            return first;
-        }
-        //--------------------------------------------------------------------------------------
-        protected override bool NextElement(int pPosition)
-        {
-            if (_fCurrentSet[pPosition] >= _fLimit)
-                return false;
-            if (BruteForceRepresentativesBinaryNumbders.DefineSumOfBitVer2(_fCurrentSet[pPosition]) == 1)
-                return false;
-            _fCurrentSet[pPosition]++;
-            if (BruteForceRepresentativesBinaryNumbders.DefineSumOfBitVer2(_fCurrentSet[pPosition]) == 1)
-                _fCurrentSet[pPosition]++;
-            return true;
         }
         //--------------------------------------------------------------------------------------
     }

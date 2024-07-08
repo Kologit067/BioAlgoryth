@@ -42,6 +42,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -60,6 +61,7 @@
     <Compile Include="EnumerateNotDecreasedSubSequence.cs" />
     <Compile Include="EnumerateSetOnPosition.cs" />
     <Compile Include="Helpers\CollectionPresentation.cs" />
+    <Compile Include="Helpers\Combinatorics.cs" />
     <Compile Include="PermitationBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

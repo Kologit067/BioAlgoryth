@@ -297,15 +297,7 @@ namespace RepresentativesSetTest
     {
         private int _fCardinality;
         private long _countOperation = 0;
-        private List<string> _result = new List<string>();
-        //--------------------------------------------------------------------------------------
-        public List<string> Result
-        {
-            get
-            {
-                return _result;
-            }
-        }
+ 
         //--------------------------------------------------------------------------------------
         public EnumerateIntegerTrangleForBruteForceRepresentativesCompare(int pCardinality, int pLength, int pMinimumValue = 1, int pForwardAdditive = 1)
             : base((1 << pCardinality) - 1, pLength, pMinimumValue, pForwardAdditive)
@@ -322,14 +314,14 @@ namespace RepresentativesSetTest
                 int[][] listOfSet = _fCurrentSet.Select(t => BruteForceRepresentativesBinaryNumbders.GetAsElementNumbers(t, _fCardinality).ToArray()).ToArray();
                 BruteForceRepresentativesBinaryNumbders bruteForce = new BruteForceRepresentativesBinaryNumbders();
                 BruteForceRepresentativesBinaryNumbders bruteForceVer2 = new BruteForceRepresentativesBinaryNumbders();
-                BruteForceRepresentativesAsTree bruteForceAsTree = new BruteForceRepresentativesAsTree(_fCardinality, listOfSet);
-                BruteForceRepresentativesAsTreeDirect bruteForceAsTreeDirect = new BruteForceRepresentativesAsTreeDirect(_fCardinality, listOfSet);
+                BruteForceRepresentativesAsTree bruteForceAsTree = new BruteForceRepresentativesAsTree(_fCardinality);
+                BruteForceRepresentativesAsTreeDirect bruteForceAsTreeDirect = new BruteForceRepresentativesAsTreeDirect(_fCardinality);
 
                 // act
                 List<int> result = bruteForce.ExecuteByBinary(listOfSet);
                 List<int> resultVer2 = bruteForceVer2.ExecuteByBinaryVer2(listOfSet);
-                bruteForceAsTree.Execute();
-                bruteForceAsTreeDirect.Execute();
+                bruteForceAsTree.Execute(listOfSet);
+                bruteForceAsTreeDirect.Execute(listOfSet);
                 bruteForce.OptimalSets = bruteForce.OptimalSets.OrderBy(s => s).ToList();
                 bruteForceVer2.OptimalSets = bruteForceVer2.OptimalSets.OrderBy(s => s).ToList();
                 bruteForceAsTree.OptimalSets = bruteForceAsTree.OptimalSets.OrderBy(s => s).ToList();

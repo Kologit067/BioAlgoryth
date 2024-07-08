@@ -14,16 +14,16 @@ namespace RepresentativesSetTest
         {
             // arrange
             int[][] listOfSet = new int[][] { new int[] { 0, 1 }, new int[] { 2, 3 }, new int[] { 4 } };
-            BruteForceRepresentativesAsTree bruteForce = new BruteForceRepresentativesAsTree(5,listOfSet);
-            BruteForceRepresentativesAsTreeDirect bruteForceDirect = new BruteForceRepresentativesAsTreeDirect(5, listOfSet);
+            BruteForceRepresentativesAsTree bruteForce = new BruteForceRepresentativesAsTree(5);
+            BruteForceRepresentativesAsTreeDirect bruteForceDirect = new BruteForceRepresentativesAsTreeDirect(5);
             List<int> expectedResultDirect = new List<int>() { 1, 3, 4 };
             List<int> expectedResult = new List<int>() { 0, 2, 4 };
             string expectedResultDirect2 = "0,2,4";
             string expectedResult2 = "1,3,4";
 
             // act
-            bruteForce.Execute();
-            bruteForceDirect.Execute();
+            bruteForce.Execute(listOfSet);
+            bruteForceDirect.Execute(listOfSet);
 
             // assert
             Assert.AreEqual(expectedResult.Count, bruteForce.Result.Count, "Wrong number rows in result");
@@ -47,16 +47,16 @@ namespace RepresentativesSetTest
         {
             // arrange
             int[][] listOfSet = new int[][] { new int[] { 0, 1, 3 }, new int[] { 0, 2, 3 }, new int[] { 0, 3, 4 } }; ;
-            BruteForceRepresentativesAsTree bruteForce = new BruteForceRepresentativesAsTree(5, listOfSet);
-            BruteForceRepresentativesAsTreeDirect bruteForceDirect = new BruteForceRepresentativesAsTreeDirect(5, listOfSet);
+            BruteForceRepresentativesAsTree bruteForce = new BruteForceRepresentativesAsTree(5);
+            BruteForceRepresentativesAsTreeDirect bruteForceDirect = new BruteForceRepresentativesAsTreeDirect(5);
             List<int> expectedResult = new List<int>() { 0 };
             List<int> expectedResultDirect = new List<int>() { 3 };
             string expectedResult2 = "3";
             string expectedResultDirect2 = "0";
 
             // act
-            bruteForce.Execute();
-            bruteForceDirect.Execute();
+            bruteForce.Execute(listOfSet);
+            bruteForceDirect.Execute(listOfSet);
 
             // assert
             Assert.AreEqual(expectedResult.Count, bruteForce.Result.Count, "Wrong number rows in result");
@@ -80,16 +80,16 @@ namespace RepresentativesSetTest
         {
             // arrange
             int[][] listOfSet = new int[][] { new int[] { 0, 1 }, new int[] { 2, 3 }, new int[] { 0, 4 } }; ;
-            BruteForceRepresentativesAsTree bruteForce = new BruteForceRepresentativesAsTree(5, listOfSet);
-            BruteForceRepresentativesAsTreeDirect bruteForceDirect = new BruteForceRepresentativesAsTreeDirect(5, listOfSet);
+            BruteForceRepresentativesAsTree bruteForce = new BruteForceRepresentativesAsTree(5);
+            BruteForceRepresentativesAsTreeDirect bruteForceDirect = new BruteForceRepresentativesAsTreeDirect(5);
             List<int> expectedResult = new List<int>() { 0, 2 };
             string expectedResult2 = "0,3";
             List<int> expectedResultDirect = new List<int>() { 0, 3 };
             string expectedResultDirect2 = "0,2";
 
             // act
-            bruteForce.Execute();
-            bruteForceDirect.Execute();
+            bruteForce.Execute(listOfSet);
+            bruteForceDirect.Execute(listOfSet);
 
             // assert
             Assert.AreEqual(expectedResult.Count, bruteForce.Result.Count, "Wrong number rows in result");
@@ -113,16 +113,16 @@ namespace RepresentativesSetTest
         {
             // arrange
             int[][] listOfSet = new int[][] { new int[] { 0, 1 }, new int[] { 2, 3 }, new int[] { 4 }, new int[] { 1, 3 } };
-            BruteForceRepresentativesAsTree bruteForce = new BruteForceRepresentativesAsTree(5, listOfSet);
-            BruteForceRepresentativesAsTreeDirect bruteForceDirect = new BruteForceRepresentativesAsTreeDirect(5, listOfSet);
+            BruteForceRepresentativesAsTree bruteForce = new BruteForceRepresentativesAsTree(5);
+            BruteForceRepresentativesAsTreeDirect bruteForceDirect = new BruteForceRepresentativesAsTreeDirect(5);
             List<int> expectedResult = new List<int>() { 0, 3, 4 };
             string expectedResult2 = "1,3,4";
             List<int> expectedResultDirect = new List<int>() { 1, 3, 4 };
             string expectedResultDirect2 = "1,2,4";
 
             // act
-            bruteForce.Execute();
-            bruteForceDirect.Execute();
+            bruteForce.Execute(listOfSet);
+            bruteForceDirect.Execute(listOfSet);
 
             // assert
             Assert.AreEqual(expectedResult.Count, bruteForce.Result.Count, "Wrong number rows in result");

@@ -75,46 +75,34 @@ namespace RepresentativesSet
             {
                 return _fOptimalSets;
             }
-            //set
-            //{
-            //    _fOptimalSets = value;
-            //}
         }
         //--------------------------------------------------------------------------------------
-        public RepresentativesTriangle(int pLength, string pListOfSetAsString) : this(pLength, StringToArray(pListOfSetAsString))
+        public RepresentativesTriangle(int pLength) : base(pLength, pLength)
         {
-
+            commonCounter = 0;
+            StatisticAccumulator = new FakeRepresentativesStatisticAccumulator();
         }
         //--------------------------------------------------------------------------------------
-        public static int[][] StringToArray(string pListOfSetAsString)
+        public virtual void Execute(string pListOfSetAsString)
         {
-            string[] clauseArray = pListOfSetAsString.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-            List<int[]> result= new List<int[]>();
-            for (int i = 0; i < clauseArray.Length; i++)
-            {
-                string clause = clauseArray[i];
-                string[] vertexArray = clause.Replace("(", "").Replace(")", "").Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-                result.Add(vertexArray.Where(v => int.TryParse(v, out _)).Select(v => int.Parse(v)).ToArray());
-            }
-            return result.ToArray();
+            Execute(StringToArray(pListOfSetAsString));
         }
         //--------------------------------------------------------------------------------------
-        public RepresentativesTriangle(int pLength, int[][] pListOfSet) : base(pLength, pLength)
+        public virtual void Execute(int[][] pListOfSet)
         {
             listOfSet = pListOfSet;
             listOfSetAsNumber = listOfSet.Select(s => BruteForceRepresentativesBinaryNumbders.ElementNumbersToLongAsBinaryVector(s)).ToArray();
-            if (listOfSet.Any(s => s.Any(e => e >= pLength)))
+            if (listOfSet.Any(s => s.Any(e => e >= _fSize)))
                 throw new ArgumentException("Element of set can not be > Length.");
             _fCurrentOptimalSet = _fCurrentSet.ToList();
-            currentMinimum = pLength;
+            currentMinimum = _fSize;
             _fOptimalSets = new List<string>();
             _inputData = (Newtonsoft.Json.JsonConvert.SerializeObject(listOfSet));
 
             _inputDataShort = (Newtonsoft.Json.JsonConvert.SerializeObject(listOfSetAsNumber));
-            StatisticAccumulator = new FakeRepresentativesStatisticAccumulator();
-            SetList = pListOfSet.Select((l,i) => new SetInfo(l,i)).ToList();
-            Elements = Enumerable.Range(0, pLength).Select(i => new ElementInfo(SetList.Where(s => s.Elements.Any(e => e == i)).Select(s => s.Number),i)).ToList();
-            commonCounter = 0;
+            SetList = pListOfSet.Select((l, i) => new SetInfo(l, i)).ToList();
+            Elements = Enumerable.Range(0, _fSize).Select(i => new ElementInfo(SetList.Where(s => s.Elements.Any(e => e == i)).Select(s => s.Number), i)).ToList();
+            Execute();
         }
         //--------------------------------------------------------------------------------------
         protected override int InitialElement()
@@ -281,6 +269,19 @@ namespace RepresentativesSet
         {
             StatisticAccumulator.SaveStatisticData(ElapsedTicks, DurationMilliSeconds, DateTime.Now,
                 IsComplete, CurrentSetAsString, _fOptimalSets, currentMinimum);
+        }
+        //--------------------------------------------------------------------------------------
+        public static int[][] StringToArray(string pListOfSetAsString)
+        {
+            string[] clauseArray = pListOfSetAsString.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            List<int[]> result = new List<int[]>();
+            for (int i = 0; i < clauseArray.Length; i++)
+            {
+                string clause = clauseArray[i];
+                string[] vertexArray = clause.Replace("(", "").Replace(")", "").Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                result.Add(vertexArray.Where(v => int.TryParse(v, out _)).Select(v => int.Parse(v)).ToArray());
+            }
+            return result.ToArray();
         }
         //--------------------------------------------------------------------------------------
     }

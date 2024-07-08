@@ -1,4 +1,5 @@
 ﻿using CommonLibrary;
+using CommonLibrary.Helpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RepresentativesSet;
 using StatisticsStorage.Accumulators;
@@ -7,8 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Threading;
+using System.Numerics;
+
 
 namespace RepresentativesSetTest
 {
@@ -59,14 +60,14 @@ namespace RepresentativesSetTest
             // act
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
-            long[,] matrix = RepresentativesBranchAndBoundByValue.CreateCombinationMatrix(n, m);
+            long[,] matrix = Combinatorics.CreateCombinationMatrix(n, m);
             stopWatch.Stop();
             TimeSpan ts = stopWatch.Elapsed;
             long ticks = stopWatch.ElapsedTicks;
             string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
 
             stopWatch.Restart();
-            long[,] matrixRec = RepresentativesBranchAndBoundByValue.CreateCombinationMatrixByRec(n, m);
+            long[,] matrixRec = Combinatorics.CreateCombinationMatrixByRec(n, m);
             stopWatch.Stop();
             TimeSpan tsRec = stopWatch.Elapsed;
             long ticksRec = stopWatch.ElapsedTicks;
@@ -86,7 +87,7 @@ namespace RepresentativesSetTest
             // arrange
             int limit = 43;
             int length = 11;
-            long number = RepresentativesAsTree.Combination(limit, length);
+            long number = Combinatorics.Combination(limit, length);
             int step = (int)(number / 100000);
             //step = 678;
             EnumerateIntegerTrangleForSkipCalculation enumeration = new EnumerateIntegerTrangleForSkipCalculation(limit, length, step);
@@ -189,7 +190,8 @@ namespace RepresentativesSetTest
             _step = step;
             _result = new List<string>();
             _selected = new List<string>();
-            RepresentativesBranchAndBoundByValue.SetCombinationMatrix(pLimit,pLength);
+            Combinatorics.SetCombinationMatrix(pLimit,pLength);
+            Combinatorics.SetCombinationBigIntegerMatrix(pLimit, pLength);
         }
         //--------------------------------------------------------------------------------------
         protected override bool MakeAction()
@@ -201,12 +203,15 @@ namespace RepresentativesSetTest
                 if (_stepCounter == _step)
                 {
                     _stepCounter = 0;
-                    var skipList = RepresentativesBranchAndBoundByValue.SkipEnumeration(_fLimit, _fSize, _counter);
+                    int[] skipList = Combinatorics.SkipEnumeration(_fLimit, _fSize, _counter);
+                    int[] skipListBigInteger = Combinatorics.SkipEnumerationBigInteger(_fLimit, _fSize,new BigInteger( _counter));
                     string strRepresenttion = string.Join(",", _fCurrentSet);
                     string strSkipList = string.Join(",", skipList);
+                    string strSkipListBigInteger = string.Join(",", skipListBigInteger);
                     _selected.Add(strRepresenttion);
                     _result.Add(strRepresenttion);
                     Assert.AreEqual(strRepresenttion, strSkipList);
+                    Assert.AreEqual(strRepresenttion, strSkipListBigInteger);
                 }
             }
             return false;

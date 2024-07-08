@@ -13,15 +13,20 @@ namespace RepresentativesSet
     public class BruteForceRepresentativesAsTree : RepresentativesAsTree
     {
         //--------------------------------------------------------------------------------------
-        public BruteForceRepresentativesAsTree(int pLength, string setAsString)
-            : this(pLength, RepresentativesTriangle.StringToArray(setAsString))
+        public BruteForceRepresentativesAsTree(int pLength)
+            : base(pLength)
         {
         }
-        //--------------------------------------------------------------------------------------
-        public BruteForceRepresentativesAsTree(int pLength, int[][] pListOfSet)
-            : base(pLength, pListOfSet)
+        //-----------------------------------------------------------------------------------
+        public override void Execute(int[][] pListOfSet)
         {
+            base.Execute(pListOfSet);
         }
+        //-----------------------------------------------------------------------------------
+        public virtual void Execute(string setAsString)
+        {
+            Execute(RepresentativesTriangle.StringToArray(setAsString));
+        }        
         //--------------------------------------------------------------------------------------
         protected override bool MakeAction()
         {

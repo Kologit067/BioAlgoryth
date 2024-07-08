@@ -11,12 +11,9 @@ namespace RepresentativesSet.BranchAndBound
     //--------------------------------------------------------------------------------------
     public class RepresentativesTriangleBranchAndBound : RepresentativesTriangle
     {
+ 
         //--------------------------------------------------------------------------------------
-        public RepresentativesTriangleBranchAndBound(int pLength, string pListOfSetAsString) : base(pLength, RepresentativesTriangle.StringToArray(pListOfSetAsString))
-        {
-        }
-        //--------------------------------------------------------------------------------------
-        public RepresentativesTriangleBranchAndBound(int pLength, int[][] pListOfSet) : base(pLength, pListOfSet)
+        public RepresentativesTriangleBranchAndBound(int pLength) : base(pLength)
         {
         }
         //--------------------------------------------------------------------------------------
