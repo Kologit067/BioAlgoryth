@@ -205,13 +205,16 @@ namespace RepresentativesSetTest
                     _stepCounter = 0;
                     int[] skipList = Combinatorics.SkipEnumeration(_fLimit, _fSize, _counter);
                     int[] skipListBigInteger = Combinatorics.SkipEnumerationBigInteger(_fLimit, _fSize,new BigInteger( _counter));
+                    int[] skipListNoRecBigInteger = Combinatorics.SkipEnumerationNoRecBigInteger(_fLimit, _fSize, new BigInteger(_counter));
                     string strRepresenttion = string.Join(",", _fCurrentSet);
                     string strSkipList = string.Join(",", skipList);
                     string strSkipListBigInteger = string.Join(",", skipListBigInteger);
+                    string strSkipListNoRecBigInteger = string.Join(",", skipListNoRecBigInteger);
                     _selected.Add(strRepresenttion);
                     _result.Add(strRepresenttion);
                     Assert.AreEqual(strRepresenttion, strSkipList);
                     Assert.AreEqual(strRepresenttion, strSkipListBigInteger);
+                    Assert.AreEqual(strRepresenttion, strSkipListNoRecBigInteger);
                 }
             }
             return false;

@@ -68,7 +68,7 @@
             <ColumnDefinition Width="59*"/>
             <ColumnDefinition Width="941*"/>
         </Grid.ColumnDefinitions>
-        <TabControl Grid.ColumnSpan="2">
+        <TabControl Grid.ColumnSpan="2" SelectedIndex="{Binding Representatives.SelectedTab}">
             <TabItem Header="Representative Performance">
                 <ac:RepresentativeControl DataContext="{Binding Representatives.RepresentativePerformance}"/>
             </TabItem>

@@ -1,10 +1,10 @@
 ﻿using BioAlgorithmViewModel.BipartiteGraphModel;
 using BioAlgorithmViewModel.Common;
-using BioAlgorythmModel.RepresentativesModel;
+using BioAlgorithmViewModel.Mappings;
+using BioAlgorithmViewModel.Representatives.Messages;
+using BioAlgorithmViewModel.Representatives.Utility;
 using Representatives.Data;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Windows.Input;
+using System;
 
 namespace BioAlgorithmViewModel.Representatives
 {
@@ -71,6 +71,20 @@ namespace BioAlgorithmViewModel.Representatives
             }
         }
         //----------------------------------------------------------------------------------------------------------------------
+        private int selectedTab;
+        public int SelectedTab
+        {
+            get
+            {
+                return selectedTab;
+            }
+            set
+            {
+                selectedTab = value;
+                OnPropertyChanged(nameof(SelectedTab));
+            }
+        }
+        //----------------------------------------------------------------------------------------------------------------------
         public RepresentativesViewModel()
         {
             representativesRepository = new RepresentativesRepository();
@@ -78,6 +92,17 @@ namespace BioAlgorithmViewModel.Representatives
             RepresentativePerformanceAlgorithm = new RepresentativePerformanceAlgorithmViewModel(representativesRepository);
             RepresentativePerformanceGroup = new RepresentativePerformanceGroupViewModel(representativesRepository);
             BipartiteGraph = new BipartiteGraphViewModel();
+            Messenger.Default.Register<RepresentativeTabChangeMessage>(this, OnAlgorithmGroupToFilterMessageReceived, typeof(RepresentativeTabChangeMessage));
+        }
+        //----------------------------------------------------------------------------------------------------------------------
+        private void OnAlgorithmGroupToFilterMessageReceived(RepresentativeTabChangeMessage message)
+        {
+            SelectedTab = message.RepresentativeTabName switch
+            {
+                "RepresentativePerformance" => 0,
+                "BipartiteGraph" => 3,
+                _ => 0
+            };
         }
         //----------------------------------------------------------------------------------------------------------------------
     }

@@ -28,8 +28,8 @@ namespace StatisticsStorage.Accumulators.Objects
             }
         }
         //--------------------------------------------------------------------------------------
-        protected int _step;
-        public int Step
+        protected decimal _step;
+        public decimal Step
         {
             get
             {
@@ -246,6 +246,7 @@ namespace StatisticsStorage.Accumulators.Objects
             _inputData = inputData;
             _inputDataShort = inputDataShort;
             _algorithm = algorithm;
+            _step = step;
             _inputLenAvg = lengthArray.Average();
             _inputLen = string.Join(",", lengthArray);
             _inputLenSort = string.Join(",", lengthArray.OrderBy(l => l));

@@ -129,6 +129,10 @@ namespace BioAlgorithmViewModel.Representatives
         //----------------------------------------------------------------------------------------------------------------------
         private void ToFilterAction()
         {
+            Messenger.Default.Send<RepresentativeTabChangeMessage>(new RepresentativeTabChangeMessage()
+            {
+                RepresentativeTabName = "RepresentativePerformance"
+            }, typeof(RepresentativeTabChangeMessage));
             Messenger.Default.Send<AlgorithmGroupToFilterMessage>(new AlgorithmGroupToFilterMessage() {
                 Algorithm = SelectedAlgorithmGroup.Algorithm,
                 Dimension = SelectedAlgorithmGroup.Dimension,

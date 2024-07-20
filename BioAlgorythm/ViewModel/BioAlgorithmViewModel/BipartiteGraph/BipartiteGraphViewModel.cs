@@ -182,6 +182,7 @@ namespace BioAlgorithmViewModel.BipartiteGraphModel
         private void OnInputDataToGraphMessageReceived(InputDataToGraphMessage inputDataToGraphMessage)
         {
             Graph = inputDataToGraphMessage.InputData;
+            CreateGraphAction();
         }      
         //----------------------------------------------------------------------------------------------------------------------
     }

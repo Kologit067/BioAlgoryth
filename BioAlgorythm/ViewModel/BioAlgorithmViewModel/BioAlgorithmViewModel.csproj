@@ -2,6 +2,9 @@
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
+    <LangVersion>8.0</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{C577980B-EDB5-421A-8639-1D312CB2FFB2}</ProjectGuid>
@@ -56,6 +59,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Representatives\Messages\AlgorithmToFilterMessage.cs" />
     <Compile Include="Representatives\Messages\InputDataToGraphMessage.cs" />
+    <Compile Include="Representatives\Messages\RepresentativeTabChangeMessage.cs" />
     <Compile Include="Representatives\RepresentativePerformanceAlgorithmViewModel.cs" />
     <Compile Include="Representatives\RepresentativePerformanceGroupViewModel.cs" />
     <Compile Include="Representatives\RepresentativePerformanceViewModel.cs" />

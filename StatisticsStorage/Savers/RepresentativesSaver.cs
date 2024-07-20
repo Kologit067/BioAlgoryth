@@ -47,6 +47,7 @@ namespace StatisticsStorage.Savers
                 performance.Columns.Add("BestValue", System.Type.GetType("System.Int64"));
                 performance.Columns.Add("UpdateOptcount", System.Type.GetType("System.Int64"));
                 performance.Columns.Add("ElemenationCount", System.Type.GetType("System.Int64"));
+                performance.Columns.Add("Step", System.Type.GetType("System.Decimal"));
 
                 DataTable solutions = new DataTable();
                 solutions.Columns.Add("Algorithm", System.Type.GetType("System.String"));
@@ -54,6 +55,7 @@ namespace StatisticsStorage.Savers
                 solutions.Columns.Add("Limit", System.Type.GetType("System.Int32"));
                 solutions.Columns.Add("InputData", System.Type.GetType("System.String"));
                 solutions.Columns.Add("OutputPresentation", System.Type.GetType("System.String"));
+                solutions.Columns.Add("Step", System.Type.GetType("System.Decimal"));
 
                 foreach (var ps in representativesPerfomances)
                 {
@@ -76,11 +78,12 @@ namespace StatisticsStorage.Savers
                         ps.CountTerminal, 
                         ps.BestValue, 
                         ps.UpdateOptcount, 
-                        ps.ElemenationCount);
+                        ps.ElemenationCount,
+                        ps.Step);
 
                     for (int i = 0; i < ps.OptimalSets.Count; i++)
                     {
-                        solutions.Rows.Add(ps.Algorithm, ps.NumberOfSet, ps.Dimension, ps.InputData, ps.OptimalSets[i]);
+                        solutions.Rows.Add(ps.Algorithm, ps.NumberOfSet, ps.Dimension, ps.InputData, ps.OptimalSets[i], ps.Step);
                     }
 
                 }

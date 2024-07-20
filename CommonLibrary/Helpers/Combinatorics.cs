@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Numerics;
+using System.Threading.Tasks;
 
 namespace CommonLibrary.Helpers
 {
@@ -11,6 +12,7 @@ namespace CommonLibrary.Helpers
         //--------------------------------------------------------------------------------------
         public static long[,] CombinationMatrix;
         public static BigInteger[,] BigIntCombinationMatrix;
+        public static BigInteger[,,,] CountForPositionMatrix;
         //--------------------------------------------------------------------------------------
         public static int[] SkipEnumeration(int n, int m, long number)
         {
@@ -293,7 +295,17 @@ namespace CommonLibrary.Helpers
             return matrix;
         }
         //--------------------------------------------------------------------------------------
-        private static BigInteger GetCountForPositionBigInteger(int n, int m, int i, int j)
+        public static void CreateCountForPositionMatrix(int n, int m)
+        { 
+            CountForPositionMatrix = new BigInteger[n + 1, m + 1, n + 1, m + 1];
+            for (int i = 0; i <= n; i++)
+                for (int j = 0; j <= m; j++)
+                    for (int k = 0; k <= n; k++)
+                        for (int l = 0; l <= m; l++)
+                            CountForPositionMatrix[i, j, k, l] = -1;
+        }
+        //--------------------------------------------------------------------------------------
+        public static BigInteger GetCountForPositionBigInteger(int n, int m, int i, int j)
         {
             if (j > m)
                 return 0;
@@ -317,6 +329,296 @@ namespace CommonLibrary.Helpers
         public static BigInteger CombinationByMatrixBigInteger(int n, int k)
         {
             return BigIntCombinationMatrix[n - 1, k - 1];
+        }
+        //--------------------------------------------------------------------------------------
+        //--------------------------------------------------------------------------------------
+        // BigInteger Inproved - Not Recursive
+        //--------------------------------------------------------------------------------------
+        public static int[] SkipEnumerationNoRecBigInteger(int n, int m, BigInteger number)
+        {
+            int[] result = new int[m];
+            BigInteger rest = number;
+            int curn = n;
+            int curm = m;
+            int previ = 1;
+            int prevj = 1;
+            int lastJ = 0;
+            while (rest > 0)
+            {
+                (int i, int j, BigInteger countForCurrentIndex) = GetFirstPositionNoRecBigInteger(curn, curm, rest);
+                int ii = previ;
+                for (int jj = prevj; jj < prevj - 1 + j; jj++)
+                {
+                    result[jj - 1] = ii++;
+                }
+                lastJ = prevj - 2 + j;
+                result[prevj - 2 + j] = previ + i - 1;
+                previ += i;
+                prevj += j;
+                curm -= j;
+                curn -= i;
+                rest -= countForCurrentIndex;
+            }
+            lastJ++;
+            while (lastJ < m)
+            {
+                result[lastJ] = LastIndexInCountMatrix(n, m, lastJ + 1);
+                lastJ++;
+            }
+            return result;
+        }
+        //--------------------------------------------------------------------------------------
+        public static (int, int, BigInteger) GetFirstPositionNoRecBigInteger(int n, int m, BigInteger number)
+        {
+            if (number == 1)
+                return (m, m, 1);
+            int j = m;
+            int jlast = m;
+            int ilast = n;
+            BigInteger countLast = 1;
+            while (j > 0)
+            {
+                int lastIndex = LastIndexInCountMatrix(n, m, j);
+                BigInteger countForLastIndex = GetCountForPositionNoRecBigInteger(n, m, lastIndex, j);
+                if (countForLastIndex == number)
+                    return (lastIndex, j, countForLastIndex);
+                if (countForLastIndex > number)
+                {
+                    int i = j + 1;
+                    while (i <= n)
+                    {
+                        BigInteger countForCurrentIndex = GetCountForPositionNoRecBigInteger(n, m, i, j);
+                        if (countForCurrentIndex == number)
+                            return (i, j, countForCurrentIndex);
+                        if (countForCurrentIndex > number)
+                            return (i, j, countLast);
+                        jlast = j;
+                        ilast = i;
+                        countLast = countForCurrentIndex;
+                        i++;
+                    }
+                    throw new Exception("Logical error GetFirstPosition");
+
+                }
+                else
+                {
+                    countLast = countForLastIndex;
+                }
+                --j;
+            }
+            return (0, 0, 0L);
+        }
+        //--------------------------------------------------------------------------------------
+        public static BigInteger GetCountForPositionNoRecBigInteger(int n, int m, int istart, int jstart)
+        {
+            if (jstart > m)
+                return 0;
+            else if (istart < jstart)
+                return 0;
+            else if (jstart == m)
+                return istart - jstart + 1;
+            else
+            {
+                BigInteger result = n - m + 1;
+                for (int j = m - 1; j >= jstart; j--)
+                {
+                    int iLimit = j == jstart ? istart : LastIndexInCountMatrix(n, m, j);
+                    for (int i = j+1; i <= iLimit; i++)
+                    {
+                        result = BigInteger.Add( result, CombinationByMatrixBigInteger(n-i, m-j));
+                    }
+                }
+                return result;
+            }
+        }
+        //--------------------------------------------------------------------------------------
+        //--------------------------------------------------------------------------------------
+        // BigInteger Inproved - Not Recursive Save first position
+        //--------------------------------------------------------------------------------------
+        public static int[] SkipEnumerationSaveFPBigInteger(int n, int m, BigInteger number)
+        {
+            int[] result = new int[m];
+            BigInteger rest = number;
+            int curn = n;
+            int curm = m;
+            int previ = 1;
+            int prevj = 1;
+            int lastJ = 0;
+            while (rest > 0)
+            {
+                (int i, int j, BigInteger countForCurrentIndex) = GetFirstPositionSaveFPBigInteger(curn, curm, rest);
+                int ii = previ;
+                for (int jj = prevj; jj < prevj - 1 + j; jj++)
+                {
+                    result[jj - 1] = ii++;
+                }
+                lastJ = prevj - 2 + j;
+                result[prevj - 2 + j] = previ + i - 1;
+                previ += i;
+                prevj += j;
+                curm -= j;
+                curn -= i;
+                rest -= countForCurrentIndex;
+            }
+            lastJ++;
+            while (lastJ < m)
+            {
+                result[lastJ] = LastIndexInCountMatrix(n, m, lastJ + 1);
+                lastJ++;
+            }
+            return result;
+        }
+        //--------------------------------------------------------------------------------------
+        public static (int, int, BigInteger) GetFirstPositionSaveFPBigInteger(int n, int m, BigInteger number)
+        {
+            if (number == 1)
+                return (m, m, 1);
+            int j = m;
+            int jlast = m;
+            int ilast = n;
+            BigInteger countLast = 1;
+            while (j > 0)
+            {
+                int lastIndex = LastIndexInCountMatrix(n, m, j);
+                BigInteger countForLastIndex = GetCountForPositionSaveFPBigInteger(n, m, lastIndex, j);
+                if (countForLastIndex == number)
+                    return (lastIndex, j, countForLastIndex);
+                if (countForLastIndex > number)
+                {
+                    int i = j + 1;
+                    while (i <= n)
+                    {
+                        BigInteger countForCurrentIndex = GetCountForPositionSaveFPBigInteger(n, m, i, j);
+                        if (countForCurrentIndex == number)
+                            return (i, j, countForCurrentIndex);
+                        if (countForCurrentIndex > number)
+                            return (i, j, countLast);
+                        jlast = j;
+                        ilast = i;
+                        countLast = countForCurrentIndex;
+                        i++;
+                    }
+                    throw new Exception("Logical error GetFirstPosition");
+
+                }
+                else
+                {
+                    countLast = countForLastIndex;
+                }
+                --j;
+            }
+            return (0, 0, 0L);
+        }
+        //--------------------------------------------------------------------------------------
+        public static BigInteger GetCountForPositionSaveFPBigInteger(int n, int m, int istart, int jstart)
+        {
+            BigInteger result = 0;
+            if (CountForPositionMatrix[n,m,istart, jstart] != -1)
+                return CountForPositionMatrix[n,m,istart, jstart];
+            if (jstart > m)
+                result = 0;
+            else if (istart < jstart)
+                result = 0;
+            else if (jstart == m)
+                result = istart - jstart + 1;
+            else
+            {
+                result = n - m + 1;
+                for (int j = m - 1; j >= jstart; j--)
+                {
+                    int iLimit = j == jstart ? istart : LastIndexInCountMatrix(n, m, j);
+                    for (int i = j + 1; i <= iLimit; i++)
+                    {
+                        result = BigInteger.Add(result, CombinationByMatrixBigInteger(n - i, m - j));
+                    }
+                }
+            }
+            CountForPositionMatrix[n, m, istart, jstart] = result;
+            return result;
+        }
+        //--------------------------------------------------------------------------------------
+        // BigInteger Inproved - Not Recursive Save first position Improve 1
+        //--------------------------------------------------------------------------------------
+        public static int[] SkipEnumerationSaveFPImpBigInteger(int n, int m, BigInteger number, int? curnStart = null, int? curmStart = null)
+        {
+            int[] result = new int[m];
+            BigInteger rest = number;
+            int curn = n;
+            int curm = m;
+            int previ = 1;
+            int prevj = 1;
+            int lastJ = 0;
+            while (rest > 0)
+            {
+                (int i, int j, BigInteger countForCurrentIndex) = GetFirstPositionSaveFPBigImpInteger(curn, curm, rest, m == curm ? curmStart : null);
+                int ii = previ;
+                for (int jj = prevj; jj < prevj - 1 + j; jj++)
+                {
+                    result[jj - 1] = ii++;
+                }
+                lastJ = prevj - 2 + j;
+                result[prevj - 2 + j] = previ + i - 1;
+                previ += i;
+                prevj += j;
+                curm -= j;
+                curn -= i;
+                rest -= countForCurrentIndex;
+            }
+            lastJ++;
+            while (lastJ < m)
+            {
+                result[lastJ] = LastIndexInCountMatrix(n, m, lastJ + 1);
+                lastJ++;
+            }
+            return result;
+        }
+        //--------------------------------------------------------------------------------------
+        public static (int, int, BigInteger) GetFirstPositionSaveFPBigImpInteger(int n, int m, BigInteger number, int? curmStart = null)
+        {
+            if (number == 1)
+                return (m, m, 1);
+            int j = curmStart ?? m;
+            int jlast = m;
+            int ilast = n;
+            BigInteger countLast = 0;
+            while (j > 0)
+            {
+                int lastIndex = LastIndexInCountMatrix(n, m, j);
+                BigInteger countForLastIndex = GetCountForPositionSaveFPBigInteger(n, m, lastIndex, j);
+                if (countForLastIndex == number)
+                    return (lastIndex, j, countForLastIndex);
+                if (countForLastIndex > number)
+                {
+                    int i = j + 1;
+                    while (i <= n)
+                    {
+                        BigInteger countForCurrentIndex = GetCountForPositionSaveFPBigInteger(n, m, i, j);
+                        if (countForCurrentIndex == number)
+                            return (i, j, countForCurrentIndex);
+                        if (countForCurrentIndex > number)
+                        {
+                            if (countLast == 0)
+                            {
+                                lastIndex = LastIndexInCountMatrix(n, m, j+1);
+                                countLast = GetCountForPositionSaveFPBigInteger(n, m, lastIndex, j + 1);
+                            }
+                            return (i, j, countLast);
+                        }
+                        jlast = j;
+                        ilast = i;
+                        countLast = countForCurrentIndex;
+                        i++;
+                    }
+                    throw new Exception("Logical error GetFirstPosition");
+
+                }
+                else
+                {
+                    countLast = countForLastIndex;
+                }
+                --j;
+            }
+            return (0, 0, 0L);
         }
         //--------------------------------------------------------------------------------------
     }

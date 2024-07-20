@@ -157,6 +157,10 @@ namespace BioAlgorithmViewModel.Representatives
         //----------------------------------------------------------------------------------------------------------------------
         private void MakeGraphAction()
         {
+            Messenger.Default.Send<RepresentativeTabChangeMessage>(new RepresentativeTabChangeMessage()
+            {
+                RepresentativeTabName = "BipartiteGraph"
+            }, typeof(RepresentativeTabChangeMessage));
             Messenger.Default.Send<InputDataToGraphMessage>(new InputDataToGraphMessage()
             {
                 InputData = SelectrdRepresentativeItem.InputData
@@ -171,6 +175,10 @@ namespace BioAlgorithmViewModel.Representatives
         private void OnAlgorithmToFilterMessageReceived(AlgorithmToFilterMessage algorithmToFilterMessage)
         {
             RepresentativesPerfomanceFilter.Algorithm = algorithmToFilterMessage.Algorithm;
+            RepresentativesPerfomanceFilter.Dimension = null;
+            RepresentativesPerfomanceFilter.NumberOfSet = null;
+            RepresentativesPerfomanceFilter.Step = null;
+            RefreshRepresentativePerformanceListAction();
         }
         //----------------------------------------------------------------------------------------------------------------------
         private void OnAlgorithmGroupToFilterMessageReceived(AlgorithmGroupToFilterMessage algorithmGroupToFilterMessage)
@@ -179,6 +187,7 @@ namespace BioAlgorithmViewModel.Representatives
             RepresentativesPerfomanceFilter.Dimension = algorithmGroupToFilterMessage.Dimension;
             RepresentativesPerfomanceFilter.NumberOfSet = algorithmGroupToFilterMessage.NumberOfSet;
             RepresentativesPerfomanceFilter.Step = algorithmGroupToFilterMessage.Step;
+            RefreshRepresentativePerformanceListAction();
         }
         //----------------------------------------------------------------------------------------------------------------------
     }

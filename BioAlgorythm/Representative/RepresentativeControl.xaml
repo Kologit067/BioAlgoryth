@@ -35,33 +35,33 @@
                 <ComboBox Grid.Column="1" Name="cbRPOrder"  ItemsSource="{Binding RepresentativePerformanceSortItems}"
                                   SelectedItem="{Binding SelectedRepresentativePerformanceSort}" IsEditable="true" IsReadOnly="true"/>
                 <Label Grid.Row="1" Grid.Column="0" Content="Algorithm" Margin="2"/>
-                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding RepresentativesPerfomanceFilter.Algorithm}" Margin="2"/>
+                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding RepresentativesPerfomanceFilter.Algorithm}" Margin="2" VerticalContentAlignment="Center"/>
                 <Label Grid.Row="1" Grid.Column="2" Content="Dimension" Margin="2"/>
-                <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding RepresentativesPerfomanceFilter.Dimension}" Margin="2"/>
+                <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding RepresentativesPerfomanceFilter.Dimension}" Margin="2" VerticalContentAlignment="Center"/>
                 <Label Grid.Row="1" Grid.Column="4" Content="NumberOfSet" Margin="2"/>
-                <TextBox Grid.Row="1" Grid.Column="5" Text="{Binding RepresentativesPerfomanceFilter.NumberOfSet}" Margin="2"/>
+                <TextBox Grid.Row="1" Grid.Column="5" Text="{Binding RepresentativesPerfomanceFilter.NumberOfSet}" Margin="2" VerticalContentAlignment="Center"/>
                 <Label Grid.Row="1" Grid.Column="6" Content="Step" Margin="2"/>
-                <TextBox Grid.Row="1" Grid.Column="7" Text="{Binding RepresentativesPerfomanceFilter.Step}" Margin="2"/>
+                <TextBox Grid.Row="1" Grid.Column="7" Text="{Binding RepresentativesPerfomanceFilter.Step}" Margin="2" VerticalContentAlignment="Center"/>
                 <Label Grid.Row="2" Grid.Column="0" Content="InputLen" Margin="2"/>
-                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding RepresentativesPerfomanceFilter.InputLen}" Margin="2"/>
+                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding RepresentativesPerfomanceFilter.InputLen}" Margin="2" VerticalContentAlignment="Center"/>
                 <Label Grid.Row="2" Grid.Column="2" Content="InputLenSort" Margin="2"/>
-                <TextBox Grid.Row="2" Grid.Column="3" Text="{Binding RepresentativesPerfomanceFilter.InputLenSort}" Margin="2"/>
+                <TextBox Grid.Row="2" Grid.Column="3" Text="{Binding RepresentativesPerfomanceFilter.InputLenSort}" Margin="2" VerticalContentAlignment="Center"/>
                 <Label Grid.Row="2" Grid.Column="4" Content="IsComplete" Margin="2"/>
-                <TextBox Grid.Row="2" Grid.Column="5" Text="{Binding RepresentativesPerfomanceFilter.IsComplete}" Margin="2"/>
+                <TextBox Grid.Row="2" Grid.Column="5" Text="{Binding RepresentativesPerfomanceFilter.IsComplete}" Margin="2" VerticalContentAlignment="Center"/>
                 <Label Grid.Row="3" Grid.Column="0" Content="NumberOfIteration From" Margin="2"/>
-                <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding RepresentativesPerfomanceFilter.NumberOfIterationFrom}" Margin="2"/>
+                <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding RepresentativesPerfomanceFilter.NumberOfIterationFrom}" Margin="2" VerticalContentAlignment="Center"/>
                 <Label Grid.Row="3" Grid.Column="2" Content="To" Margin="2"/>
-                <TextBox Grid.Row="3" Grid.Column="3" Text="{Binding RepresentativesPerfomanceFilter.NumberOfIterationTo}" Margin="2"/>
+                <TextBox Grid.Row="3" Grid.Column="3" Text="{Binding RepresentativesPerfomanceFilter.NumberOfIterationTo}" Margin="2" VerticalContentAlignment="Center"/>
                 <Label Grid.Row="3" Grid.Column="4" Content="Duration From" Margin="2"/>
-                <TextBox Grid.Row="3" Grid.Column="5" Text="{Binding RepresentativesPerfomanceFilter.DurationFrom}" Margin="2"/>
+                <TextBox Grid.Row="3" Grid.Column="5" Text="{Binding RepresentativesPerfomanceFilter.DurationFrom}" Margin="2" VerticalContentAlignment="Center"/>
                 <Label Grid.Row="3" Grid.Column="6" Content="To" Margin="2"/>
-                <TextBox Grid.Row="3" Grid.Column="7" Text="{Binding RepresentativesPerfomanceFilter.DurationTo}" Margin="2"/>
+                <TextBox Grid.Row="3" Grid.Column="7" Text="{Binding RepresentativesPerfomanceFilter.DurationTo}" Margin="2" VerticalContentAlignment="Center"/>
                 <Label Grid.Row="4" Grid.Column="0" Content="CountTermina lFrom" Margin="2"/>
-                <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding RepresentativesPerfomanceFilter.CountTerminalFrom}" Margin="2"/>
+                <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding RepresentativesPerfomanceFilter.CountTerminalFrom}" Margin="2" VerticalContentAlignment="Center"/>
                 <Label Grid.Row="4" Grid.Column="2" Content="To" Margin="2"/>
-                <TextBox Grid.Row="4" Grid.Column="3" Text="{Binding RepresentativesPerfomanceFilter.CountTerminalTo}" Margin="2"/>
+                <TextBox Grid.Row="4" Grid.Column="3" Text="{Binding RepresentativesPerfomanceFilter.CountTerminalTo}" Margin="2" VerticalContentAlignment="Center"/>
                 <Label Grid.Row="4" Grid.Column="4" Content="BestValue" Margin="2"/>
-                <TextBox Grid.Row="4" Grid.Column="5" Text="{Binding RepresentativesPerfomanceFilter.BestValue}" Margin="2"/>
+                <TextBox Grid.Row="4" Grid.Column="5" Text="{Binding RepresentativesPerfomanceFilter.BestValue}" Margin="2" VerticalContentAlignment="Center"/>
             </Grid>
             <DataGrid Grid.Row="1" ItemsSource="{Binding RepresentativePerformanceList}" IsReadOnly="false" AutoGenerateColumns="False" Margin="1"
                            AlternationCount="2" RowBackground="#DDDDFF" AlternatingRowBackground="#CCCCEE"
