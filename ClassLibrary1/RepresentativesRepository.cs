@@ -82,6 +82,11 @@ GROUP BY [Algorithm]").ToList();
 
         public List<RepresentativesPerfomance> GetRepresentativePerformanceList(RepresentativesPerfomanceFilter representativesPerfomanceFilter, string order)
         {
+            string top = "";
+            if (representativesPerfomanceFilter.Top.HasValue)
+            {
+                top = $"TOP ({representativesPerfomanceFilter.Top})";
+            }
             string where = "";
             List<string> whereList = new List<string>();
             if (!string.IsNullOrWhiteSpace(representativesPerfomanceFilter.Algorithm))
@@ -148,7 +153,7 @@ GROUP BY [Algorithm]").ToList();
             using (IDbConnection db = new SqlConnection(connectionString))
             {
                 representativesPerfomances = db.Query<RepresentativesPerfomance>(
-                    $@"SELECT [RepresentativesPerfomanceId]
+                    $@"SELECT {top} [RepresentativesPerfomanceId]
       ,[NumberOfSet]
       ,[Dimension]
       ,[Step]

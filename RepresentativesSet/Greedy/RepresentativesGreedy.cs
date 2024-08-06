@@ -81,6 +81,14 @@ namespace RepresentativesSet.Greedy
                 return "Empty";
             }
         }
+        //--------------------------------------------------------------------------------------
+        public virtual string AlgorithmName
+        {
+            get
+            {
+                return GetType().Name;
+            }
+        }
         public RepresentativesGreedy()
         {
             StatisticAccumulator = new FakeRepresentativesStatisticAccumulator();

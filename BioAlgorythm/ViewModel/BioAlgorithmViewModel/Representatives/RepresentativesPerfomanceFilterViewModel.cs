@@ -4,6 +4,19 @@ namespace BioAlgorithmViewModel.Representatives
 {
     public class RepresentativesPerfomanceFilterViewModel : ViewModelBase
     {
+        private int? top;
+        public int? Top
+        {
+            get
+            {
+                return top;
+            }
+            set
+            {
+                top = value;
+                OnPropertyChanged(nameof(Top));
+            }
+        }
         private string algorithm;
         public string Algorithm
         {

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace RepresentativesSet.BranchAndBound
 {
     //--------------------------------------------------------------------------------------
@@ -28,7 +23,6 @@ namespace RepresentativesSet.BranchAndBound
         //--------------------------------------------------------------------------------------
         protected override bool IsCompleteCondition()
         {
-            StatisticAccumulator.IterationCountInc();
             IterationAction();
             if (IsCompleteByCardinality())
             {
@@ -49,7 +43,7 @@ namespace RepresentativesSet.BranchAndBound
         //--------------------------------------------------------------------------------------
         protected override void SupplementInitial()
         {
-            StatisticAccumulator.CreateStatistics(listOfSet, _inputDataShort, nameof(RepresentativesTriangleBranchAndBound));
+            StatisticAccumulator.CreateStatistics(listOfSet, _inputDataShort, AlgorithmName);
         }
         //--------------------------------------------------------------------------------------
     }

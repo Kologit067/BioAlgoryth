@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace RepresentativesSet.Model
 {
@@ -17,6 +13,12 @@ namespace RepresentativesSet.Model
             SetList = sets.ToList();
             Weight = SetList.Count;
             Number = number;
+        }
+
+        public int CulculatedWeight (List<SetInfo> sets)
+        {
+            int weight = SetList.Where(i => sets[i].IncludedInSolution == 0).Count();
+            return weight;
         }
         public override string ToString()
         {

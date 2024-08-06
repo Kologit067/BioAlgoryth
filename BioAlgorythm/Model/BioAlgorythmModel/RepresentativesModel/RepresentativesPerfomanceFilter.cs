@@ -8,6 +8,7 @@ namespace BioAlgorythmModel.RepresentativesModel
 {
     public class RepresentativesPerfomanceFilter
     {
+        public int? Top { get; set; }
         public string Algorithm { get; set; }
         public int? NumberOfSet { get; set; }
         public int? Dimension { get; set; }

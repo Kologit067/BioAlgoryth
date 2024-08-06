@@ -53,6 +53,14 @@ namespace CommonLibrary
                 return !fOutQueryStop;
             }
         }
+        //--------------------------------------------------------------------------------------
+        public virtual string AlgorithmName
+        {
+            get
+            {
+                return GetType().Name;
+            }
+        }
         //protected long fCountTerminal;
         ////--------------------------------------------------------------------------------------
         //public long CountTerminal

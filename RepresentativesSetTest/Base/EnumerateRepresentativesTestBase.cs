@@ -73,9 +73,8 @@ namespace RepresentativesSetTest.Base
                 // arrange
                 int[][] listOfSet = _fCurrentSet.Select(t => BruteForceRepresentativesBinaryNumbders.GetAsElementNumbers(t, _fCardinality).ToArray()).ToArray();
                 int count = listOfSet.SelectMany(l => l).Distinct().Count();
-                int max = listOfSet.SelectMany(l => l).Max();
                 string listAsString = listOfSet.AsString();
-                if (max + 1 != count)
+                if (_fCardinality != count)
                 {
                     _gapCount++;
                     return false;

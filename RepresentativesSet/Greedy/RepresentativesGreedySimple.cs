@@ -16,7 +16,7 @@ namespace RepresentativesSet.Greedy
 
             stopwatch = new Stopwatch();
             stopwatch.Start();
-            StatisticAccumulator.CreateStatistics(listOfSet.Select(l => l.ToArray()).ToArray(), _inputDataShort, nameof(RepresentativesGreedy) + "Simple");
+            StatisticAccumulator.CreateStatistics(listOfSet.Select(l => l.ToArray()).ToArray(), _inputDataShort, AlgorithmName);
             while (listOfSet.Where(s => s.Count() > 0).Count() > 0)
             {
                 var max = elements.Select((e, i) => (e, i)).OrderBy(o => o.e.Count).Last();

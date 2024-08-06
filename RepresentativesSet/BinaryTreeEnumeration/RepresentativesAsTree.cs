@@ -49,7 +49,7 @@ namespace RepresentativesSet
         //-----------------------------------------------------------------------------------
         protected override void SupplementInitial()
         {
-            StatisticAccumulator.CreateStatistics(listOfSet, _inputDataShort, nameof(RepresentativesAsTree));
+            StatisticAccumulator.CreateStatistics(listOfSet, _inputDataShort, AlgorithmName);
         }
         //-----------------------------------------------------------------------------------
         public virtual void Execute(int[][] pListOfSet)

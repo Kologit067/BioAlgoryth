@@ -61,6 +61,11 @@
     <Compile Include="BinaryTreeEnumeration\BranchAndBound\RepresentativesBranchAndBound.cs" />
     <Compile Include="BinaryTreeEnumeration\BranchAndBound\RepresentativesBranchAndBoundByValue.cs" />
     <Compile Include="TriangleEnumeration\RepresentativesTriangle.cs" />
+    <Compile Include="TriangleEnumeration\RepresentativesTriangleStrategy.cs" />
+    <Compile Include="TriangleEnumeration\SelectElement\SelectElementImproveRDStrategy.cs" />
+    <Compile Include="TriangleEnumeration\SelectElement\SelectElementImproveStrategy.cs" />
+    <Compile Include="TriangleEnumeration\SelectElement\SelectElementSimpleStrategy.cs" />
+    <Compile Include="TriangleEnumeration\SelectElement\SelectElementStrategy.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BaseContract\BaseContract.csproj">

@@ -16,11 +16,11 @@ namespace RepresentativesSet.Greedy
             base.Execute(pListOfSet);
             stopwatch = new Stopwatch();
             stopwatch.Start();
-            StatisticAccumulator.CreateStatistics(listOfSet.Select(l => l.ToArray()).ToArray(), _inputDataShort, nameof(RepresentativesGreedy) + "Improve");
+            StatisticAccumulator.CreateStatistics(listOfSet.Select(l => l.ToArray()).ToArray(), _inputDataShort, AlgorithmName);
             while (listOfSet.Where(s => s.Count() > 0).Count() > 0)
             {
-                var maxCount = elements.Max(e => e.Count);
-                var maxList = elements.Select((e, i) => (e, i)).Where(s => s.e.Count() == maxCount).ToList();
+                int maxCount = elements.Max(e => e.Count);
+                List<(List<int> e, int i)> maxList = elements.Select((e, i) => (e, i)).Where(s => s.e.Count() == maxCount).ToList();
                 (List<int> e, int i) max = maxList.First();
                 StatisticAccumulator.IterationCountInc();
                 if (maxList.Count > 1)

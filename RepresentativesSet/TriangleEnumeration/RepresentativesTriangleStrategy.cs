@@ -1,17 +1,21 @@
 ﻿using BaseContract;
 using CommonLibrary;
 using RepresentativesSet.Model;
+using RepresentativesSet.TriangleEnumeration.SelectElement;
 using StatisticsStorage.Accumulators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Schema;
 
-namespace RepresentativesSet
+
+namespace RepresentativesSet.TriangleEnumeration
 {
+ 
     //--------------------------------------------------------------------------------------
-    // class RepresentativesTriangle 
+    // class RepresentativesTriangleStrategy 
     //--------------------------------------------------------------------------------------
-    public class RepresentativesTriangle : EnumerateIntegerTrangleOrdered
+    public class RepresentativesTriangleStrategy : EnumerateIntegerTrangleOrdered
     {
         protected int[][] listOfSet;
         protected long[] listOfSetAsNumber;
@@ -21,6 +25,7 @@ namespace RepresentativesSet
         protected List<SetInfo> SetList;
         protected List<ElementInfo> Elements;
         protected int commonCounter;
+        protected SelectElementStrategy _selectElementStrategy;
         //--------------------------------------------------------------------------------------
         public int CurrentMinimum
         {
@@ -29,6 +34,16 @@ namespace RepresentativesSet
                 return currentMinimum;
             }
         }
+        //--------------------------------------------------------------------------------------
+        public override string AlgorithmName
+        {
+            get
+            {
+                return base.AlgorithmName + _selectElementStrategy.GetType().Name.Replace("SelectElement","")
+                    .Replace("Strategy", "");
+            }
+        }
+        //--------------------------------------------------------------------------------------
         protected string _inputData;
         public string InputData
         {
@@ -37,6 +52,7 @@ namespace RepresentativesSet
                 return _inputData;
             }
         }
+        //--------------------------------------------------------------------------------------
         protected string _inputDataShort;
         public string InputDataShort
         {
@@ -54,6 +70,7 @@ namespace RepresentativesSet
                 return _fCurrentOptimalSet.Take(currentMinimum).ToList();
             }
         }
+        //--------------------------------------------------------------------------------------
         public string SetListAsString
         {
             get
@@ -61,6 +78,7 @@ namespace RepresentativesSet
                 return string.Join(" ", SetList.Select(s => $"[{s.ShortString}]"));
             }
         }
+        //--------------------------------------------------------------------------------------
         public string ElementsAsString
         {
             get
@@ -77,8 +95,9 @@ namespace RepresentativesSet
             }
         }
         //--------------------------------------------------------------------------------------
-        public RepresentativesTriangle(int pLength) : base(pLength, pLength)
+        public RepresentativesTriangleStrategy(int pLength, SelectElementStrategy selectElement) : base(pLength, pLength)
         {
+            _selectElementStrategy = selectElement;
             commonCounter = 0;
             StatisticAccumulator = new FakeRepresentativesStatisticAccumulator();
         }
@@ -128,22 +147,16 @@ namespace RepresentativesSet
                     CurrentPositionBackAction(pPosition);
                 return _fBreakElement;
             }
-            int max = Elements[rest[pPosition][0]].Weight;
-            int maxInd = 0;
-            for(int i = 1; i < rest[pPosition].Count; i++)
-            {
-                if (max < Elements[rest[pPosition][i]].Weight)
-                {
-                    max = Elements[rest[pPosition][i]].Weight;
-                    maxInd = i;
-                }
-            }
+
+            (int max, int maxInd) = _selectElementStrategy.FirstElement(pPosition, Elements, SetList, rest);
+
             if (max == 0)
             {
                 if (_fCurrentPosition < pPosition)
                     CurrentPositionBackAction(pPosition);
                 return _fBreakElement;
             }
+
             int selected = rest[pPosition][maxInd];
             Elements[selected].SetList.ForEach(s =>
             {
@@ -157,19 +170,11 @@ namespace RepresentativesSet
                     });
                 }
             });
+
+
             rest[pPosition].Remove(selected);
             passed[pPosition].Add(selected);
-            //int nextpPosition = _fCurrentPosition + 1;
-            //if (_fCurrentPosition == pPosition && nextpPosition < rest.Count)
-            //{
-            //    passed[_fCurrentPosition].ForEach(r =>
-            //    {
-            //        if (rest[nextpPosition].Contains(r))
-            //            rest[nextpPosition].Remove(r);
-            //        if (!passed[nextpPosition].Contains(r))
-            //            passed[nextpPosition].Add(r);
-            //    });
-            //}
+
             return selected;
         }
         //--------------------------------------------------------------------------------------
@@ -206,7 +211,7 @@ namespace RepresentativesSet
 
             if (commonCounter == SetList.Count)
             {
-                UpdateOptimalResults(_fCurrentPosition+1);
+                UpdateOptimalResults(_fCurrentPosition + 1);
             }
             return false;
 

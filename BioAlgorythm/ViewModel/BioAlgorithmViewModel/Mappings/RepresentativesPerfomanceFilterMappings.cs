@@ -13,6 +13,7 @@ namespace BioAlgorithmViewModel.Mappings
             ? null
                 : new RepresentativesPerfomanceFilter()
                 {
+                    Top = input.Top,
                     Algorithm = input.Algorithm,
                     NumberOfSet = input.NumberOfSet,
                     Dimension = input.Dimension,
@@ -38,6 +39,7 @@ namespace BioAlgorithmViewModel.Mappings
                 ? null
                 : new RepresentativesPerfomanceFilterViewModel()
                 {
+                    Top = input.Top,
                     Algorithm = input.Algorithm,
                     NumberOfSet = input.NumberOfSet,
                     Dimension = input.Dimension,

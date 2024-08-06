@@ -103,6 +103,7 @@ namespace BioAlgorithmViewModel.Representatives
             RepresentativesPerfomanceFilter = new RepresentativesPerfomanceFilterViewModel();
             Messenger.Default.Register<AlgorithmToFilterMessage>(this, OnAlgorithmToFilterMessageReceived, typeof(AlgorithmToFilterMessage));
             Messenger.Default.Register<AlgorithmGroupToFilterMessage>(this, OnAlgorithmGroupToFilterMessageReceived, typeof(AlgorithmGroupToFilterMessage));
+            representativesPerfomanceFilter.Top = 1000;
         }
         //----------------------------------------------------------------------------------------------------------------------
         public RepresentativePerformanceViewModel(RepresentativesRepository representativesRepository, AlgorithmGroupOpenWindowMessage message)
