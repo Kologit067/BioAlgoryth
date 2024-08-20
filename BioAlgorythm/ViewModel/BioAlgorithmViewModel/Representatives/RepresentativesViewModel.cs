@@ -57,6 +57,20 @@ namespace BioAlgorithmViewModel.Representatives
             }
         }
         //----------------------------------------------------------------------------------------------------------------------
+        private RepresentativePerformanceAlgorithmCompareViewModel representativePerformanceAlgorithmCompare;
+        public RepresentativePerformanceAlgorithmCompareViewModel RepresentativePerformanceAlgorithmCompare
+        {
+            get
+            {
+                return representativePerformanceAlgorithmCompare;
+            }
+            set
+            {
+                representativePerformanceAlgorithmCompare = value;
+                OnPropertyChanged(nameof(RepresentativePerformanceAlgorithmCompare));
+            }
+        }
+        //----------------------------------------------------------------------------------------------------------------------
         private BipartiteGraphViewModel bipartiteGraph;
         public BipartiteGraphViewModel BipartiteGraph
         {
@@ -91,6 +105,7 @@ namespace BioAlgorithmViewModel.Representatives
             RepresentativePerformance = new RepresentativePerformanceViewModel(representativesRepository);
             RepresentativePerformanceAlgorithm = new RepresentativePerformanceAlgorithmViewModel(representativesRepository);
             RepresentativePerformanceGroup = new RepresentativePerformanceGroupViewModel(representativesRepository);
+            RepresentativePerformanceAlgorithmCompare = new RepresentativePerformanceAlgorithmCompareViewModel(representativesRepository);
             BipartiteGraph = new BipartiteGraphViewModel();
             Messenger.Default.Register<RepresentativeTabChangeMessage>(this, OnAlgorithmGroupToFilterMessageReceived, typeof(RepresentativeTabChangeMessage));
         }

@@ -176,10 +176,14 @@ namespace RepresentativesSetTest.Triangle
         private RepresentativesStatisticAccumulator _statisticAccumulator;
         private RepresentativesStatisticAccumulator _statisticAccumulatorStrategy;
         private RepresentativesStatisticAccumulator _statisticAccumulatorImproveStrategy;
+        private RepresentativesStatisticAccumulator _statisticAccumulatorImproveRDStrategy;
+        private RepresentativesStatisticAccumulator _statisticAccumulatorRelationStrategy;
         private BruteForceRepresentativesAsTree bruteForceAsTree;
         private RepresentativesTriangle representativesTriangle;
         private RepresentativesTriangleStrategy representativesTriangleStrategy;
         private RepresentativesTriangleStrategy representativesTriangleImroveStrategy;
+        private RepresentativesTriangleStrategy representativesTriangleImroveRDStrategy;
+        private RepresentativesTriangleStrategy representativesTriangleRelationStrategy;
         //--------------------------------------------------------------------------------------
         public EnumerateIntegerTrangleForRepresentativesTriangleCompare(int pCardinality, int pLength, int pMinimumValue = 1, int pForwardAdditive = 1, decimal step = 1, int bufferSize = 2000)
             : base(pCardinality, pLength, pMinimumValue, pForwardAdditive)
@@ -190,6 +194,8 @@ namespace RepresentativesSetTest.Triangle
             representativesTriangle = new RepresentativesTriangle(_fCardinality);
             representativesTriangleStrategy = new RepresentativesTriangleStrategy(_fCardinality, new SelectElementSimpleStrategy());
             representativesTriangleImroveStrategy = new RepresentativesTriangleStrategy(_fCardinality, new SelectElementImproveStrategy());
+            representativesTriangleImroveRDStrategy = new RepresentativesTriangleStrategy(_fCardinality, new SelectElementImproveRDStrategy());
+            representativesTriangleRelationStrategy = new RepresentativesTriangleStrategy(_fCardinality, new SelectElementRelationStrategy());
 
             _statisticAccumulator = new RepresentativesStatisticAccumulator(new RepresentativesSaver(), pLength, pCardinality, step, bufferSize);
             _statisticAccumulator.Delete(representativesTriangle.AlgorithmName);
@@ -197,12 +203,18 @@ namespace RepresentativesSetTest.Triangle
             _statisticAccumulatorStrategy.Delete(representativesTriangleStrategy.AlgorithmName);
             _statisticAccumulatorImproveStrategy = new RepresentativesStatisticAccumulator(new RepresentativesSaver(), pLength, pCardinality, step, bufferSize);
             _statisticAccumulatorImproveStrategy.Delete(representativesTriangleImroveStrategy.AlgorithmName);
+            _statisticAccumulatorImproveRDStrategy = new RepresentativesStatisticAccumulator(new RepresentativesSaver(), pLength, pCardinality, step, bufferSize);
+            _statisticAccumulatorImproveRDStrategy.Delete(representativesTriangleImroveRDStrategy.AlgorithmName);
+            _statisticAccumulatorRelationStrategy = new RepresentativesStatisticAccumulator(new RepresentativesSaver(), pLength, pCardinality, step, bufferSize);
+            _statisticAccumulatorRelationStrategy.Delete(representativesTriangleRelationStrategy.AlgorithmName);
 
             bruteForceAsTree = new BruteForceRepresentativesAsTree(_fCardinality);
 
             representativesTriangle.StatisticAccumulator = _statisticAccumulator;
             representativesTriangleStrategy.StatisticAccumulator = _statisticAccumulatorStrategy;
             representativesTriangleImroveStrategy.StatisticAccumulator = _statisticAccumulatorImproveStrategy;
+            representativesTriangleImroveRDStrategy.StatisticAccumulator = _statisticAccumulatorImproveRDStrategy;
+            representativesTriangleRelationStrategy.StatisticAccumulator = _statisticAccumulatorRelationStrategy;
 
         }
         //--------------------------------------------------------------------------------------
@@ -219,6 +231,12 @@ namespace RepresentativesSetTest.Triangle
 
             representativesTriangleImroveStrategy.Execute(listOfSet);
             representativesTriangleImroveStrategy.SortSolutions();
+
+            representativesTriangleImroveRDStrategy.Execute(listOfSet);
+            representativesTriangleImroveRDStrategy.SortSolutions();
+
+            representativesTriangleRelationStrategy.Execute(listOfSet);
+            representativesTriangleRelationStrategy.SortSolutions();
         }
         //--------------------------------------------------------------------------------------
         protected override void AssertAction()
@@ -226,11 +244,15 @@ namespace RepresentativesSetTest.Triangle
             Assert.AreEqual(representativesTriangle.OptimalSets.Count, bruteForceAsTree.OptimalSets.Count, "Wrong number rows in result");
             Assert.AreEqual(representativesTriangle.OptimalSets.Count, representativesTriangleStrategy.OptimalSets.Count, "Wrong number rows in result");
             Assert.AreEqual(representativesTriangle.OptimalSets.Count, representativesTriangleImroveStrategy.OptimalSets.Count, "Wrong number rows in result");
+            Assert.AreEqual(representativesTriangle.OptimalSets.Count, representativesTriangleImroveRDStrategy.OptimalSets.Count, "Wrong number rows in result");
+            Assert.AreEqual(representativesTriangle.OptimalSets.Count, representativesTriangleRelationStrategy.OptimalSets.Count, "Wrong number rows in result");
             for (int i = 0; i < representativesTriangle.OptimalSets.Count; i++)
             {
                 Assert.AreEqual(representativesTriangle.OptimalSets[i], bruteForceAsTree.OptimalSets[i], $"Wrong string in position {i} - {representativesTriangle.OptimalSets[i]}. Expected - {bruteForceAsTree.OptimalSets[i]}");
                 Assert.AreEqual(representativesTriangle.OptimalSets[i], representativesTriangleStrategy.OptimalSets[i], $"Wrong string in position {i} - {representativesTriangle.OptimalSets[i]}. Expected - {representativesTriangleStrategy.OptimalSets[i]}");
                 Assert.AreEqual(representativesTriangle.OptimalSets[i], representativesTriangleImroveStrategy.OptimalSets[i], $"Wrong string in position {i} - {representativesTriangle.OptimalSets[i]}. Expected - {representativesTriangleStrategy.OptimalSets[i]}");
+                Assert.AreEqual(representativesTriangle.OptimalSets[i], representativesTriangleImroveRDStrategy.OptimalSets[i], $"Wrong string in position {i} - {representativesTriangle.OptimalSets[i]}. Expected - {representativesTriangleStrategy.OptimalSets[i]}");
+                Assert.AreEqual(representativesTriangle.OptimalSets[i], representativesTriangleRelationStrategy.OptimalSets[i], $"Wrong string in position {i} - {representativesTriangle.OptimalSets[i]}. Expected - {representativesTriangleStrategy.OptimalSets[i]}");
             }
         }
         //--------------------------------------------------------------------------------------
@@ -256,14 +278,14 @@ namespace RepresentativesSetTest.Triangle
         {
             _fBreakElement = 0;
             _fCardinality = pCardinality;
-            _statisticAccumulator = new RepresentativesStatisticAccumulator(new RepresentativesSaver(), pLength, pCardinality, 1, 1000);
-            _statisticAccumulator.Delete(nameof(RepresentativesTriangleBranchAndBound));
 
             bruteForceAsTree = new BruteForceRepresentativesAsTree(_fCardinality);
-            representativesTriangle = new RepresentativesTriangleBranchAndBound(_fCardinality)
-            {
-                StatisticAccumulator = _statisticAccumulator
-            };
+            representativesTriangle = new RepresentativesTriangleBranchAndBound(_fCardinality);
+
+            _statisticAccumulator = new RepresentativesStatisticAccumulator(new RepresentativesSaver(), pLength, pCardinality, 1, 1000);
+            _statisticAccumulator.Delete(representativesTriangle.AlgorithmName);
+
+            representativesTriangle.StatisticAccumulator = _statisticAccumulator;
 
         }
         //--------------------------------------------------------------------------------------

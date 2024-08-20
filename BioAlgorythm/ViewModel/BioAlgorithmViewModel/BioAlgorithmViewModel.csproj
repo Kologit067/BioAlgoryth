@@ -53,6 +53,7 @@
     <Compile Include="BipartiteGraph\BipartiteGraphViewModel.cs" />
     <Compile Include="Common\DelegateCommand.cs" />
     <Compile Include="Common\ViewModelBase.cs" />
+    <Compile Include="Helpers\ObservableCollectionExtension.cs" />
     <Compile Include="Representatives\Messages\AlgorithmGroupOpenWindowMessage.cs" />
     <Compile Include="Representatives\Messages\AlgorithmGroupToFilterMessage.cs" />
     <Compile Include="Mappings\RepresentativesPerfomanceFilterMappings.cs" />
@@ -60,6 +61,7 @@
     <Compile Include="Representatives\Messages\AlgorithmToFilterMessage.cs" />
     <Compile Include="Representatives\Messages\InputDataToGraphMessage.cs" />
     <Compile Include="Representatives\Messages\RepresentativeTabChangeMessage.cs" />
+    <Compile Include="Representatives\RepresentativePerformanceAlgorithmCompareViewModel.cs" />
     <Compile Include="Representatives\RepresentativePerformanceAlgorithmViewModel.cs" />
     <Compile Include="Representatives\RepresentativePerformanceGroupViewModel.cs" />
     <Compile Include="Representatives\RepresentativePerformanceViewModel.cs" />

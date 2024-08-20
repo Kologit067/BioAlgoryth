@@ -1,0 +1,124 @@
+﻿<UserControl x:Class="BioAlgorythm.Representative.RepresentativeAlgorithmCompareControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BioAlgorythm.Representative"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style TargetType="{x:Type Label}">
+            <Setter Property="Margin" Value="2,3,5,5" />
+            <Setter Property="Padding" Value="0,0,0,5" />
+            <Setter Property="Foreground" Value="Black" />
+        </Style>
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="Margin" Value="0,0,0,5" />
+        </Style>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Width" Value="70" />
+            <Setter Property="Height" Value="25" />
+            <Setter Property="Margin" Value="5,0,0,0" />
+        </Style>
+
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Button Content="Refresh" Grid.Row="0" Grid.Column="7" Command="{Binding RefreshRepresentativeCompareListCommand}"/>
+        <Label Content="Number Of Set" Grid.Row="0" Grid.Column="0"/>
+        <ComboBox Grid.Row="0" Grid.Column="1" Name="cbNumberOfSet"  ItemsSource="{Binding NumberOfSetItems}"
+                  SelectedItem="{Binding SelectedNumberOfSet}" IsEditable="true" IsReadOnly="true"/>
+        <Label Content="Dimension" Grid.Row="0" Grid.Column="2"/>
+        <ComboBox Grid.Row="0" Grid.Column="3" Name="cbDimension"  ItemsSource="{Binding DimensionItems}"
+                  SelectedItem="{Binding SelectedDimension}" IsEditable="true" IsReadOnly="true"/>
+        <Label Content="Step" Grid.Row="0" Grid.Column="4"/>
+        <ComboBox Grid.Row="0" Grid.Column="5" Name="cbStep"  ItemsSource="{Binding StepItems}"
+                  SelectedItem="{Binding SelectedStep}" IsEditable="true" IsReadOnly="true"/>
+        <Label Content="Algorithm 1" Grid.Row="1" Grid.Column="4"/>
+        <ComboBox Grid.Row="1" Grid.Column="5" Name="cbAlgorithm1"  ItemsSource="{Binding AlgorithmItems}"
+                  SelectedItem="{Binding SelectedAlgorithm1}" IsEditable="true" IsReadOnly="true"/>
+        <Label Content="Algorithm 2" Grid.Row="1" Grid.Column="6"/>
+        <ComboBox Grid.Row="1" Grid.Column="7" Name="cbAlgorithm2"  ItemsSource="{Binding AlgorithmItems}"
+                  SelectedItem="{Binding SelectedAlgorithm2}" IsEditable="true" IsReadOnly="true"/>
+        <Label Content="Best Value" Grid.Row="2" Grid.Column="0"/>
+        <ComboBox Grid.Row="2" Grid.Column="1" Name="cbBestValue"  ItemsSource="{Binding CompareOptionItems}"
+                  SelectedItem="{Binding SelectedBestValueCompare}" IsEditable="true" IsReadOnly="true"/>
+        <Label Content="Duration" Grid.Row="2" Grid.Column="2"/>
+        <ComboBox Grid.Row="2" Grid.Column="3" Name="cbDuration"  ItemsSource="{Binding CompareOptionItems}"
+                  SelectedItem="{Binding SelectedDurationCompare}" IsEditable="true" IsReadOnly="true"/>
+        <Label Content="Number Of Iteration1" Grid.Row="2" Grid.Column="4"/>
+        <ComboBox Grid.Row="2" Grid.Column="5" Name="cbNumberOfIteration"  ItemsSource="{Binding CompareOptionItems}"
+                  SelectedItem="{Binding SelectedcbNumberIterationCompare}" IsEditable="true" IsReadOnly="true"/>
+        <Label Content="Elemenation Count" Grid.Row="2" Grid.Column="6"/>
+        <ComboBox Grid.Row="2" Grid.Column="7" Name="cbElemenationCount"  ItemsSource="{Binding CompareOptionItems}"
+                  SelectedItem="{Binding SelectedElemenationCountCompare}" IsEditable="true" IsReadOnly="true"/>
+        <DataGrid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="8"
+                  ItemsSource="{Binding RepresentativesPerfomanceCompareList}" IsReadOnly="false" AutoGenerateColumns="False" Margin="1"
+                           AlternationCount="2" RowBackground="#DDDDFF" AlternatingRowBackground="#CCCCEE"
+                           SelectedItem="{Binding SelectedRepresentativesPerfomanceCompare}"
+                           SelectionMode="Single" SelectionUnit="FullRow" CanUserAddRows="False" CanUserDeleteRows="False">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <Button Content="To Filter" Margin="1" Padding="1" 
+                                        Command="{Binding Path=DataContext.ToFilterCommand, ElementName=GroupGrid}" CommandParameter="{Binding}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <Button Content="Open in Win" Margin="1" Padding="1" 
+                                        Command="{Binding Path=DataContext.OpenInWindowCommand, ElementName=GroupGrid}" CommandParameter="{Binding}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <Button Content="Delete" Margin="1" Padding="1" 
+                                        Command="{Binding Path=DataContext.DeleteGroupCommand, ElementName=GroupGrid}" CommandParameter="{Binding}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="NumberOfSet" Binding="{Binding NumberOfSet}" MinWidth="50"></DataGridTextColumn>
+                <DataGridTextColumn Header="Dimension" Binding="{Binding Dimension}" MinWidth="50"></DataGridTextColumn>
+                <DataGridTextColumn Header="Step" Binding="{Binding Step}" MinWidth="100"></DataGridTextColumn>
+                <DataGridTextColumn Header="BestValue1" Binding="{Binding BestValue1}" MinWidth="200"></DataGridTextColumn>
+                <DataGridTextColumn Header="BestValue2" Binding="{Binding BestValue2}" MinWidth="200"></DataGridTextColumn>
+                <DataGridTextColumn Header="OptimalRoute1" Binding="{Binding OptimalRoute1}" MinWidth="200"></DataGridTextColumn>
+                <DataGridTextColumn Header="OptimalRoute2" Binding="{Binding OptimalRoute2}" MinWidth="200"></DataGridTextColumn>
+                <DataGridTextColumn Header="NumberOfIteration1" Binding="{Binding NumberOfIteration1}" MinWidth="200"></DataGridTextColumn>
+                <DataGridTextColumn Header="NumberOfIteration2" Binding="{Binding NumberOfIteration2}" MinWidth="200"></DataGridTextColumn>
+                <DataGridTextColumn Header="Duration1" Binding="{Binding Duration1}" MinWidth="200"></DataGridTextColumn>
+                <DataGridTextColumn Header="Duration2" Binding="{Binding Duration2}" MinWidth="200"></DataGridTextColumn>
+                <DataGridTextColumn Header="ElemenationCount1" Binding="{Binding ElemenationCount1}" MinWidth="200"></DataGridTextColumn>
+                <DataGridTextColumn Header="ElemenationCount2" Binding="{Binding ElemenationCount2}" MinWidth="200"></DataGridTextColumn>
+            </DataGrid.Columns>
+
+        </DataGrid>
+
+    </Grid>
+</UserControl>

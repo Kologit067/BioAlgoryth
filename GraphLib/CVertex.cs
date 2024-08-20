@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace GraphLib
 {
@@ -74,9 +70,10 @@ namespace GraphLib
             IsProcessed = true;
         }
         //-------------------------------------------------------------------------------------------------------
-        public void SetName(string pName)
+        public void SetName(int pInd)
         {
-            _fName = pName;
+            _fName = pInd.ToString();
+            ComponentNumber = pInd;
         }
         //-------------------------------------------------------------------------------------------------------
         public int Level { get; set; }

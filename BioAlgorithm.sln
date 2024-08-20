@@ -97,6 +97,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DAL", "DAL", "{A40A204F-7C0
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Representatives.Data", "ClassLibrary1\Representatives.Data.csproj", "{666B43C8-A180-4B4B-80AF-E3B3F73C2B3B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsomorphismGraph", "IsomorphismGraph\IsomorphismGraph.csproj", "{093C6AF6-9A26-4EEF-8F71-EEFE8417AA36}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -221,6 +223,10 @@ Global
 		{666B43C8-A180-4B4B-80AF-E3B3F73C2B3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{666B43C8-A180-4B4B-80AF-E3B3F73C2B3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{666B43C8-A180-4B4B-80AF-E3B3F73C2B3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{093C6AF6-9A26-4EEF-8F71-EEFE8417AA36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{093C6AF6-9A26-4EEF-8F71-EEFE8417AA36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{093C6AF6-9A26-4EEF-8F71-EEFE8417AA36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{093C6AF6-9A26-4EEF-8F71-EEFE8417AA36}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -265,6 +271,7 @@ Global
 		{4AF71807-5109-4163-89BC-A284326FB680} = {04435521-F0E7-4266-AB0F-3B8AE35E1292}
 		{A40A204F-7C05-44FE-85E4-98DA5734947A} = {96C3910C-5A7E-4439-A476-740BDCA89CCA}
 		{666B43C8-A180-4B4B-80AF-E3B3F73C2B3B} = {A40A204F-7C05-44FE-85E4-98DA5734947A}
+		{093C6AF6-9A26-4EEF-8F71-EEFE8417AA36} = {61E65F2E-8182-436B-B890-C3CE6BE64540}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C05A3E1F-E008-49F2-976E-971970A1132C}

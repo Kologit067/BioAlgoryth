@@ -33,7 +33,7 @@ namespace GraphLib
         void MarkVertexAsDeleted();
         void RecoverVertex();
         void SetProcessed();
-        void SetName(string pName);
+        void SetName(int pInd);
         //-------------------------------------------------------------------------------------------------------
     }
     //-------------------------------------------------------------------------------------------------------

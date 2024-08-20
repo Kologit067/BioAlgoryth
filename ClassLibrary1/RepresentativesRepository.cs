@@ -9,6 +9,9 @@ using System;
 
 namespace Representatives.Data
 {
+    //----------------------------------------------------------------------------------------------------------------------
+    // class RepresentativesRepository
+    //----------------------------------------------------------------------------------------------------------------------
     public class RepresentativesRepository
     {
         private string connectionString;
@@ -54,6 +57,20 @@ ORDER BY {algorithmGroupListSort}
 ").ToList();
             }
             return algorithmGroups;
+        }
+
+        public List<RepresentativeAlgorithWithDimension> GetRepresentativeAlgorithmWithDimensions()
+        {
+            List<RepresentativeAlgorithWithDimension> algorithmWithDimensions = new List<RepresentativeAlgorithWithDimension>();
+            using (IDbConnection db = new SqlConnection(connectionString))
+            {
+                algorithmWithDimensions = db.Query<RepresentativeAlgorithWithDimension>(
+                    $@"SELECT [Algorithm], [NumberOfSet], [Dimension], [Step]
+FROM [BioAlgorithm].[dbo].[RepresentativesPerfomance]
+GROUP BY [Algorithm], [NumberOfSet], [Dimension], [Step]
+").ToList();
+            }
+            return algorithmWithDimensions;
         }
 
         public List<RepresentativeAlgorithmGroup> GetRepresentativeAlgorithmGroups()
@@ -179,6 +196,70 @@ FROM [BioAlgorithm].[dbo].[RepresentativesPerfomance]
 ORDER BY {order}").ToList();
             }
             return representativesPerfomances;
+        }
+
+        public List<RepresentativesPerfomanceCompare> GetRepresentativePerformanceCompareList(RepresentativesPerfomanceCompareFilter representativesPerfomanceCompareFilter)
+        {
+            string top = "";
+            if (representativesPerfomanceCompareFilter.Top.HasValue)
+            {
+                top = $"TOP ({representativesPerfomanceCompareFilter.Top})";
+            }
+            string where = "";
+            List<string> whereList = new List<string>();
+
+            if (representativesPerfomanceCompareFilter.NumberOfSet.HasValue)
+            {
+                whereList.Add($"ra.[NumberOfSet] = {representativesPerfomanceCompareFilter.NumberOfSet}");
+            }
+            if (representativesPerfomanceCompareFilter.Dimension.HasValue)
+            {
+                whereList.Add($"ra.[Dimension] = {representativesPerfomanceCompareFilter.Dimension}");
+            }
+            if (representativesPerfomanceCompareFilter.Step.HasValue)
+            {
+                whereList.Add($"ra.[Step] = {representativesPerfomanceCompareFilter.Step}");
+            }
+            if (!string.IsNullOrWhiteSpace(representativesPerfomanceCompareFilter.BestValueCompare) && representativesPerfomanceCompareFilter.BestValueCompare != "N/A")
+            {
+                whereList.Add($"(ra.BestValue {representativesPerfomanceCompareFilter.BestValueCompare.Replace("1", "").Replace("2", "")} rb.BestValue OR ra.BestValue IS NULL OR rb.BestValue IS NULL )");
+            }
+            if (!string.IsNullOrWhiteSpace(representativesPerfomanceCompareFilter.NumberIterationCompare) && representativesPerfomanceCompareFilter.NumberIterationCompare != "N/A")
+            {
+                whereList.Add($"(ra.[NumberOfIteration] {representativesPerfomanceCompareFilter.NumberIterationCompare.Replace("1", "").Replace("2", "")} rb.[NumberOfIteration] OR ra.[NumberOfIteration] IS NULL OR rb.[NumberOfIteration] IS NULL )");
+            }
+            if (!string.IsNullOrWhiteSpace(representativesPerfomanceCompareFilter.DurationCompare) && representativesPerfomanceCompareFilter.DurationCompare != "N/A")
+            {
+                whereList.Add($"(ra.Duration {representativesPerfomanceCompareFilter.DurationCompare.Replace("1", "").Replace("2", "")} rb.Duration OR ra.Duration IS NULL OR rb.Duration IS NULL )");
+            }
+            if (!string.IsNullOrWhiteSpace(representativesPerfomanceCompareFilter.ElemenationCountCompare) && representativesPerfomanceCompareFilter.ElemenationCountCompare != "N/A")
+            {
+                whereList.Add($"(ra.ElemenationCount {representativesPerfomanceCompareFilter.ElemenationCountCompare.Replace("1", "").Replace("2", "")} rb.ElemenationCount OR ra.ElemenationCount IS NULL OR rb.ElemenationCount IS NULL )");
+            }
+            if (whereList.Count > 0)
+            {
+                where = "WHERE " + string.Join(" AND ", whereList);
+            }
+            List<RepresentativesPerfomanceCompare> representativesPerfomancesCompare = new List<RepresentativesPerfomanceCompare>();
+            string query = $@"SELECT ra.[NumberOfSet], ra.[Dimension], ra.[InputData], ra.[InputDataShort], ra.Step,
+       ra.Algorithm as Algorithm1, rb.Algorithm as Algorithm2, 
+       ra.BestValue as BestValue1, rb.BestValue as BestValue2, 
+	   ra.OptimalRoute as OptimalRoute1, rb.OptimalRoute as OptimalRoute2,
+	   ra.[NumberOfIteration] as NumberOfIteration1, rb.[NumberOfIteration] as NumberOfIteration2,
+       ra.[Duration] as Duration1, rb.[Duration] as Duration2,
+       ra.ElemenationCount as ElemenationCount1, rb.ElemenationCount as ElemenationCount2
+FROM [BioAlgorithm].[dbo].[RepresentativesPerfomance] AS ra
+INNER JOIN [BioAlgorithm].[dbo].[RepresentativesPerfomance] rb
+ON (ra.InputData = rb.InputData AND ra.[NumberOfSet] = rb.[NumberOfSet] AND ra.[Dimension] = rb.[Dimension] AND
+ra.[Algorithm] = '{representativesPerfomanceCompareFilter.Algorithm1}' AND rb.[Algorithm] = '{representativesPerfomanceCompareFilter.Algorithm2}') 
+{where}
+";
+
+            using (IDbConnection db = new SqlConnection(connectionString))
+            {
+                representativesPerfomancesCompare = db.Query<RepresentativesPerfomanceCompare>(query).ToList();
+            }
+            return representativesPerfomancesCompare;
         }
     }
 }

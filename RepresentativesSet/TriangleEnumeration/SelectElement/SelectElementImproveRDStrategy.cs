@@ -28,20 +28,27 @@ namespace RepresentativesSet.TriangleEnumeration.SelectElement
                 return (maxStart, maxIndStart);
             int max = maxStart;
             int maxInd = maxIndStart;
-            int minSumElementInSet = elements[rest[pPosition][maxInd]].SetList.Where(k => SetList[k].IncludedInSolution == 0).Sum(k => SetList[k].Elements.Count());
+            double maxRelation = RelationCountDistinct(SetList, 0);
             for (int i = 0; i < rest[pPosition].Count; i++)
             {
                 if (max == elements[rest[pPosition][i]].Weight)
                 {
-                    int sumElementInSet = elements[rest[pPosition][i]].SetList.Where(k => SetList[k].IncludedInSolution == 0).Sum(k => SetList[k].Elements.Count());
-                    if (sumElementInSet < minSumElementInSet)
+                    double relation = RelationCountDistinct(SetList, i);
+                    if (relation < maxRelation)
                     {
                         maxInd = i;
-                        minSumElementInSet = sumElementInSet;
+                        maxRelation = relation;
                     }
                 }
             }
             return (max, maxInd);
+        }
+
+        protected static double RelationCountDistinct(List<SetInfo> setList, int i)
+        {
+            double count = setList.Where(s => s.IncludedInSolution == 0 && !s.Elements.Contains(i)).Sum(s => s.Elements.Count);
+            double distinct = setList.Where(s => s.IncludedInSolution == 0 && !s.Elements.Contains(i)).SelectMany(s => s.Elements).Distinct().Count();
+            return 1.0 * count / distinct;
         }
     }
 

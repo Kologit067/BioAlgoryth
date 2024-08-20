@@ -80,8 +80,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Helpers\ObservableCollectionExtension.cs" />
     <Compile Include="Representative\BipartiteGraphControl.xaml.cs">
       <DependentUpon>BipartiteGraphControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Representative\RepresentativeAlgorithmCompareControl.xaml.cs">
+      <DependentUpon>RepresentativeAlgorithmCompareControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Representative\RepresentativeAlgorithmControl.xaml.cs">
       <DependentUpon>RepresentativeAlgorithmControl.xaml</DependentUpon>
@@ -110,6 +114,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Representative\BipartiteGraphControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Representative\RepresentativeAlgorithmCompareControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

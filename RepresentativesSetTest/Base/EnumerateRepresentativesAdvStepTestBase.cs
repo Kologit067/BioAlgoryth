@@ -1,5 +1,4 @@
-﻿
-using CommonLibrary.Helpers;
+﻿using CommonLibrary.Helpers;
 using RepresentativesSet;
 using System.Linq;
 

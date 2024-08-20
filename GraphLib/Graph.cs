@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GraphLib
 {
@@ -27,7 +24,7 @@ namespace GraphLib
             for (int i = 0; i < pSize; i++)
             {
                 T vertex = new T();
-                vertex.SetName(i.ToString());
+                vertex.SetName(i);
                 _fVertices.Add(vertex);
             }
         }

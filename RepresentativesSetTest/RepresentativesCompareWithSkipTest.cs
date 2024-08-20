@@ -130,8 +130,6 @@ namespace RepresentativesSetTest
             _fBreakElement = 0;
             _fCardinality = pCardinality;
             _step= step;
-            _statisticAccumulator = new RepresentativesStatisticAccumulator(new RepresentativesSaver(), pLength, pCardinality);
-            _statisticAccumulator.Delete(nameof(RepresentativesBranchAndBoundByValue));
             _result = new List<string>();   
             _selected = new List<string>();
         }
@@ -159,7 +157,6 @@ namespace RepresentativesSetTest
         //--------------------------------------------------------------------------------------
         protected override void PostAction()
         {
-            _statisticAccumulator.SaveRemain();
         }
         //--------------------------------------------------------------------------------------
 
