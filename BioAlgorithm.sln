@@ -99,6 +99,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Representatives.Data", "Cla
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsomorphismGraph", "IsomorphismGraph\IsomorphismGraph.csproj", "{093C6AF6-9A26-4EEF-8F71-EEFE8417AA36}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphTests", "GraphTests\GraphTests.csproj", "{784DF61C-FF45-46C0-8DD5-ACA63BF53CAB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -227,6 +229,10 @@ Global
 		{093C6AF6-9A26-4EEF-8F71-EEFE8417AA36}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{093C6AF6-9A26-4EEF-8F71-EEFE8417AA36}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{093C6AF6-9A26-4EEF-8F71-EEFE8417AA36}.Release|Any CPU.Build.0 = Release|Any CPU
+		{784DF61C-FF45-46C0-8DD5-ACA63BF53CAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{784DF61C-FF45-46C0-8DD5-ACA63BF53CAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{784DF61C-FF45-46C0-8DD5-ACA63BF53CAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{784DF61C-FF45-46C0-8DD5-ACA63BF53CAB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -47,7 +47,7 @@ namespace CompareSortTest
     //--------------------------------------------------------------------------------------
     public class EnumerateBubbleSort : PermitationBase
     {
-        protected int _fSize;
+//        protected int _fSize;
         protected int _step;
         protected int _stepCounter;
         protected ISortingAccumulator _sortingAccumulator { get; set; }
@@ -102,7 +102,7 @@ namespace CompareSortTest
     //--------------------------------------------------------------------------------------
     public class EnumerateBubbleRepeatedSort : EnumerateIntegerFullSet
     {
-        protected int _fSize;
+//        protected int _fSize;
         protected int _step;
         protected int _stepCounter;
         protected ISortingAccumulator _sortingAccumulator { get; set; }

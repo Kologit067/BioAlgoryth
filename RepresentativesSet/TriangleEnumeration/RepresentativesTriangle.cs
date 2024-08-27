@@ -1,5 +1,6 @@
 ﻿using BaseContract;
 using CommonLibrary;
+using CommonLibrary.Helpers;
 using RepresentativesSet.Model;
 using StatisticsStorage.Accumulators;
 using System;
@@ -85,7 +86,7 @@ namespace RepresentativesSet
         //--------------------------------------------------------------------------------------
         public virtual void Execute(string pListOfSetAsString)
         {
-            Execute(StringToArray(pListOfSetAsString));
+            Execute(CollectionPresentation.StringToArray(pListOfSetAsString));
         }
         //--------------------------------------------------------------------------------------
         public virtual void Execute(int[][] pListOfSet)
@@ -276,19 +277,7 @@ namespace RepresentativesSet
             StatisticAccumulator.SaveStatisticData(ElapsedTicks, DurationMilliSeconds, DateTime.Now,
                 IsComplete, CurrentSetAsString, _fOptimalSets, currentMinimum);
         }
-        //--------------------------------------------------------------------------------------
-        public static int[][] StringToArray(string pListOfSetAsString)
-        {
-            string[] clauseArray = pListOfSetAsString.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-            List<int[]> result = new List<int[]>();
-            for (int i = 0; i < clauseArray.Length; i++)
-            {
-                string clause = clauseArray[i];
-                string[] vertexArray = clause.Replace("(", "").Replace(")", "").Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-                result.Add(vertexArray.Where(v => int.TryParse(v, out _)).Select(v => int.Parse(v)).ToArray());
-            }
-            return result.ToArray();
-        }
+
         //--------------------------------------------------------------------------------------
     }
     //--------------------------------------------------------------------------------------

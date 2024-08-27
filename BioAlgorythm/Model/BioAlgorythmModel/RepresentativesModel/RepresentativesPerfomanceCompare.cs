@@ -1,6 +1,9 @@
 ﻿
 namespace BioAlgorythmModel.RepresentativesModel
 {
+    //--------------------------------------------------------------------------------------
+    // class RepresentativesPerfomanceCompare
+    //--------------------------------------------------------------------------------------
     public class RepresentativesPerfomanceCompare
     {
         public int NumberOfSet { get; set; }
@@ -30,4 +33,5 @@ namespace BioAlgorythmModel.RepresentativesModel
         //public int UpdateOptcount { get; set; }
 
     }
+    //--------------------------------------------------------------------------------------
 }

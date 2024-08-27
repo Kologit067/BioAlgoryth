@@ -1,6 +1,9 @@
 ﻿
 namespace BioAlgorythmModel.RepresentativesModel
 {
+    //--------------------------------------------------------------------------------------
+    // class RepresentativesPerfomanceCompareFilter
+    //--------------------------------------------------------------------------------------
     public class RepresentativesPerfomanceCompareFilter
     {
         public int? Top { get; set; }
@@ -15,4 +18,5 @@ namespace BioAlgorythmModel.RepresentativesModel
         public string ElemenationCountCompare { get; set; }
 
     }
+    //--------------------------------------------------------------------------------------
 }

@@ -49,8 +49,17 @@
     <Compile Include="Interface\IOrGraph.cs" />
     <Compile Include="Interface\IOrVertex.cs" />
     <Compile Include="Interface\IVertex.cs" />
+    <Compile Include="MultiEdge.cs" />
+    <Compile Include="MultiGraph.cs" />
+    <Compile Include="MultiVertex.cs" />
     <Compile Include="OrGraph.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CommonLibrary\CommonLibrary.csproj">
+      <Project>{6208c3eb-138f-4b2e-93a8-6469d8a75379}</Project>
+      <Name>CommonLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

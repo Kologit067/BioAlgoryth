@@ -3,31 +3,26 @@ using GraphLib;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IsomorphismGraph
 {
-    //--------------------------------------------------------------------------------------
-    // class Isomorphism
-    //--------------------------------------------------------------------------------------
-    public class Isomorphism : EnumerateSetOnPosition<int, int>
+    public class IsomorphismMultiGrapf : EnumerateSetOnPosition<int, int>
     {
         protected int _fSize;
-        private Graph<CVertex> _graph1;
-        private Graph<CVertex> _graph2;
-        List<List<int>> references;
+        private MultiGraph _graph1;
+        private MultiGraph _graph2;
+        private List<List<int>> references;
         private bool isSatisfied = true;
         //--------------------------------------------------------------------------------------
-        public Isomorphism(Graph<CVertex> graph1, Graph<CVertex> graph2) : base(graph1.Vertices.Count)
+        public IsomorphismMultiGrapf(MultiGraph graph1, MultiGraph graph2) : base(graph1.Vertices.Count)
         {
             _fSize = graph1.Vertices.Count;
             _graph1 = graph1;
             _graph2 = graph2;
             Dictionary<int, List<int>> weightGroup1 = _graph1.Vertices.GroupBy(v => v.Weight).OrderBy(g => g.Key).
-                ToDictionary(g => g.Key, g => g.OrderBy(v => v.ComponentNumber).Select(v => v.ComponentNumber).ToList());
+                ToDictionary(g => g.Key, g => g.OrderBy(v => v.Ind).Select(v => v.Ind).ToList());
             Dictionary<int, List<int>> weightGroup2 = _graph2.Vertices.GroupBy(v => v.Weight).OrderBy(g => g.Key).
-                ToDictionary(g => g.Key, g => g.OrderBy(v => v.ComponentNumber).Select(v => v.ComponentNumber).ToList());
+                ToDictionary(g => g.Key, g => g.OrderBy(v => v.Ind).Select(v => v.Ind).ToList());
             List<int> keys1 = weightGroup1.Keys.ToList();
             List<int> keys2 = weightGroup1.Keys.ToList();
             if (keys1.Count != keys2.Count)
@@ -59,16 +54,13 @@ namespace IsomorphismGraph
         //--------------------------------------------------------------------------------------
         protected override void AddAction(int p)
         {
-            int vertexIndex1 = _fCurrentPosition;
-            int vertexIndexInSet2 = _fCurrentSet[_fCurrentPosition];
-            int vertexIndex2 = references[_fCurrentPosition][vertexIndexInSet2];
-            List<int> adjacentVertices = _graph1.Vertices[vertexIndex1].AdjacentVertices;
-            foreach (int vertexAdjIndexInSet1 in adjacentVertices)
+            int vertexIndex2 = GetCorrespondingVertex(_fCurrentPosition);
+            List<MultiEdge> adjacentEdges = _graph1.Vertices[_fCurrentPosition].Edges;
+            foreach (MultiEdge edge1 in adjacentEdges)
             {
-                if (vertexAdjIndexInSet1 < _fCurrentPosition)
+                if (edge1.VertexSet.All( v => v < _fCurrentPosition))
                 {
-                    int vertexAdjIndex2= references[vertexAdjIndexInSet1][_fCurrentSet[vertexAdjIndexInSet1]];
-                    if (!_graph1.Vertices[vertexIndex2].AdjacentVertices.Contains(vertexAdjIndex2))
+                    if (!_graph2.Vertices[vertexIndex2].Edges.Any(e => edge1.VertexSet.All(v => e.VertexSet.Contains(v))))
                     {
                         isSatisfied = false;
                         return;
@@ -77,11 +69,15 @@ namespace IsomorphismGraph
             }
             isSatisfied = true;
         }
+        private int GetCorrespondingVertex(int ind)
+        {
+            int vertexIndexInSet2 = _fCurrentSet[ind];
+            return references[ind][vertexIndexInSet2];
+        }
 
         //--------------------------------------------------------------------------------------
         protected override void BackAction()
         {
-           
         }
 
         //--------------------------------------------------------------------------------------
@@ -96,7 +92,7 @@ namespace IsomorphismGraph
         //--------------------------------------------------------------------------------------
         protected override bool NextElement(int pPosition)
         {
-            int element = FindNextFreeElement(_fCurrentSet[pPosition]+1, pPosition);
+            int element = FindNextFreeElement(_fCurrentSet[pPosition] + 1, pPosition);
             if (element < 0)
                 return false;
             _fCurrentSet[pPosition] = element;
@@ -124,7 +120,7 @@ namespace IsomorphismGraph
         //--------------------------------------------------------------------------------------
         protected override void ForwardAction()
         {
-            
+
         }
 
         //--------------------------------------------------------------------------------------
@@ -157,21 +153,20 @@ namespace IsomorphismGraph
         //--------------------------------------------------------------------------------------
         protected override void PostAction()
         {
-            
+
         }
 
         //--------------------------------------------------------------------------------------
         protected override void RemoveAction(int p)
         {
-            
+
         }
 
         //--------------------------------------------------------------------------------------
         protected override void SupplementInitial()
         {
-            
+
         }
         //--------------------------------------------------------------------------------------
     }
-    //--------------------------------------------------------------------------------------
 }

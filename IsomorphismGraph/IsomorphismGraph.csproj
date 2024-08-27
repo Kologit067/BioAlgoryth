@@ -41,7 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Isomorphism.cs" />
+    <Compile Include="IsomorphismMultiGrapf.cs" />
+    <Compile Include="IsomorphismUnorderedGrapf.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

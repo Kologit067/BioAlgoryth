@@ -1,5 +1,6 @@
 ﻿using BaseContract;
 using CommonLibrary;
+using CommonLibrary.Helpers;
 using StatisticsStorage.Accumulators;
 using System;
 using System.Collections.Generic;
@@ -25,7 +26,7 @@ namespace RepresentativesSet
         //-----------------------------------------------------------------------------------
         public virtual void Execute(string setAsString)
         {
-            Execute(RepresentativesTriangle.StringToArray(setAsString));
+            Execute(CollectionPresentation.StringToArray(setAsString));
         }        
         //--------------------------------------------------------------------------------------
         protected override bool MakeAction()

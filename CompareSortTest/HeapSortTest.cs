@@ -59,7 +59,7 @@ namespace CompareSortTest
     //--------------------------------------------------------------------------------------
     public class EnumerateHeapSort : PermitationBase
     {
-        protected int _fSize;
+//        protected int _fSize;
         protected int _step;
         protected int _stepCounter;
         protected ISortingAccumulator _sortingAccumulator { get; set; }
@@ -108,7 +108,7 @@ namespace CompareSortTest
     //--------------------------------------------------------------------------------------
     public class EnumerateHeapRepeatedSort : EnumerateIntegerFullSet
     {
-        protected int _fSize;
+//        protected int _fSize;
         protected int _step;
         protected int _stepCounter;
         protected ISortingAccumulator _sortingAccumulator { get; set; }

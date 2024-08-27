@@ -2,6 +2,9 @@
 
 namespace BioAlgorythmModel.RepresentativesModel
 {
+    //--------------------------------------------------------------------------------------
+    // class RepresentativeAlgorithWithDimension
+    //--------------------------------------------------------------------------------------
     public class RepresentativeAlgorithWithDimension
     {
         public string Algorithm { get; set; }
@@ -9,4 +12,5 @@ namespace BioAlgorythmModel.RepresentativesModel
         public int Dimension { get; set; }
         public long Step { get; set; }
     }
+    //--------------------------------------------------------------------------------------
 }
