@@ -280,7 +280,7 @@ namespace BioAlgorithmViewModel.Representatives
             };
             PropertyChanged += RepresentativePerformanceAlgorithmCompareViewModel_PropertyChanged;
             this.representativesRepository = representativesRepository;
-            var list = AlgorithmWithDimensions.GroupBy(a => a.NumberOfSet).OrderBy(n => n.Key).Select(n => n.Key);
+            IEnumerable<int> list = AlgorithmWithDimensions.GroupBy(a => a.NumberOfSet).OrderBy(n => n.Key).Select(n => n.Key);
             NumberOfSetItems = list.ToObservable<int>();
             if (NumberOfSetItems.Count > 0)
                 SelectedNumberOfSet = NumberOfSetItems[0];

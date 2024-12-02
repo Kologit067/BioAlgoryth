@@ -7,6 +7,7 @@ using Representatives.Data;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using RepresentativeServices;
 
 namespace BioAlgorithmViewModel.Representatives
 {
@@ -146,6 +147,39 @@ namespace BioAlgorithmViewModel.Representatives
             return true;
         }
         //----------------------------------------------------------------------------------------------------------------------
+        private ICommand toFilterInGroupCommand;
+        public ICommand ToFilterInGroupCommand
+        {
+            get
+            {
+                if (toFilterInGroupCommand == null)
+                {
+                    toFilterInGroupCommand = new DelegateCommand(ToFilterInGroupAction, CanToFilterInGroupAction);
+                }
+                return toFilterInGroupCommand;
+            }
+        }
+        //----------------------------------------------------------------------------------------------------------------------
+        private void ToFilterInGroupAction()
+        {
+            Messenger.Default.Send<RepresentativeTabChangeMessage>(new RepresentativeTabChangeMessage()
+            {
+                RepresentativeTabName = "RepresentativePerformanceAsGroup"
+            }, typeof(RepresentativeTabChangeMessage));
+            Messenger.Default.Send<AlgorithmGroupToFilterByGroupMessage>(new AlgorithmGroupToFilterByGroupMessage()
+            {
+                Algorithm = SelectedAlgorithmGroup.Algorithm,
+                Dimension = SelectedAlgorithmGroup.Dimension,
+                NumberOfSet = SelectedAlgorithmGroup.NumberOfSet,
+                Step = SelectedAlgorithmGroup.Step
+            }, typeof(AlgorithmGroupToFilterByGroupMessage));
+        }
+        //----------------------------------------------------------------------------------------------------------------------
+        private bool CanToFilterInGroupAction()
+        {
+            return true;
+        }
+        //----------------------------------------------------------------------------------------------------------------------
         private ICommand openInWindowCommand;
         public ICommand OpenInWindowCommand
         {
@@ -194,6 +228,33 @@ namespace BioAlgorithmViewModel.Representatives
         }
         //----------------------------------------------------------------------------------------------------------------------
         private bool CanDeleteGroupAction()
+        {
+            return true;
+        }
+        //----------------------------------------------------------------------------------------------------------------------
+        private ICommand testIsomorphismCommand;
+        public ICommand TestIsomorphismCommand
+        {
+            get
+            {
+                if (testIsomorphismCommand == null)
+                {
+                    testIsomorphismCommand = new DelegateCommand(TestIsomorphismAction, CanTestIsomorphismAction);
+                }
+                return testIsomorphismCommand;
+            }
+        }
+        //----------------------------------------------------------------------------------------------------------------------
+        private void TestIsomorphismAction()
+        {
+            RepresentativeService representativeService = new RepresentativeService(representativesRepository);
+            representativeService.TestIsomorphism(SelectedAlgorithmGroup.Algorithm,
+                SelectedAlgorithmGroup.Dimension,
+                SelectedAlgorithmGroup.NumberOfSet,
+                SelectedAlgorithmGroup.Step);
+        }
+        //----------------------------------------------------------------------------------------------------------------------
+        private bool CanTestIsomorphismAction()
         {
             return true;
         }

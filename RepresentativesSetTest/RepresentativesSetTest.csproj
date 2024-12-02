@@ -57,6 +57,7 @@
     <Compile Include="Greedy\RepresentativesGreedyTests.cs" />
     <Compile Include="Greedy\RepresentativesGreedySimpleStepTests.cs" />
     <Compile Include="Greedy\RepresentativesGreedyAdvStepTests.cs" />
+    <Compile Include="Isomorphism\IsomorphismTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BruteForceRepresentativesAsTreeTest.cs" />
     <Compile Include="BruteForceCompareTest.cs" />

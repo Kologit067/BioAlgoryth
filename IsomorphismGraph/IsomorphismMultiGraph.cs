@@ -3,10 +3,11 @@ using GraphLib;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace IsomorphismGraph
 {
-    public class IsomorphismMultiGrapf : EnumerateSetOnPosition<int, int>
+    public class IsomorphismMultiGraph : EnumerateSetOnPosition<int, int>
     {
         protected int _fSize;
         private MultiGraph _graph1;
@@ -14,8 +15,9 @@ namespace IsomorphismGraph
         private List<List<int>> references;
         private bool isSatisfied = true;
         //--------------------------------------------------------------------------------------
-        public IsomorphismMultiGrapf(MultiGraph graph1, MultiGraph graph2) : base(graph1.Vertices.Count)
+        public IsomorphismMultiGraph(MultiGraph graph1, MultiGraph graph2) : base(graph1.Vertices.Count)
         {
+            _fBreakElement = -1;
             _fSize = graph1.Vertices.Count;
             _graph1 = graph1;
             _graph2 = graph2;
@@ -24,7 +26,7 @@ namespace IsomorphismGraph
             Dictionary<int, List<int>> weightGroup2 = _graph2.Vertices.GroupBy(v => v.Weight).OrderBy(g => g.Key).
                 ToDictionary(g => g.Key, g => g.OrderBy(v => v.Ind).Select(v => v.Ind).ToList());
             List<int> keys1 = weightGroup1.Keys.ToList();
-            List<int> keys2 = weightGroup1.Keys.ToList();
+            List<int> keys2 = weightGroup2.Keys.ToList();
             if (keys1.Count != keys2.Count)
                 return;
             foreach (int key in keys1)
@@ -40,6 +42,7 @@ namespace IsomorphismGraph
                 int weight = _graph1.Vertices[i].Weight;
                 references[i].AddRange(weightGroup2[weight]);
             }
+            Parallel.For(0, _fCurrentSet.Count, i => _fCurrentSet[i] = -1);
         }
         //--------------------------------------------------------------------------------------
         public bool IsIsomorphic()
@@ -133,12 +136,27 @@ namespace IsomorphismGraph
         protected override bool IsCompleteCondition()
         {
             IterationAction();
-            if (_fCurrentPosition >= _fSize - 1)
+            if (_fCurrentPosition >= _fSize - 1 || !isSatisfied)
             {
+                if (!IsNotTerminalCheck())
+                    isSatisfied = false;
                 TerminalAction();
                 return true;
             }
             return false;
+        }
+        //--------------------------------------------------------------------------------------
+        private bool IsNotTerminalCheck()
+        {
+            bool isPassed = true;
+            foreach (MultiEdge edge in _graph1.Edges)
+            {
+                var verticesEdge2 = edge.VertexSet.Select(v => GetCorrespondingVertex(v)).ToList();
+                if ( !_graph2.Edges.Any(e => e.VertexSet.Count == verticesEdge2.Count && verticesEdge2.All(w => e.VertexSet.Any(v => v == w))))
+                    return false;
+            }
+
+            return isPassed;
         }
 
         //--------------------------------------------------------------------------------------
@@ -166,6 +184,18 @@ namespace IsomorphismGraph
         protected override void SupplementInitial()
         {
 
+        }
+        //--------------------------------------------------------------------------------------
+        public override string ShowFullString
+        {
+            get
+            {
+                if (references == null)
+                    return null;
+                if (_fCurrentSet != null && _fCurrentSet.Count > 0)
+                    return string.Join(",", _fCurrentSet.Select((i, ind) => i >= 0 ? references[ind][i].ToString() : "_"));
+                return "Empty";
+            }
         }
         //--------------------------------------------------------------------------------------
     }

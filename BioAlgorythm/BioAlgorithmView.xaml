@@ -81,8 +81,11 @@
             <TabItem Header="Bipartite Graph">
                 <ac:BipartiteGraphControl DataContext="{Binding Representatives.BipartiteGraph}"/>
             </TabItem>
-            <TabItem Header="Alg Repr List">
+            <TabItem Header="Alg Compare">
                 <ac:RepresentativeAlgorithmCompareControl DataContext="{Binding Representatives.RepresentativePerformanceAlgorithmCompare}"/>
+            </TabItem>
+            <TabItem Header="Alg With group">
+                <ac:RepresentativeAlgorithmWithGroupControl DataContext="{Binding Representatives.RepresentativePerformanceAlgorithmWithGroup}"/>
             </TabItem>
         </TabControl>
     </Grid>

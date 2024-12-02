@@ -17,6 +17,9 @@
                 <Label Content="Sort" Margin="15,1,5,1"/>
                 <ComboBox Name="cbPerformanceOrder"  ItemsSource="{Binding AlgorithmGroupSortItems}"
                                   SelectedItem="{Binding AlgorithmGroupListSort}" IsEditable="true" IsReadOnly="true"/>
+                <Button ToolTip="Delete" Margin="1" Padding="1" 
+                                            Command="{Binding Path=DataContext.DeleteGroupCommand, ElementName=GroupGrid}" 
+                                            CommandParameter="{Binding}"/>
             </StackPanel>
             <DataGrid Grid.Row="1" ItemsSource="{Binding RepresentativeAlgorithmGroupByDimensions}" IsReadOnly="false" AutoGenerateColumns="False" Margin="1"
                            AlternationCount="2" RowBackground="#DDDDFF" AlternatingRowBackground="#CCCCEE"
@@ -27,8 +30,10 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel>
-                                    <Button Content="To Filter" Margin="1" Padding="1" 
-                                        Command="{Binding Path=DataContext.ToFilterCommand, ElementName=GroupGrid}" CommandParameter="{Binding}" />
+                                    <Button ToolTip="To Filter" Margin="1" Padding="1" 
+                                        Command="{Binding Path=DataContext.ToFilterCommand, ElementName=GroupGrid}" CommandParameter="{Binding}" >
+                                        <Image Width="25" Height="25" Source="/Pictures/document-export.png" />
+                                    </Button>
                                 </StackPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
@@ -37,8 +42,10 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel>
-                                    <Button Content="Open in Win" Margin="1" Padding="1" 
-                                        Command="{Binding Path=DataContext.OpenInWindowCommand, ElementName=GroupGrid}" CommandParameter="{Binding}" />
+                                    <Button ToolTip="To Filter By Group" Margin="1" Padding="1" 
+                                        Command="{Binding Path=DataContext.ToFilterInGroupCommand, ElementName=GroupGrid}" CommandParameter="{Binding}" >
+                                        <Image Width="25" Height="25" Source="/Pictures/eraser32.ico" />
+                                    </Button>
                                 </StackPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
@@ -47,8 +54,36 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel>
-                                    <Button Content="Delete" Margin="1" Padding="1" 
-                                        Command="{Binding Path=DataContext.DeleteGroupCommand, ElementName=GroupGrid}" CommandParameter="{Binding}" />
+                                    <Button ToolTip="Open in Win" Margin="1" Padding="1" 
+                                        Command="{Binding Path=DataContext.OpenInWindowCommand, ElementName=GroupGrid}" CommandParameter="{Binding}" >
+                                        <Image Width="25" Height="25" Source="/Pictures/DOCL.ICO" />
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Button ToolTip="Delete" Margin="1" Padding="1" 
+                                            Command="{Binding Path=DataContext.DeleteGroupCommand, ElementName=GroupGrid}" 
+                                            CommandParameter="{Binding}">
+                                        <Image Width="25" Height="25" Source="/Pictures/deleteTrackFromTheMap.png" />
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Button ToolTip="Test isomorphism" Margin="1" Padding="1" 
+                                            Command="{Binding Path=DataContext.TestIsomorphismCommand, ElementName=GroupGrid}" 
+                                            CommandParameter="{Binding}">
+                                        <Image Width="25" Height="25" Source="/Pictures/task4.png" />
+                                    </Button>
                                 </StackPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>

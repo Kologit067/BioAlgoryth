@@ -78,7 +78,8 @@
                         <DataTemplate>
                             <StackPanel>
                                 <Button Content="To Filter" Margin="1" Padding="1" 
-                                        Command="{Binding Path=DataContext.ToFilterCommand, ElementName=GroupGrid}" CommandParameter="{Binding}" />
+                                        Command="{Binding Path=DataContext.ToFilterCommand, ElementName=GroupGrid}" CommandParameter="{Binding}">
+                                </Button>
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

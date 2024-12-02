@@ -6,6 +6,7 @@ using System.Linq;
 using BioAlgorythmModel.RepresentativesModel;
 using Dapper;
 using System;
+using System.Collections;
 
 namespace Representatives.Data
 {
@@ -81,7 +82,7 @@ GROUP BY [Algorithm], [NumberOfSet], [Dimension], [Step]
                 algorithmGroups = db.Query<RepresentativeAlgorithmGroup>(
                     @"WITH CTE AS
 (
-SELECT [Algorithm], [NumberOfSet], [Dimension], COUNT(*) as cnt, SUM([NumberOfIteration]) as SumNumberOfIteration, SUM([Duration]) as SumDuration
+SELECT RepresentativesPerfomanceId, [Algorithm], [NumberOfSet], [Dimension], COUNT(*) as cnt, SUM([NumberOfIteration]) as SumNumberOfIteration, SUM([Duration]) as SumDuration
 FROM [BioAlgorithm].[dbo].[RepresentativesPerfomance]
 GROUP BY [Algorithm], [NumberOfSet], [Dimension]
 )
@@ -169,8 +170,7 @@ GROUP BY [Algorithm]").ToList();
             List<RepresentativesPerfomance> representativesPerfomances = new List<RepresentativesPerfomance>();
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                representativesPerfomances = db.Query<RepresentativesPerfomance>(
-                    $@"SELECT {top} [RepresentativesPerfomanceId]
+                string query = $@"SELECT {top} [RepresentativesPerfomanceId]
       ,[NumberOfSet]
       ,[Dimension]
       ,[Step]
@@ -193,10 +193,12 @@ GROUP BY [Algorithm]").ToList();
       ,[ElemenationCount]
 FROM [BioAlgorithm].[dbo].[RepresentativesPerfomance]
 {where}
-ORDER BY {order}").ToList();
+ORDER BY {order}";
+                representativesPerfomances = db.Query<RepresentativesPerfomance>(query).ToList();
             }
             return representativesPerfomances;
         }
+
 
         public List<RepresentativesPerfomanceCompare> GetRepresentativePerformanceCompareList(RepresentativesPerfomanceCompareFilter representativesPerfomanceCompareFilter)
         {
@@ -261,5 +263,111 @@ ra.[Algorithm] = '{representativesPerfomanceCompareFilter.Algorithm1}' AND rb.[A
             }
             return representativesPerfomancesCompare;
         }
+        private int updateIsomorphicBufferSize = 1000;
+        private Dictionary<long,string> updateIsomorphicDict = new Dictionary<long,string>();
+        public string UpdateIsomorphic(long representativesPerfomanceId, string inputData)
+        {
+            string error = string.Empty;
+            updateIsomorphicDict.Add(representativesPerfomanceId, inputData);
+
+            if (updateIsomorphicDict.Count >= updateIsomorphicBufferSize)
+            {
+                error = SaveUpdateIsomorphic(updateIsomorphicDict);
+                updateIsomorphicDict.Clear();
+            }
+            return error;
+        }
+
+        public string CompleteUpdateIsomorphic()
+        {
+            string error = SaveUpdateIsomorphic(updateIsomorphicDict);
+            updateIsomorphicDict.Clear();
+            return error;
+        }
+
+        private string SaveUpdateIsomorphic(Dictionary<long, string> updateIsomorphicDict)
+        {
+            string error = string.Empty;
+            try
+            {
+
+                DataTable isonorphicTable = new DataTable();
+                isonorphicTable.Columns.Add("Id", System.Type.GetType("System.Int64"));
+                isonorphicTable.Columns.Add("InputData", System.Type.GetType("System.String"));
+
+
+                foreach (var ui in updateIsomorphicDict)
+                {
+                    isonorphicTable.Rows.Add(ui.Key, ui.Value);
+                }
+
+                SqlConnection connection = new SqlConnection(connectionString);
+                connection.Open();
+                try
+                {
+                    SqlCommand addCommand = new SqlCommand("spUpdateIsomorphic", connection);
+                    addCommand.CommandType = CommandType.StoredProcedure;
+                    addCommand.CommandTimeout = 300;
+                    SqlParameter tvpParam = addCommand.Parameters.AddWithValue("@UpdateIsomorphic", isonorphicTable);
+                    tvpParam.SqlDbType = SqlDbType.Structured;
+                    tvpParam.TypeName = "dbo.UpdateIsomorphicType";
+                    addCommand.ExecuteNonQuery();
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                error = ex.ToString();
+            }
+            return error;
+        }
+
+        /*
+        public void UpdateIsomorphic(long representativesPerfomanceId, string inputData)
+        {
+            string query = $"UPDATE [dbo].[RepresentativesPerfomance]\r\nSET [Isomorphic] = '{inputData}'\r\nWHERE [RepresentativesPerfomanceId] = {representativesPerfomanceId}";
+            using (IDbConnection db = new SqlConnection(connectionString))
+            {
+                db.Execute(query);
+            }
+        }
+        */
+        public void ClearIsomorphic(RepresentativesPerfomanceFilter representativesPerfomanceFilter)
+        {
+            string where = "";
+            List<string> whereList = new List<string>();
+            if (!string.IsNullOrWhiteSpace(representativesPerfomanceFilter.Algorithm))
+            {
+                whereList.Add($"[Algorithm] = '{representativesPerfomanceFilter.Algorithm}'");
+            }
+            if (representativesPerfomanceFilter.NumberOfSet.HasValue)
+            {
+                whereList.Add($"[NumberOfSet] = {representativesPerfomanceFilter.NumberOfSet}");
+            }
+            if (representativesPerfomanceFilter.Dimension.HasValue)
+            {
+                whereList.Add($"[Dimension] = {representativesPerfomanceFilter.Dimension}");
+            }
+            if (representativesPerfomanceFilter.Step.HasValue)
+            {
+                whereList.Add($"[Step] = {representativesPerfomanceFilter.Step}");
+            }
+            if (whereList.Count > 0)
+            {
+                where = "WHERE " + string.Join(" AND ", whereList);
+            }
+            using (IDbConnection db = new SqlConnection(connectionString))
+            {
+                string query = $@"UPDATE [dbo].[RepresentativesPerfomance]
+SET [ElemenationCount] = NULL
+{where}
+";
+                db.Execute(query);
+            }
+        }
+
     }
 }

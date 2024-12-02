@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{093C6AF6-9A26-4EEF-8F71-EEFE8417AA36}</ProjectGuid>
+    <ProjectGuid>{F5BF266D-BE94-44FE-BB2D-522A3ADFA6D1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>IsomorphismGraph</RootNamespace>
-    <AssemblyName>IsomorphismGraph</AssemblyName>
+    <RootNamespace>RepresentativeService</RootNamespace>
+    <AssemblyName>RepresentativeService</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -41,18 +41,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IsomorphismMultiGraph.cs" />
-    <Compile Include="IsomorphismUnorderedGrapf.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RepresentativeService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BioAlgorythm\Model\BioAlgorythmModel\BioAlgorithmModel.csproj">
+      <Project>{4AF71807-5109-4163-89BC-A284326FB680}</Project>
+      <Name>BioAlgorithmModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ClassLibrary1\Representatives.Data.csproj">
+      <Project>{666B43C8-A180-4B4B-80AF-E3B3F73C2B3B}</Project>
+      <Name>Representatives.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CommonLibrary\CommonLibrary.csproj">
-      <Project>{6208C3EB-138F-4B2E-93A8-6469D8A75379}</Project>
+      <Project>{6208c3eb-138f-4b2e-93a8-6469d8a75379}</Project>
       <Name>CommonLibrary</Name>
     </ProjectReference>
     <ProjectReference Include="..\GraphLib\GraphLib.csproj">
       <Project>{8129ff98-bc86-4bb1-8dd0-cc3833dc1eb1}</Project>
       <Name>GraphLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IsomorphismGraph\IsomorphismGraph.csproj">
+      <Project>{093c6af6-9a26-4eef-8f71-eefe8417aa36}</Project>
+      <Name>IsomorphismGraph</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

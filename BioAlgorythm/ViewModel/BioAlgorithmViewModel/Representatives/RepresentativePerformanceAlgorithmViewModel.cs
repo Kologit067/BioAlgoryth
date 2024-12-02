@@ -103,6 +103,33 @@ namespace BioAlgorithmViewModel.Representatives
             return true;
         }
         //----------------------------------------------------------------------------------------------------------------------
+        private ICommand toAsGroupFilterCommand;
+        public ICommand ToAsGroupFilterCommand
+        {
+            get
+            {
+                if (toAsGroupFilterCommand == null)
+                {
+                    toAsGroupFilterCommand = new DelegateCommand(ToFilterAsGroupAction, CanToFilterAsGroupAction);
+                }
+                return toAsGroupFilterCommand;
+            }
+        }
+        //----------------------------------------------------------------------------------------------------------------------
+        private void ToFilterAsGroupAction()
+        {
+            Messenger.Default.Send<RepresentativeTabChangeMessage>(new RepresentativeTabChangeMessage()
+            {
+                RepresentativeTabName = "RepresentativePerformanceAsGroup"
+            }, typeof(RepresentativeTabChangeMessage));
+            Messenger.Default.Send<AlgorithmToFilterByGroupMessage>(new AlgorithmToFilterByGroupMessage() { Algorithm = SelectedAlgorithm.Algorithm }, typeof(AlgorithmToFilterByGroupMessage));
+        }
+        //----------------------------------------------------------------------------------------------------------------------
+        private bool CanToFilterAsGroupAction()
+        {
+            return true;
+        }
+        //----------------------------------------------------------------------------------------------------------------------
         private ICommand deleteAlgorithmCommand;
         public ICommand DeleteAlgorithmCommand
         {

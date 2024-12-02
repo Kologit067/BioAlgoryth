@@ -2,7 +2,9 @@
 using GraphLib;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace IsomorphismGraph
 {
@@ -19,6 +21,7 @@ namespace IsomorphismGraph
         //--------------------------------------------------------------------------------------
         public IsomorphismUnorderedGrapf(Graph<CVertex> graph1, Graph<CVertex> graph2) : base(graph1.Vertices.Count)
         {
+            _fBreakElement = -1;
             _fSize = graph1.Vertices.Count;
             _graph1 = graph1;
             _graph2 = graph2;
@@ -27,7 +30,7 @@ namespace IsomorphismGraph
             Dictionary<int, List<int>> weightGroup2 = _graph2.Vertices.GroupBy(v => v.Weight).OrderBy(g => g.Key).
                 ToDictionary(g => g.Key, g => g.OrderBy(v => v.ComponentNumber).Select(v => v.ComponentNumber).ToList());
             List<int> keys1 = weightGroup1.Keys.ToList();
-            List<int> keys2 = weightGroup1.Keys.ToList();
+            List<int> keys2 = weightGroup2.Keys.ToList();
             if (keys1.Count != keys2.Count)
                 return;
             foreach (int key in keys1)
@@ -43,6 +46,8 @@ namespace IsomorphismGraph
                 int weight = _graph1.Vertices[i].Weight;
                 references[i].AddRange(weightGroup2[weight]);
             }
+            Parallel.For(0, _fCurrentSet.Count, i => _fCurrentSet[i] = -1);
+
         }
         //--------------------------------------------------------------------------------------
         public bool IsIsomorphic()
@@ -57,16 +62,14 @@ namespace IsomorphismGraph
         //--------------------------------------------------------------------------------------
         protected override void AddAction(int p)
         {
-            int vertexIndex1 = _fCurrentPosition;
-            int vertexIndexInSet2 = _fCurrentSet[_fCurrentPosition];
-            int vertexIndex2 = references[_fCurrentPosition][vertexIndexInSet2];
-            List<int> adjacentVertices = _graph1.Vertices[vertexIndex1].AdjacentVertices;
+            int vertexIndex2 = GetCorrespondingVertex(_fCurrentPosition);
+            List<int> adjacentVertices = _graph1.Vertices[_fCurrentPosition].AdjacentVertices;
             foreach (int vertexAdjIndexInSet1 in adjacentVertices)
             {
                 if (vertexAdjIndexInSet1 < _fCurrentPosition)
                 {
-                    int vertexAdjIndex2= references[vertexAdjIndexInSet1][_fCurrentSet[vertexAdjIndexInSet1]];
-                    if (!_graph1.Vertices[vertexIndex2].AdjacentVertices.Contains(vertexAdjIndex2))
+                    int vertexAdjIndex2 = GetCorrespondingVertex(vertexAdjIndexInSet1);
+                    if (!_graph2.Vertices[vertexIndex2].AdjacentVertices.Contains(vertexAdjIndex2))
                     {
                         isSatisfied = false;
                         return;
@@ -116,6 +119,7 @@ namespace IsomorphismGraph
                 }
                 if (!isIncluded)
                     return i;
+//                return references[pPosition][i];
             }
             return -1;
         }
@@ -135,7 +139,7 @@ namespace IsomorphismGraph
         protected override bool IsCompleteCondition()
         {
             IterationAction();
-            if (_fCurrentPosition >= _fSize - 1)
+            if (_fCurrentPosition >= _fSize - 1 || !isSatisfied)
             {
                 TerminalAction();
                 return true;
@@ -168,6 +172,23 @@ namespace IsomorphismGraph
         protected override void SupplementInitial()
         {
             
+        }
+        private int GetCorrespondingVertex(int ind)
+        {
+            int vertexIndexInSet2 = _fCurrentSet[ind];
+            return references[ind][vertexIndexInSet2];
+        }
+        //--------------------------------------------------------------------------------------
+        public override string ShowFullString
+        {
+            get
+            {
+                if (references == null)
+                    return null;
+                if (_fCurrentSet != null && _fCurrentSet.Count > 0)
+                    return string.Join(",", _fCurrentSet.Select((i,ind) => i >= 0 ? references[ind][i].ToString() : "_" ));
+                return "Empty";
+            }
         }
         //--------------------------------------------------------------------------------------
     }

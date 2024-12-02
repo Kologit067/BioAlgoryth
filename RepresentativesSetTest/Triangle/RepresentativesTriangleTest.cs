@@ -7,6 +7,7 @@ using RepresentativesSet.TriangleEnumeration.SelectElement;
 using RepresentativesSetTest.Base;
 using StatisticsStorage.Accumulators;
 using StatisticsStorage.Savers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -15,6 +16,34 @@ namespace RepresentativesSetTest.Triangle
     [TestClass]
     public class RepresentativesTriangleTest
     {
+        [TestMethod]
+        public void ExceptionOrderTest()
+        {
+            try
+            {
+                try
+                {
+                    throw new Exception("exp");
+                }
+                //catch (Exception oi)
+                //{
+                //    Console.WriteLine("Exceptio Inner" + oi.Message);
+                //}
+                finally
+                {
+                    Console.WriteLine("finally Inner");
+                }
+
+            }
+            catch (Exception oe)
+            {
+                Console.WriteLine("Exceptio Out" + oe.Message);
+            }
+            finally 
+            {
+                Console.WriteLine("finally Out");
+            }
+        }
         [TestMethod]
         public void ExecuteTestCase1()
         {

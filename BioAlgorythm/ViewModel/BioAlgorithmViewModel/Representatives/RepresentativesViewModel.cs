@@ -71,6 +71,20 @@ namespace BioAlgorithmViewModel.Representatives
             }
         }
         //----------------------------------------------------------------------------------------------------------------------
+        private RepresentativePerformanceAlgorithmWithGroupViewModel representativePerformanceAlgorithmWithGroup;
+        public RepresentativePerformanceAlgorithmWithGroupViewModel RepresentativePerformanceAlgorithmWithGroup
+        {
+            get
+            {
+                return representativePerformanceAlgorithmWithGroup;
+            }
+            set
+            {
+                representativePerformanceAlgorithmWithGroup = value;
+                OnPropertyChanged(nameof(RepresentativePerformanceAlgorithmWithGroup));
+            }
+        }
+        //----------------------------------------------------------------------------------------------------------------------
         private BipartiteGraphViewModel bipartiteGraph;
         public BipartiteGraphViewModel BipartiteGraph
         {
@@ -106,6 +120,7 @@ namespace BioAlgorithmViewModel.Representatives
             RepresentativePerformanceAlgorithm = new RepresentativePerformanceAlgorithmViewModel(representativesRepository);
             RepresentativePerformanceGroup = new RepresentativePerformanceGroupViewModel(representativesRepository);
             RepresentativePerformanceAlgorithmCompare = new RepresentativePerformanceAlgorithmCompareViewModel(representativesRepository);
+            RepresentativePerformanceAlgorithmWithGroup = new RepresentativePerformanceAlgorithmWithGroupViewModel(representativesRepository);
             BipartiteGraph = new BipartiteGraphViewModel();
             Messenger.Default.Register<RepresentativeTabChangeMessage>(this, OnAlgorithmGroupToFilterMessageReceived, typeof(RepresentativeTabChangeMessage));
         }
@@ -116,6 +131,7 @@ namespace BioAlgorithmViewModel.Representatives
             {
                 "RepresentativePerformance" => 0,
                 "BipartiteGraph" => 3,
+                "RepresentativePerformanceAsGroup" => 5,
                 _ => 0
             };
         }

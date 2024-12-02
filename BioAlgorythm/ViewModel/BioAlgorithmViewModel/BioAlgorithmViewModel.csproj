@@ -54,6 +54,9 @@
     <Compile Include="Common\DelegateCommand.cs" />
     <Compile Include="Common\ViewModelBase.cs" />
     <Compile Include="Helpers\ObservableCollectionExtension.cs" />
+    <Compile Include="Mappings\RepresentativesPerfomanceMappings.cs" />
+    <Compile Include="Representatives\Dto\RepresentativesPerfomanceAsGroup.cs" />
+    <Compile Include="Representatives\Dto\RepresentativesPerfomanceDto.cs" />
     <Compile Include="Representatives\Messages\AlgorithmGroupOpenWindowMessage.cs" />
     <Compile Include="Representatives\Messages\AlgorithmGroupToFilterMessage.cs" />
     <Compile Include="Mappings\RepresentativesPerfomanceFilterMappings.cs" />
@@ -63,6 +66,7 @@
     <Compile Include="Representatives\Messages\RepresentativeTabChangeMessage.cs" />
     <Compile Include="Representatives\RepresentativePerformanceAlgorithmCompareViewModel.cs" />
     <Compile Include="Representatives\RepresentativePerformanceAlgorithmViewModel.cs" />
+    <Compile Include="Representatives\RepresentativePerformanceAlgorithmWithGroupViewModel.cs" />
     <Compile Include="Representatives\RepresentativePerformanceGroupViewModel.cs" />
     <Compile Include="Representatives\RepresentativePerformanceViewModel.cs" />
     <Compile Include="Representatives\RepresentativesPerfomanceFilterViewModel.cs" />
@@ -73,6 +77,10 @@
     <ProjectReference Include="..\..\..\ClassLibrary1\Representatives.Data.csproj">
       <Project>{666b43c8-a180-4b4b-80af-e3b3f73c2b3b}</Project>
       <Name>Representatives.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\RepresentativeService\RepresentativeServices.csproj">
+      <Project>{f5bf266d-be94-44fe-bb2d-522a3adfa6d1}</Project>
+      <Name>RepresentativeServices</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Model\BioAlgorythmModel\BioAlgorithmModel.csproj">
       <Project>{4af71807-5109-4163-89bc-a284326fb680}</Project>
